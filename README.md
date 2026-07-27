@@ -4,6 +4,7 @@ Mini-landing con los documentos web de medios pagos de Gana. Alineado con el sis
 
 ## URLs (GitHub Pages)
 - **Inicio:** `/index.html`
+- **Resumen ejecutivo:** `/resumen.html`
 - **Línea de tiempo de pauta:** `/linea-de-tiempo.html`
 
 ## Estructura
@@ -11,12 +12,26 @@ Mini-landing con los documentos web de medios pagos de Gana. Alineado con el sis
 assets/
   css/
     index.css              ← estilos landing principal
+    resumen.css            ← estilos resumen ejecutivo
     linea-de-tiempo.css    ← estilos documento de línea de tiempo
   js/
+    resumen.js             ← inversión por mes, barras apiladas verticales
     linea-de-tiempo.js     ← datos semanales, barras apiladas y tabla
 index.html
+resumen.html
 linea-de-tiempo.html
 ```
+
+## Los dos documentos
+
+Mismos datos, dos niveles de lectura. Ambos enlazan al otro desde la portada.
+
+| | `resumen.html` | `linea-de-tiempo.html` |
+|---|---|---|
+| **Para quién** | Cliente, dirección, cualquiera fuera del equipo de pauta | Equipo de medios |
+| **Grano** | 4 meses, 5 momentos clave | 15 semanas, acción por acción con fecha |
+| **Lenguaje** | Sin tecnicismos, con glosario al final | Nomenclatura real de campañas y conjuntos |
+| **Cifras** | Inversión por canal y costo por registro por mes | Cada cambio de presupuesto con valor anterior y nuevo |
 
 ## Línea de tiempo de pauta (abr–jul 2026)
 
