@@ -3,8 +3,8 @@
    y julio corta el 26, por eso son meses incompletos. */
 
 const MESES = [
-  { nombre: 'Abril',  nota: 'desde el 20',  meta: 23708846, tiktok: 0,        programatica: 2163095,  dooh: 5183400  },
-  { nombre: 'Mayo',   nota: 'mes completo', meta: 39689999, tiktok: 7235902,  programatica: 33306165, dooh: 24858197 },
+  { nombre: 'Abril',  nota: 'desde el 20',  meta: 1510208,  tiktok: 0,        programatica: 2163095,  dooh: 5183400  },
+  { nombre: 'Mayo',   nota: 'mes completo', meta: 9341855,  tiktok: 7235902,  programatica: 33306165, dooh: 24858197 },
   { nombre: 'Junio',  nota: 'mes completo', meta: 0,        tiktok: 30042270, programatica: 3812452,  dooh: 0        },
   { nombre: 'Julio',  nota: 'hasta el 26',  meta: 0,        tiktok: 17721828, programatica: 0,        dooh: 0        }
 ];
