@@ -6,6 +6,7 @@ Mini-landing con los documentos web de medios pagos de Gana. Alineado con el sis
 - **Inicio:** `/index.html`
 - **Resumen ejecutivo:** `/resumen.html`
 - **Línea de tiempo de pauta:** `/linea-de-tiempo.html`
+- **Capítulo de gestión ATL:** `/atl.html`
 
 ## Estructura
 ```
@@ -20,6 +21,7 @@ assets/
 index.html
 resumen.html
 linea-de-tiempo.html
+atl.html
 ```
 
 ## Los dos documentos
