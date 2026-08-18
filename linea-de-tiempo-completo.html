@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gana · Línea de tiempo de pauta Abr–Jul 2026 · Versión completa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --amarillo:#FFC000; --amarillo-soft:#FFF3D1; --negro:#111; --gris-oscuro:#4F4F4F; --gris-medio:#9E9E9E;
+  --gris-claro:#F7F7F8; --gris-borde:#ECECEE; --blanco:#FFF;
+  --radius:12px; --radius-lg:18px;
+  --shadow-sm:0 2px 10px rgba(17,17,17,.045);
+  --shadow-md:0 12px 34px rgba(17,17,17,.07);
+  --shadow-lg:0 24px 60px rgba(17,17,17,.10);
+  --serie-meta:#FFC000;
+  --serie-tiktok:#111;
+  --serie-programatica:#777;
+  --serie-dooh:#b0b0b0;
+  --serie-otros:#8b6b1f;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  background:var(--blanco);
+  color:var(--gris-oscuro);
+  line-height:1.6;
+  overflow-x:hidden;
+}
+
+h1,h2,h3,h4,h5,.bold { font-weight:700; color:var(--negro); }
+p { margin:0 0 12px; }
+a { color:inherit; }
+:focus-visible { outline:2px solid var(--amarillo); outline-offset:3px; }
+
+.page-shell { max-width:1240px; margin:0 auto; padding:0 40px 90px; }
+
+/* ── Barra de acciones (no se imprime) ────────────────── */
+.toolbar {
+  position:fixed; top:18px; right:20px; z-index:80; display:flex; gap:10px; align-items:center;
+}
+.btn-pdf {
+  appearance:none; border:none; cursor:pointer; background:var(--negro); color:var(--amarillo);
+  font:700 .82rem 'Poppins',sans-serif; padding:11px 20px; border-radius:999px; box-shadow:var(--shadow-md);
+  display:inline-flex; align-items:center; gap:8px;
+}
+.btn-pdf:hover { background:#000; }
+.btn-pdf .hint { font-weight:500; color:#bbb; font-size:.72rem; }
+
+/* ── Portada ──────────────────────────────────────────── */
+.cover { background:var(--gris-claro); border-bottom:1px solid var(--gris-borde); padding:64px 0 56px; margin-bottom:44px; }
+.cover-inner { max-width:1240px; margin:0 auto; padding:0 40px; }
+.cover-kicker { display:inline-flex; background:var(--amarillo); color:var(--negro); font-weight:700; padding:10px 18px; border-radius:999px; margin-bottom:24px; }
+.cover h1 { font-size:clamp(2.6rem,6vw,4.6rem); line-height:.98; text-transform:uppercase; letter-spacing:-2px; margin-bottom:18px; }
+.cover .body-text { font-size:1.12rem; max-width:820px; font-weight:300; font-style:italic; }
+.cover-badges { display:flex; flex-wrap:wrap; gap:10px; margin-top:26px; }
+.volver-wrap { display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0; }
+.volver { display:inline-flex; align-items:center; gap:8px; font-size:.86rem; font-weight:600; color:var(--gris-oscuro); text-decoration:none; }
+.volver:hover { color:var(--negro); }
+
+/* ── Índice ───────────────────────────────────────────── */
+.toc { display:flex; flex-wrap:wrap; gap:8px 10px; margin-top:22px; }
+.toc a { font-size:.78rem; font-weight:600; text-decoration:none; color:var(--gris-oscuro); background:var(--blanco); border:1px solid var(--gris-borde); border-radius:999px; padding:6px 14px; }
+
+/* ── Encabezados de sección ───────────────────────────── */
+.section { margin-bottom:52px; }
+.section-header { background:var(--amarillo); padding:14px 34px; border-radius:var(--radius); width:max-content; max-width:100%; margin-bottom:16px; }
+.section-header h2 { margin:0; font-size:1.6rem; text-transform:uppercase; letter-spacing:-.5px; line-height:1.2; }
+.subtext { font-weight:700; color:var(--gris-medio); font-size:.92rem; margin-bottom:14px; text-transform:uppercase; letter-spacing:1px; }
+.body-text { font-weight:300; font-style:italic; font-size:1.05rem; color:var(--gris-oscuro); margin-bottom:0; }
+
+/* ── Tarjetas de cifra ────────────────────────────────── */
+.stats-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:20px; }
+.stat-card { background:var(--gris-claro); padding:26px 24px; border-radius:var(--radius); border-left:4px solid var(--amarillo); }
+.stat-card.tiktok { border-left-color:var(--negro); }
+.stat-card.programatica { border-left-color:var(--serie-programatica); }
+.stat-card.dooh { border-left-color:var(--serie-dooh); }
+.stat-card.otros { border-left-color:var(--serie-otros); }
+.stat-card.total { background:var(--negro); border-left-color:var(--amarillo); }
+.stat-card.total .stat-val { color:var(--amarillo); }
+.stat-card.total .stat-label { color:var(--blanco); }
+.stat-val { font-weight:700; font-size:2.4rem; color:var(--negro); line-height:1; display:block; margin-bottom:8px; }
+.stat-label { display:block; font-weight:600; color:var(--negro); }
+.stat-note { display:block; margin-top:8px; color:var(--gris-medio); font-size:.82rem; line-height:1.45; }
+
+/* ── Gráfico de barras apiladas ───────────────────────── */
+.chart-card { background:var(--gris-claro); border:1px solid var(--gris-borde); border-radius:var(--radius); padding:26px 28px; }
+.legend { display:flex; flex-wrap:wrap; gap:18px; margin-bottom:22px; }
+.legend-row { display:inline-flex; align-items:center; gap:9px; font-size:.88rem; font-weight:600; color:var(--negro); }
+.dot { width:14px; height:14px; border-radius:3px; background:var(--amarillo); flex:none; border:1px solid rgba(17,17,17,.12); }
+.dot.tiktok { background:var(--serie-tiktok); }
+.dot.programatica { background:var(--serie-programatica); }
+.dot.dooh { background:var(--serie-dooh); }
+.dot.otros { background:var(--serie-otros); }
+
+.bar-list { display:grid; gap:9px; }
+.bar-row { display:grid; grid-template-columns:150px 1fr 96px; gap:14px; align-items:center; font-size:.85rem; }
+.bar-row .bar-label { font-weight:600; color:var(--negro); text-align:right; white-space:nowrap; }
+.bar-track { background:#ededed; height:20px; border-radius:999px; border:1px solid #e2e2e2; overflow:hidden; display:flex; gap:2px; }
+.bar-seg { height:100%; background:var(--amarillo); }
+.bar-seg.tiktok { background:var(--serie-tiktok); }
+.bar-seg.programatica { background:var(--serie-programatica); }
+.bar-seg.dooh { background:var(--serie-dooh); }
+.bar-seg.otros { background:var(--serie-otros); }
+.bar-row .bar-total { font-weight:700; color:var(--negro); font-variant-numeric:tabular-nums; }
+.bar-row.vacia .bar-total { color:var(--gris-medio); font-weight:600; }
+
+/* ── Tablas ───────────────────────────────────────────── */
+.table-wrap { width:100%; overflow:auto; border:1px solid var(--gris-borde); border-radius:var(--radius); background:var(--blanco); margin-top:14px; }
+table { width:100%; border-collapse:collapse; }
+th { background:var(--negro); color:var(--amarillo); font-size:.72rem; text-transform:uppercase; letter-spacing:.3px; padding:10px 10px; text-align:right; }
+th:first-child { text-align:left; }
+td { padding:9px 10px; border-bottom:1px solid var(--gris-borde); font-size:.8rem; text-align:right; font-variant-numeric:tabular-nums; }
+td:first-child { text-align:left; font-weight:600; color:var(--negro); }
+tbody tr:nth-child(even) td { background:var(--gris-claro); }
+tfoot td { font-weight:700; color:var(--negro); background:var(--amarillo-soft) !important; }
+.tabla-titulo { font-size:.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.6px; color:var(--gris-medio); margin:22px 0 0; }
+
+/* ── Bloques por medio (antes filtros) ────────────────── */
+.medio-block { border:1px solid var(--gris-borde); border-radius:var(--radius-lg); padding:22px 24px 24px; margin-bottom:20px; background:var(--blanco); }
+.medio-block + .medio-block { margin-top:0; }
+.medio-head { display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:14px; padding-bottom:12px; border-bottom:1px dashed var(--gris-borde); }
+.medio-head h3 { font-size:1.02rem; text-transform:uppercase; letter-spacing:-.3px; }
+.medio-pill { font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.6px; padding:4px 11px; border-radius:999px; border:1px solid var(--gris-borde); background:var(--gris-claro); color:var(--negro); }
+.medio-pill.meta { background:var(--amarillo); border-color:var(--amarillo); }
+.medio-pill.tiktok { background:var(--negro); color:var(--amarillo); border-color:var(--negro); }
+.medio-pill.programatica { background:#efefef; color:var(--gris-oscuro); border-color:#ddd; }
+.medio-pill.dooh { background:var(--blanco); color:var(--gris-oscuro); border-color:var(--gris-medio); }
+.medio-pill.todos { background:var(--negro); color:var(--blanco); border-color:var(--negro); }
+.medio-resumen { margin-left:auto; font-size:.8rem; font-weight:700; color:var(--gris-medio); text-align:right; }
+
+/* ── Gráficas de línea ────────────────────────────────── */
+.analysis-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.analysis-card { background:var(--gris-claro); border:1px solid var(--gris-borde); border-radius:var(--radius); padding:20px; min-width:0; }
+.analysis-title { display:flex; justify-content:space-between; align-items:baseline; gap:14px; margin-bottom:10px; }
+.analysis-title h4 { font-size:.92rem; text-transform:uppercase; color:var(--negro); font-weight:700; }
+.analysis-title span { color:var(--gris-medio); font-size:.78rem; font-weight:700; text-align:right; }
+.line-chart svg { display:block; width:100%; height:auto; }
+.chart-grid { stroke:#dedede; stroke-width:1; }
+.chart-axis { fill:var(--gris-medio); font:600 10px 'Poppins',sans-serif; }
+.chart-line { fill:none; stroke:var(--amarillo); stroke-width:3; stroke-linejoin:round; stroke-linecap:round; }
+.chart-line.tiktok { stroke:var(--serie-tiktok); }
+.chart-line.programatica { stroke:var(--serie-programatica); }
+.chart-line.dooh { stroke:#9a9a9a; }
+.chart-point { fill:var(--amarillo); stroke:var(--blanco); stroke-width:2; }
+.chart-point.tiktok { fill:var(--serie-tiktok); }
+.chart-point.programatica { fill:var(--serie-programatica); }
+.chart-point.dooh { fill:#9a9a9a; }
+.chart-value { fill:var(--negro); font:600 10px 'Poppins',sans-serif; text-anchor:middle; }
+.chart-empty { min-height:180px; display:grid; place-items:center; text-align:center; color:var(--gris-medio); font-size:.86rem; padding:26px; }
+.data-note { color:var(--gris-medio); font-size:.78rem; font-style:italic; margin-top:12px; }
+
+/* ── Funnel ───────────────────────────────────────────── */
+.funnel-months { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+.funnel-card { border:1px solid var(--gris-borde); background:var(--gris-claro); border-radius:var(--radius); padding:18px; }
+.funnel-card h4 { font-size:.95rem; margin-bottom:13px; color:var(--negro); font-weight:700; text-transform:uppercase; }
+.funnel-step { margin-bottom:11px; }
+.funnel-label { display:flex; justify-content:space-between; gap:10px; font-size:.72rem; font-weight:700; color:var(--gris-medio); text-transform:uppercase; }
+.funnel-label strong { color:var(--negro); font-size:.78rem; }
+.funnel-track { height:9px; background:#e5e5e5; border-radius:99px; overflow:hidden; margin-top:5px; }
+.funnel-fill { height:100%; background:var(--amarillo); border-radius:99px; min-width:0; }
+.funnel-step:nth-child(3) .funnel-fill { background:#d7a500; }
+.funnel-step:nth-child(4) .funnel-fill { background:#777; }
+.funnel-step:nth-child(5) .funnel-fill { background:#111; }
+.funnel-na { color:var(--gris-medio); font-weight:500; text-transform:none; }
+
+/* ── Aprendizajes ─────────────────────────────────────── */
+.learning-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; }
+.learning-card { background:var(--gris-claro); border:1px solid var(--gris-borde); border-top:5px solid var(--amarillo); border-radius:var(--radius); padding:24px; }
+.learning-card.tiktok { border-top-color:var(--negro); }
+.learning-card.programatica { border-top-color:var(--serie-programatica); }
+.learning-card.dooh { border-top-color:var(--serie-dooh); }
+.learning-card h3 { font-size:1.05rem; line-height:1.35; margin:13px 0 10px; }
+.learning-card p { font-size:.9rem; font-weight:300; }
+.learning-card p:last-child { margin-bottom:0; }
+
+.compare-heading { font-size:1.05rem; text-transform:uppercase; margin:28px 0 10px; }
+#compare-media-table tbody tr:last-child td,#compare-month-table tbody tr:last-child td { font-weight:700; background:var(--amarillo-soft); }
+
+.reason { display:block; background:var(--amarillo-soft); border-left:3px solid var(--amarillo); padding:7px 10px; margin-top:7px; font-size:.82rem; font-style:normal; color:var(--gris-oscuro); }
+.reason::before { content:'Por qué: '; font-weight:700; color:var(--negro); }
+.reason.pending { background:#f1f1f1; border-left-color:var(--gris-medio); }
+.reason.pending::before { content:'Razón pendiente de confirmar: '; }
+
+/* ── Línea de tiempo ──────────────────────────────────── */
+.fase { display:flex; align-items:center; gap:14px; margin:40px 0 20px; }
+.fase span { font-size:.8rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--gris-medio); white-space:nowrap; }
+.fase::after { content:''; flex:1; height:1px; background:var(--gris-borde); }
+
+.timeline-container { border-left:2px solid var(--gris-borde); padding-left:30px; position:relative; }
+.timeline-item { margin-bottom:20px; position:relative; background:var(--gris-claro); padding:22px 26px; border-radius:var(--radius); border:1px solid var(--gris-borde); }
+.timeline-item::before { content:''; position:absolute; left:-37px; top:26px; width:12px; height:12px; background:var(--amarillo); border-radius:50%; border:3px solid var(--blanco); box-shadow:0 0 0 2px var(--gris-borde); }
+.timeline-item.destacada { background:var(--blanco); border-color:var(--amarillo); box-shadow:var(--shadow-sm); }
+.timeline-item.destacada::before { background:var(--negro); }
+.timeline-item.apagada::before { background:var(--gris-medio); }
+
+.timeline-header { display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:6px; }
+.semana { font-size:1.24rem; font-weight:700; color:var(--negro); text-transform:uppercase; letter-spacing:-.5px; }
+.semana em { font-style:normal; color:var(--gris-medio); font-weight:600; font-size:.9rem; text-transform:none; letter-spacing:0; margin-left:10px; }
+.timeline-tags { display:flex; gap:8px; flex-wrap:wrap; }
+.tl-tag,.tag { font-size:.75rem; font-weight:700; padding:4px 10px; border-radius:50px; background:var(--blanco); color:var(--negro); border:1px solid var(--gris-medio); white-space:nowrap; display:inline-flex; align-items:center; }
+.tl-tag.highlight { background:var(--negro); color:var(--amarillo); border-color:var(--negro); }
+.tag.light { background:var(--amarillo); color:var(--negro); border-color:var(--amarillo); }
+.tag.gray { background:#efefef; color:var(--gris-oscuro); border-color:#ddd; }
+
+.titular { font-size:1.01rem; font-weight:600; color:var(--negro); margin:8px 0 14px; line-height:1.45; }
+
+.ev-list { list-style:none; margin:0; padding:0; display:grid; gap:10px; }
+.ev { display:grid; grid-template-columns:14px 1fr; gap:12px; align-items:start; font-size:.92rem; font-weight:300; }
+.ev::before { content:''; width:9px; height:9px; border-radius:50%; background:var(--amarillo); margin-top:9px; border:1px solid rgba(17,17,17,.15); }
+.ev.tiktok::before { background:var(--serie-tiktok); }
+.ev.programatica::before { background:var(--serie-programatica); }
+.ev.dooh::before { background:var(--serie-dooh); }
+.ev.rutina::before { background:transparent; border:1.5px dashed var(--gris-medio); width:10px; height:10px; margin-top:8px; }
+.ev.rutina { color:var(--gris-medio); font-style:italic; }
+.ev strong { color:var(--negro); font-weight:600; }
+.ev.rutina strong { color:var(--gris-oscuro); }
+
+.chip { font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.6px; padding:2px 8px; border-radius:50px; margin-right:8px; white-space:nowrap; border:1px solid var(--gris-borde); background:var(--blanco); color:var(--negro); vertical-align:1px; }
+.chip.meta { background:var(--amarillo); border-color:var(--amarillo); }
+.chip.tiktok { background:var(--negro); color:var(--amarillo); border-color:var(--negro); }
+.chip.programatica { background:#efefef; color:var(--gris-oscuro); border-color:#ddd; }
+.chip.dooh { background:var(--blanco); color:var(--gris-oscuro); border-color:var(--gris-medio); }
+.chip.rutina { background:transparent; border-style:dashed; color:var(--gris-medio); }
+.fecha { font-weight:700; color:var(--negro); margin-right:6px; font-size:.86rem; }
+.cifra { font-weight:600; color:var(--negro); font-variant-numeric:tabular-nums; }
+
+.kpi-row { display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:14px; padding-top:12px; border-top:1px dashed var(--gris-borde); font-size:.8rem; font-weight:600; color:var(--gris-medio); font-variant-numeric:tabular-nums; }
+
+/* ── Cierre y notas ───────────────────────────────────── */
+.notas { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:26px; }
+.nota { background:var(--gris-claro); border:1px solid var(--gris-borde); border-radius:var(--radius); padding:20px 22px; }
+.nota h5 { font-size:.75rem; text-transform:uppercase; color:var(--gris-medio); margin-bottom:8px; letter-spacing:.5px; }
+.nota p { margin:0; font-size:.88rem; font-weight:300; }
+
+.source-note { font-size:.78rem; color:var(--gris-medio); margin-top:16px; font-style:italic; }
+
+@media (max-width:980px) {
+  .page-shell,.cover-inner { padding-left:22px; padding-right:22px; }
+  .stats-grid { grid-template-columns:repeat(2,1fr); }
+  .notas { grid-template-columns:1fr; }
+  .bar-row { grid-template-columns:110px 1fr; }
+  .bar-row .bar-total { grid-column:2; text-align:right; }
+  .funnel-months { grid-template-columns:repeat(2,1fr); }
+  .analysis-grid { grid-template-columns:1fr; }
+}
+@media (max-width:620px) {
+  .stats-grid { grid-template-columns:1fr; }
+  .timeline-container { padding-left:22px; }
+  .timeline-item { padding:20px; }
+  .timeline-item::before { left:-29px; }
+  .learning-grid,.funnel-months { grid-template-columns:1fr; }
+}
+@media (prefers-reduced-motion:reduce) { * { transition:none !important; } }
+
+/* ── Impresión / PDF ──────────────────────────────────── */
+@page { size:A4 portrait; margin:11mm 10mm 12mm; }
+
+@media print {
+  html,body { background:#fff; }
+  * { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+
+  .no-print,.toolbar { display:none !important; }
+
+  body { font-size:10.5px; line-height:1.45; }
+  .page-shell { max-width:none; padding:0; }
+  .cover { padding:0 0 18px; margin-bottom:22px; box-shadow:none; background:#fff; border-bottom:3px solid var(--amarillo); }
+  .cover-inner { padding:0; max-width:none; }
+  .cover h1 { font-size:2.4rem; }
+  .cover .body-text { font-size:.86rem; }
+
+  .section { margin-bottom:24px; }
+  .section-header { padding:9px 20px; margin-bottom:10px; }
+  .section-header h2 { font-size:1.08rem; }
+  .subtext { font-size:.72rem; margin-bottom:9px; }
+
+  .break-before { break-before:page; page-break-before:always; }
+  .section-header,.tabla-titulo,.compare-heading,.medio-head,.fase { break-after:avoid; page-break-after:avoid; }
+  .stat-card,.funnel-card,.analysis-card,.learning-card,.nota,.timeline-item,
+  .medio-block,.chart-card,.table-wrap,.bar-row { break-inside:avoid; page-break-inside:avoid; }
+  thead { display:table-header-group; }
+  tr { break-inside:avoid; page-break-inside:avoid; }
+
+  .stats-grid { gap:10px; }
+  .stat-val { font-size:1.5rem; }
+  .stat-note { font-size:.68rem; }
+
+  .chart-card { padding:14px 16px; }
+  .bar-row { font-size:.72rem; grid-template-columns:126px 1fr 78px; gap:9px; }
+  .bar-row .bar-total { grid-column:auto; text-align:right; }
+  .bar-track { height:14px; }
+
+  .table-wrap { overflow:visible; margin-top:8px; }
+  table { width:100% !important; min-width:0 !important; table-layout:fixed; }
+  th { font-size:6.6px; padding:4px 3px; letter-spacing:0; word-break:break-word; }
+  td { font-size:7.2px; padding:3.5px 3px; word-break:break-word; }
+  td:first-child,th:first-child { word-break:normal; }
+
+  .medio-block { padding:14px 16px 16px; margin-bottom:12px; border-radius:10px; }
+  .analysis-grid { grid-template-columns:1fr; gap:10px; }
+  .analysis-card { padding:12px 14px; }
+  .line-chart svg { max-height:none; }
+
+  .funnel-months { grid-template-columns:repeat(4,1fr); gap:8px; }
+  .funnel-card { padding:10px; }
+  .funnel-label { font-size:.6rem; }
+  .funnel-label strong { font-size:.62rem; }
+
+  .learning-grid { gap:10px; }
+  .learning-card { padding:14px; }
+  .learning-card h3 { font-size:.9rem; }
+  .learning-card p { font-size:.74rem; }
+
+  .timeline-item { padding:14px 16px; margin-bottom:12px; }
+  .semana { font-size:1rem; }
+  .titular { font-size:.84rem; margin:5px 0 9px; }
+  .ev { font-size:.74rem; gap:8px; }
+  .kpi-row { font-size:.68rem; margin-top:9px; padding-top:8px; }
+  .reason { font-size:.7rem; }
+  .fase { margin:20px 0 12px; }
+  .notas { gap:9px; }
+  .nota { padding:12px 14px; }
+  .nota p { font-size:.72rem; }
+  .data-note { font-size:.66rem; }
+  .toc { display:none; }
+}
+</style>
+</head>
+<body>
+
+<div class="toolbar no-print">
+  <button class="btn-pdf" type="button" onclick="window.print()">Descargar PDF <span class="hint">Ctrl/⌘ + P</span></button>
+</div>
+
+<header class="cover">
+  <div class="cover-inner">
+    <div class="cover-kicker">Gana · Placa Millonaria</div>
+    <h1>Línea de tiempo<br>de pauta</h1>
+    <p class="body-text">
+      Reconstrucción semana a semana de lo que se ejecutó en los cuatro frentes de medios entre el 20 de abril
+      y el 27 de julio de 2026. Cada movimiento de presupuesto, de segmentación y de formato está tomado del
+      flow de inversión, del registro de actividad y de la entrega diaria de cada plataforma. Las semanas sin registro específico se
+      marcan aparte, con la gestión estándar que corresponde al período.
+    </p>
+    <p class="body-text" style="margin-top:14px">
+      <strong style="font-style:normal">Versión completa:</strong> este documento muestra de una sola vez todo el
+      contenido que en la versión interactiva queda detrás de filtros y pestañas —tendencias y funnel de los cinco
+      cortes por medio, las dos tablas del flow y todos los cambios de cada semana—. Está preparado para imprimirse
+      o guardarse en PDF.
+    </p>
+    <div class="cover-badges">
+      <span class="tag light">Meta · CP_GANA</span>
+      <span class="tl-tag highlight">TikTok · Adcom - Gana</span>
+      <span class="tag gray">Programática</span>
+      <span class="tag">DOOH Medellín</span>
+      <span class="tag">15 semanas · S17 a S31</span>
+    </div>
+    <nav class="toc no-print" aria-label="Índice">
+      <a href="#inversion">Inversión del período</a>
+      <a href="#semanal">Inversión semanal</a>
+      <a href="#tendencias">Tendencias por medio</a>
+      <a href="#funnel-mensual">Funnel mes a mes</a>
+      <a href="#plan-vs-real">Plan vs. real</a>
+      <a href="#aprendizajes">Aprendizajes</a>
+      <a href="#linea-tiempo">Semana a semana</a>
+      <a href="#fuentes">Fuentes y metodología</a>
+    </nav>
+    <p class="volver-wrap no-print">
+      <a class="volver" href="./linea-de-tiempo.html">← Versión interactiva con filtros</a>
+      <a class="volver" href="./resumen.html">Resumen en corto →</a>
+      <a class="volver" href="./index.html">Índice</a>
+    </p>
+  </div>
+</header>
+
+<main class="page-shell">
+
+  <!-- ─── Inversión del período ─────────────────────────── -->
+  <section class="section" id="inversion">
+    <div class="section-header"><h2>Inversión del período</h2></div>
+    <p class="subtext">Pesos colombianos · 20 abr — 27 jul 2026</p>
+
+    <div class="stats-grid">
+      <article class="stat-card total">
+        <span class="stat-val">$137,7 M</span>
+        <span class="stat-label">Inversión total del flow</span>
+        <span class="stat-note">Exacto: $137.722.089<br>Reserva del plan: $13.277.911</span>
+      </article>
+      <article class="stat-card">
+        <span class="stat-val">$9,8 M</span>
+        <span class="stat-label">Meta · CP_GANA</span>
+        <span class="stat-note">Exacto: $9.799.675<br>Meta total: $18.538.095</span>
+      </article>
+      <article class="stat-card tiktok">
+        <span class="stat-val">$55,0 M</span>
+        <span class="stat-label">TikTok · Adcom - Gana</span>
+        <span class="stat-note">7 may — 26 jul · 11.846 conversiones<br>CPA promedio $4.643</span>
+      </article>
+      <article class="stat-card programatica">
+        <span class="stat-val">$39,3 M</span>
+        <span class="stat-label">Programática</span>
+        <span class="stat-note">29 abr — 10 jun · 4 formatos<br>App Targeting, Spotify, Push, Geofence</span>
+      </article>
+      <article class="stat-card dooh">
+        <span class="stat-val">$30,0 M</span>
+        <span class="stat-label">DOOH Medellín</span>
+        <span class="stat-note">28 abr — 31 may · hasta 12 pantallas<br>260.913 impresiones</span>
+      </article>
+      <article class="stat-card otros">
+        <span class="stat-val">$3,6 M</span>
+        <span class="stat-label">UGC + Llamadas IA</span>
+        <span class="stat-note">$1.600.000 + $2.000.000<br>Registrados en Jun S3</span>
+      </article>
+    </div>
+  </section>
+
+  <!-- ─── Gráfico semanal ───────────────────────────────── -->
+  <section class="section" id="semanal">
+    <div class="section-header"><h2>Inversión semanal por canal</h2></div>
+    <p class="subtext">Ancho proporcional al total de la semana</p>
+
+    <div class="chart-card">
+      <div class="legend">
+        <span class="legend-row"><i class="dot"></i>Meta</span>
+        <span class="legend-row"><i class="dot tiktok"></i>TikTok</span>
+        <span class="legend-row"><i class="dot programatica"></i>Programática</span>
+        <span class="legend-row"><i class="dot dooh"></i>DOOH</span>
+        <span class="legend-row"><i class="dot otros"></i>UGC + Llamadas IA</span>
+      </div>
+
+      <div class="bar-list" id="bar-list"></div>
+
+      <p class="tabla-titulo">Los mismos datos en tabla</p>
+      <div class="table-wrap">
+        <table id="tabla-semanal">
+          <thead>
+              <tr><th>Semana</th><th>Meta</th><th>TikTok</th><th>Programática</th><th>DOOH</th><th>UGC + Llamadas IA</th><th>Total</th></tr>
+          </thead>
+          <tbody></tbody>
+          <tfoot></tfoot>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Tendencias: los 5 cortes del filtro ───────────── -->
+  <section class="section break-before" id="tendencias">
+    <div class="section-header"><h2>Tendencias de resultados</h2></div>
+    <p class="subtext">Registros y CPA en medios de performance · impresiones y CPM en Programática/DOOH</p>
+    <p class="data-note" style="margin-bottom:18px">Se muestran los cinco cortes por medio que en la versión interactiva se seleccionan con los botones de filtro.</p>
+    <div id="trend-blocks"></div>
+  </section>
+
+  <!-- ─── Funnel: los 5 cortes del filtro ───────────────── -->
+  <section class="section break-before" id="funnel-mensual">
+    <div class="section-header"><h2>Funnel mes a mes</h2></div>
+    <p class="subtext">Impresiones → alcance → clics → registros</p>
+    <p class="data-note" style="margin-bottom:18px">Un bloque por cada opción del filtro de medios. Las barras usan escala logarítmica para que clics y registros sean visibles junto a las impresiones.</p>
+    <div id="funnel-blocks"></div>
+  </section>
+
+  <!-- ─── Plan vs real: las 2 pestañas ──────────────────── -->
+  <section class="section break-before" id="plan-vs-real">
+    <div class="section-header"><h2>Plan de $151 M vs. resultado real</h2></div>
+    <p class="subtext">Fuente: V13 Master Flow Placa Millonaria · hoja 151M Full Performance</p>
+
+    <h3 class="compare-heading">Presupuesto proyectado</h3>
+    <div id="plan-presupuesto"></div>
+
+    <h3 class="compare-heading">Leads proyectados</h3>
+    <div id="plan-leads"></div>
+
+    <p class="data-note">Tablas transcritas del flow y partidas en bloques de semanas para que quepan completas en una página. «Reserva» es presupuesto planeado aún no distribuido en las semanas. Los espacios sin valor se conservan como —. El archivo tiene totales de leads guardados que no incorporan las últimas celdas de abril y julio; para la comparación se recalcularon las metas desde las celdas semanales visibles.</p>
+
+    <h3 class="compare-heading">Cumplimiento por medio</h3>
+    <div class="table-wrap"><table id="compare-media-table"></table></div>
+    <h3 class="compare-heading">Distribución mensual del flow</h3>
+    <div class="table-wrap"><table id="compare-month-table"></table></div>
+    <p class="data-note">Todas las cifras de inversión provienen del flow. Los resultados provienen de las APIs de Meta y TikTok y de los archivos de entrega; UGC y Llamadas IA están incluidos en la inversión, pero no tienen un resultado independiente validable.</p>
+  </section>
+
+  <section class="section break-before" id="aprendizajes">
+    <div class="section-header"><h2>Aprendizajes por medio</h2></div>
+    <p class="subtext">Lecturas derivadas de las tendencias y del funnel</p>
+    <div class="learning-grid">
+      <article class="learning-card meta"><span class="chip meta">Meta</span><h3>Casi cumplió la meta de registros con 53% del presupuesto</h3><p>Las campañas de Placa atribuyeron 4.064 registros frente a 4.139 proyectados: 98% de cumplimiento. El flow registra $9,8 M frente a $18,5 M planeados y el CPA consolidado sobre esa inversión queda en $2.411.</p><p><strong>Lectura:</strong> el canal fue eficiente y su caída no respondió al desempeño. Recuperarlo permitiría reactivar alcance y remarketing sin partir de cero.</p></article>
+      <article class="learning-card tiktok"><span class="chip tiktok">TikTok</span><h3>La inversión llegó a 92%, pero los resultados a 79%</h3><p>Generó 11.846 conversiones frente a 15.058 proyectadas. Junio concentró el mayor gasto y llevó el CPA a $6.301; julio bajó a $3.960 tras apagar las audiencias tibias costosas.</p><p><strong>Lectura:</strong> el mejor equilibrio apareció con tres conjuntos fríos y videos que explicaban el producto. Conviene escalar por incrementos y con umbrales de CPA.</p></article>
+      <article class="learning-card programatica"><span class="chip programatica">Programática</span><h3>App y Push superaron la meta de impresiones</h3><p>App entregó 1,91 M frente a 1,75 M y Push, 21,35 M frente a 20 M. Geofence alcanzó 3,56 M de 3,75 M; Spotify, 80.787 de 100.000 impresiones.</p><p><strong>Lectura:</strong> App y Push superaron sus metas; Geofence quedó cerca y Spotify presentó la mayor brecha relativa. Para conectar esa cobertura con negocio siguen siendo necesarias UTMs y conversiones por formato.</p></article>
+      <article class="learning-card dooh"><span class="chip dooh">DOOH</span><h3>Superó la meta de 250.000 impresiones</h3><p>Ejecutó los $30,0 M planeados y entregó 260.913 impresiones: 104% de cumplimiento. El circuito pasó de 4 a 12 pantallas y cerró con 8 durante cinco semanas.</p><p><strong>Lectura:</strong> DOOH cumplió cobertura, pero no tiene alcance único, clics ni registros. La próxima medición debería sumar QR/URL diferenciada o estudio de incrementalidad.</p></article>
+    </div>
+  </section>
+
+  <section class="section break-before" id="linea-tiempo">
+    <div class="section-header"><h2>Semana a semana</h2></div>
+    <p class="subtext">Punto lleno = acción verificada en plataforma · Punto hueco = gestión estándar</p>
+    <p class="data-note" style="margin-bottom:18px">Todos los cambios de cada semana quedan a la vista; en la versión interactiva los que van después del segundo se agrupan en un desplegable.</p>
+
+    <div class="fase"><span>Fase 1 · Montaje y salida a aire — abril</span></div>
+
+    <div class="timeline-container">
+
+      <article class="timeline-item">
+        <div class="timeline-header">
+          <h3 class="semana">S17 <em>20 — 26 abr</em></h3>
+          <div class="timeline-tags"><span class="tag light">$0 en flow</span><span class="tag gray">Actividad previa</span></div>
+        </div>
+        <p class="titular">Semana previa al lanzamiento: la campaña CayoPlacaMoto mantiene la presencia de Placa en Meta.</p>
+        <p class="reason">Sostener recordación antes de que entrara la campaña principal de Placa Millonaria.</p>
+        <ul class="ev-list">
+          <li class="ev"><span><span class="chip meta">Meta</span><em>#Ant 34940 Alcance_CayoPlacaMoto</em> mantiene actividad antes del lanzamiento; el flow no asigna inversión a esta semana.</span></li>
+        </ul>
+        <div class="kpi-row"><span>Inversión flow $0</span><span>Actividad operativa previa</span><span>Fuera de la distribución Abr S4 — Jul S4</span></div>
+      </article>
+
+      <article class="timeline-item destacada">
+        <div class="timeline-header">
+          <h3 class="semana">S18 <em>27 abr — 3 may</em></h3>
+          <div class="timeline-tags"><span class="tl-tag highlight">Lanzamiento</span><span class="tag light">$15,5 M</span></div>
+        </div>
+        <p class="titular">Sale Placa Millonaria: se abren Meta, programática y DOOH en la misma semana.</p>
+        <p class="reason">Construir cobertura rápida en el lanzamiento y combinar alcance masivo con captación de registros.</p>
+        <ul class="ev-list">
+          <li class="ev"><span><span class="fecha">27 abr</span><span class="chip meta">Meta</span>Se crea la campaña <em>#Ant 34910 PlacaMillonaria_Alcance_Activación_Advantage</em> con presupuesto de arranque <span class="cifra">10.000</span>/día y dos conjuntos Frío_Advantage optimizados a <strong>alcance único diario</strong>.</span></li>
+          <li class="ev programatica"><span><span class="fecha">29 abr</span><span class="chip programatica">Programática</span>Arranca con dos formatos: <strong>App Targeting</strong> <span class="cifra">$6.286.850</span> (827.521 impresiones) y <strong>Spotify</strong> <span class="cifra">$2.218.438</span>. App Targeting se lleva el 74% del presupuesto.</span></li>
+          <li class="ev dooh"><span><span class="fecha">28 abr</span><span class="chip dooh">DOOH</span>Salida en Medellín con <strong>4 pantallas de gran formato</strong> (San Antonio, Aguacatala, MegaMupis Metro Acevedo e Ind. Buses): <span class="cifra">$6.621.360</span>, 55.178 impresiones.</span></li>
+          <li class="ev"><span><span class="fecha">29 abr</span><span class="chip meta">Meta</span>Se crea <em>#Ant 34910 PlacaMillonaria_Registros_Activación_Advantage</em>, segunda campaña del lanzamiento enfocada en registros.</span></li>
+          <li class="ev"><span><span class="fecha">30 abr</span><span class="chip meta">Meta</span>Se apaga <em>Alcance_CayoPlacaMoto</em>; las nuevas campañas de Placa toman el relevo.</span></li>
+        </ul>
+        <div class="kpi-row"><span>Meta $333.138</span><span>Programática $8.505.288</span><span>DOOH $6.621.360</span><span>Total $15.459.786</span></div>
+      </article>
+
+    </div>
+
+    <div class="fase"><span>Fase 2 · Mayo, los cuatro canales en paralelo</span></div>
+
+    <div class="timeline-container">
+
+      <article class="timeline-item">
+        <div class="timeline-header">
+          <h3 class="semana">S19 <em>4 — 10 may</em></h3>
+          <div class="timeline-tags"><span class="tl-tag highlight">Entra TikTok</span><span class="tag light">$12,6 M</span></div>
+        </div>
+        <p class="titular">Entra TikTok y Placa escala su entrega en Meta.</p>
+        <p class="reason">Ampliar cobertura hacia audiencias de video corto y abrir una fuente adicional de registros medibles.</p>
+        <ul class="ev-list">
+          <li class="ev tiktok"><span><span class="fecha">7 may</span><span class="chip tiktok">TikTok</span><strong>Salida al aire</strong> de <em>#Ant Placa_Registros_Adquisición_ADE</em> con dos conjuntos —Frío_Intereses y Frío_Hashtag— a <span class="cifra">38.900</span>/día cada uno. Semana de calibración: <span class="cifra">$286.487</span> invertidos y todavía sin conversiones registradas.</span></li>
+          <li class="ev"><span><span class="chip meta">Meta</span>Las campañas cuyo nombre contiene «Placa» invierten <span class="cifra">$1.529.746</span> en la semana.</span></li>
+          <li class="ev programatica"><span><span class="chip programatica">Programática</span>Se recorta a <span class="cifra">$3.421.050</span>: App Targeting baja a $1.728.004 y Spotify a $1.693.046. <strong>Es la última semana de Spotify</strong> —con CTR de 0,15% no vuelve a pautarse—.</span></li>
+          <li class="ev dooh"><span><span class="chip dooh">DOOH</span>Semana pico de circuito de gran formato: <span class="cifra">$7.363.200</span> y 61.360 impresiones sobre las mismas 4 pantallas.</span></li>
+        </ul>
+        <div class="kpi-row"><span>Meta $1.529.746</span><span>TikTok $286.487</span><span>Programática $3.421.050</span><span>DOOH $7.363.200</span></div>
+      </article>
+
+      <article class="timeline-item destacada">
+        <div class="timeline-header">
+          <h3 class="semana">S20 <em>11 — 17 may</em></h3>
+          <div class="timeline-tags"><span class="tl-tag highlight">Giro de formatos</span><span class="tag light">$10,9 M</span></div>
+        </div>
+        <p class="titular">Recomposición de formatos: entran Push y Geofence y TikTok reemplaza sus conjuntos.</p>
+        <p class="reason">Corregir formatos con baja respuesta y alinear la segmentación y las creatividades con Placa.</p>
+        <ul class="ev-list">
+          <li class="ev tiktok"><span><span class="fecha">14 may</span><span class="chip tiktok">TikTok</span><strong>Reemplazo de conjuntos:</strong> se apagan Frío_Intereses y Frío_Hashtag genéricos y se lanzan <em>Frío_Intereses_Placa</em> y <em>Frío_Hashtag_Placa</em> a <span class="cifra">100.000</span>/día cada uno (×2,6). Se suben 6 videos con nomenclatura Placa del 13/05. Primeras conversiones: <strong>351 a CPA $1.758</strong>.</span></li>
+          <li class="ev programatica"><span><span class="chip programatica">Programática</span><strong>Cambio de mezcla de formatos:</strong> entran <em>Push</em> (<span class="cifra">$1.195.158</span>, 2,9 M de impresiones, CTR 0,40%) y <em>Geofence</em> (<span class="cifra">$60.136</span> con <strong>CTR 16,25%</strong>); App Targeting cae a $882.085 y Spotify sale del plan.</span></li>
+          <li class="ev dooh"><span><span class="chip dooh">DOOH</span>Se pasa de <strong>4 a 12 pantallas</strong>: entran los circuitos de centro comercial (Santa Fe, Viva Envigado, Molinos). Misma inversión menor —$5.720.451— repartida en más puntos.</span></li>
+          <li class="ev"><span><span class="chip meta">Meta</span>Las campañas de Placa invierten <span class="cifra">$2.458.996</span> y generan 1.066 registros reportados por Meta.</span></li>
+        </ul>
+        <div class="kpi-row"><span>Meta $2.458.996</span><span>TikTok $617.025 · 351 conv · CPA $1.758</span><span>Programática $2.137.379</span><span>DOOH $5.720.451</span></div>
+      </article>
+
+      <article class="timeline-item">
+        <div class="timeline-header">
+          <h3 class="semana">S21 <em>18 — 24 may</em></h3>
+          <div class="timeline-tags"><span class="tl-tag highlight">Hito crítico</span><span class="tag light">$13,1 M</span></div>
+        </div>
+        <p class="titular">El 19 de mayo se retira la fuente de pago de la cuenta de Meta; ese mismo día se concentra presupuesto en Placa.</p>
+        <p class="reason pending">La API registra la eliminación de la fuente de pago, pero no documenta quién la retiró ni el motivo administrativo.</p>
+        <ul class="ev-list">
+          <li class="ev"><span><span class="fecha">19 may</span><span class="chip meta">Meta</span><strong>Se elimina la fuente de financiación de CP_GANA</strong> (evento <em>remove_funding_source</em>). Es el origen de la caída de entrega que se materializa diez días después.</span></li>
+          <li class="ev"><span><span class="fecha">19 may</span><span class="chip meta">Meta</span><strong>Se escala Placa:</strong> PlacaMillonaria_Registros <span class="cifra">350.000 → 415.000 → 600.000</span>.</span></li>
+          <li class="ev"><span><span class="fecha">22 may</span><span class="chip meta">Meta</span>Se abre el conjunto <em>IG | Frío_Advantage_Abierta_Antioquia</em> con <span class="cifra">30.000</span>/día: <strong>Instagram se separa como ubicación con presupuesto propio</strong>, optimizado a conversiones.</span></li>
+          <li class="ev tiktok"><span><span class="chip tiktok">TikTok</span>Escala a <span class="cifra">$2.229.186</span> y <strong>1.229 conversiones a CPA $1.814</strong>, el mejor costo del canal hasta esa fecha. La pieza líder es <em>13/05_Facilidad y acceso_Ya jugaste placa?</em> (462 conversiones).</span></li>
+          <li class="ev programatica"><span><span class="chip programatica">Programática</span><strong>Push pasa a ser el eje:</strong> $3.158.726 de $3.836.521 (82%), con 7,7 M de impresiones. App Targeting queda en $630.267 pero sube su CTR a 2,94%.</span></li>
+          <li class="ev dooh"><span><span class="chip dooh">DOOH</span>Se poda de 12 a <strong>8 pantallas</strong> y la inversión baja a $4.876.876.</span></li>
+        </ul>
+        <div class="kpi-row"><span>Meta $2.121.431</span><span>TikTok $2.229.186 · CPA $1.814</span><span>Programática $3.836.521</span><span>DOOH $4.876.876</span></div>
+      </article>
+
+      <article class="timeline-item destacada">
+        <div class="timeline-header">
+          <h3 class="semana">S22 <em>25 — 31 may</em></h3>
+          <div class="timeline-tags"><span class="tl-tag highlight">Semana pico</span><span class="tag light">$30,2 M</span></div>
+        </div>
+        <p class="titular">Semana más alta del período — y última de Meta y de DOOH.</p>
+        <p class="reason">Aprovechar el cierre del flight exterior y reforzar Placa antes de que terminara la entrega de Meta.</p>
+        <ul class="ev-list">
+          <li class="ev"><span><span class="fecha">28 may</span><span class="chip meta">Meta</span><strong>Reescalado de Placa:</strong> Placa_Registros <span class="cifra">450.000 → 500.000</span>, Placa_Alcance <span class="cifra">100.000 → 200.000</span> e <em>IG | Frío_Advantage</em> <span class="cifra">30.000 → 100.000</span>.</span></li>
+          <li class="ev"><span><span class="fecha">29 may</span><span class="chip meta">Meta</span><strong>Última fecha con inversión en CP_GANA.</strong> La cuenta queda deshabilitada tras la eliminación de la fuente de pago. Desde aquí no hay más pauta en Meta en todo el período.</span></li>
+          <li class="ev programatica"><span><span class="chip programatica">Programática</span><strong>Pico absoluto: $17.569.022.</strong> Geofence se dispara de $47.528 a <span class="cifra">$10.387.438</span> (3,5 M de impresiones) y App Targeting vuelve a $5.010.756. Push queda tercero con $2.170.828.</span></li>
+          <li class="ev dooh"><span><span class="fecha">31 may</span><span class="chip dooh">DOOH</span>Cierre del pautado exterior: <span class="cifra">$5.459.710</span> sobre 8 pantallas. Total DOOH del período: $30.041.597.</span></li>
+          <li class="ev tiktok"><span><span class="fecha">28 may</span><span class="chip tiktok">TikTok</span>Entra la pieza <em>Instructivo placa</em>. La semana cierra en $4.103.204 con 1.023 conversiones, pero el <strong>CPA se duplica a $4.011</strong>.</span></li>
+        </ul>
+        <div class="kpi-row"><span>Meta $3.077.033</span><span>TikTok $4.103.204 · CPA $4.011</span><span>Programática $17.569.022</span><span>DOOH $5.459.710</span></div>
+      </article>
+
+    </div>
+
+    <div class="fase"><span>Fase 3 · Junio, TikTok se queda solo</span></div>
+
+    <div class="timeline-container">
+
+      <article class="timeline-item apagada">
+        <div class="timeline-header">
+          <h3 class="semana">S23 <em>1 — 7 jun</em></h3>
+          <div class="timeline-tags"><span class="tag gray">Sin Meta ni DOOH</span><span class="tag light">$8,5 M</span></div>
+        </div>
+        <p class="titular">Primera semana sin Meta ni DOOH: la inversión cae 81% y el CPA de TikTok se deteriora.</p>
+        <p class="reason">Mantener continuidad con TikTok y Push mientras se diagnosticaba la pérdida de eficiencia y el bloqueo de Meta.</p>
+        <ul class="ev-list">
+          <li class="ev tiktok"><span><span class="chip tiktok">TikTok</span>Sostiene la misma estructura de 2 conjuntos: <span class="cifra">$4.680.944</span> en el flow y 777 conversiones. El <strong>CPA sube a $6.024</strong> —la parrilla del 13/05 y 17/05 lleva tres semanas al aire—.</span></li>
+          <li class="ev programatica"><span><span class="chip programatica">Programática</span>El flow concentra $3.812.452 en Jun S1: Push ($3.397.035) y Geofence ($415.417).</span></li>
+          <li class="ev rutina"><span><span class="chip rutina">Gestión estándar</span>Sin registro de cambios estructurales en la semana. Corresponde acá la operación habitual: lectura de la caída de eficiencia post-corte de Meta, revisión de frecuencia y saturación de las piezas de mayo, y chequeo de que el evento de registro siga llegando bien al píxel de TikTok.</span></li>
+        </ul>
+        <div class="kpi-row"><span>TikTok $4.680.944 · 777 conv · CPA $6.024</span><span>Programática $3.812.452</span><span>Total $8.493.396</span></div>
+      </article>
+
+      <article class="timeline-item">
+        <div class="timeline-header">
+          <h3 class="semana">S24 <em>8 — 14 jun</em></h3>
+          <div class="timeline-tags"><span class="tag">Relevo creativo</span><span class="tag light">$4,6 M</span></div>
+        </div>
+        <p class="titular">Renovación de parrilla en TikTok y cierre de la programática.</p>
+        <p class="reason">Combatir fatiga creativa y concentrar la entrega en las piezas nuevas con mejor respuesta inicial.</p>
+        <ul class="ev-list">
+          <li class="ev tiktok"><span><span class="fecha">10 jun</span><span class="chip tiktok">TikTok</span><strong>Tres videos nuevos</strong> —Domiciliario, Taxista y Promo—. El flow registra $4.561.407 en la semana y el CPA queda en $4.873.</span></li>
+          <li class="ev programatica"><span><span class="fecha">10 jun</span><span class="chip programatica">Programática</span><strong>Última fecha con datos de entrega.</strong> En el flow, la inversión de Programática ya quedó concentrada en Jun S1 y totaliza $39.281.712 en el período.</span></li>
+          <li class="ev rutina"><span><span class="chip rutina">Gestión estándar</span>Semana típica de relevo creativo: poda de las piezas de mayo con peor costo por conversión y revisión de la nomenclatura de la nueva tanda.</span></li>
+        </ul>
+        <div class="kpi-row"><span>TikTok $4.561.407 · 936 conv · CPA $4.873</span><span>Total flow $4.561.407</span></div>
+      </article>
+
+      <article class="timeline-item apagada">
+        <div class="timeline-header">
+          <h3 class="semana">S25 <em>15 — 21 jun</em></h3>
+          <div class="timeline-tags"><span class="tag gray">Ajustes del flow</span><span class="tag light">$9,9 M</span></div>
+        </div>
+        <p class="titular">TikTok sostiene la pauta; el flow suma UGC, Llamadas IA y un ajuste de Meta en Jun S3.</p>
+        <p class="reason">Acumular suficiente evidencia antes de modificar la estructura; el deterioro del CPA justificó la reestructura posterior.</p>
+        <ul class="ev-list">
+          <li class="ev tiktok"><span><span class="chip tiktok">TikTok</span>Sube la inversión del flow a <span class="cifra">$5.994.093</span> sin cambios de estructura, pero el <strong>CPA se degrada a $6.690</strong>. Es la señal que dispara la reestructura de la semana siguiente.</span></li>
+          <li class="ev programatica"><span><span class="chip programatica">Flow</span>Jun S3 incluye <strong>UGC $1.600.000</strong>, <strong>Llamadas IA $2.000.000</strong> y un ajuste de <strong>Meta $279.331</strong>. Estas líneas completan el total semanal aunque no tengan una entrega independiente validable en las APIs.</span></li>
+          <li class="ev rutina"><span><span class="chip rutina">Gestión estándar</span>Sin actividad registrada en el log. Trabajo habitual de la semana: análisis de agotamiento de audiencia por frecuencia, revisión de las hipótesis de segmentación vigentes (intereses vs. hashtag) y armado de la propuesta de estructura full-funnel que se implementa el 22 de junio.</span></li>
+        </ul>
+        <div class="kpi-row"><span>TikTok $5.994.093 · 896 conv · CPA $6.690</span><span>Meta $279.331</span><span>UGC + Llamadas IA $3.600.000</span><span>Total $9.873.424</span></div>
+      </article>
+
+      <article class="timeline-item destacada">
+        <div class="timeline-header">
+          <h3 class="semana">S26 <em>22 — 28 jun</em></h3>
+          <div class="timeline-tags"><span class="tl-tag highlight">Reestructura · peor CPA</span><span class="tag light">$14,8 M</span></div>
+        </div>
+        <p class="titular">Reestructura completa de TikTok: de 2 a 6 conjuntos y entrada del UGC, que se lleva el liderazgo en una semana.</p>
+        <p class="reason">Probar el funnel completo —frío, similares, interacción y bases de datos— y renovar el lenguaje creativo con UGC.</p>
+        <ul class="ev-list">
+          <li class="ev tiktok"><span><span class="fecha">22 jun</span><span class="chip tiktok">TikTok</span>Se abre <em>Tibio_BD_PYR Gana</em> con <span class="cifra">570.000</span>/día —el presupuesto diario más alto asignado a un conjunto en todo el período—.</span></li>
+          <li class="ev tiktok"><span><span class="fecha">24–25 jun</span><span class="chip tiktok">TikTok</span>Se completa el embudo: <em>Tibio_BD_Fieles Gana</em> <span class="cifra">470.000</span>/día, <em>Tibio_Interacción_Rep. video</em> <span class="cifra">270.000</span>/día y <em>Frío_LAL_Fieles Gana</em> <span class="cifra">150.000</span>/día.</span></li>
+          <li class="ev tiktok"><span><span class="fecha">22 y 26 jun</span><span class="chip tiktok">Formatos</span><strong>Entra el UGC.</strong> Las dos piezas <em>22/06_UGC</em> y <em>26/06_UGC</em> concentran 933 de las 1.782 conversiones de plataforma.</span></li>
+          <li class="ev tiktok"><span><span class="chip tiktok">Lectura</span>Los conjuntos de base de datos rinden mal desde el arranque: <em>Tibio_BD_PYR</em> a <strong>CPA $21.997</strong> y <em>Tibio_BD_Fieles</em> a <strong>$28.600</strong>, contra $5.291 de Frío_Intereses_Placa.</span></li>
+        </ul>
+        <div class="kpi-row"><span>TikTok $14.804.934 (×2,47 vs. semana previa)</span><span>1.782 conv · CPA $8.308</span></div>
+      </article>
+
+      <article class="timeline-item">
+        <div class="timeline-header">
+          <h3 class="semana">S27 <em>29 jun — 5 jul</em></h3>
+          <div class="timeline-tags"><span class="tag gray">Recorte</span><span class="tag light">$7,7 M</span></div>
+        </div>
+        <p class="titular">El flow recorta la inversión tras el pico de la semana anterior; al cierre se corta el segmento de base de datos.</p>
+        <p class="reason">Los conjuntos tibios costaban entre $22.000 y $28.600 por registro; apagarlos evitaba seguir financiando el segmento menos eficiente.</p>
+        <ul class="ev-list">
+          <li class="ev tiktok"><span><span class="chip tiktok">TikTok</span><span class="cifra">$7.721.827</span> en el flow con 1.232 conversiones: <strong>CPA $6.268</strong>. La brecha frente a la semana anterior respalda el recorte de audiencias costosas.</span></li>
+          <li class="ev tiktok"><span><span class="fecha">6 jul</span><span class="chip tiktok">TikTok</span><strong>Corte de los conjuntos tibios:</strong> se apagan <em>Tibio_BD_Fieles Gana</em>, <em>Tibio_BD_PYR Gana</em> y <em>Tibio_Interacción_Rep. video</em>. Se vuelve a un esquema de tres conjuntos fríos.</span></li>
+          <li class="ev rutina"><span><span class="chip rutina">Gestión estándar</span>Semana de diagnóstico: comparación de costo por conversión por conjunto, revisión de solapamiento entre los públicos de BD y los similares, y decisión de recortar presupuesto en lugar de seguir escalando.</span></li>
+        </ul>
+        <div class="kpi-row"><span>TikTok $7.721.827 · 1.232 conv · CPA $6.268</span></div>
+      </article>
+
+    </div>
+
+    <div class="fase"><span>Fase 4 · Julio, corrección y eficiencia</span></div>
+
+    <div class="timeline-container">
+
+      <article class="timeline-item destacada">
+        <div class="timeline-header">
+          <h3 class="semana">S28 <em>6 — 12 jul</em></h3>
+          <div class="timeline-tags"><span class="tl-tag highlight">Mejor CPA</span><span class="tag light">$4,1 M</span></div>
+        </div>
+        <p class="titular">Se recorta el presupuesto un 47% y se cambia toda la parrilla: el CPA cae 58%.</p>
+        <p class="reason">Volver a los tres conjuntos fríos eficientes y reemplazar piezas fatigadas por videos centrados en el beneficio del producto.</p>
+        <ul class="ev-list">
+          <li class="ev tiktok"><span><span class="chip tiktok">TikTok</span><strong>Recorte de $7,72 M a $4,07 M</strong> (−47%). Quedan activos Frío_Intereses_Placa, Frío_Hashtag_Placa y Frío_LAL_Fieles Gana.</span></li>
+          <li class="ev tiktok"><span><span class="fecha">9 jul</span><span class="chip tiktok">Formatos</span>Tanda nueva de 6 videos más duplicados: Registro placa, Golpe de suerte, Ganadores, Enredado en taxi, Recuerda. <em>9/07_Beneficio del producto_Registro placa</em> y su copia generan <strong>954 de las 1.545 conversiones</strong> de la semana con $1.194.173.</span></li>
+          <li class="ev tiktok"><span><span class="chip tiktok">Resultado</span><strong>CPA $2.635</strong>, el mejor del bimestre y 2,4× más eficiente que la semana anterior. Menos presupuesto, menos conjuntos y creatividad nueva enfocada en el beneficio del producto.</span></li>
+        </ul>
+        <div class="kpi-row"><span>TikTok $4.070.444 · 1.545 conv · CPA $2.635</span></div>
+      </article>
+
+      <article class="timeline-item apagada">
+        <div class="timeline-header">
+          <h3 class="semana">S29 <em>13 — 19 jul</em></h3>
+          <div class="timeline-tags"><span class="tag gray">Sostenimiento</span><span class="tag light">$3,8 M</span></div>
+        </div>
+        <p class="titular">Consolidación del esquema eficiente, sin cambios estructurales.</p>
+        <p class="reason">Preservar el aprendizaje de la semana anterior mientras se verificaba que la mejora de CPA fuera sostenible.</p>
+        <ul class="ev-list">
+          <li class="ev tiktok"><span><span class="chip tiktok">TikTok</span><span class="cifra">$3.790.446</span> y 1.322 conversiones a <strong>CPA $2.867</strong>. <em>Registro placa</em> y su copia sostienen 951 conversiones de la semana.</span></li>
+          <li class="ev rutina"><span><span class="chip rutina">Gestión estándar</span>Sin cambios registrados. Operación habitual de una semana de sostenimiento: monitoreo diario de CPA por pieza, verificación de que la copia ganadora no entre en fatiga, y revisión de reparto entre los tres conjuntos fríos.</span></li>
+        </ul>
+        <div class="kpi-row"><span>TikTok $3.790.446 · 1.322 conv · CPA $2.867</span></div>
+      </article>
+
+      <article class="timeline-item">
+        <div class="timeline-header">
+          <h3 class="semana">S30 <em>20 — 26 jul</em></h3>
+          <div class="timeline-tags"><span class="tag">Prueba de segmentación</span><span class="tag light">$2,1 M</span></div>
+        </div>
+        <p class="titular">Prueba de segmentación por fin de semana y reciclaje de la biblioteca creativa.</p>
+        <p class="reason">Buscar volumen incremental sin volver a escalar las audiencias costosas y aprovechar piezas ya validadas.</p>
+        <ul class="ev-list">
+          <li class="ev tiktok"><span><span class="fecha">21 jul</span><span class="chip tiktok">TikTok</span>Se apaga <em>Frío_LAL_Fieles Gana</em> y se crea <em>Prueba_Intereses_Fin de semana</em> con <span class="cifra">100.000</span>/día: prueba de segmentación acotada por franja. Arranca bien —95 conversiones a CPA $2.973 en cinco días—.</span></li>
+          <li class="ev tiktok"><span><span class="fecha">21 jul</span><span class="chip tiktok">Formatos</span>Se reactivan <strong>17 anuncios del histórico</strong> (13/05, 17/05, 28/05, 9/06, UGC y la tanda del 9/07) dentro del conjunto nuevo: reciclaje de biblioteca en lugar de producción nueva.</span></li>
+          <li class="ev"><span><span class="fecha">24 y 26 jul</span><span class="chip meta">Meta</span>Se crean dos públicos automáticos (<em>asa_auto_custom_audience</em>): la única señal de actividad en CP_GANA desde el 29 de mayo. La cuenta sigue sin inversión.</span></li>
+        </ul>
+        <div class="kpi-row"><span>TikTok $2.139.108 · 753 conv · CPA $2.841</span></div>
+      </article>
+
+      <article class="timeline-item apagada">
+        <div class="timeline-header">
+          <h3 class="semana">S31 <em>27 jul</em></h3>
+          <div class="timeline-tags"><span class="tl-tag highlight">Alerta</span><span class="tag gray">$0</span></div>
+        </div>
+        <p class="titular">La campaña de TikTok amanece sin entrega.</p>
+        <p class="reason">Activar una validación operativa inmediata: saldo, topes y bloqueos, porque el estado activo no coincidía con la inversión observada.</p>
+        <ul class="ev-list">
+          <li class="ev tiktok"><span><span class="chip tiktok">TikTok</span>Los cuatro conjuntos registran impresiones residuales (462 en total) e <strong>inversión $0</strong> al 27 de julio, con la campaña y los conjuntos todavía en estado activo. Revisar saldo de la cuenta, tope de presupuesto o entrega bloqueada antes de que se pierda otro día.</span></li>
+          <li class="ev rutina"><span><span class="chip rutina">Gestión estándar</span>Cierre de mes: consolidación de resultados del flight, lectura de aprendizajes por formato (UGC vs. producto vs. aspiracional) y definición de la estructura de agosto.</span></li>
+        </ul>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ─── Cierre ────────────────────────────────────────── -->
+  <section class="section" id="fuentes">
+    <div class="section-header"><h2>Fuentes y metodología</h2></div>
+
+    <div class="notas">
+      <article class="nota">
+        <h5>Fuentes</h5>
+        <p>Inversión: V13 Master Flow Placa Millonaria, hoja 151M Full Performance. Resultados y actividad: registro de CP_GANA e insights de Meta; API de Business de TikTok; y archivo «GANA _ Fuente de Data.xlsx» para Programática y DOOH.</p>
+      </article>
+      <article class="nota">
+        <h5>Cómo leer las marcas</h5>
+        <p>Punto lleno = acción verificada en el registro de la plataforma, con su fecha. Punto hueco y texto en cursiva gris = semana sin registro específico de cambios; se describe la gestión estándar que corresponde al momento del plan, no un hecho documentado.</p>
+      </article>
+      <article class="nota">
+        <h5>Alcance de las cifras de Meta</h5>
+        <p>El flow registra exactamente $9.799.675 para Meta. Los resultados corresponden a las campañas de Placa y se cruzan contra esa inversión; el ajuste de $279.331 de Jun S3 está en el flow aunque la API no reporte nueva entrega.</p>
+      </article>
+    </div>
+
+    <p class="source-note">Inversión en pesos colombianos tomada del flow: $137.722.089 ejecutados de un plan de $151.000.000, con $13.277.911 en reserva. Las plataformas se usan para resultados y actividad operativa.</p>
+  </section>
+
+</main>
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   Datos · idénticos a assets/js/linea-de-tiempo.js
+   Inversión: V13 Master Flow Placa Millonaria, hoja 151M Full Performance.
+   Resultados: APIs de Meta/TikTok y archivos de entrega.
+   ══════════════════════════════════════════════════════════ */
+
+const SEMANAS = [
+  ['S17', '20–26 abr',           0,         0,         0,        0,       0],
+  ['S18', '27 abr–3 may',   333138,         0,   8505288,  6621360,       0],
+  ['S19', '4–10 may',      1529746,    286487,   3421050,  7363200,       0],
+  ['S20', '11–17 may',     2458996,    617025,   2137379,  5720451,       0],
+  ['S21', '18–24 may',     2121431,   2229186,   3836521,  4876876,       0],
+  ['S22', '25–31 may',     3077033,   4103204,  17569022,  5459710,       0],
+  ['S23', '1–7 jun',             0,   4680944,   3812452,        0,       0],
+  ['S24', '8–14 jun',            0,   4561407,         0,        0,       0],
+  ['S25', '15–21 jun',      279331,   5994093,         0,        0, 3600000],
+  ['S26', '22–28 jun',           0,  14804934,         0,        0,       0],
+  ['S27', '29 jun–5 jul',        0,   7721827,         0,        0,       0],
+  ['S28', '6–12 jul',            0,   4070444,         0,        0,       0],
+  ['S29', '13–19 jul',           0,   3790446,         0,        0,       0],
+  ['S30', '20–26 jul',           0,   2139108,         0,        0,       0],
+  ['S31', '27 jul',                0,         0,         0,        0,       0]
+];
+
+const CANALES = [
+  { nombre: 'Meta',         clase: 'meta' },
+  { nombre: 'TikTok',       clase: 'tiktok' },
+  { nombre: 'Programática', clase: 'programatica' },
+  { nombre: 'DOOH',         clase: 'dooh' },
+  { nombre: 'UGC + Llamadas IA', clase: 'otros' }
+];
+
+const cop = n => '$' + n.toLocaleString('es-CO');
+const compacto = n => n === 0 ? '—' : '$' + (n / 1e6).toFixed(1).replace('.', ',') + ' M';
+const entero = n => Math.round(n).toLocaleString('es-CO');
+const decimal = n => (n / 1e6).toFixed(1).replace('.', ',');
+
+/* Etiquetas cortas para que no se solapen en las gráficas */
+function labelCorto(v, esMoneda) {
+  if (esMoneda) return v >= 1e6 ? '$' + decimal(v) + ' M' : cop(Math.round(v));
+  if (v >= 1e6) return decimal(v) + ' M';
+  if (v >= 1e4) return Math.round(v / 1e3).toLocaleString('es-CO') + ' k';
+  return entero(v);
+}
+
+/* ── Barras de inversión semanal ───────────────────────── */
+function pintarGrafico() {
+  const cont = document.getElementById('bar-list');
+  if (!cont) return;
+  const maximo = Math.max(...SEMANAS.map(s => CANALES.reduce((total, _, i) => total + s[2 + i], 0)));
+
+  SEMANAS.forEach(s => {
+    const total = CANALES.reduce((suma, _, i) => suma + s[2 + i], 0);
+    const fila = document.createElement('div');
+    fila.className = 'bar-row' + (total === 0 ? ' vacia' : '');
+
+    const etiqueta = document.createElement('div');
+    etiqueta.className = 'bar-label';
+    etiqueta.textContent = s[0] + ' · ' + s[1];
+    fila.appendChild(etiqueta);
+
+    const caja = document.createElement('div');
+    const track = document.createElement('div');
+    track.className = 'bar-track';
+    track.style.width = total === 0 ? '3px' : (total / maximo * 100) + '%';
+
+    CANALES.forEach((canal, i) => {
+      const valor = s[2 + i];
+      if (!valor) return;
+      const seg = document.createElement('div');
+      seg.className = 'bar-seg ' + canal.clase;
+      seg.style.flex = valor;
+      seg.setAttribute('role', 'img');
+      seg.setAttribute('aria-label', s[0] + ' ' + canal.nombre + ' ' + cop(valor));
+      track.appendChild(seg);
+    });
+
+    caja.appendChild(track);
+    fila.appendChild(caja);
+
+    const tot = document.createElement('div');
+    tot.className = 'bar-total';
+    tot.textContent = compacto(total);
+    fila.appendChild(tot);
+
+    cont.appendChild(fila);
+  });
+}
+
+function pintarTabla() {
+  const tbody = document.querySelector('#tabla-semanal tbody');
+  const tfoot = document.querySelector('#tabla-semanal tfoot');
+  if (!tbody) return;
+
+  SEMANAS.forEach(s => {
+    const total = CANALES.reduce((suma, _, i) => suma + s[2 + i], 0);
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td>' + s[0] + ' · ' + s[1] + '</td>' +
+      CANALES.map((_, i) => s[2 + i]).concat([total]).map(v => '<td>' + (v ? cop(v) : '—') + '</td>').join('');
+    tbody.appendChild(tr);
+  });
+
+  const totales = CANALES.map((_, i) => SEMANAS.reduce((a, s) => a + s[2 + i], 0));
+  const tr = document.createElement('tr');
+  tr.innerHTML = '<td>Total</td>' +
+    totales.concat([totales.reduce((a, b) => a + b, 0)]).map(v => '<td>' + cop(v) + '</td>').join('');
+  tfoot.appendChild(tr);
+}
+
+/* ── Series de resultados ──────────────────────────────── */
+const RESULTADOS_SEMANALES = [
+  { semana:'S17', meta:{gasto:0,registros:0},         tiktok:{gasto:0,registros:0} },
+  { semana:'S18', meta:{gasto:333138,registros:326},  tiktok:{gasto:0,registros:0} },
+  { semana:'S19', meta:{gasto:1529746,registros:758}, tiktok:{gasto:286487,registros:0} },
+  { semana:'S20', meta:{gasto:2458996,registros:1066},tiktok:{gasto:617025,registros:351} },
+  { semana:'S21', meta:{gasto:2121431,registros:820}, tiktok:{gasto:2229186,registros:1229} },
+  { semana:'S22', meta:{gasto:3077033,registros:1089},tiktok:{gasto:4103204,registros:1023} },
+  { semana:'S23', meta:{gasto:0,registros:5},         tiktok:{gasto:4680944,registros:777} },
+  { semana:'S24', meta:{gasto:0,registros:0},         tiktok:{gasto:4561407,registros:936} },
+  { semana:'S25', meta:{gasto:279331,registros:0},    tiktok:{gasto:5994093,registros:896} },
+  { semana:'S26', meta:{gasto:0,registros:0},         tiktok:{gasto:14804934,registros:1782} },
+  { semana:'S27', meta:{gasto:0,registros:0},         tiktok:{gasto:7721827,registros:1232} },
+  { semana:'S28', meta:{gasto:0,registros:0},         tiktok:{gasto:4070444,registros:1545} },
+  { semana:'S29', meta:{gasto:0,registros:0},         tiktok:{gasto:3790446,registros:1322} },
+  { semana:'S30', meta:{gasto:0,registros:0},         tiktok:{gasto:2139108,registros:753} },
+  { semana:'S31', meta:{gasto:0,registros:0},         tiktok:{gasto:0,registros:0} }
+];
+
+const ALCANCE_SEMANAL = [
+  {semana:'S17',programatica:{gasto:0,impresiones:0},dooh:{gasto:0,impresiones:0}},
+  {semana:'S18',programatica:{gasto:8505288,impresiones:892062},dooh:{gasto:6621360,impresiones:55178}},
+  {semana:'S19',programatica:{gasto:3421050,impresiones:243735},dooh:{gasto:7363200,impresiones:61360}},
+  {semana:'S20',programatica:{gasto:2137379,impresiones:3038654},dooh:{gasto:5720451,impresiones:50942}},
+  {semana:'S21',programatica:{gasto:3836521,impresiones:7784465},dooh:{gasto:4876876,impresiones:44134}},
+  {semana:'S22',programatica:{gasto:17569022,impresiones:9447325},dooh:{gasto:5459710,impresiones:49299}},
+  {semana:'S23',programatica:{gasto:3812452,impresiones:3755186},dooh:{gasto:0,impresiones:0}},
+  {semana:'S24',programatica:{gasto:0,impresiones:1743605},dooh:{gasto:0,impresiones:0}},
+  ...['S25','S26','S27','S28','S29','S30','S31'].map(semana=>({semana,programatica:{gasto:0,impresiones:0},dooh:{gasto:0,impresiones:0}}))
+];
+
+const FUNNEL_MENSUAL = {
+  meta: {
+    Abril:{impresiones:1165590,alcance:766131,clics:4131,registros:162},
+    Mayo:{impresiones:2684080,alcance:1309520,clics:29666,registros:3897},
+    Junio:{impresiones:0,alcance:0,clics:0,registros:5}
+  },
+  tiktok: {
+    Mayo:{impresiones:3544206,alcance:684465,clics:12209,registros:2603},
+    Junio:{impresiones:11703450,alcance:1511257,clics:31325,registros:4768},
+    Julio:{impresiones:7660620,alcance:1476684,clics:22404,registros:4475}
+  },
+  programatica: {
+    Abril:{impresiones:64077,alcance:50526,clics:149,registros:null},
+    Mayo:{impresiones:21342164,alcance:10184343,clics:102219,registros:null},
+    Junio:{impresiones:5498791,alcance:3398257,clics:22811,registros:null}
+  },
+  dooh: {
+    Abril:{impresiones:43195,alcance:null,clics:null,registros:null},
+    Mayo:{impresiones:217718,alcance:null,clics:null,registros:null}
+  }
+};
+
+const MEDIOS = [
+  {id:'todos',        nombre:'Todos',        etiqueta:'Todos los medios'},
+  {id:'meta',         nombre:'Meta',         etiqueta:'Meta · CP_GANA'},
+  {id:'tiktok',       nombre:'TikTok',       etiqueta:'TikTok · Adcom - Gana'},
+  {id:'programatica', nombre:'Programática', etiqueta:'Programática'},
+  {id:'dooh',         nombre:'DOOH',         etiqueta:'DOOH Medellín'}
+];
+const MESES_ORDEN = ['Abril','Mayo','Junio','Julio'];
+
+function serieTendencia(medio) {
+  if (medio === 'programatica' || medio === 'dooh') return ALCANCE_SEMANAL.map(f => ({semana:f.semana,...f[medio]}));
+  return RESULTADOS_SEMANALES.map(f => {
+    if (medio === 'meta' || medio === 'tiktok') return {semana:f.semana,...f[medio]};
+    if (medio === 'todos') return {semana:f.semana,gasto:f.meta.gasto+f.tiktok.gasto,registros:f.meta.registros+f.tiktok.registros};
+    return {semana:f.semana,gasto:0,registros:0};
+  });
+}
+
+function svgLinea(el, filas, campo, medio) {
+  const valores = filas.map(f => campo === 'registros' ? f.registros
+    : campo === 'impresiones' ? f.impresiones
+    : campo === 'cpm' ? (f.impresiones && f.gasto ? f.gasto / f.impresiones * 1000 : null)
+    : (f.registros && f.gasto ? f.gasto / f.registros : null));
+  const validos = valores.filter(v => v !== null && v > 0);
+  if (!validos.length) {
+    el.innerHTML = '<div class="chart-empty">Este medio no reporta registros; no es posible calcular la tendencia ni el CPA.</div>';
+    return;
+  }
+  const W = 700, H = 250, L = 56, R = 14, T = 28, B = 34, max = Math.max(...validos) * 1.12;
+  const x = i => L + i * (W - L - R) / (filas.length - 1), y = v => H - B - (v / max) * (H - T - B);
+  const esMoneda = campo === 'cpa' || campo === 'cpm';
+
+  let grid = '';
+  [0, .25, .5, .75, 1].forEach(p => {
+    const yy = y(max * p);
+    grid += '<line class="chart-grid" x1="' + L + '" y1="' + yy + '" x2="' + (W - R) + '" y2="' + yy + '"/>' +
+      '<text class="chart-axis" x="' + (L - 7) + '" y="' + (yy + 3) + '" text-anchor="end">' + labelCorto(max * p, esMoneda) + '</text>';
+  });
+
+  let path = '', points = '', started = false;
+  valores.forEach((v, i) => {
+    if (v === null || v <= 0) { started = false; return; }
+    path += (started ? ' L ' : ' M ') + x(i) + ' ' + y(v);
+    started = true;
+    const label = labelCorto(v, esMoneda);
+    points += '<circle class="chart-point ' + medio + '" cx="' + x(i) + '" cy="' + y(v) + '" r="5"><title>' + filas[i].semana + ': ' + label + '</title></circle>' +
+      '<text class="chart-value" x="' + x(i) + '" y="' + Math.max(12, y(v) - 9) + '">' + label + '</text>';
+  });
+
+  const labels = filas.map((f, i) => '<text class="chart-axis" x="' + x(i) + '" y="' + (H - 9) + '" text-anchor="middle">' + f.semana + '</text>').join('');
+  el.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Tendencia semanal de ' + campo + ' · ' + medio + '">' +
+    grid + '<path class="chart-line ' + medio + '" d="' + path + '"/>' + points + labels + '</svg>';
+}
+
+const NOTAS_TENDENCIA = {
+  todos:'El total combina Meta y TikTok, los medios que reportan registros. La inversión viene del flow; los registros, de las APIs.',
+  meta:'La inversión viene del flow y los registros de la API de Meta.',
+  tiktok:'La inversión viene del flow y los registros de la API de TikTok.',
+  programatica:'Programática se valida con impresiones y CPM; la inversión viene del flow y los resultados, de la fuente de entrega.',
+  dooh:'DOOH se valida con impresiones y CPM; la inversión viene del flow y los resultados, de la fuente de entrega.'
+};
+
+function pintarTendencias() {
+  const cont = document.getElementById('trend-blocks');
+  if (!cont) return;
+
+  MEDIOS.forEach(m => {
+    const filas = serieTendencia(m.id);
+    const awareness = m.id === 'programatica' || m.id === 'dooh';
+    const gasto = filas.reduce((a, f) => a + (f.gasto || 0), 0);
+    const regs = filas.reduce((a, f) => a + (f.registros || 0), 0);
+    const imps = filas.reduce((a, f) => a + (f.impresiones || 0), 0);
+
+    const bloque = document.createElement('article');
+    bloque.className = 'medio-block';
+    bloque.innerHTML =
+      '<div class="medio-head">' +
+        '<span class="medio-pill ' + m.id + '">' + m.nombre + '</span>' +
+        '<h3>' + m.etiqueta + (m.id === 'todos' ? ' (Meta + TikTok)' : '') + '</h3>' +
+        '<span class="medio-resumen">' + cop(Math.round(gasto)) + ' invertidos</span>' +
+      '</div>' +
+      '<div class="analysis-grid">' +
+        '<div class="analysis-card">' +
+          '<div class="analysis-title"><h4>' + (awareness ? 'Impresiones' : 'Registros') + '</h4>' +
+          '<span>' + (awareness ? entero(imps) + ' impresiones' : entero(regs) + ' registros') + '</span></div>' +
+          '<div class="line-chart" data-chart="primario"></div>' +
+        '</div>' +
+        '<div class="analysis-card">' +
+          '<div class="analysis-title"><h4>' + (awareness ? 'CPM' : 'CPA') + '</h4>' +
+          '<span>' + (awareness
+              ? (imps ? cop(Math.round(gasto / imps * 1000)) + ' CPM promedio' : 'Sin entrega')
+              : (regs ? cop(Math.round(gasto / regs)) + ' CPA promedio' : 'Sin registros')) + '</span></div>' +
+          '<div class="line-chart" data-chart="secundario"></div>' +
+        '</div>' +
+      '</div>' +
+      '<p class="data-note">' + NOTAS_TENDENCIA[m.id] + '</p>';
+
+    cont.appendChild(bloque);
+    svgLinea(bloque.querySelector('[data-chart="primario"]'), filas, awareness ? 'impresiones' : 'registros', m.id);
+    svgLinea(bloque.querySelector('[data-chart="secundario"]'), filas, awareness ? 'cpm' : 'cpa', m.id);
+  });
+}
+
+/* ── Funnel mensual ────────────────────────────────────── */
+function datoMes(medio, mes) {
+  if (medio !== 'todos') return FUNNEL_MENSUAL[medio][mes] || null;
+  const salida = {impresiones:0,alcance:0,clics:0,registros:0};
+  const disponibles = {impresiones:false,alcance:false,clics:false,registros:false};
+  ['meta','tiktok','programatica','dooh'].forEach(c => {
+    const d = FUNNEL_MENSUAL[c][mes];
+    if (!d) return;
+    Object.keys(salida).forEach(k => { if (d[k] !== null) { salida[k] += d[k]; disponibles[k] = true; } });
+  });
+  Object.keys(salida).forEach(k => { if (!disponibles[k]) salida[k] = null; });
+  return salida;
+}
+
+const NOTAS_FUNNEL = {
+  todos:'Todos suma las métricas disponibles de cada medio; no implica atribución cruzada. Las barras usan escala logarítmica para que los clics y registros sean visibles.',
+  meta:'Meta reporta alcance único y complete_registration. El flow registra $279.331 en Jun S3; la API no reporta nueva entrega en ese momento.',
+  tiktok:'TikTok reporta reach y conversion desde Business API.',
+  programatica:'El alcance es la suma del alcance diario reportado; no representa personas únicas del mes. La fuente no contiene registros.',
+  dooh:'DOOH solo contiene impresiones; alcance, clics y registros no están disponibles. La inversión se toma del flow.'
+};
+
+function pintarFunnel() {
+  const cont = document.getElementById('funnel-blocks');
+  if (!cont) return;
+
+  MEDIOS.forEach(m => {
+    const bloque = document.createElement('article');
+    bloque.className = 'medio-block';
+    let html =
+      '<div class="medio-head">' +
+        '<span class="medio-pill ' + m.id + '">' + m.nombre + '</span>' +
+        '<h3>' + m.etiqueta + '</h3>' +
+      '</div><div class="funnel-months">';
+
+    MESES_ORDEN.forEach(mes => {
+      const d = datoMes(m.id, mes);
+      html += '<div class="funnel-card"><h4>' + mes + '</h4>';
+      if (!d) { html += '<div class="chart-empty">Sin entrega</div></div>'; return; }
+      const disponibles = ['impresiones','alcance','clics','registros'].filter(k => d[k] !== null && d[k] > 0);
+      const logs = disponibles.map(k => Math.log10(d[k] + 1));
+      const max = Math.max(...logs, 1);
+      ['impresiones','alcance','clics','registros'].forEach(k => {
+        const v = d[k], w = v === null ? 0 : (Math.log10(v + 1) / max * 100);
+        html += '<div class="funnel-step"><div class="funnel-label"><span>' + k + '</span>' +
+          '<strong class="' + (v === null ? 'funnel-na' : '') + '">' + (v === null ? 'No disponible' : entero(v)) + '</strong></div>' +
+          '<div class="funnel-track"><div class="funnel-fill" style="width:' + w + '%"></div></div></div>';
+      });
+      html += '</div>';
+    });
+
+    html += '</div><p class="data-note">' + NOTAS_FUNNEL[m.id] + '</p>';
+    bloque.innerHTML = html;
+    cont.appendChild(bloque);
+  });
+}
+
+/* ── Plan vs. real ─────────────────────────────────────── */
+const PLAN_HEADERS = ['Medio','Abr S4','May S1','May S2','May S3','May S4','May S5','Jun S1','Jun S2','Jun S3','Jun S4','Jul S1','Jul S2','Jul S3','Jul S4','Total','Meta total','Reserva'];
+const PLAN_PRESUPUESTO = [
+  ['DOOH',5183400,1437960,7363200,5720451,4876876,5459710,null,null,null,null,null,null,null,null,30041597,30041597,0],
+  ['Geofence',null,null,null,60136,47528,10387438,415417,null,null,null,null,null,null,null,10910519,10910519,0],
+  ['App',null,6286850,1728004,882085,630267,5010756,null,null,null,null,null,null,null,null,14537962,14537962,0],
+  ['Spotify',2163095,55343,1693046,null,null,null,null,null,null,null,null,null,null,null,3911484,3911484,0],
+  ['Push',null,null,null,1195158,3158726,2170828,3397035,null,null,null,null,null,null,null,9921747,9921747,0],
+  ['Meta',178489,154649,1529746,2458996,2121431,3077033,0,0,279331,0,0,0,0,0,9799675,18538095,8738420],
+  ['Display',null,null,null,null,null,null,null,null,null,null,null,null,null,null,0,0,0],
+  ['TikTok',null,null,286487,617025,2229186,4103204,4680944,4561407,5994093,14804934,7721827,4070444,3790446,2139108,54999105,59538596,4539491],
+  ['UGC',null,null,null,null,null,null,null,null,1600000,null,null,null,null,null,1600000,1600000,0],
+  ['Llamadas IA',null,null,null,null,null,null,null,null,2000000,null,null,null,null,null,2000000,2000000,0],
+  ['Total',7524984,7934802,12600483,10933851,13064014,30208969,8493396,4561407,9873424,14804934,7721827,4070444,3790446,2139108,137722089,151000000,13277911]
+];
+const PLAN_LEADS = [
+  ['DOOH',null,null,null,null,null,null,null,null,null,null,null,null,null,null,0],
+  ['Geofence',null,null,null,null,null,58,null,null,null,null,null,null,null,null,58],
+  ['App',null,null,null,null,4,7,null,null,null,null,null,null,null,null,11],
+  ['Spotify',null,null,1,null,null,null,null,null,null,null,null,null,null,null,1],
+  ['Push',null,null,null,null,35,37,null,null,null,null,null,null,null,null,72],
+  ['Meta',162,164,758,1066,820,1089,0,0,79.808857,0,0,0,0,0,3976.808857],
+  ['TikTok',null,null,null,162,1229,1012,1170.236,1140.35175,1498.52325,3701.2335,1930.45675,1762.030475,798.610091,654,14404.441815],
+  ['Total',0,164,759,1228,2088,2203,1170.236,1140.35175,1578.332107,3701.2335,1930.45675,1762.030475,798.610091,654,18523.250673]
+];
+
+/* Bloques de columnas: la tabla original tiene 18 columnas y no cabe
+   en una página; se parte manteniendo el nombre del medio en cada bloque. */
+const BLOQUES_PRESUPUESTO = [
+  {titulo:'Abril y mayo · semanas del flow', cols:[0,1,2,3,4,5,6]},
+  {titulo:'Junio y julio · semanas del flow', cols:[0,7,8,9,10,11,12,13,14]},
+  {titulo:'Totales, meta y reserva', cols:[0,15,16,17]}
+];
+const BLOQUES_LEADS = [
+  {titulo:'Abril y mayo · semanas del flow', cols:[0,1,2,3,4,5,6]},
+  {titulo:'Junio y julio · semanas del flow', cols:[0,7,8,9,10,11,12,13,14]},
+  {titulo:'Total de leads proyectados', cols:[0,15]}
+];
+
+function celdaPlan(v, tipo) {
+  if (v === null || v === undefined || v === '') return '—';
+  if (tipo === 'presupuesto') return cop(Math.round(v));
+  return Number(v).toLocaleString('es-CO', {maximumFractionDigits:1});
+}
+
+function tablaPlanBloque(rows, cols, tipo) {
+  return '<table><thead><tr>' + cols.map(c => '<th>' + PLAN_HEADERS[c] + '</th>').join('') + '</tr></thead><tbody>' +
+    rows.map(r => '<tr>' + cols.map(c => '<td>' + (c === 0 ? r[0] : celdaPlan(r[c], tipo)) + '</td>').join('') + '</tr>').join('') +
+    '</tbody></table>';
+}
+
+function pintarPlan() {
+  const dest = [
+    {el:document.getElementById('plan-presupuesto'), rows:PLAN_PRESUPUESTO, bloques:BLOQUES_PRESUPUESTO, tipo:'presupuesto'},
+    {el:document.getElementById('plan-leads'),       rows:PLAN_LEADS,       bloques:BLOQUES_LEADS,       tipo:'leads'}
+  ];
+  dest.forEach(d => {
+    if (!d.el) return;
+    d.el.innerHTML = d.bloques.map(b =>
+      '<p class="tabla-titulo">' + b.titulo + '</p>' +
+      '<div class="table-wrap">' + tablaPlanBloque(d.rows, b.cols, d.tipo) + '</div>'
+    ).join('');
+  });
+}
+
+const COMPARA_MEDIOS = [
+  {medio:'DOOH',plan:30041597,real:30041597,indicador:'Impresiones',leadsPlan:250000,leadsReal:260913},
+  {medio:'App Targeting',plan:14537962,real:14537962,indicador:'Impresiones',leadsPlan:1750000,leadsReal:1913652},
+  {medio:'Push',plan:9921747,real:9921747,indicador:'Impresiones',leadsPlan:20000000,leadsReal:21347532},
+  {medio:'Spotify',plan:3911484,real:3911484,indicador:'Impresiones',leadsPlan:100000,leadsReal:80787},
+  {medio:'Geofence',plan:10910519,real:10910519,indicador:'Impresiones',leadsPlan:3750000,leadsReal:3563061},
+  {medio:'Meta',plan:18538095,real:9799675,indicador:'Registros',leadsPlan:4138.809,leadsReal:4064},
+  {medio:'TikTok',plan:59538596,real:54999105,indicador:'Registros',leadsPlan:15058.442,leadsReal:11846},
+  {medio:'UGC',plan:1600000,real:1600000,indicador:'Sin resultado independiente',leadsPlan:null,leadsReal:null},
+  {medio:'Llamadas IA',plan:2000000,real:2000000,indicador:'Sin resultado independiente',leadsPlan:null,leadsReal:null},
+  {medio:'Total',plan:151000000,real:137722089,indicador:'Indicadores no sumables',leadsPlan:null,leadsReal:null}
+];
+const COMPARA_MESES = [
+  {medio:'Abril',real:7524984,indicador:'Registros Meta + TikTok',leadsPlan:162,leadsReal:162},
+  {medio:'Mayo',real:74742119,indicador:'Registros Meta + TikTok',leadsPlan:6300,leadsReal:6500},
+  {medio:'Junio',real:37733161,indicador:'Registros Meta + TikTok',leadsPlan:7590.153,leadsReal:4773},
+  {medio:'Julio',real:17721825,indicador:'Registros Meta + TikTok',leadsPlan:5145.097,leadsReal:4475},
+  {medio:'Total invertido',real:137722089,indicador:'Registros Meta + TikTok',leadsPlan:19197.251,leadsReal:15910},
+  {medio:'Reserva sin distribuir',real:13277911,indicador:'—',leadsPlan:null,leadsReal:null},
+  {medio:'Plan total',real:151000000,indicador:'—',leadsPlan:null,leadsReal:null}
+];
+
+function cumplimiento(plan, real) {
+  return plan && real !== null ? ((real / plan) * 100).toLocaleString('es-CO', {maximumFractionDigits:1}) + '%' : 'No validable';
+}
+function tablaComparacion(rows) {
+  const head = ['Medio / mes','Meta total / asignación','Inversión flow','Ejecución','Indicador','Meta de resultados','Resultado','Cumplimiento'];
+  return '<thead><tr>' + head.map(h => '<th>' + h + '</th>').join('') + '</tr></thead><tbody>' +
+    rows.map(r => '<tr><td>' + r.medio + '</td><td>' + celdaPlan(r.plan,'presupuesto') + '</td><td>' + celdaPlan(r.real,'presupuesto') +
+      '</td><td>' + cumplimiento(r.plan,r.real) + '</td><td>' + r.indicador + '</td><td>' + celdaPlan(r.leadsPlan,'leads') +
+      '</td><td>' + celdaPlan(r.leadsReal,'leads') + '</td><td>' + cumplimiento(r.leadsPlan,r.leadsReal) + '</td></tr>').join('') +
+    '</tbody>';
+}
+function tablaMesesFlow(rows) {
+  const head = ['Mes / concepto','Valor en el flow','Participación del plan','Indicador','Meta de resultados','Resultado','Cumplimiento'];
+  return '<thead><tr>' + head.map(h => '<th>' + h + '</th>').join('') + '</tr></thead><tbody>' +
+    rows.map(r => '<tr><td>' + r.medio + '</td><td>' + celdaPlan(r.real,'presupuesto') + '</td><td>' +
+      ((r.real / 151000000) * 100).toLocaleString('es-CO', {maximumFractionDigits:1}) + '%</td><td>' + r.indicador +
+      '</td><td>' + celdaPlan(r.leadsPlan,'leads') + '</td><td>' + celdaPlan(r.leadsReal,'leads') + '</td><td>' +
+      cumplimiento(r.leadsPlan,r.leadsReal) + '</td></tr>').join('') + '</tbody>';
+}
+
+/* ── Arranque ──────────────────────────────────────────── */
+pintarGrafico();
+pintarTabla();
+pintarTendencias();
+pintarFunnel();
+pintarPlan();
+document.getElementById('compare-media-table').innerHTML = tablaComparacion(COMPARA_MEDIOS);
+document.getElementById('compare-month-table').innerHTML = tablaMesesFlow(COMPARA_MESES);
+</script>
+</body>
+</html>

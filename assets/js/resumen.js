@@ -1,15 +1,14 @@
 /* Inversión por mes y canal · Gana Abr–Jul 2026
-   Mismas fuentes que la línea de tiempo detallada. Abril arranca el 20
-   y julio corta el 26, por eso son meses incompletos. */
+   Fuente: V13 Master Flow Placa Millonaria, hoja "151M Full Performance". */
 
 const MESES = [
-  { nombre: 'Abril',  nota: 'desde el 20',  meta: 1510208,  tiktok: 0,        programatica: 2163095,  dooh: 5183400  },
-  { nombre: 'Mayo',   nota: 'mes completo', meta: 9341855,  tiktok: 7235902,  programatica: 33306165, dooh: 24858197 },
-  { nombre: 'Junio',  nota: 'mes completo', meta: 0,        tiktok: 30042270, programatica: 3812452,  dooh: 0        },
-  { nombre: 'Julio',  nota: 'hasta el 26',  meta: 0,        tiktok: 17721828, programatica: 0,        dooh: 0        }
+  { nombre: 'Abril',  nota: 'Abr S4',        meta: 178489,  tiktok: 0,        programatica: 2163095,  dooh: 5183400,  otros: 0       },
+  { nombre: 'Mayo',   nota: 'May S1–S5',     meta: 9341855, tiktok: 7235902,  programatica: 33306165, dooh: 24858197, otros: 0       },
+  { nombre: 'Junio',  nota: 'Jun S1–S4',     meta: 279331,  tiktok: 30041378, programatica: 3812452,  dooh: 0,        otros: 3600000 },
+  { nombre: 'Julio',  nota: 'Jul S1–S4',     meta: 0,       tiktok: 17721825, programatica: 0,        dooh: 0,        otros: 0       }
 ];
 
-const SERIES = ['meta', 'tiktok', 'programatica', 'dooh'];
+const SERIES = ['meta', 'tiktok', 'programatica', 'dooh', 'otros'];
 const ALTO = 180; // px, igual que .stack en resumen.css
 
 const compacto = n => '$' + (n / 1e6).toFixed(1).replace('.', ',') + ' M';

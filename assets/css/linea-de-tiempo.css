@@ -11,6 +11,7 @@
   --serie-tiktok:#111;
   --serie-programatica:#777;
   --serie-dooh:#cfcfcf;
+  --serie-otros:#8b6b1f;
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -49,11 +50,15 @@ a { color:inherit; }
 .body-text { font-weight:300; font-style:italic; font-size:1.05rem; color:var(--gris-oscuro); margin-bottom:0; }
 
 /* ── Tarjetas de cifra ────────────────────────────────── */
-.stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-top:20px; }
+.stats-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:20px; }
 .stat-card { background:var(--gris-claro); padding:26px 24px; border-radius:var(--radius); border-left:4px solid var(--amarillo); }
 .stat-card.tiktok { border-left-color:var(--negro); }
 .stat-card.programatica { border-left-color:var(--serie-programatica); }
 .stat-card.dooh { border-left-color:var(--serie-dooh); }
+.stat-card.otros { border-left-color:var(--serie-otros); }
+.stat-card.total { background:var(--negro); border-left-color:var(--amarillo); }
+.stat-card.total .stat-val { color:var(--amarillo); }
+.stat-card.total .stat-label { color:var(--blanco); }
 .stat-val { font-weight:700; font-size:2.4rem; color:var(--negro); line-height:1; display:block; margin-bottom:8px; }
 .stat-label { display:block; font-weight:600; color:var(--negro); }
 .stat-note { display:block; margin-top:8px; color:var(--gris-medio); font-size:.82rem; line-height:1.45; }
@@ -66,6 +71,7 @@ a { color:inherit; }
 .dot.tiktok { background:var(--serie-tiktok); }
 .dot.programatica { background:var(--serie-programatica); }
 .dot.dooh { background:var(--serie-dooh); }
+.dot.otros { background:var(--serie-otros); }
 
 .bar-list { display:grid; gap:9px; }
 .bar-row { display:grid; grid-template-columns:144px 1fr 96px; gap:14px; align-items:center; font-size:.85rem; }
@@ -75,6 +81,7 @@ a { color:inherit; }
 .bar-seg.tiktok { background:var(--serie-tiktok); }
 .bar-seg.programatica { background:var(--serie-programatica); }
 .bar-seg.dooh { background:var(--serie-dooh); }
+.bar-seg.otros { background:var(--serie-otros); }
 .bar-row .bar-total { font-weight:700; color:var(--negro); font-variant-numeric:tabular-nums; }
 .bar-row.vacia .bar-total { color:var(--gris-medio); font-weight:600; }
 

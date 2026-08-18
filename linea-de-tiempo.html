@@ -18,7 +18,7 @@
     <p class="body-text">
       Reconstrucción semana a semana de lo que se ejecutó en los cuatro frentes de medios entre el 20 de abril
       y el 27 de julio de 2026. Cada movimiento de presupuesto, de segmentación y de formato está tomado del
-      registro de actividad y de la entrega diaria de cada plataforma. Las semanas sin registro específico se
+      flow de inversión, del registro de actividad y de la entrega diaria de cada plataforma. Las semanas sin registro específico se
       marcan aparte, con la gestión estándar que corresponde al período.
     </p>
     <div class="cover-badges">
@@ -43,10 +43,15 @@
     <p class="subtext">Pesos colombianos · 20 abr — 27 jul 2026</p>
 
     <div class="stats-grid">
+      <article class="stat-card total">
+        <span class="stat-val">$137,7 M</span>
+        <span class="stat-label">Inversión total del flow</span>
+        <span class="stat-note">Exacto: $137.722.089<br>Reserva del plan: $13.277.911</span>
+      </article>
       <article class="stat-card">
-        <span class="stat-val">$10,9 M</span>
+        <span class="stat-val">$9,8 M</span>
         <span class="stat-label">Meta · CP_GANA</span>
-        <span class="stat-note">20 abr — 29 may<br>4 campañas con «Placa» y entrega</span>
+        <span class="stat-note">Exacto: $9.799.675<br>Meta total: $18.538.095</span>
       </article>
       <article class="stat-card tiktok">
         <span class="stat-val">$55,0 M</span>
@@ -63,6 +68,11 @@
         <span class="stat-label">DOOH Medellín</span>
         <span class="stat-note">28 abr — 31 may · hasta 12 pantallas<br>260.913 impresiones</span>
       </article>
+      <article class="stat-card otros">
+        <span class="stat-val">$3,6 M</span>
+        <span class="stat-label">UGC + Llamadas IA</span>
+        <span class="stat-note">$1.600.000 + $2.000.000<br>Registrados en Jun S3</span>
+      </article>
     </div>
   </section>
 
@@ -77,6 +87,7 @@
         <span class="legend-row"><i class="dot tiktok"></i>TikTok</span>
         <span class="legend-row"><i class="dot programatica"></i>Programática</span>
         <span class="legend-row"><i class="dot dooh"></i>DOOH</span>
+        <span class="legend-row"><i class="dot otros"></i>UGC + Llamadas IA</span>
       </div>
 
       <div class="bar-list" id="bar-list"></div>
@@ -86,7 +97,7 @@
         <div class="table-wrap">
           <table id="tabla-semanal">
             <thead>
-              <tr><th>Semana</th><th>Meta</th><th>TikTok</th><th>Programática</th><th>DOOH</th><th>Total</th></tr>
+              <tr><th>Semana</th><th>Meta</th><th>TikTok</th><th>Programática</th><th>DOOH</th><th>UGC + Llamadas IA</th><th>Total</th></tr>
             </thead>
             <tbody></tbody>
             <tfoot></tfoot>
@@ -134,16 +145,16 @@
 
     <h3 class="compare-heading">Cumplimiento por medio</h3>
     <div class="table-wrap"><table id="compare-media-table"></table></div>
-    <h3 class="compare-heading">Cumplimiento por mes</h3>
+    <h3 class="compare-heading">Distribución mensual del flow</h3>
     <div class="table-wrap"><table id="compare-month-table"></table></div>
-    <p class="data-note">La inversión real proviene de las APIs de Meta y TikTok y del archivo de entrega de Programática/DOOH. UGC y Llamadas IA no tienen una fuente independiente de ejecución; se muestran como no validables. En registros reales solo se suman Meta y TikTok.</p>
+    <p class="data-note">Todas las cifras de inversión provienen del flow. Los resultados provienen de las APIs de Meta y TikTok y de los archivos de entrega; UGC y Llamadas IA están incluidos en la inversión, pero no tienen un resultado independiente validable.</p>
   </section>
 
   <section class="section" id="aprendizajes">
     <div class="section-header"><h2>Aprendizajes por medio</h2></div>
     <p class="subtext">Lecturas derivadas de las tendencias y del funnel</p>
     <div class="learning-grid">
-      <article class="learning-card meta"><span class="chip meta">Meta</span><h3>Casi cumplió la meta de registros con 59% del presupuesto</h3><p>Las campañas de Placa atribuyeron 4.064 registros frente a 4.139 proyectados: 98% de cumplimiento. La inversión real fue $10,9 M frente a $18,5 M planeados y el CPA consolidado quedó en $2.670.</p><p><strong>Lectura:</strong> el canal fue eficiente y su caída no respondió al desempeño. Recuperarlo permitiría reactivar alcance y remarketing sin partir de cero.</p></article>
+      <article class="learning-card meta"><span class="chip meta">Meta</span><h3>Casi cumplió la meta de registros con 53% del presupuesto</h3><p>Las campañas de Placa atribuyeron 4.064 registros frente a 4.139 proyectados: 98% de cumplimiento. El flow registra $9,8 M frente a $18,5 M planeados y el CPA consolidado sobre esa inversión queda en $2.411.</p><p><strong>Lectura:</strong> el canal fue eficiente y su caída no respondió al desempeño. Recuperarlo permitiría reactivar alcance y remarketing sin partir de cero.</p></article>
       <article class="learning-card tiktok"><span class="chip tiktok">TikTok</span><h3>La inversión llegó a 92%, pero los resultados a 79%</h3><p>Generó 11.846 conversiones frente a 15.058 proyectadas. Junio concentró el mayor gasto y llevó el CPA a $6.301; julio bajó a $3.960 tras apagar las audiencias tibias costosas.</p><p><strong>Lectura:</strong> el mejor equilibrio apareció con tres conjuntos fríos y videos que explicaban el producto. Conviene escalar por incrementos y con umbrales de CPA.</p></article>
       <article class="learning-card programatica"><span class="chip programatica">Programática</span><h3>App y Push superaron la meta de impresiones</h3><p>App entregó 1,91 M frente a 1,75 M y Push, 21,35 M frente a 20 M. Geofence alcanzó 3,56 M de 3,75 M; Spotify, 80.787 de 100.000 impresiones.</p><p><strong>Lectura:</strong> App y Push superaron sus metas; Geofence quedó cerca y Spotify presentó la mayor brecha relativa. Para conectar esa cobertura con negocio siguen siendo necesarias UTMs y conversiones por formato.</p></article>
       <article class="learning-card dooh"><span class="chip dooh">DOOH</span><h3>Superó la meta de 250.000 impresiones</h3><p>Ejecutó los $30,0 M planeados y entregó 260.913 impresiones: 104% de cumplimiento. El circuito pasó de 4 a 12 pantallas y cerró con 8 durante cinco semanas.</p><p><strong>Lectura:</strong> DOOH cumplió cobertura, pero no tiene alcance único, clics ni registros. La próxima medición debería sumar QR/URL diferenciada o estudio de incrementalidad.</p></article>
@@ -161,20 +172,20 @@
       <article class="timeline-item">
         <div class="timeline-header">
           <h3 class="semana">S17 <em>20 — 26 abr</em></h3>
-          <div class="timeline-tags"><span class="tag light">$0,9 M</span><span class="tag gray">Solo Meta</span></div>
+          <div class="timeline-tags"><span class="tag light">$0 en flow</span><span class="tag gray">Actividad previa</span></div>
         </div>
         <p class="titular">Semana previa al lanzamiento: la campaña CayoPlacaMoto mantiene la presencia de Placa en Meta.</p>
         <p class="reason">Sostener recordación antes de que entrara la campaña principal de Placa Millonaria.</p>
         <ul class="ev-list">
-          <li class="ev"><span><span class="chip meta">Meta</span><em>#Ant 34940 Alcance_CayoPlacaMoto</em> invierte <span class="cifra">$906.638</span> entre el 20 y el 26 de abril.</span></li>
+          <li class="ev"><span><span class="chip meta">Meta</span><em>#Ant 34940 Alcance_CayoPlacaMoto</em> mantiene actividad antes del lanzamiento; el flow no asigna inversión a esta semana.</span></li>
         </ul>
-        <div class="kpi-row"><span>Meta $906.638</span><span>Solo campañas con «Placa»</span><span>Sin TikTok · sin programática · sin DOOH</span></div>
+        <div class="kpi-row"><span>Inversión flow $0</span><span>Actividad operativa previa</span><span>Fuera de la distribución Abr S4 — Jul S4</span></div>
       </article>
 
       <article class="timeline-item destacada">
         <div class="timeline-header">
           <h3 class="semana">S18 <em>27 abr — 3 may</em></h3>
-          <div class="timeline-tags"><span class="tl-tag highlight">Lanzamiento</span><span class="tag light">$15,9 M</span></div>
+          <div class="timeline-tags"><span class="tl-tag highlight">Lanzamiento</span><span class="tag light">$15,5 M</span></div>
         </div>
         <p class="titular">Sale Placa Millonaria: se abren Meta, programática y DOOH en la misma semana.</p>
         <p class="reason">Construir cobertura rápida en el lanzamiento y combinar alcance masivo con captación de registros.</p>
@@ -185,7 +196,7 @@
           <li class="ev"><span><span class="fecha">29 abr</span><span class="chip meta">Meta</span>Se crea <em>#Ant 34910 PlacaMillonaria_Registros_Activación_Advantage</em>, segunda campaña del lanzamiento enfocada en registros.</span></li>
           <li class="ev"><span><span class="fecha">30 abr</span><span class="chip meta">Meta</span>Se apaga <em>Alcance_CayoPlacaMoto</em>; las nuevas campañas de Placa toman el relevo.</span></li>
         </ul>
-        <div class="kpi-row"><span>Meta $758.219</span><span>Programática $8.505.288</span><span>DOOH $6.621.360</span></div>
+        <div class="kpi-row"><span>Meta $333.138</span><span>Programática $8.505.288</span><span>DOOH $6.621.360</span><span>Total $15.459.786</span></div>
       </article>
 
     </div>
@@ -270,76 +281,77 @@
       <article class="timeline-item apagada">
         <div class="timeline-header">
           <h3 class="semana">S23 <em>1 — 7 jun</em></h3>
-          <div class="timeline-tags"><span class="tag gray">Sin Meta ni DOOH</span><span class="tag light">$7,4 M</span></div>
+          <div class="timeline-tags"><span class="tag gray">Sin Meta ni DOOH</span><span class="tag light">$8,5 M</span></div>
         </div>
         <p class="titular">Primera semana sin Meta ni DOOH: la inversión cae 81% y el CPA de TikTok se deteriora.</p>
         <p class="reason">Mantener continuidad con TikTok y Push mientras se diagnosticaba la pérdida de eficiencia y el bloqueo de Meta.</p>
         <ul class="ev-list">
-          <li class="ev tiktok"><span><span class="chip tiktok">TikTok</span>Sostiene la misma estructura de 2 conjuntos: <span class="cifra">$4.680.945</span> y 777 conversiones. El <strong>CPA sube a $6.024</strong> —la parrilla del 13/05 y 17/05 lleva tres semanas al aire—.</span></li>
-          <li class="ev programatica"><span><span class="chip programatica">Programática</span>Queda solo Push ($2.342.518) con un residual de Geofence ($415.417).</span></li>
+          <li class="ev tiktok"><span><span class="chip tiktok">TikTok</span>Sostiene la misma estructura de 2 conjuntos: <span class="cifra">$4.680.944</span> en el flow y 777 conversiones. El <strong>CPA sube a $6.024</strong> —la parrilla del 13/05 y 17/05 lleva tres semanas al aire—.</span></li>
+          <li class="ev programatica"><span><span class="chip programatica">Programática</span>El flow concentra $3.812.452 en Jun S1: Push ($3.397.035) y Geofence ($415.417).</span></li>
           <li class="ev rutina"><span><span class="chip rutina">Gestión estándar</span>Sin registro de cambios estructurales en la semana. Corresponde acá la operación habitual: lectura de la caída de eficiencia post-corte de Meta, revisión de frecuencia y saturación de las piezas de mayo, y chequeo de que el evento de registro siga llegando bien al píxel de TikTok.</span></li>
         </ul>
-        <div class="kpi-row"><span>TikTok $4.680.945 · 777 conv · CPA $6.024</span><span>Programática $2.757.935</span></div>
+        <div class="kpi-row"><span>TikTok $4.680.944 · 777 conv · CPA $6.024</span><span>Programática $3.812.452</span><span>Total $8.493.396</span></div>
       </article>
 
       <article class="timeline-item">
         <div class="timeline-header">
           <h3 class="semana">S24 <em>8 — 14 jun</em></h3>
-          <div class="timeline-tags"><span class="tag">Relevo creativo</span><span class="tag light">$5,6 M</span></div>
+          <div class="timeline-tags"><span class="tag">Relevo creativo</span><span class="tag light">$4,6 M</span></div>
         </div>
         <p class="titular">Renovación de parrilla en TikTok y cierre de la programática.</p>
         <p class="reason">Combatir fatiga creativa y concentrar la entrega en las piezas nuevas con mejor respuesta inicial.</p>
         <ul class="ev-list">
-          <li class="ev tiktok"><span><span class="fecha">10 jun</span><span class="chip tiktok">TikTok</span><strong>Tres videos nuevos</strong> —Domiciliario, Taxista y Promo— que se llevan <span class="cifra">$2.539.576</span> de los $4.561.477 de la semana. El CPA mejora a $4.873.</span></li>
-          <li class="ev programatica"><span><span class="fecha">10 jun</span><span class="chip programatica">Programática</span><strong>Última fecha con datos:</strong> solo Push, <span class="cifra">$1.054.517</span>. Total programática del período: $39.281.712.</span></li>
+          <li class="ev tiktok"><span><span class="fecha">10 jun</span><span class="chip tiktok">TikTok</span><strong>Tres videos nuevos</strong> —Domiciliario, Taxista y Promo—. El flow registra $4.561.407 en la semana y el CPA queda en $4.873.</span></li>
+          <li class="ev programatica"><span><span class="fecha">10 jun</span><span class="chip programatica">Programática</span><strong>Última fecha con datos de entrega.</strong> En el flow, la inversión de Programática ya quedó concentrada en Jun S1 y totaliza $39.281.712 en el período.</span></li>
           <li class="ev rutina"><span><span class="chip rutina">Gestión estándar</span>Semana típica de relevo creativo: poda de las piezas de mayo con peor costo por conversión y revisión de la nomenclatura de la nueva tanda.</span></li>
         </ul>
-        <div class="kpi-row"><span>TikTok $4.561.477 · 936 conv · CPA $4.873</span><span>Programática $1.054.517</span></div>
+        <div class="kpi-row"><span>TikTok $4.561.407 · 936 conv · CPA $4.873</span><span>Total flow $4.561.407</span></div>
       </article>
 
       <article class="timeline-item apagada">
         <div class="timeline-header">
           <h3 class="semana">S25 <em>15 — 21 jun</em></h3>
-          <div class="timeline-tags"><span class="tag gray">Sin cambios registrados</span><span class="tag light">$6,0 M</span></div>
+          <div class="timeline-tags"><span class="tag gray">Ajustes del flow</span><span class="tag light">$9,9 M</span></div>
         </div>
-        <p class="titular">Semana de sostenimiento: TikTok es el único canal activo y no hay cambios registrados.</p>
+        <p class="titular">TikTok sostiene la pauta; el flow suma UGC, Llamadas IA y un ajuste de Meta en Jun S3.</p>
         <p class="reason">Acumular suficiente evidencia antes de modificar la estructura; el deterioro del CPA justificó la reestructura posterior.</p>
         <ul class="ev-list">
-          <li class="ev tiktok"><span><span class="chip tiktok">TikTok</span>Sube la inversión a <span class="cifra">$5.994.913</span> sin cambios de estructura, pero el <strong>CPA se degrada a $6.690</strong>, el segundo peor del período. Es la señal que dispara la reestructura de la semana siguiente.</span></li>
+          <li class="ev tiktok"><span><span class="chip tiktok">TikTok</span>Sube la inversión del flow a <span class="cifra">$5.994.093</span> sin cambios de estructura, pero el <strong>CPA se degrada a $6.690</strong>. Es la señal que dispara la reestructura de la semana siguiente.</span></li>
+          <li class="ev programatica"><span><span class="chip programatica">Flow</span>Jun S3 incluye <strong>UGC $1.600.000</strong>, <strong>Llamadas IA $2.000.000</strong> y un ajuste de <strong>Meta $279.331</strong>. Estas líneas completan el total semanal aunque no tengan una entrega independiente validable en las APIs.</span></li>
           <li class="ev rutina"><span><span class="chip rutina">Gestión estándar</span>Sin actividad registrada en el log. Trabajo habitual de la semana: análisis de agotamiento de audiencia por frecuencia, revisión de las hipótesis de segmentación vigentes (intereses vs. hashtag) y armado de la propuesta de estructura full-funnel que se implementa el 22 de junio.</span></li>
         </ul>
-        <div class="kpi-row"><span>TikTok $5.994.913 · 896 conv · CPA $6.690</span><span>Único canal activo</span></div>
+        <div class="kpi-row"><span>TikTok $5.994.093 · 896 conv · CPA $6.690</span><span>Meta $279.331</span><span>UGC + Llamadas IA $3.600.000</span><span>Total $9.873.424</span></div>
       </article>
 
       <article class="timeline-item destacada">
         <div class="timeline-header">
           <h3 class="semana">S26 <em>22 — 28 jun</em></h3>
-          <div class="timeline-tags"><span class="tl-tag highlight">Reestructura</span><span class="tag light">$11,6 M</span></div>
+          <div class="timeline-tags"><span class="tl-tag highlight">Reestructura · peor CPA</span><span class="tag light">$14,8 M</span></div>
         </div>
         <p class="titular">Reestructura completa de TikTok: de 2 a 6 conjuntos y entrada del UGC, que se lleva el liderazgo en una semana.</p>
         <p class="reason">Probar el funnel completo —frío, similares, interacción y bases de datos— y renovar el lenguaje creativo con UGC.</p>
         <ul class="ev-list">
           <li class="ev tiktok"><span><span class="fecha">22 jun</span><span class="chip tiktok">TikTok</span>Se abre <em>Tibio_BD_PYR Gana</em> con <span class="cifra">570.000</span>/día —el presupuesto diario más alto asignado a un conjunto en todo el período—.</span></li>
           <li class="ev tiktok"><span><span class="fecha">24–25 jun</span><span class="chip tiktok">TikTok</span>Se completa el embudo: <em>Tibio_BD_Fieles Gana</em> <span class="cifra">470.000</span>/día, <em>Tibio_Interacción_Rep. video</em> <span class="cifra">270.000</span>/día y <em>Frío_LAL_Fieles Gana</em> <span class="cifra">150.000</span>/día.</span></li>
-          <li class="ev tiktok"><span><span class="fecha">22 y 26 jun</span><span class="chip tiktok">Formatos</span><strong>Entra el UGC.</strong> Las dos piezas <em>22/06_UGC</em> y <em>26/06_UGC</em> capturan <span class="cifra">$4.970.258</span> —el 43% de la semana— y 933 de las 1.782 conversiones.</span></li>
+          <li class="ev tiktok"><span><span class="fecha">22 y 26 jun</span><span class="chip tiktok">Formatos</span><strong>Entra el UGC.</strong> Las dos piezas <em>22/06_UGC</em> y <em>26/06_UGC</em> concentran 933 de las 1.782 conversiones de plataforma.</span></li>
           <li class="ev tiktok"><span><span class="chip tiktok">Lectura</span>Los conjuntos de base de datos rinden mal desde el arranque: <em>Tibio_BD_PYR</em> a <strong>CPA $21.997</strong> y <em>Tibio_BD_Fieles</em> a <strong>$28.600</strong>, contra $5.291 de Frío_Intereses_Placa.</span></li>
         </ul>
-        <div class="kpi-row"><span>TikTok $11.574.329 (×1,93 vs. semana previa)</span><span>1.782 conv · CPA $6.495</span></div>
+        <div class="kpi-row"><span>TikTok $14.804.934 (×2,47 vs. semana previa)</span><span>1.782 conv · CPA $8.308</span></div>
       </article>
 
       <article class="timeline-item">
         <div class="timeline-header">
           <h3 class="semana">S27 <em>29 jun — 5 jul</em></h3>
-          <div class="timeline-tags"><span class="tag gray">Peor CPA</span><span class="tag light">$11,0 M</span></div>
+          <div class="timeline-tags"><span class="tag gray">Recorte</span><span class="tag light">$7,7 M</span></div>
         </div>
-        <p class="titular">El pico de gasto coincide con el peor CPA del período; al cierre de la semana se corta el segmento de base de datos.</p>
+        <p class="titular">El flow recorta la inversión tras el pico de la semana anterior; al cierre se corta el segmento de base de datos.</p>
         <p class="reason">Los conjuntos tibios costaban entre $22.000 y $28.600 por registro; apagarlos evitaba seguir financiando el segmento menos eficiente.</p>
         <ul class="ev-list">
-          <li class="ev tiktok"><span><span class="chip tiktok">TikTok</span><span class="cifra">$10.952.434</span> con solo 1.232 conversiones: <strong>CPA $8.890</strong>, el más alto de todo el flight. La pieza <em>26/06_UGC</em> concentra $3.449.557.</span></li>
+          <li class="ev tiktok"><span><span class="chip tiktok">TikTok</span><span class="cifra">$7.721.827</span> en el flow con 1.232 conversiones: <strong>CPA $6.268</strong>. La brecha frente a la semana anterior respalda el recorte de audiencias costosas.</span></li>
           <li class="ev tiktok"><span><span class="fecha">6 jul</span><span class="chip tiktok">TikTok</span><strong>Corte de los conjuntos tibios:</strong> se apagan <em>Tibio_BD_Fieles Gana</em>, <em>Tibio_BD_PYR Gana</em> y <em>Tibio_Interacción_Rep. video</em>. Se vuelve a un esquema de tres conjuntos fríos.</span></li>
           <li class="ev rutina"><span><span class="chip rutina">Gestión estándar</span>Semana de diagnóstico: comparación de costo por conversión por conjunto, revisión de solapamiento entre los públicos de BD y los similares, y decisión de recortar presupuesto en lugar de seguir escalando.</span></li>
         </ul>
-        <div class="kpi-row"><span>TikTok $10.952.434 · 1.232 conv · CPA $8.890</span></div>
+        <div class="kpi-row"><span>TikTok $7.721.827 · 1.232 conv · CPA $6.268</span></div>
       </article>
 
     </div>
@@ -353,14 +365,14 @@
           <h3 class="semana">S28 <em>6 — 12 jul</em></h3>
           <div class="timeline-tags"><span class="tl-tag highlight">Mejor CPA</span><span class="tag light">$4,1 M</span></div>
         </div>
-        <p class="titular">Se recorta el presupuesto un 63% y se cambia toda la parrilla: el CPA cae a un tercio.</p>
+        <p class="titular">Se recorta el presupuesto un 47% y se cambia toda la parrilla: el CPA cae 58%.</p>
         <p class="reason">Volver a los tres conjuntos fríos eficientes y reemplazar piezas fatigadas por videos centrados en el beneficio del producto.</p>
         <ul class="ev-list">
-          <li class="ev tiktok"><span><span class="chip tiktok">TikTok</span><strong>Recorte de $10,95 M a $4,07 M</strong> (−63%). Quedan activos Frío_Intereses_Placa, Frío_Hashtag_Placa y Frío_LAL_Fieles Gana.</span></li>
+          <li class="ev tiktok"><span><span class="chip tiktok">TikTok</span><strong>Recorte de $7,72 M a $4,07 M</strong> (−47%). Quedan activos Frío_Intereses_Placa, Frío_Hashtag_Placa y Frío_LAL_Fieles Gana.</span></li>
           <li class="ev tiktok"><span><span class="fecha">9 jul</span><span class="chip tiktok">Formatos</span>Tanda nueva de 6 videos más duplicados: Registro placa, Golpe de suerte, Ganadores, Enredado en taxi, Recuerda. <em>9/07_Beneficio del producto_Registro placa</em> y su copia generan <strong>954 de las 1.545 conversiones</strong> de la semana con $1.194.173.</span></li>
-          <li class="ev tiktok"><span><span class="chip tiktok">Resultado</span><strong>CPA $2.634</strong>, el mejor del bimestre y 3,4× más eficiente que la semana anterior. Menos presupuesto, menos conjuntos y creatividad nueva enfocada en el beneficio del producto.</span></li>
+          <li class="ev tiktok"><span><span class="chip tiktok">Resultado</span><strong>CPA $2.635</strong>, el mejor del bimestre y 2,4× más eficiente que la semana anterior. Menos presupuesto, menos conjuntos y creatividad nueva enfocada en el beneficio del producto.</span></li>
         </ul>
-        <div class="kpi-row"><span>TikTok $4.070.445 · 1.545 conv · CPA $2.634</span></div>
+        <div class="kpi-row"><span>TikTok $4.070.444 · 1.545 conv · CPA $2.635</span></div>
       </article>
 
       <article class="timeline-item apagada">
@@ -389,7 +401,7 @@
           <li class="ev tiktok"><span><span class="fecha">21 jul</span><span class="chip tiktok">Formatos</span>Se reactivan <strong>17 anuncios del histórico</strong> (13/05, 17/05, 28/05, 9/06, UGC y la tanda del 9/07) dentro del conjunto nuevo: reciclaje de biblioteca en lugar de producción nueva.</span></li>
           <li class="ev"><span><span class="fecha">24 y 26 jul</span><span class="chip meta">Meta</span>Se crean dos públicos automáticos (<em>asa_auto_custom_audience</em>): la única señal de actividad en CP_GANA desde el 29 de mayo. La cuenta sigue sin inversión.</span></li>
         </ul>
-        <div class="kpi-row"><span>TikTok $2.139.109 · 753 conv · CPA $2.841</span></div>
+        <div class="kpi-row"><span>TikTok $2.139.108 · 753 conv · CPA $2.841</span></div>
       </article>
 
       <article class="timeline-item apagada">
@@ -415,7 +427,7 @@
     <div class="notas">
       <article class="nota">
         <h5>Fuentes</h5>
-        <p>Meta: registro de actividad de la cuenta CP_GANA (2.374 eventos entre el 15 de abril y el 27 de julio) e insights diarios por campaña y anuncio. TikTok: API de Business, cuenta Adcom - Gana, reportes diarios a nivel de conjunto y anuncio. Programática y DOOH: archivo «GANA _ Fuente de Data.xlsx», hojas Entrega y DOOH.</p>
+        <p>Inversión: V13 Master Flow Placa Millonaria, hoja 151M Full Performance. Resultados y actividad: registro de CP_GANA e insights de Meta; API de Business de TikTok; y archivo «GANA _ Fuente de Data.xlsx» para Programática y DOOH.</p>
       </article>
       <article class="nota">
         <h5>Cómo leer las marcas</h5>
@@ -423,11 +435,11 @@
       </article>
       <article class="nota">
         <h5>Alcance de las cifras de Meta</h5>
-        <p>Todos los canales están filtrados exclusivamente por campañas cuyo nombre contiene «Placa». En Meta, $10.852.063 corresponden a 4 campañas con entrega entre el 20 de abril y el 29 de mayo.</p>
+        <p>El flow registra exactamente $9.799.675 para Meta. Los resultados corresponden a las campañas de Placa y se cruzan contra esa inversión; el ajuste de $279.331 de Jun S3 está en el flow aunque la API no reporte nueva entrega.</p>
       </article>
     </div>
 
-    <p class="source-note">Datos actualizados el 5 de agosto de 2026. Las cifras de inversión están en pesos colombianos sin IVA, tal como las reporta cada plataforma.</p>
+    <p class="source-note">Inversión en pesos colombianos tomada del flow: $137.722.089 ejecutados de un plan de $151.000.000, con $13.277.911 en reserva. Las plataformas se usan para resultados y actividad operativa.</p>
   </section>
 
 </main>

@@ -37,16 +37,19 @@ La línea de tiempo incluye filtros por medio para validar la tendencia semanal 
 
 ## Línea de tiempo de pauta (abr–jul 2026)
 
-Reconstrucción semana a semana (S17 a S31) de las acciones de pauta de Placa Millonaria, filtrada exclusivamente por campañas cuyo nombre contiene «Placa».
+Reconstrucción semana a semana (S17 a S31) de las acciones de pauta de Placa Millonaria. La inversión se toma del flow y los resultados/acciones, de las fuentes de plataforma.
 
 | Canal | Cuenta | Ventana | Inversión |
 |---|---|---|---|
-| Meta | CP_GANA (`act_1078955982538777`) | 20 abr — 29 may | $10.852.063 |
-| TikTok | Adcom - Gana (`7579726724026187783`) | 7 may — 26 jul | $55.000.000 |
+| Meta | CP_GANA (`act_1078955982538777`) | Abr S4 — Jun S3 | $9.799.675 |
+| TikTok | Adcom - Gana (`7579726724026187783`) | May S2 — Jul S4 | $54.999.105 |
 | Programática | — | 29 abr — 10 jun | $39.281.712 |
 | DOOH Medellín | — | 28 abr — 31 may | $30.041.597 |
+| UGC + Llamadas IA | — | Jun S3 | $3.600.000 |
+| **Total invertido** | | | **$137.722.089** |
 
 ### Fuentes
+- **Inversión:** `V13 Master Flow Placa Millonaria`, hoja `151M Full Performance`.
 - **Meta:** registro de actividad de la cuenta (2.374 eventos, 15 abr — 27 jul) e insights diarios a nivel de campaña y anuncio, vía Marketing API.
 - **TikTok:** Business API — campañas, conjuntos, anuncios y reportes diarios.
 - **Programática y DOOH:** `GANA _ Fuente de Data.xlsx`, hojas `Entrega` y `DOOH`.
@@ -55,8 +58,8 @@ Reconstrucción semana a semana (S17 a S31) de las acciones de pauta de Placa Mi
 - **Punto lleno:** acción verificada en el registro de la plataforma, con fecha.
 - **Punto hueco y texto en cursiva gris:** semana sin registro específico de cambios. Se describe la gestión estándar que corresponde al momento del plan, no un hecho documentado.
 
-### Alcance de las cifras de Meta
-Los $10,9 M de Meta corresponden solo a campañas cuyo nombre contiene «Placa». El mismo criterio se aplica a TikTok, Programática y DOOH; se excluyen las demás líneas de la cuenta CP_GANA.
+### Alcance de las cifras de inversión
+La fuente única de inversión es `V13 Master Flow Placa Millonaria`, hoja `151M Full Performance`: $137.722.089 distribuidos y $13.277.911 de reserva sobre el plan de $151.000.000. Las APIs y archivos de entrega se conservan como fuente de resultados y actividad operativa.
 
 ## Cliente
 **Gana** · Grupo Réditos Digital · esteban@adcom.group
