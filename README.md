@@ -1,6 +1,6 @@
 # GANA — Documentos de pauta 2026
 
-Mini-landing con los documentos web de medios pagos de Gana. Alineado con el sistema de diseño de [Cesde](https://github.com/DanielAdcom98/Cesde): Poppins, amarillo `#FFC000` sobre negro `#111`, tarjetas grises con borde de acento y los mismos componentes de timeline y tabla.
+Mini-landing con los documentos web de medios pagos de Gana. Alineado con el sistema de diseño de [Cesde](https://github.com/DanielAdcom98/cesde): Poppins, amarillo `#FFC000` sobre negro `#111`, tarjetas grises con borde de acento y los mismos componentes de timeline y tabla.
 
 ## URLs (GitHub Pages)
 - **Inicio:** `/index.html`
