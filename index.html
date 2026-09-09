@@ -11,12 +11,17 @@
 </head>
 <body>
   <main class="page">
-    <section class="shell">
+    <div class="brand-switch" role="tablist" aria-label="Selector de marca">
+      <button type="button" class="brand-tab is-active" data-brand="gana" role="tab" aria-selected="true">Gana</button>
+      <button type="button" class="brand-tab" data-brand="loti" role="tab" aria-selected="false">Loti Colombia</button>
+    </div>
+
+    <section class="shell" data-brand-panel="gana">
       <div class="hero">
         <div class="eyebrow">GANA · Navegación interna</div>
         <h1>Documentos de pauta</h1>
         <p class="lead">
-          Acceso central al contenido de medios pagos del proyecto. Desde aquí puedes entrar
+          Acceso central al contenido de medios pagos de Gana. Desde aquí puedes entrar
           directamente a los documentos web separados, sin mezclar los reportes con la portada principal del repositorio.
         </p>
 
@@ -80,6 +85,74 @@
         </div>
       </aside>
     </section>
+
+    <section class="shell" data-brand-panel="loti" hidden>
+      <div class="hero">
+        <div class="eyebrow">LOTI COLOMBIA · Navegación interna</div>
+        <h1>Documentos de pauta</h1>
+        <p class="lead">
+          Acceso central al contenido de medios pagos de Loti Colombia. Esta pestaña queda lista para
+          recibir los documentos propios de la marca, separados de los de Gana.
+        </p>
+
+        <div class="actions">
+          <a class="btn btn-secondary" href="https://github.com/DanielAdcom98/gana" target="_blank" rel="noopener noreferrer">Ver repositorio</a>
+        </div>
+
+        <div class="mini-grid">
+          <article class="mini-card">
+            <span>Archivo</span>
+            <strong>Pendiente de carga</strong>
+          </article>
+          <article class="mini-card">
+            <span>Tipo</span>
+            <strong>Documentos web interactivos</strong>
+          </article>
+          <article class="mini-card">
+            <span>Acceso</span>
+            <strong>Desde este índice interno</strong>
+          </article>
+        </div>
+      </div>
+
+      <aside class="panel">
+        <div class="panel-top">
+          <div class="panel-label">Contenido destacado</div>
+          <h2>Entrada rápida al documento</h2>
+          <p>
+            Cada documento de Loti Colombia vivirá en su propio archivo, igual que los de Gana, para que
+            el índice mantenga las dos marcas separadas dentro del mismo repositorio.
+          </p>
+        </div>
+
+        <div class="route-card pending">
+          <span class="pending-tag">Pendiente</span>
+          <small>Empieza por aquí</small>
+          <strong>Resumen de la pauta</strong>
+          <p>Se enlazará a <code>loti-resumen.html</code> en cuanto se suba el archivo.</p>
+        </div>
+        <div class="route-card pending">
+          <span class="pending-tag">Pendiente</span>
+          <small>Meta Ads · Loti Colombia</small>
+          <strong>Avance de pauta</strong>
+          <p>Se enlazará a <code>loti-avance-pauta.html</code> en cuanto se suba el archivo.</p>
+        </div>
+        <div class="route-card pending">
+          <span class="pending-tag">Pendiente</span>
+          <small>Versión detallada</small>
+          <strong>Línea de tiempo de pauta</strong>
+          <p>Se enlazará a <code>loti-linea-de-tiempo.html</code> en cuanto se suba el archivo.</p>
+        </div>
+        <div class="route-card pending">
+          <span class="pending-tag">Pendiente</span>
+          <small>Capítulo separado</small>
+          <strong>Gestión ATL</strong>
+          <p>Se enlazará a <code>loti-atl.html</code> en cuanto se suba el archivo.</p>
+        </div>
+      </aside>
+    </section>
   </main>
+
+  <script src="assets/js/index.js"></script>
 </body>
 </html>
