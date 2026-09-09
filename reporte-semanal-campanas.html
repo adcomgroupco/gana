@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reporte semanal por campañas</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    color-scheme: light;
+    --bg:        #F7F7F8;
+    --surface:   #FFFFFF;
+    --surface-2: #F0F0EF;
+    --ink:       #111111;
+    --ink-2:     #47484A;
+    --muted:     #7A7B7D;
+    --line:      #E7E7E7;
+    --line-2:    #ECECEE;
+    --accent:    #FFC000;
+    --good:      #1E7A34;  --good-tint: #E3F3E6;
+    --warn:      #A15400;  --warn-tint: #FBEBD6;
+    --bad:       #B42318;  --bad-tint:  #FBE4E1;
+    --info:      #1849A9;  --info-tint: #E3EBFB;
+    --shadow: 0 1px 2px rgba(17,17,17,0.05), 0 6px 18px -10px rgba(17,17,17,0.14);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg:        #131313;
+      --surface:   #1C1C1C;
+      --surface-2: #242424;
+      --ink:       #F7F7F8;
+      --ink-2:     #C9C9CB;
+      --muted:     #98999B;
+      --line:      #2E2E2E;
+      --line-2:    #383838;
+      --accent:    #FFC000;
+      --good:      #4ADE80;  --good-tint: #123420;
+      --warn:      #F5A623;  --warn-tint: #3A2A10;
+      --bad:       #FF6B6B;  --bad-tint:  #3A1A1A;
+      --info:      #6FA8FF;  --info-tint: #16233D;
+      --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 10px 24px -12px rgba(0,0,0,0.55);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg:        #131313;
+    --surface:   #1C1C1C;
+    --surface-2: #242424;
+    --ink:       #F7F7F8;
+    --ink-2:     #C9C9CB;
+    --muted:     #98999B;
+    --line:      #2E2E2E;
+    --line-2:    #383838;
+    --accent:    #FFC000;
+    --good:      #4ADE80;  --good-tint: #123420;
+    --warn:      #F5A623;  --warn-tint: #3A2A10;
+    --bad:       #FF6B6B;  --bad-tint:  #3A1A1A;
+    --info:      #6FA8FF;  --info-tint: #16233D;
+    --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 10px 24px -12px rgba(0,0,0,0.55);
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Poppins", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 40px 24px 100px; }
+  h1, h2, h3 { margin: 0; text-wrap: balance; }
+  .mono { font-variant-numeric: tabular-nums; }
+  a { color: inherit; }
+
+  .cover { padding: 36px 0 32px; border-bottom: 1px solid var(--line); margin-bottom: 40px; display: flex; flex-direction: column; gap: 16px; }
+  .cover-brand { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); }
+  .cover-brand .sq { width: 16px; height: 16px; background: var(--accent); border-radius: 4px; }
+  .cover h1 { font-size: clamp(28px, 4.2vw, 44px); font-weight: 800; letter-spacing: -0.01em; }
+  .cover-sub { font-size: 15px; color: var(--ink-2); max-width: 68ch; line-height: 1.55; }
+  .cover-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; font-size: 13px; color: var(--ink-2); }
+  .cover-meta strong { color: var(--ink); font-weight: 600; }
+
+  .section { margin-bottom: 48px; }
+  .section-head { max-width: 74ch; margin-bottom: 20px; }
+  .section-head h2 { font-size: clamp(19px, 2.2vw, 24px); font-weight: 700; letter-spacing: -0.005em; }
+  .section-head p { font-size: 14px; color: var(--ink-2); line-height: 1.6; margin: 8px 0 0; }
+
+  /* ---- campaign summary cards ---- */
+  .camp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(460px, 1fr)); gap: 20px; }
+
+  .camp-card {
+    background: var(--surface);
+    border: 1.5px solid var(--fam);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .camp-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+  .camp-name-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .camp-name { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; border-radius: 999px; background: var(--fam); color: #fff; font-size: 14px; font-weight: 700; }
+  .camp-invest { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px; border: 1.5px solid var(--fam); color: var(--fam-ink); font-size: 12px; font-weight: 700; }
+  .camp-invest .lbl { color: var(--muted); font-weight: 600; }
+  .camp-invest .val { font-size: 13px; }
+  .status-pill { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; font-size: 10px; font-weight: 700; letter-spacing: 0.02em; }
+  .status-pill.live { background: var(--good-tint); color: var(--good); }
+  .status-pill.pending { background: var(--warn-tint); color: var(--warn); }
+  .status-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .note-line { font-size: 11px; color: var(--muted); line-height: 1.5; padding: 6px 0 0; }
+
+  .camp-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 16px 20px 4px; }
+  .camp-stat { border: 1.5px solid var(--fam); border-radius: 12px; padding: 10px 12px; display: flex; flex-direction: column; gap: 3px; align-items: center; text-align: center; }
+  .camp-stat .k { font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--fam-ink); }
+  .camp-stat .v { font-size: 16px; font-weight: 800; color: var(--ink); }
+
+  .camp-body { display: grid; grid-template-columns: 1.15fr 1fr 1fr; gap: 16px; padding: 16px 20px 20px; }
+  .camp-tag { display: inline-flex; align-items: center; padding: 3px 12px; border-radius: 999px; background: var(--fam); color: #fff; font-size: 10.5px; font-weight: 700; letter-spacing: 0.02em; margin-bottom: 10px; }
+  .camp-col { display: flex; flex-direction: column; }
+  .camp-strategy p { margin: 0; font-size: 12.5px; line-height: 1.6; color: var(--ink-2); }
+
+  .funnel-row { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; padding: 5px 0; border-bottom: 1px dashed var(--line-2); }
+  .funnel-row:last-child { border-bottom: none; }
+  .funnel-row .fk { font-size: 11px; color: var(--muted); }
+  .funnel-row .fv { font-size: 13px; font-weight: 700; color: var(--ink); }
+
+  .goal-row { display: flex; flex-direction: column; gap: 4px; padding: 6px 0; }
+  .goal-row .gk-row { display: flex; align-items: baseline; justify-content: space-between; }
+  .goal-row .gk { font-size: 11px; color: var(--muted); }
+  .goal-row .gv { font-size: 13px; font-weight: 800; color: var(--fam-ink); }
+  .goal-track { height: 7px; background: var(--surface-2); border-radius: 5px; overflow: hidden; }
+  .goal-fill { height: 100%; border-radius: 5px; background: var(--fam); }
+
+  @media (max-width: 860px) {
+    .camp-grid { grid-template-columns: 1fr; }
+    .camp-body { grid-template-columns: 1fr; }
+    .camp-stats { grid-template-columns: 1fr 1fr 1fr; }
+  }
+  @media (max-width: 480px) {
+    .camp-stats { grid-template-columns: 1fr; }
+  }
+
+  footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="cover">
+    <div class="cover-brand"><span class="sq"></span>ADCOM &middot; Meta Ads</div>
+    <h1>Reporte semanal por campañas &mdash; Gana &amp; Loti Colombia</h1>
+    <p class="cover-sub">Resumen simplificado de desempeño por campaña: inversión planteada en el flow, resultados reales del periodo (alcance, gasto/impresiones y tráfico), el logro alcanzado con la estrategia en Meta Ads, y el avance frente a la meta de KPI definida para cada campaña.</p>
+    <div class="cover-meta">
+      <span><strong>Periodo Loti (datos reales):</strong> 1&ndash;8 de septiembre de 2026</span>
+      <span><strong>Periodo Gana (Placa/Gana APP/Raspa y listo):</strong> Agosto 2026 &middot; pendiente de actualizar</span>
+      <span><strong>Fuente del plan:</strong> Flow de inversión (Google Drive)</span>
+    </div>
+    <p class="note-line" style="font-size:12.5px;">La cuenta publicitaria de Meta <strong>Gana (act_1497284188840551)</strong>, que agrupa las campañas de Placa, Gana APP y Raspa y listo, todavía no tiene habilitado el acceso vía Ads MCP (Meta la está activando de forma gradual) &mdash; esas tres tarjetas siguen mostrando los datos de agosto hasta poder conectar esa cuenta. La cuenta <strong>Loti Colombia (act_480041201276101)</strong> sí está conectada y sus cifras ya son reales del periodo indicado.</p>
+  </header>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Indicadores clave por campaña</h2>
+      <p>Cada tarjeta muestra la inversión aprobada en el flow, los resultados reales alcanzados en el periodo, un resumen del logro obtenido con la estrategia en Meta y el avance frente a la meta de KPI definida.</p>
+    </div>
+
+    <div class="camp-grid">
+
+      <!-- Gana APP -->
+      <article class="camp-card" style="--fam:#1E9B52; --fam-ink:#1E9B52;">
+        <div class="camp-head">
+          <span class="camp-name-row">
+            <span class="camp-name">Gana APP</span>
+            <span class="status-pill pending"><span class="dot"></span>Datos de agosto &middot; pendiente</span>
+          </span>
+          <span class="camp-invest"><span class="lbl">Inversión</span> <span class="val mono">$10.000.000</span></span>
+        </div>
+        <div class="camp-stats">
+          <div class="camp-stat"><span class="k">Alcance</span><span class="v mono">3.750.000</span></div>
+          <div class="camp-stat"><span class="k">Gasto</span><span class="v mono">$2.016.328</span></div>
+          <div class="camp-stat"><span class="k">Tráfico</span><span class="v mono">42.187</span></div>
+        </div>
+        <div class="camp-body">
+          <div class="camp-col camp-strategy">
+            <span class="camp-tag">Estrategia</span>
+            <p>Logramos fortalecer el reconocimiento de marca y generar tráfico de alta intención, aprovechando las bases de datos para impactar usuarios con mayor intención.</p>
+          </div>
+          <div class="camp-col">
+            <span class="camp-tag">Funnel | Registros</span>
+            <div class="funnel-row"><span class="fk">Alcance</span><span class="fv mono">1.083.454</span></div>
+            <div class="funnel-row"><span class="fk">Impresiones</span><span class="fv mono">1.485.031</span></div>
+            <div class="funnel-row"><span class="fk">Tráfico</span><span class="fv mono">12.026</span></div>
+          </div>
+          <div class="camp-col">
+            <span class="camp-tag">Objetivo</span>
+            <div class="goal-row">
+              <div class="gk-row"><span class="gk">Tráfico</span><span class="gv">28%</span></div>
+              <div class="goal-track"><div class="goal-fill" style="width:28%"></div></div>
+            </div>
+            <div class="goal-row">
+              <div class="gk-row"><span class="gk">Alcance</span><span class="gv">29%</span></div>
+              <div class="goal-track"><div class="goal-fill" style="width:29%"></div></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Loti -->
+      <article class="camp-card" style="--fam:#7C5CD6; --fam-ink:#7C5CD6;">
+        <div class="camp-head">
+          <span class="camp-name-row">
+            <span class="camp-name">Loti</span>
+            <span class="status-pill live"><span class="dot"></span>Datos reales &middot; 1&ndash;8 sept 2026</span>
+          </span>
+          <span class="camp-invest"><span class="lbl">Inversión</span> <span class="val mono">$10.000.000</span></span>
+        </div>
+        <div class="camp-stats">
+          <div class="camp-stat"><span class="k">Alcance meta</span><span class="v mono">1.000.000</span></div>
+          <div class="camp-stat"><span class="k">Gasto real</span><span class="v mono">$1.764.968</span></div>
+          <div class="camp-stat"><span class="k">Clics reales</span><span class="v mono">13.838</span></div>
+        </div>
+        <div class="camp-body">
+          <div class="camp-col camp-strategy">
+            <span class="camp-tag">Estrategia</span>
+            <p>Del 1 al 8 de septiembre sostuvimos la interacción con la audiencia (Instagram + Facebook) y generamos tráfico calificado hacia sitio web y landing con las campañas de Sitio Web y Micro segmentación, mientras Alcance_Recordación_Advantage amplió cobertura a bajo costo.</p>
+          </div>
+          <div class="camp-col">
+            <span class="camp-tag">Funnel | Registros</span>
+            <div class="funnel-row"><span class="fk">Alcance</span><span class="fv mono">367.488</span></div>
+            <div class="funnel-row"><span class="fk">Impresiones</span><span class="fv mono">579.169</span></div>
+            <div class="funnel-row"><span class="fk">Vistas de landing</span><span class="fv mono">5.523</span></div>
+          </div>
+          <div class="camp-col">
+            <span class="camp-tag">Objetivo</span>
+            <div class="goal-row">
+              <div class="gk-row"><span class="gk">Alcance</span><span class="gv">36,7%</span></div>
+              <div class="goal-track"><div class="goal-fill" style="width:36.7%"></div></div>
+            </div>
+            <p class="note-line">Tráfico: 5.523 vistas de landing reales &mdash; meta pendiente de confirmar para calcular el % de avance.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Placa Millonaria -->
+      <article class="camp-card" style="--fam:#D89B2E; --fam-ink:#B57A18;">
+        <div class="camp-head">
+          <span class="camp-name-row">
+            <span class="camp-name">Placa Millonaria</span>
+            <span class="status-pill pending"><span class="dot"></span>Datos de agosto &middot; pendiente</span>
+          </span>
+          <span class="camp-invest"><span class="lbl">Inversión</span> <span class="val mono">$21.000.000</span></span>
+        </div>
+        <div class="camp-stats">
+          <div class="camp-stat"><span class="k">Alcance</span><span class="v mono">7.875.000</span></div>
+          <div class="camp-stat"><span class="k">Gasto</span><span class="v mono">$10.926.953</span></div>
+          <div class="camp-stat"><span class="k">Tráfico</span><span class="v mono">30.150</span></div>
+        </div>
+        <div class="camp-body">
+          <div class="camp-col camp-strategy">
+            <span class="camp-tag">Estrategia</span>
+            <p>Buscamos ampliar el alcance y reconocimiento de la marca, llevando posteriormente a los usuarios interesados hacia registros y conversiones en Gana app.</p>
+          </div>
+          <div class="camp-col">
+            <span class="camp-tag">Funnel | Registros</span>
+            <div class="funnel-row"><span class="fk">Alcance</span><span class="fv mono">1.062.440</span></div>
+            <div class="funnel-row"><span class="fk">Impresiones</span><span class="fv mono">4.192.138</span></div>
+            <div class="funnel-row"><span class="fk">Tráfico</span><span class="fv mono">14.937</span></div>
+          </div>
+          <div class="camp-col">
+            <span class="camp-tag">Objetivo</span>
+            <div class="goal-row">
+              <div class="gk-row"><span class="gk">Alcance</span><span class="gv">20%</span></div>
+              <div class="goal-track"><div class="goal-fill" style="width:20%"></div></div>
+            </div>
+            <div class="goal-row">
+              <div class="gk-row"><span class="gk">Tráfico</span><span class="gv">49,5%</span></div>
+              <div class="goal-track"><div class="goal-fill" style="width:49.5%"></div></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Raspa y listo -->
+      <article class="camp-card" style="--fam:#2E6FD6; --fam-ink:#2E6FD6;">
+        <div class="camp-head">
+          <span class="camp-name-row">
+            <span class="camp-name">Raspa y listo</span>
+            <span class="status-pill pending"><span class="dot"></span>Datos de agosto &middot; pendiente</span>
+          </span>
+          <span class="camp-invest"><span class="lbl">Inversión</span> <span class="val mono">$18.750.000</span></span>
+        </div>
+        <div class="camp-stats">
+          <div class="camp-stat"><span class="k">Alcance</span><span class="v mono">18.238.636</span></div>
+          <div class="camp-stat"><span class="k">Gasto</span><span class="v mono">$5.607.156</span></div>
+          <div class="camp-stat"><span class="k">Clics</span><span class="v mono">8.102</span></div>
+        </div>
+        <div class="camp-body">
+          <div class="camp-col camp-strategy">
+            <span class="camp-tag">Estrategia</span>
+            <p>Logramos una cobertura masiva de la audiencia, fortaleciendo la recordación de producto tanto en nuevos usuarios como en jugadores ya vinculados.</p>
+          </div>
+          <div class="camp-col">
+            <span class="camp-tag">Funnel | Registros</span>
+            <div class="funnel-row"><span class="fk">Alcance</span><span class="fv mono">3.822.305</span></div>
+            <div class="funnel-row"><span class="fk">Impresiones</span><span class="fv mono">7.191.098</span></div>
+            <div class="funnel-row"><span class="fk">Clics</span><span class="fv mono">8.102</span></div>
+          </div>
+          <div class="camp-col">
+            <span class="camp-tag">Objetivo</span>
+            <div class="goal-row">
+              <div class="gk-row"><span class="gk">Alcance</span><span class="gv">21%</span></div>
+              <div class="goal-track"><div class="goal-fill" style="width:21%"></div></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <footer>
+    <span>ADCOM &middot; Reporte semanal por campañas &middot; Loti: datos reales de Meta Graph API (act_480041201276101, 1&ndash;8 sept 2026) &middot; Gana: pendiente de conectar (act_1497284188840551)</span>
+    <span>Generado 2026-09-09 &middot; Responsable: equipo de medios pagos ADCOM</span>
+  </footer>
+
+</div>
+</body>
+</html>
