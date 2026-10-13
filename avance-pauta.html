@@ -329,8 +329,8 @@
     <div class="decisions">
       <div class="decision">
         <div class="action"><span class="prio-pill p1">P1</span>Confirmar con el cliente el estado de Alcance_Activación_ADV, pausada hacia el cierre de la semana<span class="horizon">Ahora</span></div>
-        <p class="desc">La campaña tuvo gasto activo buena parte de la semana y aparece pausada al momento de generar este informe; conviene confirmar si fue intencional o si debe reactivarse, y definir objetivo de plan para la nueva Keno_Alcance, que tampoco tiene presupuesto confirmado.</p>
-        <div class="evidence"><span class="k">Evidencia:</span> Gana · Alcance_Activación_ADV gastó $433.046 del 6 al 13 de octubre pero figura pausada al 13 de octubre; Keno_Alcance (nueva, separada de Always On) gastó $246.694 sin objetivo de plan registrado.</div>
+        <p class="desc">La campaña tuvo gasto activo buena parte de la semana y aparece pausada al momento de generar este informe; conviene confirmar si fue intencional o si debe reactivarse, y definir un objetivo de costo (CPM) para la nueva Keno_Alcance, que ya tiene presupuesto asignado pero se lanzó sin flow.</p>
+        <div class="evidence"><span class="k">Evidencia:</span> Gana · Alcance_Activación_ADV gastó $433.046 del 6 al 13 de octubre pero figura pausada al 13 de octubre; Keno_Alcance (nueva, separada de Always On) gastó $246.694 de su presupuesto de $1.100.000 (22,4%), sin objetivo de CPM registrado.</div>
       </div>
       <div class="decision">
         <div class="action"><span class="prio-pill p2">P2</span>Mantener el ritmo de Always On y Oriente; todas sus campañas siguen muy por debajo del objetivo de CPM<span class="horizon">Próximo ciclo</span></div>
@@ -437,7 +437,7 @@
     <ul class="limitations">
       <li>Esta edición ya no incluye la marca Placa, a solicitud del cliente. Tampoco incluye la línea Raspa y listo (dos campañas sin ninguna actividad ni gasto), retirada por falta de actividad. La cuenta Gana muestra únicamente Gana (la familia), las líneas Always On y Oriente, y la nueva campaña independiente Keno_Alcance.</li>
       <li>Esta edición usa <strong>una sola ventana de tiempo, del 6 al 13 de octubre de 2026</strong>, para todo el informe: los KPI de cuenta, el reparto de inversión, las barras de ritmo (plan-summary), las tarjetas de diagnóstico por campaña y los anuncios más efectivos muestran únicamente lo que ocurrió en esos 8 días &mdash; no un acumulado desde la activación. Las barras de plan-summary comparan el gasto de la semana contra el presupuesto total del flow correspondiente, solo para dar contexto de escala; no reflejan cuánto se ha gastado en total desde la activación de cada línea. Donde fue relevante, se menciona la comparación contra la semana anterior (1&ndash;6 de octubre) dentro del texto, pero no como un campo estructurado.</li>
-      <li>Keno_Alcance (activada el 1 de octubre) es una campaña nueva e independiente de &ldquo;Always On_Alcance_Keno&rdquo;: no comparte conjunto, presupuesto ni objetivo de plan con la línea Always On. No tiene presupuesto total registrado, por lo que su tarjeta de plan-summary no muestra porcentaje de ejecución.</li>
+      <li>Keno_Alcance (activada el 1 de octubre) es una campaña nueva e independiente de &ldquo;Always On_Alcance_Keno&rdquo;: no comparte conjunto ni presupuesto con la línea Always On. Tiene un presupuesto de $1.100.000 asignado por el cliente, pero no se le hizo flow de costos: no tiene objetivo de CPM registrado, solo se lanzó la campaña.</li>
       <li>El presupuesto se muestra únicamente a nivel de familia/marca (presupuesto total del flow y % que representó el gasto de esta semana puntual), no por campaña individual. Gana, Always On y Oriente estuvieron activas toda la semana, aunque Gana &middot; Alcance_Activación_ADV pasó a pausada hacia el cierre del periodo.</li>
       <li>Esta edición incluye campañas sin actividad en la semana para que no desaparezcan del informe: Loti &middot; Tráfico_Sitio Web, con $0 de gasto entre el 6 y el 13 de octubre. Sigue sin incluirse Gana &middot; Interacción_Adquisición_Visibilidad página (nunca se ha activado) ni Loti &middot; Interacción_Visitas_Instagram (sin gasto significativo).</li>
       <li>Las campañas de conversión de Gana (Bases de datos) no sumaron ningún lead o registro nuevo en la semana; el último lead y registro ocurrieron antes del 31 de agosto. Puede ser rezago de atribución de Meta o un problema real de conversión &mdash; no se puede distinguir solo con estos datos.</li>
@@ -568,15 +568,16 @@ const NEW_FAMILIES = [
   {
     key: "keno-standalone", tagClass: "oriente", label: "Keno_Alcance", count: "1 campaña activa (nueva)",
     spend: "$246.694", start: "1 de octubre de 2026",
-    note: "Campaña nueva e independiente de Keno dentro de Always On &mdash; no comparte conjunto ni presupuesto con esa línea. Del 6 al 13 de octubre gastó <strong>$246.694</strong>. Sin presupuesto ni objetivo de plan específico confirmados por el cliente para esta campaña.",
-    planTotal: 0, weekSpend: 246694, planPeriodLabel: "sin presupuesto de plan registrado para esta campaña",
+    note: "Campaña nueva e independiente de Keno dentro de Always On &mdash; no comparte conjunto ni presupuesto con esa línea. Tiene un presupuesto de $1.100.000 asignado por el cliente, pero no se le hizo flow: no tiene objetivo de costo (CPM) registrado, solo se lanzó la campaña. Del 6 al 13 de octubre gastó <strong>$246.694</strong>, un <strong>22,4%</strong> de ese presupuesto.",
+    planTotal: 1100000, weekSpend: 246694, planPeriodLabel: "del presupuesto asignado (sin flow de costos), gastado esta semana",
     campaigns: [
       { id:"gana_keno_standalone", name:"Keno_Alcance", objPill:"Notoriedad", optPill:"Optimiza: Alcance",
         result:"304.864", resultLabel:"impresiones", cost:"$809,42", costLabel:"CPM (por 1.000 impr.)", costFlag:"",
         extra:"$246.694 gasto &middot; frec. 1,41", start:"1 de octubre de 2026",
         audience:"Alcance sobre base de compradores e intereses en juegos y apuestas online, misma lógica que el resto del portafolio Gana.",
-        planLabel:"Sin objetivo de plan específico registrado", actualLabel:"$809,42 CPM", verdict:"sin objetivo de referencia", verdictFlag:"",
-        insight:"Campaña nueva, separada de &ldquo;Always On_Alcance_Keno&rdquo;: del 6 al 13 de octubre alcanzó a 216.183 personas (304.864 impresiones) a $809,42 de CPM, con $246.694 de gasto. El video &ldquo;Escoge tus números&rdquo; (Copia) concentró 65,5% del presupuesto de la semana." }
+        planLabel:"Sin objetivo de costo registrado (campaña lanzada sin flow)", actualLabel:"$809,42 CPM", verdict:"sin objetivo de referencia", verdictFlag:"",
+        pacePlanned:1100000, paceSpent:246694, pacePct:22.4, paceFlag:"good", pacePeriodLabel:"del presupuesto asignado a la campaña, gastado esta semana",
+        insight:"Campaña nueva, separada de &ldquo;Always On_Alcance_Keno&rdquo;: del 6 al 13 de octubre alcanzó a 216.183 personas (304.864 impresiones) a $809,42 de CPM, con $246.694 de gasto (22,4% de su presupuesto de $1.100.000). No tiene objetivo de costo registrado porque se lanzó sin flow. El video &ldquo;Escoge tus números&rdquo; (Copia) concentró 65,5% del presupuesto de la semana." }
     ]
   }
 ];
