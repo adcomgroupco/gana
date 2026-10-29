@@ -7,6 +7,7 @@ Mini-landing con los documentos web de medios pagos de Gana. Alineado con el sis
 - **Resumen ejecutivo:** `/resumen.html`
 - **Línea de tiempo de pauta:** `/linea-de-tiempo.html`
 - **Capítulo de gestión ATL:** `/atl.html`
+- **Informe Final Gana-Oriente:** `/informe-final-gana-oriente.html`
 
 ## Estructura
 ```
