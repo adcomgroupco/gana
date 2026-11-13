@@ -1,0 +1,619 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Reporte Septiembre — Gana &amp; Loti</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+  /* Layout: full-bleed slide deck, one card-based slide in view at a time, dot+arrow nav */
+  :root {
+    color-scheme: light;
+    --bg:        #F5F5F5;
+    --surface:   #FFFFFF;
+    --surface-2: #ECECEC;
+    --ink:       #111111;
+    --ink-2:     #47484A;
+    --muted:     #7A7B7D;
+    --line:      #E2E2E2;
+    --accent:    #FFC000;
+    --accent-ink:#8A6400;
+    --good:      #1E7A34;  --good-tint: #E3F3E6;
+    --bad:       #B42318;  --bad-tint:  #FBE4E1;
+    --shadow: 0 1px 2px rgba(17,17,17,0.05), 0 20px 44px -20px rgba(17,17,17,0.22);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg:        #121212;
+      --surface:   #1C1C1C;
+      --surface-2: #262626;
+      --ink:       #F5F5F5;
+      --ink-2:     #C9C9CB;
+      --muted:     #96979A;
+      --line:      #303030;
+      --accent:    #FFC000;
+      --accent-ink:#FFD54A;
+      --good:      #4ADE80;  --good-tint: #123420;
+      --bad:       #FF6B6B;  --bad-tint:  #3A1A1A;
+      --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 20px 44px -20px rgba(0,0,0,0.6);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg:        #121212;
+    --surface:   #1C1C1C;
+    --surface-2: #262626;
+    --ink:       #F5F5F5;
+    --ink-2:     #C9C9CB;
+    --muted:     #96979A;
+    --line:      #303030;
+    --accent:    #FFC000;
+    --accent-ink:#FFD54A;
+    --good:      #4ADE80;  --good-tint: #123420;
+    --bad:       #FF6B6B;  --bad-tint:  #3A1A1A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 20px 44px -20px rgba(0,0,0,0.6);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Poppins", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+  .mono { font-variant-numeric: tabular-nums; }
+
+  .deck { position: relative; height: 100%; width: 100%; }
+
+  .slide {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    padding: clamp(20px,4vw,56px) clamp(16px,6vw,96px);
+    padding-block: clamp(20px,4vh,56px);
+    opacity: 0; pointer-events: none;
+    transform: translateX(24px);
+    transition: opacity .35s ease, transform .35s ease;
+    overflow-y: auto;
+  }
+  .slide.active { opacity: 1; pointer-events: auto; transform: translateX(0); }
+  .slide.prev   { transform: translateX(-24px); }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px; align-self: flex-start;
+    font-size: 11px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 10px;
+  }
+  .eyebrow .sq { width: 14px; height: 14px; background: var(--accent); border-radius: 4px; flex-shrink: 0; }
+
+  h1.slide-title { font-size: clamp(26px,3.6vw,46px); font-weight: 800; letter-spacing: -0.01em; margin: 0 0 6px; text-wrap: balance; }
+  p.slide-sub { font-size: clamp(13px,1.4vw,16px); color: var(--ink-2); max-width: 70ch; line-height: 1.6; margin: 0 0 20px; }
+
+  /* ---- Cover ---- */
+  .cover { justify-content: center; align-items: flex-start; }
+  .cover h1 { font-size: clamp(34px,6vw,64px); }
+  .cover-meta { display: flex; flex-wrap: wrap; gap: 10px 28px; font-size: 14px; color: var(--ink-2); margin-top: 18px; }
+  .cover-meta strong { color: var(--ink); font-weight: 700; }
+  .cover-brands { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+  .brand-chip { padding: 7px 16px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); font-size: 12.5px; font-weight: 700; color: var(--ink-2); box-shadow: var(--shadow); }
+
+  /* ---- Summary table slide ---- */
+  .sum-table { width: 100%; border-collapse: collapse; background: var(--surface); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); font-size: 13.5px; }
+  .sum-table th, .sum-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .sum-table th { font-size: 10.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); background: var(--surface-2); }
+  .sum-table tr:last-child td { border-bottom: none; }
+  .sum-table td.name { font-weight: 700; }
+  .pill { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; font-size: 10.5px; font-weight: 700; }
+  .pill.live { background: var(--good-tint); color: var(--good); }
+  .pill.paused { background: var(--bad-tint); color: var(--bad); }
+  .pill .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+  /* ---- Brand slide ---- */
+  .brand-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px 20px; padding-bottom: 16px; border-bottom: 2px solid var(--fam, var(--accent)); margin-bottom: 18px; }
+  .brand-name { display: inline-flex; align-items: center; gap: 10px; }
+  .brand-name .swatch { width: 14px; height: 14px; border-radius: 4px; background: var(--fam, var(--accent)); }
+  .brand-name h1 { font-size: clamp(24px,3vw,36px); margin: 0; }
+  .range-line { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+  .invest-badge { padding: 7px 16px; border-radius: 999px; border: 1.5px solid var(--fam, var(--accent)); color: var(--fam-ink, var(--accent-ink)); font-size: 12.5px; font-weight: 700; }
+  .invest-badge .lbl { color: var(--muted); font-weight: 600; margin-right: 6px; }
+
+  .body-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 20px; flex: 1; min-height: 0; }
+  @media (max-width: 860px) { .body-grid { grid-template-columns: 1fr; } }
+  .col { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+
+  .block-title { font-size: 10.5px; font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); margin: 0 0 8px; }
+
+  .kpi-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+  .kpi-box { background: var(--surface); border-radius: 12px; padding: 12px 14px; box-shadow: var(--shadow); }
+  .kpi-box .k-label { display: block; font-size: 9.5px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+  .kpi-box .k-val { font-size: clamp(16px,1.6vw,20px); font-weight: 800; }
+
+  .goal-card, .cost-card { background: var(--surface); border-radius: 12px; padding: 14px 16px; box-shadow: var(--shadow); }
+  .goal-card + .goal-card, .cost-card + .cost-card { margin-top: 10px; }
+  .goal-name { display: block; font-size: 12.5px; font-weight: 700; margin-bottom: 8px; }
+  .goal-nums { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 12px; color: var(--ink-2); margin-bottom: 8px; }
+  .goal-nums b { color: var(--ink); }
+  .goal-pct { font-weight: 800; color: var(--fam-ink, var(--accent-ink)); }
+  .goal-pct.over { color: var(--good); }
+  .pct-track { height: 6px; border-radius: 99px; background: var(--surface-2); overflow: hidden; }
+  .pct-fill { height: 100%; background: var(--fam, var(--accent)); border-radius: 99px; }
+  .pct-fill.over { background: var(--good); }
+
+  .cc-name { display: block; font-size: 12.5px; font-weight: 700; margin-bottom: 6px; }
+  .cc-nums { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 12px; color: var(--ink-2); }
+  .cc-nums b { color: var(--ink); }
+  .good-var { font-weight: 800; color: var(--good); }
+  .bad-var { font-weight: 800; color: var(--bad); }
+
+  .takeaway { background: var(--surface-2); border-radius: 12px; padding: 14px 16px; margin-top: auto; }
+  .takeaway .k { display: block; font-size: 10px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .takeaway p { margin: 0; font-size: 13px; line-height: 1.6; }
+  .note { font-size: 11px; color: var(--muted); line-height: 1.5; margin: 0; }
+
+  /* ---- Nav ---- */
+  .nav-ui { position: fixed; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px clamp(16px,6vw,56px); padding-bottom: calc(12px + env(safe-area-inset-bottom,0px)); background: linear-gradient(to top, var(--bg) 60%, transparent); z-index: 5; }
+  .nav-btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 16px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); font-family: inherit; font-size: 12.5px; font-weight: 700; cursor: pointer; box-shadow: var(--shadow); }
+  .nav-btn:disabled { opacity: 0.35; cursor: default; }
+  .nav-btn svg { width: 14px; height: 14px; }
+  .dots { display: flex; gap: 6px; }
+  .dots button { width: 7px; height: 7px; border-radius: 50%; border: none; background: var(--line); padding: 0; cursor: pointer; }
+  .dots button.on { background: var(--fam-current, var(--accent)); width: 20px; border-radius: 99px; transition: width .2s ease; }
+  .slide-count { font-size: 11.5px; color: var(--muted); font-weight: 600; min-width: 54px; text-align: center; }
+
+  @media (max-width: 560px) {
+    .kpi-row { grid-template-columns: 1fr 1fr; }
+    .dots { display: none; }
+  }
+</style>
+
+<div class="deck" id="deck" tabindex="0">
+
+  <!-- 0: COVER -->
+  <section class="slide cover" data-fam="#FFC000">
+    <div class="eyebrow"><span class="sq"></span>ADCOM &middot; Meta Ads</div>
+    <h1>Reporte semanal<br>por campañas</h1>
+    <p class="slide-sub">Gana &amp; Loti Colombia — acumulado desde la activación real de cada campaña hasta el 30 de septiembre de 2026.</p>
+    <div class="cover-meta">
+      <span><strong>Corte:</strong> 30 de septiembre de 2026</span>
+      <span><strong>Cuentas:</strong> Gana (act_1497284188840551) &middot; Loti Colombia (act_480041201276101)</span>
+    </div>
+    <div class="cover-brands">
+      <span class="brand-chip">Gana APP</span>
+      <span class="brand-chip">Loti</span>
+      <span class="brand-chip">Placa Millonaria</span>
+      <span class="brand-chip">Raspa y listo</span>
+      <span class="brand-chip">Always On</span>
+      <span class="brand-chip">Oriente</span>
+    </div>
+  </section>
+
+  <!-- 1: RESUMEN -->
+  <section class="slide">
+    <div class="eyebrow"><span class="sq"></span>Visión general</div>
+    <h1 class="slide-title">Las 6 campañas, en una mirada</h1>
+    <p class="slide-sub">Estado, presupuesto ejecutado y el indicador más destacado de cada una al cierre de septiembre.</p>
+    <div style="overflow-x:auto;">
+    <table class="sum-table">
+      <thead><tr><th>Marca</th><th>Estado</th><th>% ejecutado</th><th>Lo más destacado</th></tr></thead>
+      <tbody>
+        <tr><td class="name">Gana APP</td><td><span class="pill paused"><span class="dot"></span>Pausada 21 sept</span></td><td class="mono">109,1%</td><td>Tráfico superó la meta en 66% (165,9%)</td></tr>
+        <tr><td class="name">Loti</td><td><span class="pill live"><span class="dot"></span>Activa</span></td><td class="mono">100,1%</td><td>Alcance e interacciones superados; tráfico atrasado</td></tr>
+        <tr><td class="name">Placa Millonaria</td><td><span class="pill paused"><span class="dot"></span>Pausada 30 sept</span></td><td class="mono">100,5%</td><td>Tráfico duplicó la meta (201,2%) a ¼ del costo esperado</td></tr>
+        <tr><td class="name">Raspa y listo</td><td><span class="pill paused"><span class="dot"></span>Pausada 10 sept</span></td><td class="mono">40,7%</td><td>33% de la meta total del flow, con costos muy bajos</td></tr>
+        <tr><td class="name">Always On</td><td><span class="pill live"><span class="dot"></span>Activa</span></td><td class="mono">12,7%</td><td>4 de 5 públicos montados; CPM muy por debajo en los 4</td></tr>
+        <tr><td class="name">Oriente</td><td><span class="pill live"><span class="dot"></span>Activa</span></td><td class="mono">25,0%</td><td>72,6% de la meta de alcance con solo 25% del gasto</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <!-- 2: GANA APP -->
+  <section class="slide" data-fam="#1E9B52">
+    <div class="brand-head">
+      <div>
+        <div class="brand-name"><span class="swatch"></span><h1>Gana APP</h1><span class="pill paused" style="margin-left:4px;"><span class="dot"></span>Pausada el 21 sept</span></div>
+        <div class="range-line">Del 6 de agosto al 30 de septiembre de 2026 — pausada desde el 21 de septiembre, sin actividad después</div>
+      </div>
+      <div class="invest-badge"><span class="lbl">Presupuesto</span>$10.000.000 del flow</div>
+    </div>
+    <div class="body-grid">
+      <div class="col">
+        <div>
+          <div class="block-title">Presupuesto</div>
+          <div class="kpi-row">
+            <div class="kpi-box"><span class="k-label">Total</span><span class="k-val mono">$10.000.000</span></div>
+            <div class="kpi-box"><span class="k-label">Gastado (final)</span><span class="k-val mono">$10.905.375</span></div>
+            <div class="kpi-box"><span class="k-label">% ejecutado</span><span class="k-val mono">109,1%</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="block-title">Metas y cumplimiento</div>
+          <div class="goal-card">
+            <span class="goal-name">Alcance</span>
+            <div class="goal-nums"><span>Meta: <b>4.000.000</b></span><span>Logrado: <b>3.500.396</b></span><span>Gastado: <b>$5.063.533</b></span><span class="goal-pct">87,5%</span></div>
+            <div class="pct-track"><div class="pct-fill" style="width:87.5%"></div></div>
+          </div>
+          <div class="goal-card">
+            <span class="goal-name">Tráfico (vistas de landing)</span>
+            <div class="goal-nums"><span>Meta: <b>40.000</b></span><span>Logrado: <b>66.364</b></span><span>Gastado: <b>$5.841.842</b></span><span class="goal-pct over">165,9%</span></div>
+            <div class="pct-track"><div class="pct-fill over" style="width:100%"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div>
+          <div class="block-title">Costo del objetivo</div>
+          <div class="cost-card">
+            <span class="cc-name">Alcance — CPM</span>
+            <div class="cc-nums"><span>Esperado: <b>$1.000</b></span><span>Real: <b>$785</b></span><span class="good-var">-21,5%</span></div>
+          </div>
+          <div class="cost-card">
+            <span class="cc-name">Tráfico — CPC</span>
+            <div class="cc-nums"><span>Esperado: <b>$150</b></span><span>Real: <b>$67</b></span><span class="good-var">-55,3%</span></div>
+          </div>
+        </div>
+        <div class="takeaway">
+          <span class="k">Lectura</span>
+          <p>Desde su arranque el 6 de agosto hasta pausarse el 21 de septiembre, la campaña llegó a 3,5 millones de personas (87% de la meta) y 66.364 visitas a la página (166% de la meta, superada), agotando el presupuesto ($10,9M de $10M).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: LOTI -->
+  <section class="slide" data-fam="#7C5CD6">
+    <div class="brand-head">
+      <div>
+        <div class="brand-name"><span class="swatch"></span><h1>Loti</h1><span class="pill live" style="margin-left:4px;"><span class="dot"></span>Activa</span></div>
+        <div class="range-line">Del 4 de agosto al 30 de septiembre de 2026</div>
+      </div>
+      <div class="invest-badge"><span class="lbl">Presupuesto</span>$10.000.000 del flow</div>
+    </div>
+    <div class="body-grid">
+      <div class="col">
+        <div>
+          <div class="block-title">Presupuesto</div>
+          <div class="kpi-row">
+            <div class="kpi-box"><span class="k-label">Total</span><span class="k-val mono">$10.000.000</span></div>
+            <div class="kpi-box"><span class="k-label">Gastado</span><span class="k-val mono">$10.012.830</span></div>
+            <div class="kpi-box"><span class="k-label">% ejecutado</span><span class="k-val mono">100,1%</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="block-title">Metas y cumplimiento</div>
+          <div class="goal-card">
+            <span class="goal-name">Alcance</span>
+            <div class="goal-nums"><span>Meta: <b>1.000.000</b></span><span>Logrado: <b>1.035.147</b></span><span>Gastado: <b>$1.263.805</b></span><span class="goal-pct over">103,5%</span></div>
+            <div class="pct-track"><div class="pct-fill over" style="width:100%"></div></div>
+          </div>
+          <div class="goal-card">
+            <span class="goal-name">Tráfico (vistas de landing)</span>
+            <div class="goal-nums"><span>Meta: <b>91.667</b></span><span>Logrado: <b>27.444</b></span><span>Gastado: <b>$7.730.262</b></span><span class="goal-pct">29,9%</span></div>
+            <div class="pct-track"><div class="pct-fill" style="width:29.9%"></div></div>
+          </div>
+          <div class="goal-card">
+            <span class="goal-name">Interacciones</span>
+            <div class="goal-nums"><span>Meta: <b>6.667</b></span><span>Logrado: <b>11.116</b></span><span>Gastado: <b>$1.018.763</b></span><span class="goal-pct over">166,7%</span></div>
+            <div class="pct-track"><div class="pct-fill over" style="width:100%"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div>
+          <div class="block-title">Costo del objetivo</div>
+          <div class="cost-card">
+            <span class="cc-name">Alcance — CPM</span>
+            <div class="cc-nums"><span>Esperado: <b>$1.000</b></span><span>Real: <b>$729</b></span><span class="good-var">-27,1%</span></div>
+          </div>
+          <div class="cost-card">
+            <span class="cc-name">Tráfico — costo por visita</span>
+            <div class="cc-nums"><span>Esperado: <b>$93</b></span><span>Real: <b>$282</b></span><span class="bad-var">+203,2%</span></div>
+          </div>
+          <div class="cost-card">
+            <span class="cc-name">Interacciones — CPI</span>
+            <div class="cc-nums"><span>Esperado: <b>$150</b></span><span>Real: <b>$92</b></span><span class="good-var">-38,7%</span></div>
+          </div>
+        </div>
+        <div class="takeaway">
+          <span class="k">Lectura</span>
+          <p>Ya superamos la meta de alcance (104%) y de interacciones (167%), ambas a buen costo. El tráfico queda atrasado (30% de la meta) porque su costo real casi triplica lo esperado. El presupuesto está prácticamente agotado (100%) al cierre de septiembre.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4: PLACA MILLONARIA -->
+  <section class="slide" data-fam="#B57A18">
+    <div class="brand-head">
+      <div>
+        <div class="brand-name"><span class="swatch"></span><h1>Placa Millonaria</h1><span class="pill paused" style="margin-left:4px;"><span class="dot"></span>Pausada el 30 sept</span></div>
+        <div class="range-line">Del 20 de agosto al 30 de septiembre de 2026 — cierre del flow</div>
+      </div>
+      <div class="invest-badge"><span class="lbl">Presupuesto</span>$21.000.000 del flow</div>
+    </div>
+    <div class="body-grid">
+      <div class="col">
+        <div>
+          <div class="block-title">Presupuesto</div>
+          <div class="kpi-row">
+            <div class="kpi-box"><span class="k-label">Total</span><span class="k-val mono">$21.000.000</span></div>
+            <div class="kpi-box"><span class="k-label">Gastado (final)</span><span class="k-val mono">$21.103.297</span></div>
+            <div class="kpi-box"><span class="k-label">% ejecutado</span><span class="k-val mono">100,5%</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="block-title">Metas y cumplimiento</div>
+          <div class="goal-card">
+            <span class="goal-name">Alcance</span>
+            <div class="goal-nums"><span>Meta: <b>3.500.000</b></span><span>Logrado: <b>1.714.779</b></span><span>Gastado: <b>$6.639.789</b></span><span class="goal-pct">49,0%</span></div>
+            <div class="pct-track"><div class="pct-fill" style="width:49%"></div></div>
+          </div>
+          <div class="goal-card">
+            <span class="goal-name">Tráfico (vistas de landing)</span>
+            <div class="goal-nums"><span>Meta: <b>41.200</b></span><span>Logrado: <b>82.911</b></span><span>Gastado: <b>$14.463.508</b></span><span class="goal-pct over">201,2%</span></div>
+            <div class="pct-track"><div class="pct-fill over" style="width:100%"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div>
+          <div class="block-title">Costo del objetivo</div>
+          <div class="cost-card">
+            <span class="cc-name">Alcance — CPM</span>
+            <div class="cc-nums"><span>Esperado: <b>$1.500</b></span><span>Real: <b>$1.251</b></span><span class="good-var">-16,6%</span></div>
+          </div>
+          <div class="cost-card">
+            <span class="cc-name">Tráfico — costo por visita</span>
+            <div class="cc-nums"><span>Esperado: <b>$617</b></span><span>Real: <b>$174</b></span><span class="good-var">-71,8%</span></div>
+          </div>
+        </div>
+        <div class="takeaway">
+          <span class="k">Lectura</span>
+          <p>Cerró el flow con el tráfico muy por encima de la meta (201%) a una cuarta parte del costo esperado, y el alcance en 49% de su meta. El presupuesto se agotó exactamente al cierre (100,5%) y la campaña se pausó el 30 de septiembre.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5: RASPA Y LISTO -->
+  <section class="slide" data-fam="#2E6FD6">
+    <div class="brand-head">
+      <div>
+        <div class="brand-name"><span class="swatch"></span><h1>Raspa y listo</h1><span class="pill paused" style="margin-left:4px;"><span class="dot"></span>Pausada el 10 sept</span></div>
+        <div class="range-line">Del 21 de agosto al 10 de septiembre de 2026 (fecha de pausa) — sin cambios el resto del periodo</div>
+      </div>
+      <div class="invest-badge"><span class="lbl">Presupuesto total</span>$18.750.000 hasta el 31 oct</div>
+    </div>
+    <div class="body-grid">
+      <div class="col">
+        <div>
+          <div class="block-title">Presupuesto</div>
+          <div class="kpi-row">
+            <div class="kpi-box"><span class="k-label">Total</span><span class="k-val mono">$18.750.000</span></div>
+            <div class="kpi-box"><span class="k-label">Gastado (final)</span><span class="k-val mono">$7.626.704</span></div>
+            <div class="kpi-box"><span class="k-label">% ejecutado</span><span class="k-val mono">40,7%</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="block-title">Metas y cumplimiento</div>
+          <div class="goal-card">
+            <span class="goal-name">Alcance</span>
+            <div class="goal-nums"><span>Meta: <b>15.209.790</b></span><span>Logrado: <b>4.976.532</b></span><span>Gastado: <b>$7.626.704</b></span><span class="goal-pct">32,7%</span></div>
+            <div class="pct-track"><div class="pct-fill" style="width:32.7%"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div>
+          <div class="block-title">Costo del objetivo</div>
+          <p class="note" style="margin-bottom:8px;">El flow define un costo esperado distinto por público; no se mezclan.</p>
+          <div class="cost-card">
+            <span class="cc-name">Alcance — Advantage / Clientes Gana — CPM</span>
+            <div class="cc-nums"><span>Esperado: <b>$1.300</b></span><span>Real: <b>$724</b></span><span class="good-var">-44,3%</span></div>
+          </div>
+          <div class="cost-card">
+            <span class="cc-name">Alcance — Remarketing — CPM</span>
+            <div class="cc-nums"><span>Esperado: <b>$1.100</b></span><span>Real: <b>$782</b></span><span class="good-var">-28,9%</span></div>
+          </div>
+        </div>
+        <div class="takeaway">
+          <span class="k">Lectura</span>
+          <p>Antes de pausarse por solicitud de Mauricio, la campaña alcanzó a cerca de 5 millones de personas (33% de la meta total del flow) a un costo muy por debajo de lo esperado en ambos públicos, con 41% del presupuesto ejecutado.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6: ALWAYS ON -->
+  <section class="slide" data-fam="#0E8C86">
+    <div class="brand-head">
+      <div>
+        <div class="brand-name"><span class="swatch"></span><h1>Always On</h1><span class="pill live" style="margin-left:4px;"><span class="dot"></span>Activa</span></div>
+        <div class="range-line">Del 24 al 30 de septiembre de 2026 — 4 de 5 conjuntos del flow montados</div>
+      </div>
+      <div class="invest-badge"><span class="lbl">Presupuesto</span>$16.000.000 activos de $20.000.000</div>
+    </div>
+    <div class="body-grid">
+      <div class="col">
+        <div>
+          <div class="block-title">Presupuesto</div>
+          <div class="kpi-row">
+            <div class="kpi-box"><span class="k-label">Activo</span><span class="k-val mono">$16.000.000</span></div>
+            <div class="kpi-box"><span class="k-label">Gastado</span><span class="k-val mono">$2.032.832</span></div>
+            <div class="kpi-box"><span class="k-label">% del activo</span><span class="k-val mono">12,7%</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="block-title">Metas y cumplimiento</div>
+          <div class="goal-card">
+            <span class="goal-name">Alcance — Súper chance</span>
+            <div class="goal-nums"><span>Meta: <b>2.666.667</b></span><span>Logrado: <b>405.003</b></span><span>Gastado: <b>$694.109</b> de $4.000.000</span><span class="goal-pct">15,2%</span></div>
+            <div class="pct-track"><div class="pct-fill" style="width:15.2%"></div></div>
+          </div>
+          <div class="goal-card">
+            <span class="goal-name">Alcance — Chance goleador</span>
+            <div class="goal-nums"><span>Meta: <b>2.000.000</b></span><span>Logrado: <b>435.755</b></span><span>Gastado: <b>$683.453</b> de $4.000.000</span><span class="goal-pct">21,8%</span></div>
+            <div class="pct-track"><div class="pct-fill" style="width:21.8%"></div></div>
+          </div>
+          <div class="goal-card">
+            <span class="goal-name">Alcance — Placa millonaria</span>
+            <div class="goal-nums"><span>Meta: <b>2.222.222</b></span><span>Logrado: <b>481.490</b></span><span>Gastado: <b>$533.865</b> de $4.000.000</span><span class="goal-pct">21,7%</span></div>
+            <div class="pct-track"><div class="pct-fill" style="width:21.7%"></div></div>
+          </div>
+          <div class="goal-card">
+            <span class="goal-name">Alcance — Raspa y gana</span>
+            <div class="goal-nums"><span>Meta: <b>2.666.667</b></span><span>Logrado: <b>314.338</b></span><span>Gastado: <b>$121.405</b> de $4.000.000</span><span class="goal-pct">11,8%</span></div>
+            <div class="pct-track"><div class="pct-fill" style="width:11.8%"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div>
+          <div class="block-title">Costo del objetivo</div>
+          <p class="note" style="margin-bottom:8px;">El flow define un costo esperado distinto por público; no se mezclan.</p>
+          <div class="cost-card">
+            <span class="cc-name">Súper chance — CPM</span>
+            <div class="cc-nums"><span>Esperado: <b>$1.500</b></span><span>Real: <b>$950</b></span><span class="good-var">-36,7%</span></div>
+          </div>
+          <div class="cost-card">
+            <span class="cc-name">Chance goleador — CPM</span>
+            <div class="cc-nums"><span>Esperado: <b>$2.000</b></span><span>Real: <b>$879</b></span><span class="good-var">-56,1%</span></div>
+          </div>
+          <div class="cost-card">
+            <span class="cc-name">Placa millonaria — CPM</span>
+            <div class="cc-nums"><span>Esperado: <b>$1.800</b></span><span>Real: <b>$901</b></span><span class="good-var">-49,9%</span></div>
+          </div>
+          <div class="cost-card">
+            <span class="cc-name">Raspa y gana — CPM</span>
+            <div class="cc-nums"><span>Esperado: <b>$1.500</b></span><span>Real: <b>$316</b></span><span class="good-var">-78,9%</span></div>
+          </div>
+        </div>
+        <div class="takeaway">
+          <span class="k">Lectura</span>
+          <p>Marca nueva de pauta continua: 4 de los 5 públicos del flow ya están montados (falta Prueba A/B). En septiembre apenas se ejecutó 12,7% del presupuesto activo, pero el costo real está muy por debajo de lo esperado en los cuatro públicos: arranque eficiente.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7: ORIENTE -->
+  <section class="slide" data-fam="#B23A48">
+    <div class="brand-head">
+      <div>
+        <div class="brand-name"><span class="swatch"></span><h1>Oriente</h1><span class="pill live" style="margin-left:4px;"><span class="dot"></span>Activa</span></div>
+        <div class="range-line">Del 25 al 30 de septiembre de 2026 — Goleador desde el 25, Placa millonaria desde el 28</div>
+      </div>
+      <div class="invest-badge"><span class="lbl">Presupuesto</span>$5.000.000 del flow</div>
+    </div>
+    <div class="body-grid">
+      <div class="col">
+        <div>
+          <div class="block-title">Presupuesto</div>
+          <div class="kpi-row">
+            <div class="kpi-box"><span class="k-label">Total</span><span class="k-val mono">$5.000.000</span></div>
+            <div class="kpi-box"><span class="k-label">Gastado</span><span class="k-val mono">$1.250.982</span></div>
+            <div class="kpi-box"><span class="k-label">% ejecutado</span><span class="k-val mono">25,0%</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="block-title">Metas y cumplimiento</div>
+          <div class="goal-card">
+            <span class="goal-name">Alcance — Placa millonaria y Goleador</span>
+            <div class="goal-nums"><span>Meta: <b>1.000.000</b></span><span>Logrado: <b>725.833</b></span><span>Gastado: <b>$1.250.982</b></span><span class="goal-pct">72,6%</span></div>
+            <div class="pct-track"><div class="pct-fill" style="width:72.6%"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div>
+          <div class="block-title">Costo del objetivo</div>
+          <div class="cost-card">
+            <span class="cc-name">Alcance — CPM</span>
+            <div class="cc-nums"><span>Esperado: <b>$5.000</b></span><span>Real: <b>$961</b></span><span class="good-var">-80,8%</span></div>
+          </div>
+        </div>
+        <div class="takeaway">
+          <span class="k">Lectura</span>
+          <p>Campaña conjunta de Placa Millonaria y Goleador para Oriente antioqueño. En solo días de septiembre ya llegó a 73% de la meta de alcance con 25% del presupuesto ejecutado: el costo real es una fracción del esperado. Goleador concentra la mayor parte del alcance hasta ahora.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8: CIERRE -->
+  <section class="slide cover">
+    <div class="eyebrow"><span class="sq"></span>ADCOM &middot; Meta Ads</div>
+    <h1 class="slide-title">Gracias</h1>
+    <p class="slide-sub">Reporte semanal por campañas — Gana &amp; Loti Colombia. Datos reales acumulados desde la activación de cada campaña hasta el 30 de septiembre de 2026.</p>
+    <p class="slide-sub" style="margin-top:28px; font-size:12.5px;">Equipo de medios pagos ADCOM</p>
+  </section>
+
+</div>
+
+<div class="nav-ui">
+  <button class="nav-btn" id="prevBtn" aria-label="Diapositiva anterior">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+    Anterior
+  </button>
+  <div class="dots" id="dots"></div>
+  <span class="slide-count" id="count"></span>
+  <button class="nav-btn" id="nextBtn" aria-label="Siguiente diapositiva">
+    Siguiente
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+  </button>
+</div>
+
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var dotsWrap = document.getElementById('dots');
+  var count = document.getElementById('count');
+  var prevBtn = document.getElementById('prevBtn');
+  var nextBtn = document.getElementById('nextBtn');
+  var i = 0;
+
+  slides.forEach(function(_, idx){
+    var b = document.createElement('button');
+    b.setAttribute('aria-label', 'Ir a la diapositiva ' + (idx+1));
+    b.addEventListener('click', function(){ go(idx); });
+    dotsWrap.appendChild(b);
+  });
+  var dotEls = Array.prototype.slice.call(dotsWrap.children);
+
+  function render(){
+    slides.forEach(function(s, idx){
+      s.classList.remove('active','prev');
+      if (idx === i) s.classList.add('active');
+      else if (idx < i) s.classList.add('prev');
+    });
+    dotEls.forEach(function(d, idx){ d.classList.toggle('on', idx === i); });
+    count.textContent = (i+1) + ' / ' + slides.length;
+    prevBtn.disabled = i === 0;
+    nextBtn.disabled = i === slides.length - 1;
+    var fam = slides[i].dataset.fam;
+    document.documentElement.style.setProperty('--fam-current', fam || 'var(--accent)');
+    slides[i].style.setProperty('--fam', fam || 'var(--accent)');
+    slides[i].style.setProperty('--fam-ink', fam || 'var(--accent-ink)');
+  }
+  function go(idx){
+    i = Math.max(0, Math.min(slides.length - 1, idx));
+    render();
+  }
+  prevBtn.addEventListener('click', function(){ go(i-1); });
+  nextBtn.addEventListener('click', function(){ go(i+1); });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowRight' || e.key === 'PageDown') go(i+1);
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') go(i-1);
+  });
+  var touchX = null;
+  document.getElementById('deck').addEventListener('touchstart', function(e){ touchX = e.touches[0].clientX; }, {passive:true});
+  document.getElementById('deck').addEventListener('touchend', function(e){
+    if (touchX === null) return;
+    var dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 50) go(i + (dx < 0 ? 1 : -1));
+    touchX = null;
+  }, {passive:true});
+
+  render();
+})();
+</script>
+
+</body></html>
