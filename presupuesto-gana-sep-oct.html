@@ -1,0 +1,118 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Presupuesto Gana Sep–Oct</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: ADCOM report — black header band, single column of month sections, tables as the core */
+:root{
+  --bg:#F5F5F5; --surface:#FFFFFF; --fg:#16161A; --muted:#62626B; --line:#E2E2E6;
+  --accent:#FFC000; --head:#111113; --headfg:#FFFFFF;
+  --over:#C2410C; --under:#1D4ED8; --ok:#15803D; --hl:#FFF4CC;
+  --f-display:"Poppins",system-ui,sans-serif; --f-body:"Poppins",system-ui,sans-serif; --f-num:"JetBrains Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#121214; --surface:#1C1C20; --fg:#EDEDF0; --muted:#A0A0AA; --line:#2E2E35;
+  --head:#000000; --headfg:#FFFFFF; --over:#FB923C; --under:#93C5FD; --ok:#4ADE80; --hl:#3A3010; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121214; --surface:#1C1C20; --fg:#EDEDF0; --muted:#A0A0AA; --line:#2E2E35;
+  --head:#000000; --headfg:#FFFFFF; --over:#FB923C; --under:#93C5FD; --ok:#4ADE80; --hl:#3A3010; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.55}
+.wrap{max-width:1040px;margin:0 auto;padding-block:24px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:28px}
+header{background:var(--head);color:var(--headfg);border-radius:18px;padding:24px 28px;display:flex;flex-direction:column;gap:6px;border-bottom:5px solid var(--accent)}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600}
+h1{font-family:var(--f-display);font-size:clamp(24px,4vw,34px);font-weight:700;margin:0;text-wrap:balance}
+header p{margin:0;color:#C9C9D1;font-size:14px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.kpi{background:var(--surface);border-radius:14px;padding:18px 20px;border-bottom:4px solid var(--accent);display:flex;flex-direction:column;gap:4px}
+.kpi .l{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600}
+.kpi .v{font-family:var(--f-num);font-size:24px;font-weight:500;font-variant-numeric:tabular-nums}
+.kpi .s{font-size:13px;color:var(--muted)}
+section{display:flex;flex-direction:column;gap:12px}
+h2{font-size:20px;font-weight:600;margin:0}
+.note{font-size:13px;color:var(--muted);margin:0;max-width:70ch}
+.tbl{overflow-x:auto;background:var(--surface);border-radius:14px}
+table{width:100%;border-collapse:collapse;min-width:640px}
+th,td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+td.n,th.n{text-align:right;font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:nowrap;font-size:14px}
+tr.total td{background:var(--hl);font-weight:600;border-bottom:none}
+.id{color:var(--muted);font-size:12px;font-family:var(--f-num)}
+.over{color:var(--over)} .under{color:var(--under)} .muted{color:var(--muted)}
+.pill{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;border:1px solid currentColor;font-family:var(--f-body);letter-spacing:.03em}
+ol.alerts{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+ol.alerts li{background:var(--surface);border-radius:12px;padding:14px 18px;border-left:4px solid var(--line)}
+ol.alerts li.hot{border-left-color:var(--over)} ol.alerts li.warn{border-left-color:var(--accent)}
+ol.alerts b{display:block;margin-bottom:2px}
+.src{display:flex;flex-direction:column;gap:8px;background:var(--surface);border-radius:14px;padding:16px 20px;font-size:14px}
+.src a{color:var(--fg);text-decoration-color:var(--accent);text-underline-offset:3px;text-decoration-thickness:2px}
+.src a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+
+<div class="wrap">
+<header>
+  <span class="eyebrow">Gana · Meta Ads · Cuenta 1497284188840551</span>
+  <h1>Presupuesto vs. inversión real, septiembre y octubre 2026</h1>
+  <p>Gasto real tomado de Meta (Graph API) el 26 oct 2026. Octubre llega hasta el 25. Valores en COP.</p>
+</header>
+
+<div class="kpis">
+  <div class="kpi"><span class="l">Septiembre · real</span><span class="v">$24.368.753</span><span class="s">Plan $27.658.333 · <span class="under">−12%</span></span></div>
+  <div class="kpi"><span class="l">Octubre al 25 · real</span><span class="v">$29.542.915</span><span class="s">Plan al 25: $28.270.699 · <span class="over">+4,5%</span></span></div>
+  <div class="kpi"><span class="l">Octubre · plan del mes</span><span class="v">$34.141.667</span><span class="s">Faltan $4.598.752 para cumplirlo</span></div>
+  <div class="kpi"><span class="l">Gasto sin flow (sep + oct)</span><span class="v">$5.137.373</span><span class="s">Raspa y Listo, ARA, Keno aparte, residual Placa</span></div>
+</div>
+
+<section>
+  <h2>Septiembre 2026</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Grupo de campañas</th><th>Flow</th><th class="n">Debió gastarse</th><th class="n">Se gastó</th><th class="n">Diferencia</th></tr></thead>
+    <tbody>
+      <tr><td>Gana App <span class="id">#35925</span></td><td class="muted">Agosto (aplicado a sep)</td><td class="n">$10.000.000</td><td class="n">$8.889.047</td><td class="n under">−$1.110.953 (−11%)</td></tr>
+      <tr><td>Placa <span class="id">#4910</span> ¹</td><td class="muted">Agosto · $21M por flight</td><td class="n">$15.000.000</td><td class="n">$10.176.344</td><td class="n under">−$4.823.656 (−32%)</td></tr>
+      <tr><td>Always On <span class="id">#35878</span> · desde 24 sep</td><td class="muted">Always On</td><td class="n">$1.533.333</td><td class="n">$2.032.832</td><td class="n over">+$499.499 (+33%)</td></tr>
+      <tr><td>Oriente <span class="id">#35879/80</span> · desde 25 sep</td><td class="muted">Always On</td><td class="n">$1.125.000</td><td class="n">$1.250.982</td><td class="n over">+$125.982 (+11%)</td></tr>
+      <tr><td>Raspa y Listo <span class="id">#5618</span></td><td class="muted">—</td><td class="n muted">sin flow</td><td class="n">$2.019.548</td><td class="n"><span class="pill over">fuera de plan</span></td></tr>
+      <tr class="total"><td>Total</td><td></td><td class="n">$27.658.333</td><td class="n">$24.368.753</td><td class="n under">−$3.289.580 (−12%)</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">¹ Placa tenía $21M para todo el flight (20 ago – 30 sep), repartido por días. Agosto + septiembre suman $21.103.297: prácticamente lo planeado.</p>
+</section>
+
+<section>
+  <h2>Octubre 2026 · al 25</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Grupo de campañas</th><th class="n">Plan del mes</th><th class="n">Plan al 25</th><th class="n">Se gastó al 25</th><th class="n">Diferencia vs. plan al 25</th></tr></thead>
+    <tbody>
+      <tr><td>Gana App <span class="id">#35925</span></td><td class="n">$20.000.000</td><td class="n">$16.129.032</td><td class="n">$13.113.641</td><td class="n under">−$3.015.391 (−19%)</td></tr>
+      <tr><td>Always On <span class="id">#35878</span> · 5 productos</td><td class="n">$10.266.667</td><td class="n">$8.266.667</td><td class="n">$7.533.153</td><td class="n under">−$733.514 (−9%)</td></tr>
+      <tr><td>Oriente <span class="id">#35879/80</span> ²</td><td class="n">$3.875.000</td><td class="n">$3.875.000</td><td class="n">$5.778.286</td><td class="n over"><b>+$1.903.286 (+49%)</b></td></tr>
+      <tr><td>ARA <span class="id">#6085</span></td><td class="n muted">sin flow</td><td class="n muted">—</td><td class="n">$2.200.230</td><td class="n"><span class="pill over">fuera de plan</span></td></tr>
+      <tr><td>Keno aparte <span class="id">#36019</span></td><td class="n muted">sin flow</td><td class="n muted">—</td><td class="n">$843.341</td><td class="n"><span class="pill over">fuera de plan</span></td></tr>
+      <tr><td>Placa · residual</td><td class="n">$0</td><td class="n">$0</td><td class="n">$74.264</td><td class="n muted">—</td></tr>
+      <tr class="total"><td>Total</td><td class="n">$34.141.667</td><td class="n">$28.270.699</td><td class="n">$29.542.915</td><td class="n over">+$1.272.216 (+4,5%)</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">² Saldo de los $5M de Oriente después de septiembre. Plan al 25 de Gana App = $20M × 25/31 días. Always On = $66.667 diarios por producto según días activos (Keno desde el 2 oct).</p>
+</section>
+
+<section>
+  <h2>Puntos para revisar</h2>
+  <ol class="alerts">
+    <li class="hot"><b>Oriente se pasó del presupuesto</b>Gastó $7.029.268 contra los $5.000.000 del flow (+41%). Las dos campañas ya están pausadas.</li>
+    <li class="warn"><b>Gana App va atrasado en octubre</b>Para llegar a $20M necesita unos $6,9M en los 6 días que quedan (≈$1,15M/día). Hoy va a ≈$525.000/día.</li>
+    <li class="warn"><b>$5,1M sin flow</b>Raspa y Listo, ARA, Keno aparte y residual de Placa no aparecen en ningún flow encontrado.</li>
+    <li><b>Always On un poco bajo ritmo</b>Lleva $9.565.985 de $20.000.000. El flight termina a finales de noviembre.</li>
+  </ol>
+</section>
+
+<section>
+  <h2>Flows usados</h2>
+  <div class="src">
+    <a href="https://drive.google.com/file/d/1dGy33dHtIBZqwDlPLoOKad0xag7DAUAQ/view" target="_blank" rel="noopener">Flow_Gana_Octubre.xlsx: Gana App $20M</a>
+    <a href="https://docs.google.com/spreadsheets/d/1t2uUHuoRjJt9sYeMVW97qSaTwliG5nbM6aDkSZ6Y7C0/edit" target="_blank" rel="noopener">Flow Always On: Always On $20M + Oriente $5M</a>
+    <a href="https://drive.google.com/file/d/13V5SthIFROUlG5L0x2IDXiXsmJGSqBUZ/view" target="_blank" rel="noopener">Flow_Gana_Agosto.xlsx: Gana App $10M/mes + Placa $21M</a>
+  </div>
+</section>
+</div>
+
+</body></html>
