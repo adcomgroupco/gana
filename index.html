@@ -3,205 +3,701 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GANA</title>
+  <title>Gana y Loti | Documentos de pauta</title>
+  <meta name="description" content="Tableros, planeación e informes de medios pagos de Gana y Loti en un solo lugar." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/index.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --yellow: #FFC000;
+      --yellow-soft: #FFF4CC;
+      --black: #111111;
+      --ink-2: #4a4a4a;
+      --muted: #6b6b6b;
+      --bg: #f6f6f4;
+      --surface: #ffffff;
+      --line: rgba(17,17,17,.09);
+      --line-strong: rgba(17,17,17,.16);
+      --radius: 12px;
+      --wrap: 1120px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+    body {
+      font-family: 'Poppins', system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--black);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
+    .grid > *, .cols > *, .hist-grid > *, .counters > * { min-width: 0; }
+    h1 { overflow-wrap: anywhere; }
+
+    .skip { position: absolute; left: -9999px; }
+    .skip:focus { left: 16px; top: 12px; z-index: 50; background: var(--black); color: #fff; padding: 8px 14px; border-radius: 8px; }
+
+    /* Barra superior */
+    .topbar {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(246,246,244,.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 60px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 13px; letter-spacing: .14em; text-decoration: none; text-transform: uppercase; white-space: nowrap; }
+    .brand i { width: 12px; height: 12px; border-radius: 3px; background: var(--yellow); }
+    .brand span { color: var(--muted); font-weight: 500; letter-spacing: .02em; text-transform: none; }
+    .nav { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+    .nav::-webkit-scrollbar { display: none; }
+    .nav a { font-size: 13px; font-weight: 500; text-decoration: none; color: var(--ink-2); padding: 7px 12px; border-radius: 999px; white-space: nowrap; }
+    .nav a:hover { background: var(--surface); color: var(--black); }
+
+    /* Encabezado */
+    header.hero { padding: 56px 0 28px; }
+    .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+    h1 { font-size: clamp(28px, 4.4vw, 44px); line-height: 1.1; font-weight: 700; letter-spacing: -.02em; }
+    h1 em { font-style: normal; color: var(--muted); font-weight: 500; }
+    .lead { margin-top: 12px; font-size: 17px; color: var(--ink-2); max-width: 620px; }
+
+    /* Contadores */
+    .counters { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 30px; }
+    .counter { display: block; text-decoration: none; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; transition: border-color .15s ease; }
+    .counter:hover { border-color: var(--black); }
+    .counter span { display: block; font-size: 12px; font-weight: 500; color: var(--muted); }
+    .counter strong { display: block; font-size: 26px; font-weight: 700; line-height: 1.2; }
+
+    /* Accesos rápidos */
+    .quick { margin-top: 22px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+    .quick-label { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-right: 4px; }
+    .quick a { font-size: 13px; font-weight: 500; text-decoration: none; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line-strong); background: var(--surface); }
+    .quick a:hover { background: var(--black); color: #fff; border-color: var(--black); }
+    .quick a.primary { background: var(--black); color: #fff; border-color: var(--black); }
+    .quick a.primary:hover { background: #000; }
+
+    .legend { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 14px; font-size: 12px; color: var(--muted); align-items: center; }
+
+    /* Etiquetas de marca */
+    .tag { display: inline-flex; align-items: center; font-size: 11px; font-weight: 600; letter-spacing: .02em; padding: 2px 8px; border-radius: 999px; white-space: nowrap; line-height: 1.6; }
+    .tag-gana { background: var(--yellow-soft); color: #7a5600; }
+    .tag-loti { background: #ececea; color: #333; }
+    .tag-both { background: var(--black); color: var(--yellow); }
+    .tag-status { background: transparent; border: 1px solid var(--line-strong); color: var(--ink-2); }
+    .tag-live { background: #e7f4ea; color: #1f6b35; }
+    .tag-pending { background: transparent; border: 1px dashed #b98a00; color: #7a5600; }
+
+    /* Secciones */
+    main section.block { padding: 40px 0 8px; }
+    .block-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; border-bottom: 2px solid var(--black); padding-bottom: 10px; margin-bottom: 18px; }
+    .block-head h2 { font-size: 22px; font-weight: 700; letter-spacing: -.01em; }
+    .block-head h2 small { font-size: 13px; font-weight: 600; color: var(--muted); margin-left: 8px; }
+    .block-head p { font-size: 13px; color: var(--muted); text-align: right; }
+    h3.group { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 26px 0 10px; }
+    h3.group:first-of-type { margin-top: 0; }
+
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+
+    /* Documento */
+    .doc { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; display: flex; flex-direction: column; gap: 8px; }
+    .doc.feature { border-left: 4px solid var(--yellow); }
+    .doc-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+    .doc h4 { font-size: 16px; font-weight: 600; line-height: 1.35; }
+    .doc h4 a { text-decoration: none; }
+    .doc h4 a:hover { text-decoration: underline; text-underline-offset: 3px; }
+    .doc p { font-size: 13.5px; color: var(--ink-2); }
+    .doc-links { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: auto; padding-top: 6px; font-size: 13px; font-weight: 600; }
+    .doc-links a { text-decoration: none; border-bottom: 2px solid var(--yellow); padding-bottom: 1px; }
+    .doc-links a:hover { border-color: var(--black); }
+    .doc-links .ext::after { content: " ↗"; font-weight: 500; }
+    .doc-links .note { font-weight: 500; color: var(--muted); }
+    .doc.pending { background: transparent; border-style: dashed; }
+    .doc.pending h4 { color: var(--ink-2); }
+
+    /* Listas (flows, históricos) */
+    .cols { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; align-items: start; }
+    .panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 6px 20px 14px; }
+    .panel-title { display: flex; align-items: center; gap: 8px; padding: 14px 0 10px; border-bottom: 1px solid var(--line); }
+    .panel-title strong { font-size: 16px; font-weight: 600; }
+    .rows { list-style: none; }
+    .row { display: grid; grid-template-columns: 92px 1fr auto; gap: 4px 14px; align-items: baseline; padding: 11px 0; border-bottom: 1px solid var(--line); }
+    .row:last-child { border-bottom: 0; }
+    .row-date { font-size: 13px; font-weight: 600; }
+    .row-name { font-size: 13.5px; font-weight: 500; overflow-wrap: anywhere; }
+    .row-name small { display: block; font-size: 12.5px; font-weight: 400; color: var(--muted); margin-top: 1px; }
+    .row-name .tag { margin-right: 6px; vertical-align: 1px; }
+    .row-links { display: flex; gap: 12px; font-size: 13px; font-weight: 600; white-space: nowrap; }
+    .row-links a { text-decoration: none; border-bottom: 2px solid var(--yellow); }
+    .row-links a:hover { border-color: var(--black); }
+    .row.current { background: linear-gradient(90deg, var(--yellow-soft), transparent 70%); margin: 0 -20px; padding-left: 20px; padding-right: 20px; }
+
+    details { border-top: 1px solid var(--line); }
+    details > summary { cursor: pointer; list-style: none; padding: 12px 0; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    details > summary::-webkit-details-marker { display: none; }
+    details > summary::after { content: "+"; font-size: 18px; font-weight: 500; line-height: 1; color: var(--muted); }
+    details[open] > summary::after { content: "–"; }
+    details > summary:hover { color: var(--ink-2); }
+    .panel > details:first-of-type { border-top: 0; }
+
+    .hist-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; align-items: start; }
+    .hist-grid .panel p.intro { font-size: 13px; color: var(--muted); padding: 8px 0 4px; }
+
+    .inline-links { font-size: 13px; color: var(--ink-2); padding: 10px 0 2px; }
+    .inline-links a { font-weight: 600; text-decoration: none; border-bottom: 2px solid var(--yellow); }
+
+    footer { margin-top: 56px; border-top: 1px solid var(--line); padding: 26px 0 40px; }
+    .foot { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; font-size: 13px; color: var(--ink-2); }
+    .foot span { display: block; font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+    .foot code { font-size: 12px; background: #ececea; padding: 1px 5px; border-radius: 4px; }
+    .foot-end { margin-top: 22px; font-size: 12px; color: var(--muted); }
+
+    a:focus-visible, summary:focus-visible { outline: 2px solid var(--black); outline-offset: 3px; border-radius: 4px; }
+
+    @media (max-width: 900px) {
+      .counters { grid-template-columns: repeat(3, 1fr); }
+      .grid, .cols, .hist-grid { grid-template-columns: minmax(0, 1fr); }
+      .foot { grid-template-columns: 1fr; }
+      .block-head { flex-direction: column; gap: 2px; }
+      .block-head p { text-align: left; }
+    }
+    @media (max-width: 560px) {
+      .wrap { padding: 0 16px; }
+      .topbar .wrap { height: auto; flex-direction: column; align-items: flex-start; gap: 6px; padding-top: 10px; padding-bottom: 8px; }
+      .nav { width: 100%; margin-left: -12px; }
+      .counters { gap: 8px; }
+      .quick a { padding: 7px 12px; }
+      header.hero { padding-top: 32px; }
+      .counters { grid-template-columns: repeat(2, 1fr); }
+      .row { grid-template-columns: 1fr auto; }
+      .row-date { grid-column: 1 / -1; }
+      .row.current { margin: 0 -16px; padding-left: 16px; padding-right: 16px; }
+      .panel { padding-left: 16px; padding-right: 16px; }
+    }
+  </style>
 </head>
 <body>
-  <main class="page">
-    <div class="brand-switch" role="tablist" aria-label="Selector de marca">
-      <button type="button" class="brand-tab is-active" data-brand="gana" role="tab" aria-selected="true">Gana</button>
-      <button type="button" class="brand-tab" data-brand="loti" role="tab" aria-selected="false">Loti Colombia</button>
+  <a class="skip" href="#contenido">Ir a los documentos</a>
+
+  <div class="topbar">
+    <div class="wrap">
+      <a class="brand" href="./index.html"><i></i>Gana · Loti <span>Documentos</span></a>
+      <nav class="nav" aria-label="Categorías">
+        <a href="#tableros">Tableros</a>
+        <a href="#planeacion">Planeación</a>
+        <a href="#informes">Informes</a>
+        <a href="#historico">Histórico</a>
+        <a href="#otros">Otros</a>
+        <a href="#planes">Planes</a>
+      </nav>
     </div>
+  </div>
 
-    <section class="shell" data-brand-panel="gana">
-      <div class="hero">
-        <div class="eyebrow">GANA · Navegación interna</div>
-        <h1>Documentos de pauta</h1>
-        <p class="lead">
-          Acceso central al contenido de medios pagos de Gana. Desde aquí puedes entrar
-          directamente a los documentos web separados, sin mezclar los reportes con la portada principal del repositorio.
-        </p>
+  <div class="wrap">
+    <header class="hero">
+      <div class="eyebrow">Medios pagos · Colombia</div>
+      <h1>Gana y Loti <em>|</em> Documentos de pauta</h1>
+      <p class="lead">Tableros, planeación e informes de medios pagos en un solo lugar.</p>
 
-        <div class="actions">
-          <a class="btn btn-primary" href="./resumen.html">Abrir resumen</a>
-          <a class="btn btn-secondary" href="./reporte-semanal-meta/">Reporte semanal Meta vs. Flow</a>
-          <a class="btn btn-secondary" href="./avance-pauta.html">Avance de pauta (Meta)</a>
-          <a class="btn btn-secondary" href="./reporte-semanal-campanas.html">Reporte Acumulado de Pauta</a>
-          <a class="btn btn-secondary" href="./informe-mensual-septiembre-2026.html">Informe mensual septiembre</a>
-          <a class="btn btn-secondary" href="./informe-final-gana-oriente.html">Informe Final Gana-Oriente</a>
-          <a class="btn btn-secondary" href="./informe-final-gana-ara.html">Informe Final Gana - Ara</a>
-          <a class="btn btn-secondary" href="./informe-gana-keno-octubre.html">Informe Gana Keno Octubre</a>
-          <a class="btn btn-secondary" href="./plan-medios-universo-digital-2026.html">Plan de Medios Universo Digital 2026</a>
-          <a class="btn btn-secondary" href="./linea-de-tiempo.html">Línea de tiempo completa</a>
-          <a class="btn btn-secondary" href="./atl.html">Capítulo ATL</a>
-          <a class="btn btn-secondary" href="https://github.com/DanielAdcom98/gana" target="_blank" rel="noopener noreferrer">Ver repositorio</a>
-        </div>
-
-        <div class="mini-grid">
-          <article class="mini-card">
-            <span>Archivo</span>
-            <strong>resumen.html · reporte-semanal-meta/ · avance-pauta.html · reporte-semanal-campanas.html · informe-mensual-septiembre-2026.html · informe-final-gana-oriente.html · informe-final-gana-ara.html · informe-gana-keno-octubre.html · plan-medios-universo-digital-2026.html · linea-de-tiempo.html · atl.html</strong>
-          </article>
-          <article class="mini-card">
-            <span>Tipo</span>
-            <strong>Documentos web interactivos</strong>
-          </article>
-          <article class="mini-card">
-            <span>Acceso</span>
-            <strong>Desde este índice interno</strong>
-          </article>
-        </div>
+      <!-- Los números se recalculan solos al cargar la página (cuentan los elementos con data-doc de cada sección). -->
+      <div class="counters" aria-label="Documentos por categoría">
+        <a class="counter" href="#tableros"><span>Tableros</span><strong data-count="tableros">2</strong></a>
+        <a class="counter" href="#planeacion"><span>Planeación</span><strong data-count="planeacion">29</strong></a>
+        <a class="counter" href="#informes"><span>Informes</span><strong data-count="informes">8</strong></a>
+        <a class="counter" href="#historico"><span>Histórico</span><strong data-count="historico">29</strong></a>
+        <a class="counter" href="#otros"><span>Otros</span><strong data-count="otros">3</strong></a>
       </div>
 
-      <aside class="panel">
-        <div class="panel-top">
-          <div class="panel-label">Contenido destacado</div>
-          <h2>Entrada rápida al documento</h2>
-          <p>
-            Separamos cada documento en un archivo propio para que el repositorio tenga una portada más limpia,
-            simple y funcional, con un acceso claro al contenido principal.
-          </p>
-        </div>
-
-        <div class="route-card">
-          <small>Empieza por aquí</small>
-          <strong>Resumen de la pauta</strong>
-          <p>Versión corta y sin tecnicismos: qué se hizo, cuánto costó y qué aprendimos, en cinco momentos.</p>
-          <a href="./resumen.html">Ir al resumen →</a>
-        </div>
-        <div class="route-card">
-          <small>Meta Ads · Gana · Semanal</small>
-          <strong>Reporte semanal Meta vs. Flow</strong>
-          <p>Dashboard interactivo con filtro de fechas y de campañas: inversión frente al presupuesto, alcance y tráfico frente a las metas del Flow, resultados por día, campañas, públicos, top anuncios y conclusiones.</p>
-          <a href="./reporte-semanal-meta/">Ir al reporte semanal →</a>
-        </div>
-        <div class="route-card">
-          <small>Meta Ads · Gana y Loti</small>
-          <strong>Avance de pauta</strong>
-          <p>Inversión, ritmo de presupuesto, diagnóstico por campaña y decisiones priorizadas de las cuentas Gana y Loti Colombia, mes a la fecha.</p>
-          <a href="./avance-pauta.html">Ir al avance de pauta →</a>
-        </div>
-        <div class="route-card">
-          <small>Meta Ads · Gana y Loti</small>
-          <strong>Reporte Acumulado de Pauta</strong>
-          <p>Vista simplificada por campaña: inversión del flow, alcance/gasto/tráfico reales del periodo, logro de la estrategia y avance frente a la meta de KPI.</p>
-          <a href="./reporte-semanal-campanas.html">Ir al reporte acumulado →</a>
-        </div>
-        <div class="route-card">
-          <small>Meta Ads · Gana y Loti</small>
-          <strong>Informe mensual · septiembre 2026</strong>
-          <p>Resultados del 1 al 30 de septiembre campaña por campaña: ángulos, mejores anuncios y videos, públicos, matriz de aprendizajes y recomendaciones.</p>
-          <a href="./informe-mensual-septiembre-2026.html">Ir al informe mensual →</a>
-        </div>
-        <div class="route-card">
-          <small>Meta Ads · Oriente antioqueño</small>
-          <strong>Informe Final Gana-Oriente</strong>
-          <p>Cierre de la pauta regional de Chance Goleador y Placa Millonaria: presupuesto, alcance por producto, comparativo y top 3 de anuncios.</p>
-          <a href="./informe-final-gana-oriente.html">Ir al informe final →</a>
-        </div>
-        <div class="route-card">
-          <small>Meta Ads · Alcance en Tiendas Ara</small>
-          <strong>Informe Final Gana - Ara</strong>
-          <p>Cierre de la campaña de alcance #Ant 6085 (15–25 oct): alcance, impresiones, frecuencia, inversión frente a lo aprobado, mapa de la zona y top 3 de anuncios.</p>
-          <a href="./informe-final-gana-ara.html">Ir al informe final →</a>
-        </div>
-        <div class="route-card">
-          <small>Meta Ads · Alcance Keno · Antioquia</small>
-          <strong>Informe Gana Keno Octubre</strong>
-          <p>Resultados de octubre de la campaña de alcance #Ant 36019 (8–31 oct): alcance, impresiones, frecuencia, inversión, piezas, hallazgos y top 3 de anuncios.</p>
-          <a href="./informe-gana-keno-octubre.html">Ir al informe de octubre →</a>
-        </div>
-        <div class="route-card">
-          <small>Plan de medios · Universo digital 2026</small>
-          <strong>Plan de Medios Universo Digital 2026</strong>
-          <p>Meta activa como base + Google Ads (nuevo), TikTok y Programática reactivados con su historial: mix propuesto, inversión mensual y proyección de registros. Actualizado al 30 de octubre.</p>
-          <a href="./plan-medios-universo-digital-2026.html">Ir al plan →</a>
-        </div>
-        <div class="route-card">
-          <small>Versión detallada</small>
-          <strong>Línea de tiempo de pauta</strong>
-          <p>Semana a semana de Meta, TikTok, programática y DOOH entre abril y julio de 2026: presupuestos, segmentación y formatos.</p>
-          <a href="./linea-de-tiempo.html">Ir a la línea de tiempo →</a>
-        </div>
-        <div class="route-card">
-          <small>Capítulo separado</small>
-          <strong>Gestión ATL</strong>
-          <p>Planeación de televisión regional y radio: inversión, salidas, cobertura territorial y lectura ejecutiva.</p>
-          <a href="./atl.html">Ir al capítulo ATL →</a>
-        </div>
-      </aside>
-    </section>
-
-    <section class="shell" data-brand-panel="loti" hidden>
-      <div class="hero">
-        <div class="eyebrow">LOTI COLOMBIA · Navegación interna</div>
-        <h1>Documentos de pauta</h1>
-        <p class="lead">
-          Acceso central al contenido de medios pagos de Loti Colombia. Esta pestaña queda lista para
-          recibir los documentos propios de la marca, separados de los de Gana.
-        </p>
-
-        <div class="actions">
-          <a class="btn btn-secondary" href="https://github.com/DanielAdcom98/gana" target="_blank" rel="noopener noreferrer">Ver repositorio</a>
-        </div>
-
-        <div class="mini-grid">
-          <article class="mini-card">
-            <span>Archivo</span>
-            <strong>Pendiente de carga</strong>
-          </article>
-          <article class="mini-card">
-            <span>Tipo</span>
-            <strong>Documentos web interactivos</strong>
-          </article>
-          <article class="mini-card">
-            <span>Acceso</span>
-            <strong>Desde este índice interno</strong>
-          </article>
-        </div>
+      <div class="quick" aria-label="Accesos rápidos">
+        <span class="quick-label">Accesos rápidos</span>
+        <a class="primary" href="./reporte-semanal-meta/">Reporte semanal</a>
+        <a href="./avance-pauta.html">Avance de pauta</a>
+        <a href="./reporte-semanal-campanas.html">Reporte acumulado</a>
+        <a href="https://claude.ai/artifact/NgrYwRUbPRn6jSF6atGHjz" target="_blank" rel="noopener noreferrer">Informe mensual · oct 2026</a>
+        <a href="#flows-vigentes">Flows vigentes</a>
       </div>
 
-      <aside class="panel">
-        <div class="panel-top">
-          <div class="panel-label">Contenido destacado</div>
-          <h2>Entrada rápida al documento</h2>
-          <p>
-            Cada documento de Loti Colombia vivirá en su propio archivo, igual que los de Gana, para que
-            el índice mantenga las dos marcas separadas dentro del mismo repositorio.
-          </p>
+      <div class="legend" aria-label="Convenciones">
+        <span class="tag tag-both">Gana + Loti</span> documento compartido
+        <span class="tag tag-gana">Gana</span>
+        <span class="tag tag-loti">Loti</span>
+        <span class="tag tag-status">Artifact</span> requiere acceso en claude.ai
+      </div>
+    </header>
+
+    <main id="contenido">
+
+      <!-- ============================================================
+           A. TABLEROS
+           ============================================================ -->
+      <section class="block" id="tableros" data-section="tableros">
+        <div class="block-head">
+          <h2>Tableros</h2>
+          <p>Seguimiento continuo de inversión y resultados.</p>
         </div>
 
-        <div class="route-card pending">
-          <span class="pending-tag">Pendiente</span>
-          <small>Empieza por aquí</small>
-          <strong>Resumen de la pauta</strong>
-          <p>Se enlazará a <code>loti-resumen.html</code> en cuanto se suba el archivo.</p>
-        </div>
-        <div class="route-card pending">
-          <span class="pending-tag">Pendiente</span>
-          <small>Meta Ads · Loti Colombia</small>
-          <strong>Avance de pauta</strong>
-          <p>Se enlazará a <code>loti-avance-pauta.html</code> en cuanto se suba el archivo.</p>
-        </div>
-        <div class="route-card pending">
-          <span class="pending-tag">Pendiente</span>
-          <small>Versión detallada</small>
-          <strong>Línea de tiempo de pauta</strong>
-          <p>Se enlazará a <code>loti-linea-de-tiempo.html</code> en cuanto se suba el archivo.</p>
-        </div>
-        <div class="route-card pending">
-          <span class="pending-tag">Pendiente</span>
-          <small>Capítulo separado</small>
-          <strong>Gestión ATL</strong>
-          <p>Se enlazará a <code>loti-atl.html</code> en cuanto se suba el archivo.</p>
-        </div>
-      </aside>
-    </section>
-  </main>
+        <div class="grid">
+          <article class="doc" data-doc>
+            <div class="doc-meta"><span class="tag tag-both">Gana + Loti</span><span>Looker Studio</span></div>
+            <h4><a href="https://datastudio.google.com/reporting/d35fcf76-8790-44e4-a5e7-eedaf9944e48" target="_blank" rel="noopener noreferrer">Dashboard Looker Studio</a></h4>
+            <p>Tablero general de resultados de Gana y Loti.</p>
+            <div class="doc-links"><a class="ext" href="https://datastudio.google.com/reporting/d35fcf76-8790-44e4-a5e7-eedaf9944e48" target="_blank" rel="noopener noreferrer">Abrir tablero</a></div>
+          </article>
 
-  <script src="assets/js/index.js"></script>
+          <article class="doc feature" data-doc>
+            <div class="doc-meta"><span class="tag tag-both">Gana + Loti</span><span class="tag tag-live">Semanal</span><span>Actualizado 13 nov 2026</span></div>
+            <h4><a href="https://adcomgroupco.github.io/gana/reporte-semanal-meta/">Reporte semanal de campañas</a></h4>
+            <p>Meta frente al Flow: inversión vs. presupuesto, alcance y tráfico frente a metas, resultados por día, campañas, públicos y top de anuncios, con filtros de fecha y campaña.</p>
+            <div class="doc-links">
+              <a href="https://adcomgroupco.github.io/gana/reporte-semanal-meta/">Gana · web</a>
+              <a class="ext" href="https://claude.ai/artifact/MwJXJXRaKQJhHxSxhxnJo2" target="_blank" rel="noopener noreferrer">Gana · Artifact</a>
+              <a class="ext" href="https://claude.ai/artifact/YSBPDpS8soWytcQZ11XfSD" target="_blank" rel="noopener noreferrer">Loti · Artifact</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           B. PLANEACIÓN
+           Para un mes nuevo: copia una fila <li class="row" data-doc> en la marca
+           correspondiente, ponla arriba y mueve la clase "current" al mes vigente.
+           ============================================================ -->
+      <section class="block" id="planeacion" data-section="planeacion">
+        <div class="block-head">
+          <h2>Planeación</h2>
+          <p>Flows mensuales, flows por campaña y planes de medios. Archivos en Google Drive.</p>
+        </div>
+
+        <h3 class="group" id="flows-vigentes">Flows mensuales</h3>
+        <div class="cols">
+          <!-- GANA -->
+          <div class="panel" id="flows-gana">
+            <div class="panel-title"><span class="tag tag-gana">Gana</span><strong>Flows de Gana</strong></div>
+            <ul class="rows">
+              <li class="row" data-doc>
+                <span class="row-date">Dic 2026</span>
+                <span class="row-name"><span class="tag tag-status">Próximo</span>Flow_CDM_Gana_Diciembre 2026.xlsx<small>Flow mensual de Gana App: inversión y KPI por campaña.</small></span>
+                <span class="row-links"><a class="ext" href="https://drive.google.com/file/d/10G1iRhK3fsjCjizx2g4gRjcdk-1CXVED/view" target="_blank" rel="noopener noreferrer">Abrir</a></span>
+              </li>
+              <li class="row current" data-doc>
+                <span class="row-date">Nov 2026</span>
+                <span class="row-name"><span class="tag tag-live">Vigente</span>Flow_CDM_Gana_Noviembre 2026.xlsx<small>Flow mensual de Gana App: inversión y KPI por campaña.</small></span>
+                <span class="row-links"><a class="ext" href="https://drive.google.com/file/d/1X37gAYcjGdeP9I4O5Jj8oAJs5Yxoli1A/view" target="_blank" rel="noopener noreferrer">Abrir</a></span>
+              </li>
+            </ul>
+            <details>
+              <summary>Meses anteriores · 2026</summary>
+              <ul class="rows">
+                <li class="row" data-doc>
+                  <span class="row-date">Oct 2026</span>
+                  <span class="row-name">Flow_Gana_Octubre.xlsx<small>Flow mensual de Gana App.</small></span>
+                  <span class="row-links"><a class="ext" href="https://drive.google.com/file/d/1dGy33dHtIBZqwDlPLoOKad0xag7DAUAQ/view" target="_blank" rel="noopener noreferrer">Abrir</a></span>
+                </li>
+                <li class="row" data-doc>
+                  <span class="row-date">Ago 2026</span>
+                  <span class="row-name">Flow_Gana_Agosto.xlsx<small>Flow mensual de agosto.</small></span>
+                  <span class="row-links"><a class="ext" href="https://drive.google.com/file/d/13V5SthIFROUlG5L0x2IDXiXsmJGSqBUZ/view" target="_blank" rel="noopener noreferrer">Abrir</a></span>
+                </li>
+                <li class="row" data-doc>
+                  <span class="row-date">Ago 2026</span>
+                  <span class="row-name">Flow_Campañas _Gana_Agosto<small>Hoja de Google Sheets con las campañas de agosto.</small></span>
+                  <span class="row-links"><a class="ext" href="https://docs.google.com/spreadsheets/d/1x_YMTX-EJHM8N4XCjBUtOqQGVeoIbDVCe7HwfmWXgGg/edit" target="_blank" rel="noopener noreferrer">Abrir</a></span>
+                </li>
+                <li class="row" data-doc>
+                  <span class="row-date">Jun – Jul 2026</span>
+                  <span class="row-name">Flow_Gana_JunioJulio.xlsx<small>Flow bimestral de junio y julio.</small></span>
+                  <span class="row-links"><a class="ext" href="https://drive.google.com/file/d/1CIzB2RRLnFxQsPFWlau8EhVYqDSphEuP/view" target="_blank" rel="noopener noreferrer">Abrir</a></span>
+                </li>
+                <li class="row" data-doc>
+                  <span class="row-date">Jun 2026</span>
+                  <span class="row-name">Flow_GanaApp_Placa Junio 2026.xlsx<small>Flow de Placa Millonaria en Gana App, junio.</small></span>
+                  <span class="row-links"><a class="ext" href="https://drive.google.com/file/d/1l6NzJKGPwjybFZG_AWR9N4mvfyzQpwtG/view" target="_blank" rel="noopener noreferrer">Abrir</a></span>
+                </li>
+                <li class="row" data-doc>
+                  <span class="row-date">May 2026</span>
+                  <span class="row-name">Flow-CDM_Gana_Mayo.xlsx<small>Flow mensual de mayo.</small></span>
+                  <span class="row-links"><a class="ext" href="https://drive.google.com/file/d/19A64OC8F2OLz7MyjzMP5IUhn2v9znn9V/view" target="_blank" rel="noopener noreferrer">Abrir</a></span>
+                </li>
+                <li class="row" data-doc>
+                  <span class="row-date">Abr 2026</span>
+                  <span class="row-name">Flow_Gana_Abril 2026.xlsx<small>Flow mensual de abril. Hay una segunda versión, actualizada en septiembre.</small></span>
+                  <span class="row-links"><a class="ext" href="https://drive.google.com/file/d/1tnwj3_-39VFJXgXAQYA0yEO_wXD4RwnS/view" target="_blank" rel="noopener noreferrer">Abrir</a><a class="ext" href="https://drive.google.com/file/d/1golWR0Lf7YGOPiz7g2IVGwTnXUhfw2y8/view" target="_blank" rel="noopener noreferrer">Versión (1)</a></span>
+                </li>
+                <li class="row" data-doc>
+                  <span class="row-date">Mar 2026</span>
+                  <span class="row-name">Flow_Gana_Marzo 2026.xlsx<small>Flow mensual de marzo.</small></span>
+                  <span class="row-links"><a class="ext" href="https://drive.google.com/file/d/1qqKQM8GnNUXfc1phnqagmwwF2ONkWoQW/view" target="_blank" rel="noopener noreferrer">Abrir</a></span>
+                </li>
+                <li class="row" data-doc>
+                  <span class="row-date">Feb 2026</span>
+                  <span class="row-name">Flow_Gana_Febrero 2026.xlsx<small>Flow mensual de febrero.</small></span>
+                  <span class="row-links"><a class="ext" href="https://drive.google.com/file/d/1PAhdsdSRdV39OWg-WDIGxYUMs7d6pvvK/view" target="_blank" rel="noopener noreferrer">Abrir</a></span>
+                </li>
+                <li class="row" data-doc>
+                  <span class="row-date">Ene 2026</span>
+                  <span class="row-name">Flow_Gana_Enero 2026.xlsx<small>Flow mensual de enero.</small></span>
+                  <span class="row-links"><a class="ext" href="https://drive.google.com/file/d/1ME5CwggCL4oSQuFotesp5A4h3MD_ryaq/view" target="_blank" rel="noopener noreferrer">Abrir</a></span>
+                </li>
+              </ul>
+            </details>
+          </div>
+
+          <!-- LOTI -->
+          <div class="panel" id="flows-loti">
+            <div class="panel-title"><span class="tag tag-loti">Loti</span><strong>Flows de Loti</strong></div>
+            <ul class="rows">
+              <li class="row" data-doc>
+                <span class="row-date">Dic 2026</span>
+                <span class="row-name"><span class="tag tag-status">Próximo</span>Flow-CDM_Loti_Diciembre 2026.xlsx<small>Flow mensual de Loti, $10.000.000.</small></span>
+                <span class="row-links"><a class="ext" href="https://drive.google.com/file/d/1hqkpPkHSlGtztUqrqZJb3hCGgK4YM6o8/view" target="_blank" rel="noopener noreferrer">Abrir</a></span>
+              </li>
+              <li class="row current" data-doc>
+                <span class="row-date">Nov 2026</span>
+                <span class="row-name"><span class="tag tag-live">Vigente</span>Flow-CDM_Loti_Noviembre 2026.xlsx<small>Flow mensual de Loti, $10.000.000.</small></span>
+                <span class="row-links"><a class="ext" href="https://drive.google.com/file/d/15by-_fvocyeQ5BOAmaGHHOn7JQ58tlqY/view" target="_blank" rel="noopener noreferrer">Abrir</a></span>
+              </li>
+            </ul>
+            <details>
+              <summary>Meses anteriores · 2026</summary>
+              <ul class="rows">
+                <li class="row" data-doc>
+                  <span class="row-date">Oct 2026</span>
+                  <span class="row-name">Flow-CDM_Loti_Octubre 2026.xlsx<small>Flow mensual de Loti, $10.000.000.</small></span>
+                  <span class="row-links"><a class="ext" href="https://drive.google.com/file/d/1Y73GlhPYi55Nj6t06IPYjUGKJvlVXh2L/view" target="_blank" rel="noopener noreferrer">Abrir</a></span>
+                </li>
+                <li class="row" data-doc>
+                  <span class="row-date">Ago 2026</span>
+                  <span class="row-name">Flow-CDM_Loti_Agosto 2026.xlsx<small>Flow mensual de agosto.</small></span>
+                  <span class="row-links"><a class="ext" href="https://drive.google.com/file/d/1JU740kwLxgbMr5KV4jYXCk5q43XEWxhM/view" target="_blank" rel="noopener noreferrer">Abrir</a></span>
+                </li>
+                <li class="row" data-doc>
+                  <span class="row-date">Jun – Jul 2026</span>
+                  <span class="row-name">2.Flow-CDM_Loti_Junio-Julio 2026.xlsx<small>Flow bimestral de junio y julio.</small></span>
+                  <span class="row-links"><a class="ext" href="https://drive.google.com/file/d/1wQc6aLydAJ4vxyH40UyAlNMrGsQeYtyF/view" target="_blank" rel="noopener noreferrer">Abrir</a></span>
+                </li>
+                <li class="row" data-doc>
+                  <span class="row-date">May 2026</span>
+                  <span class="row-name">2.Flow-CDM_Loti_mayo 2026.xlsx<small>Flow mensual de mayo.</small></span>
+                  <span class="row-links"><a class="ext" href="https://drive.google.com/file/d/1f9TrPtwT57Gg2NQqgS9Tneakc5imPRKM/view" target="_blank" rel="noopener noreferrer">Abrir</a></span>
+                </li>
+                <li class="row" data-doc>
+                  <span class="row-date">Abr 2026</span>
+                  <span class="row-name">2.Flow_Loti_Abril 2026 corregido.xlsx<small>Flow de abril, versión corregida. También está la versión original.</small></span>
+                  <span class="row-links"><a class="ext" href="https://drive.google.com/file/d/1q8uLBkguwio22GEspPChVpiCUCQn7sSE/view" target="_blank" rel="noopener noreferrer">Abrir</a><a class="ext" href="https://drive.google.com/file/d/1SZivPV8D_2om8DtDcyHw-NR4YCf6mZmj/view" target="_blank" rel="noopener noreferrer">Original</a></span>
+                </li>
+                <li class="row" data-doc>
+                  <span class="row-date">Mar 2026</span>
+                  <span class="row-name">2.Flow_Loti_Marzo 2026.xlsx<small>Flow mensual de marzo.</small></span>
+                  <span class="row-links"><a class="ext" href="https://drive.google.com/file/d/1mpGFZifMZOhhlJiCI5y9oMP8HGCLb1ns/view" target="_blank" rel="noopener noreferrer">Abrir</a></span>
+                </li>
+                <li class="row" data-doc>
+                  <span class="row-date">Feb 2026</span>
+                  <span class="row-name">2.Flow_Loti_Febrero 2026.xlsx<small>Flow mensual de febrero.</small></span>
+                  <span class="row-links"><a class="ext" href="https://drive.google.com/file/d/1rSHLSitCdZYeddyuTiOHiiyVFEEpdpYO/view" target="_blank" rel="noopener noreferrer">Abrir</a></span>
+                </li>
+                <li class="row" data-doc>
+                  <span class="row-date">Ene 2026</span>
+                  <span class="row-name">2.Flow_Loti_Enero 2026.xlsx<small>Flow mensual de enero.</small></span>
+                  <span class="row-links"><a class="ext" href="https://drive.google.com/file/d/1bfFWwR6uMDpmypVOmIgyc5kzlLVkZyzt/view" target="_blank" rel="noopener noreferrer">Abrir</a></span>
+                </li>
+              </ul>
+            </details>
+          </div>
+        </div>
+
+        <h3 class="group">Flows por campaña</h3>
+        <div class="panel">
+          <ul class="rows">
+            <li class="row" data-doc>
+              <span class="row-date">Nov – Dic 2026</span>
+              <span class="row-name"><span class="tag tag-gana">Gana</span>Flow_Gana_Servicio QR.xlsx<small>$15.000.000: 60% en noviembre y 40% en diciembre.</small></span>
+              <span class="row-links"><a class="ext" href="https://drive.google.com/file/d/1CiyF4R0T4Y7IdlZ5zH1DvbK5_S_sfx4q/view" target="_blank" rel="noopener noreferrer">Abrir</a></span>
+            </li>
+            <li class="row" data-doc>
+              <span class="row-date">9 semanas</span>
+              <span class="row-name"><span class="tag tag-gana">Gana</span>Flow_Gana_Rifazo.xlsx<small>$10.000.000 en 9 semanas: 4 de 15% y 5 de 8%.</small></span>
+              <span class="row-links"><a class="ext" href="https://drive.google.com/file/d/1JTtdaF_6ktA7GtjmvfxDISy_b9zZf8H7/view" target="_blank" rel="noopener noreferrer">Abrir</a></span>
+            </li>
+            <li class="row" data-doc>
+              <span class="row-date">Continuo</span>
+              <span class="row-name"><span class="tag tag-gana">Gana</span>Flow Always On<small>Hoja de Google Sheets con las líneas siempre activas.</small></span>
+              <span class="row-links"><a class="ext" href="https://docs.google.com/spreadsheets/d/1t2uUHuoRjJt9sYeMVW97qSaTwliG5nbM6aDkSZ6Y7C0/edit" target="_blank" rel="noopener noreferrer">Abrir</a></span>
+            </li>
+            <li class="row" data-doc>
+              <span class="row-date">2026</span>
+              <span class="row-name"><span class="tag tag-gana">Gana</span>Flow_Placa Millonaria_Gana App.xlsx<small>Flow de la campaña Placa Millonaria en Gana App.</small></span>
+              <span class="row-links"><a class="ext" href="https://drive.google.com/file/d/1jm8cI2uhrAN1MO7CKSUPp-r8VBXwJeqq/view" target="_blank" rel="noopener noreferrer">Abrir</a></span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           C. INFORMES
+           ============================================================ -->
+      <section class="block" id="informes" data-section="informes">
+        <div class="block-head">
+          <h2>Informes</h2>
+          <p>Seguimiento de pauta, cierres mensuales y reportes por campaña.</p>
+        </div>
+
+        <h3 class="group">Seguimiento de pauta</h3>
+        <div class="grid">
+          <article class="doc feature" data-doc>
+            <div class="doc-meta"><span class="tag tag-both">Gana + Loti</span><span>Actualizado 10 nov 2026</span></div>
+            <h4><a href="./reporte-semanal-campanas.html">Resumen ejecutivo</a></h4>
+            <p>Comportamiento acumulado de la inversión y los resultados frente a los objetivos y flows: inversión del flow, alcance, gasto y tráfico reales, y avance frente a la meta de KPI por campaña.</p>
+            <div class="doc-links">
+              <a href="./reporte-semanal-campanas.html">Abrir reporte</a>
+              <a href="#hist-acumulado">13 versiones en PDF</a>
+            </div>
+          </article>
+          <article class="doc feature" data-doc>
+            <div class="doc-meta"><span class="tag tag-both">Gana + Loti</span><span>Actualizado 10 nov 2026</span></div>
+            <h4><a href="./avance-pauta.html">Análisis por campaña</a></h4>
+            <p>Ritmo de inversión, cumplimiento presupuestal, diagnóstico por campaña y decisiones de optimización priorizadas, mes a la fecha.</p>
+            <div class="doc-links">
+              <a href="./avance-pauta.html">Abrir informe</a>
+              <a class="ext" href="https://claude.ai/artifact/7hmsCT8kseuKBquGP7Y8v7" target="_blank" rel="noopener noreferrer">Artifact</a>
+              <a href="#hist-avance">9 versiones en PDF</a>
+            </div>
+          </article>
+        </div>
+
+        <!-- Para un mes nuevo: copia un <article class="doc" data-doc> arriba del más reciente y quita la tarjeta pendiente. -->
+        <h3 class="group" id="informes-mensuales">Informes mensuales generales</h3>
+        <div class="grid">
+          <article class="doc pending">
+            <div class="doc-meta"><span class="tag tag-both">Gana + Loti</span><span class="tag tag-pending">Pendiente</span></div>
+            <h4>Informe mensual · noviembre 2026</h4>
+            <p>Se publica al cierre del mes.</p>
+          </article>
+          <article class="doc feature" data-doc>
+            <div class="doc-meta"><span class="tag tag-both">Gana + Loti</span><span>Octubre 2026</span><span class="tag tag-status">Artifact</span></div>
+            <h4><a href="https://claude.ai/artifact/NgrYwRUbPRn6jSF6atGHjz" target="_blank" rel="noopener noreferrer">Análisis de Ads - Octubre</a></h4>
+            <p>Lectura global del mes: resultados por campaña, mejores anuncios, públicos, aprendizajes y recomendaciones.</p>
+            <div class="doc-links"><a class="ext" href="https://claude.ai/artifact/NgrYwRUbPRn6jSF6atGHjz" target="_blank" rel="noopener noreferrer">Abrir Artifact</a></div>
+          </article>
+          <article class="doc" data-doc>
+            <div class="doc-meta"><span class="tag tag-both">Gana + Loti</span><span>Septiembre 2026</span><span class="tag tag-status">Cerrado</span></div>
+            <h4><a href="./informe-mensual-septiembre-2026.html">Análisis de Ads - Septiembre</a></h4>
+            <p>Resultados del 1 al 30 de septiembre campaña por campaña: ángulos, mejores anuncios y videos, públicos, matriz de aprendizajes y recomendaciones.</p>
+            <div class="doc-links">
+              <a href="./informe-mensual-septiembre-2026.html">Abrir informe</a>
+              <a class="ext" href="https://claude.ai/artifact/VJ3MytTeUyQQ91wQkd3qKT" target="_blank" rel="noopener noreferrer">Artifact</a>
+              <a href="./historico/mensual/informe-mensual-2026-09-septiembre.pdf">PDF</a>
+            </div>
+          </article>
+        </div>
+
+        <h3 class="group" id="informes-campanas">Reportes específicos por campaña</h3>
+        <div class="panel">
+          <ul class="rows">
+            <li class="row" data-doc>
+              <span class="row-date">Oct 2026</span>
+              <span class="row-name"><span class="tag tag-gana">Gana</span>Informe Gana Keno · octubre<small>Alcance #Ant 36019, Antioquia (8–31 oct): alcance, impresiones, frecuencia, inversión, piezas, hallazgos y top 3 de anuncios.</small></span>
+              <span class="row-links"><a href="./informe-gana-keno-octubre.html">Abrir</a><a class="ext" href="https://claude.ai/artifact/Cyuqu1oNfAgMB7b5MgvjKu" target="_blank" rel="noopener noreferrer">Artifact</a></span>
+            </li>
+            <li class="row" data-doc>
+              <span class="row-date">Oct 2026</span>
+              <span class="row-name"><span class="tag tag-gana">Gana</span>Informe final Gana – Ara<small>Alcance en Tiendas Ara #Ant 6085 (15–25 oct): alcance, impresiones, frecuencia, inversión frente a lo aprobado, mapa y top 3 de anuncios.</small></span>
+              <span class="row-links"><a href="./informe-final-gana-ara.html">Abrir</a><a class="ext" href="https://claude.ai/artifact/XreJz2QLAxc4ahay7BRHSb" target="_blank" rel="noopener noreferrer">Artifact</a></span>
+            </li>
+            <li class="row" data-doc>
+              <span class="row-date">Sep – Oct 2026</span>
+              <span class="row-name"><span class="tag tag-gana">Gana</span>Informe final Gana – Oriente<small>Chance Goleador y Placa Millonaria en el Oriente antioqueño (25 sep – 19 oct): presupuesto, alcance por producto, comparativo y top 3 de anuncios.</small></span>
+              <span class="row-links"><a href="./informe-final-gana-oriente.html">Abrir</a><a class="ext" href="https://claude.ai/artifact/VmPMYcvrkGNvjp7wqe7yT2" target="_blank" rel="noopener noreferrer">Artifact</a></span>
+            </li>
+            <li class="row" data-doc>
+              <span class="row-date">Abr – Jul 2026</span>
+              <span class="row-name"><span class="tag tag-gana">Gana</span>Resumen de la pauta · Placa Millonaria<small>Versión corta y sin tecnicismos: qué se hizo, cuánto costó y qué aprendimos, en cinco momentos.</small></span>
+              <span class="row-links"><a href="./resumen.html">Abrir</a></span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           D. HISTÓRICO
+           PDFs en historico/<tipo>/. Nombre: <tipo>-AAAA-MM-DD[-al-MM-DD].pdf
+           Para agregar uno: sube el PDF y copia una fila arriba de la más reciente.
+           ============================================================ -->
+      <section class="block" id="historico" data-section="historico">
+        <div class="block-head">
+          <h2>Histórico</h2>
+          <p>Versiones anteriores y documentos cerrados, del más reciente al más antiguo.</p>
+        </div>
+
+        <div class="hist-grid">
+          <div class="panel" id="hist-acumulado">
+            <div class="panel-title"><span class="tag tag-both">Gana + Loti</span><strong>Reporte acumulado de pauta</strong></div>
+            <details open>
+              <summary>Noviembre 2026</summary>
+              <ul class="rows">
+                <li class="row" data-doc><span class="row-date">10 nov</span><span class="row-name">Corte al 10 de noviembre</span><span class="row-links"><a href="./historico/acumulado/acumulado-2026-11-10.pdf">PDF</a></span></li>
+              </ul>
+            </details>
+            <details>
+              <summary>Octubre 2026</summary>
+              <ul class="rows">
+                <li class="row" data-doc><span class="row-date">1 – 31 oct</span><span class="row-name">Cierre de octubre</span><span class="row-links"><a href="./historico/acumulado/acumulado-2026-10-01-al-10-31.pdf">PDF</a></span></li>
+                <li class="row" data-doc><span class="row-date">1 – 26 oct</span><span class="row-name">Acumulado al 26 de octubre</span><span class="row-links"><a href="./historico/acumulado/acumulado-2026-10-01-al-10-26.pdf">PDF</a></span></li>
+                <li class="row" data-doc><span class="row-date">26 oct</span><span class="row-name">Corte del 26 de octubre</span><span class="row-links"><a href="./historico/acumulado/acumulado-2026-10-26.pdf">PDF</a></span></li>
+                <li class="row" data-doc><span class="row-date">1 – 19 oct</span><span class="row-name">Acumulado al 19 de octubre</span><span class="row-links"><a href="./historico/acumulado/acumulado-2026-10-01-al-10-19.pdf">PDF</a></span></li>
+                <li class="row" data-doc><span class="row-date">13 oct</span><span class="row-name">Corte del 13 de octubre</span><span class="row-links"><a href="./historico/acumulado/acumulado-2026-10-13.pdf">PDF</a></span></li>
+                <li class="row" data-doc><span class="row-date">6 – 12 oct</span><span class="row-name">Semana del 6 al 12 de octubre</span><span class="row-links"><a href="./historico/acumulado/acumulado-2026-10-06-al-10-12.pdf">PDF</a></span></li>
+                <li class="row" data-doc><span class="row-date">1 – 5 oct</span><span class="row-name">Del 1 al 5 de octubre</span><span class="row-links"><a href="./historico/acumulado/acumulado-2026-10-01-al-10-05.pdf">PDF</a></span></li>
+              </ul>
+            </details>
+            <details>
+              <summary>Septiembre 2026</summary>
+              <ul class="rows">
+                <li class="row" data-doc><span class="row-date">1 – 30 sep</span><span class="row-name">Cierre de septiembre</span><span class="row-links"><a href="./historico/acumulado/acumulado-2026-09-01-al-09-30.pdf">PDF</a></span></li>
+                <li class="row" data-doc><span class="row-date">30 sep</span><span class="row-name">Corte del 30 de septiembre</span><span class="row-links"><a href="./historico/acumulado/acumulado-2026-09-30.pdf">PDF</a></span></li>
+                <li class="row" data-doc><span class="row-date">28 sep</span><span class="row-name">Corte del 28 de septiembre</span><span class="row-links"><a href="./historico/acumulado/acumulado-2026-09-28.pdf">PDF</a></span></li>
+                <li class="row" data-doc><span class="row-date">21 sep</span><span class="row-name">Corte del 21 de septiembre</span><span class="row-links"><a href="./historico/acumulado/acumulado-2026-09-21.pdf">PDF</a></span></li>
+                <li class="row" data-doc><span class="row-date">14 sep</span><span class="row-name">Corte del 14 de septiembre</span><span class="row-links"><a href="./historico/acumulado/acumulado-2026-09-14.pdf">PDF</a></span></li>
+              </ul>
+            </details>
+            <details>
+              <summary>Versión Artifact anterior</summary>
+              <ul class="rows">
+                <li class="row" data-doc><span class="row-date">14 sep</span><span class="row-name">Reporte semanal por campañas<small>Artifact, última actualización 14 sep 2026.</small></span><span class="row-links"><a class="ext" href="https://claude.ai/artifact/5JxwirxxXo8E4dstTbUQU5" target="_blank" rel="noopener noreferrer">Artifact</a></span></li>
+              </ul>
+            </details>
+          </div>
+
+          <div class="panel" id="hist-avance">
+            <div class="panel-title"><span class="tag tag-both">Gana + Loti</span><strong>Informe de avance de pauta</strong></div>
+            <details open>
+              <summary>Octubre 2026</summary>
+              <ul class="rows">
+                <li class="row" data-doc><span class="row-date">21 – 27 oct</span><span class="row-name">Semana del 21 al 27 de octubre</span><span class="row-links"><a href="./historico/avance-pauta/avance-pauta-2026-10-21-al-10-27.pdf">PDF</a></span></li>
+                <li class="row" data-doc><span class="row-date">1 – 5 oct</span><span class="row-name">Del 1 al 5 de octubre</span><span class="row-links"><a href="./historico/avance-pauta/avance-pauta-2026-10-01-al-10-05.pdf">PDF</a></span></li>
+              </ul>
+            </details>
+            <details>
+              <summary>Septiembre 2026</summary>
+              <ul class="rows">
+                <li class="row" data-doc><span class="row-date">1 – 30 sep</span><span class="row-name">Cierre de septiembre</span><span class="row-links"><a href="./historico/avance-pauta/avance-pauta-2026-09-01-al-09-30.pdf">PDF</a></span></li>
+                <li class="row" data-doc><span class="row-date">30 sep</span><span class="row-name">Corte del 30 de septiembre</span><span class="row-links"><a href="./historico/avance-pauta/avance-pauta-2026-09-30.pdf">PDF</a></span></li>
+                <li class="row" data-doc><span class="row-date">23 – 29 sep</span><span class="row-name">Semana del 23 al 29 de septiembre</span><span class="row-links"><a href="./historico/avance-pauta/avance-pauta-2026-09-23-al-09-29.pdf">PDF</a></span></li>
+                <li class="row" data-doc><span class="row-date">16 – 22 sep</span><span class="row-name">Semana del 16 al 22 de septiembre</span><span class="row-links"><a href="./historico/avance-pauta/avance-pauta-2026-09-16-al-09-22.pdf">PDF</a></span></li>
+                <li class="row" data-doc><span class="row-date">8 – 15 sep</span><span class="row-name">Semana del 8 al 15 de septiembre</span><span class="row-links"><a href="./historico/avance-pauta/avance-pauta-2026-09-08-al-09-15.pdf">PDF</a></span></li>
+              </ul>
+            </details>
+            <details>
+              <summary>Agosto 2026</summary>
+              <ul class="rows">
+                <li class="row" data-doc><span class="row-date">20 ago – 7 sep</span><span class="row-name">Del 20 de agosto al 7 de septiembre</span><span class="row-links"><a href="./historico/avance-pauta/avance-pauta-2026-08-20-al-09-07.pdf">PDF</a></span></li>
+                <li class="row" data-doc><span class="row-date">Ago</span><span class="row-name">Cierre de agosto</span><span class="row-links"><a href="./historico/avance-pauta/avance-pauta-2026-08-agosto.pdf">PDF</a></span></li>
+              </ul>
+            </details>
+            <details>
+              <summary>Versión Artifact anterior</summary>
+              <ul class="rows">
+                <li class="row" data-doc><span class="row-date">1 sep</span><span class="row-name">Informe de avance pauta<small>Artifact, última actualización 1 sep 2026.</small></span><span class="row-links"><a class="ext" href="https://claude.ai/artifact/TYGeCLJEeBDWr6mFSvi7Wz" target="_blank" rel="noopener noreferrer">Artifact</a></span></li>
+              </ul>
+            </details>
+          </div>
+
+          <div class="panel">
+            <div class="panel-title"><span class="tag tag-both">Gana + Loti</span><strong>Informes mensuales cerrados</strong></div>
+            <ul class="rows">
+              <li class="row" data-doc><span class="row-date">Sep 2026</span><span class="row-name">Informe Ads Meta · septiembre 2026<small>Versión PDF del informe mensual.</small></span><span class="row-links"><a href="./historico/mensual/informe-mensual-2026-09-septiembre.pdf">PDF</a></span></li>
+              <li class="row" data-doc><span class="row-date">Sep 2026</span><span class="row-name">Reporte septiembre · Gana &amp; Loti<small>Artifact de resumen, 8 oct 2026.</small></span><span class="row-links"><a class="ext" href="https://claude.ai/artifact/YEYdL2csbeF1b66jDVN7u9" target="_blank" rel="noopener noreferrer">Artifact</a></span></li>
+              <li class="row" data-doc><span class="row-date">Sep 2026</span><span class="row-name">Informe mensual Meta Ads · septiembre (borrador)<small>Primera versión en Artifact, 8 oct 2026.</small></span><span class="row-links"><a class="ext" href="https://claude.ai/artifact/WEfM8dhPjJ8SxzXLiXoKQ3" target="_blank" rel="noopener noreferrer">Artifact</a></span></li>
+            </ul>
+          </div>
+
+          <div class="panel">
+            <div class="panel-title"><span class="tag tag-gana">Gana</span><strong>Campañas cerradas</strong></div>
+            <ul class="rows">
+              <li class="row" data-doc><span class="row-date">Oct 2026</span><span class="row-name">Informe final Gana – Ara<small>Versión PDF.</small></span><span class="row-links"><a href="./historico/campanas/informe-final-gana-ara.pdf">PDF</a></span></li>
+              <li class="row" data-doc><span class="row-date">Sep – Oct 2026</span><span class="row-name">Informe final Gana – Oriente<small>Versión PDF.</small></span><span class="row-links"><a href="./historico/campanas/informe-final-gana-oriente.pdf">PDF</a></span></li>
+            </ul>
+            <p class="inline-links">Versiones web de estos y otros reportes en <a href="#informes-campanas">Reportes por campaña</a>. Flows de meses anteriores en <a href="#flows-gana">Gana</a> y <a href="#flows-loti">Loti</a>.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           E. OTROS
+           ============================================================ -->
+      <section class="block" id="otros" data-section="otros">
+        <div class="block-head">
+          <h2>Otros</h2>
+          <p>Recursos complementarios.</p>
+        </div>
+        <div class="grid">
+          <article class="doc" data-doc>
+            <div class="doc-meta"><span class="tag tag-both">Gana + Loti</span><span>GitHub</span></div>
+            <h4><a href="https://github.com/DanielAdcom98/gana" target="_blank" rel="noopener noreferrer">Repositorio del sitio</a></h4>
+            <p>Código fuente de esta página y de los documentos web publicados.</p>
+            <div class="doc-links"><a class="ext" href="https://github.com/DanielAdcom98/gana" target="_blank" rel="noopener noreferrer">Ver repositorio</a></div>
+          </article>
+          <article class="doc" data-doc>
+            <div class="doc-meta"><span class="tag tag-gana">Gana</span><span>Abr – Jul 2026</span></div>
+            <h4><a href="./linea-de-tiempo.html">Línea de tiempo de pauta · Placa Millonaria</a></h4>
+            <p>Semana a semana de Meta, TikTok, programática y DOOH: presupuestos, segmentación y formatos.</p>
+            <div class="doc-links"><a href="./linea-de-tiempo.html">Abrir</a></div>
+          </article>
+          <article class="doc" data-doc>
+            <div class="doc-meta"><span class="tag tag-gana">Gana</span><span>Abr – Jul 2026</span></div>
+            <h4><a href="./linea-de-tiempo-completo.html">Línea de tiempo de pauta · versión completa</a></h4>
+            <p>La misma línea de tiempo con el detalle completo de cada semana.</p>
+            <div class="doc-links"><a href="./linea-de-tiempo-completo.html">Abrir</a></div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           PLANES DE MEDIOS Y PRESUPUESTO (cuenta dentro del contador de Planeación)
+           ============================================================ -->
+      <section class="block" id="planes" data-section="planeacion">
+        <div class="block-head">
+          <h2>Planes de medios y presupuesto</h2>
+          <p>Planes de medios, presupuesto y capítulo ATL.</p>
+        </div>
+        <div class="grid">
+          <article class="doc feature" data-doc>
+            <div class="doc-meta"><span class="tag tag-gana">Gana</span><span>Actualizado 30 oct 2026</span></div>
+            <h4><a href="./plan-medios-universo-digital-2026.html">Plan de Medios Universo Digital 2026</a></h4>
+            <p>Meta como base más Google Ads, TikTok y Programática: mix propuesto, inversión mensual y proyección de registros.</p>
+            <div class="doc-links"><a href="./plan-medios-universo-digital-2026.html">Abrir plan</a></div>
+          </article>
+          <article class="doc" data-doc>
+            <div class="doc-meta"><span class="tag tag-gana">Gana</span><span>Sep – Oct 2026</span><span class="tag tag-status">Artifact</span></div>
+            <h4><a href="https://claude.ai/artifact/TT5ehNkuD9sxVnBXPQgLck" target="_blank" rel="noopener noreferrer">Presupuesto Gana Sep–Oct</a></h4>
+            <p>Distribución del presupuesto de pauta de Gana para septiembre y octubre.</p>
+            <div class="doc-links"><a class="ext" href="https://claude.ai/artifact/TT5ehNkuD9sxVnBXPQgLck" target="_blank" rel="noopener noreferrer">Abrir Artifact</a></div>
+          </article>
+          <article class="doc" data-doc>
+            <div class="doc-meta"><span class="tag tag-gana">Gana</span><span>Placa Millonaria</span></div>
+            <h4><a href="./atl.html">Gestión ATL</a></h4>
+            <p>Planeación de televisión regional y radio: inversión, salidas, cobertura territorial y lectura ejecutiva.</p>
+            <div class="doc-links"><a href="./atl.html">Abrir capítulo ATL</a></div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="foot">
+        <div><span>Cuenta</span>Gana y Loti Colombia · Grupo Réditos</div>
+        <div><span>Fuentes</span>Meta Ads, flows de medios en Google Drive y Artifacts de claude.ai</div>
+        <div><span>Actualizar</span>Cada bloque tiene instrucciones en comentarios dentro de <code>index.html</code>. Los contadores se calculan solos.</div>
+      </div>
+      <p class="foot-end">Gana y Loti · Biblioteca de documentos de pauta</p>
+    </footer>
+  </div>
+
+  <script>
+    // Cuenta los documentos (data-doc) de cada sección y actualiza los contadores.
+    document.querySelectorAll('[data-count]').forEach(function (out) {
+      out.textContent = document.querySelectorAll('[data-section="' + out.dataset.count + '"] [data-doc]').length;
+    });
+  </script>
 </body>
 </html>
