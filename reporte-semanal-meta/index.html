@@ -1,0 +1,1067 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gana · Reporte semanal Meta</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+/* Plantilla ADCOM de reportes de cliente (misma línea que RIS): header negro redondeado, acento amarillo, tarjetas blancas sobre gris claro. Solo tema claro, como el resto de reportes de cliente. */
+:root {
+  --bg: #F5F5F5; --card: #FFFFFF; --ink: #141414; --muted: #63635E; --line: #E6E6E1; --panel: #F7F7F5;
+  --accent: #FFC000; --accent-soft: #FFF5D1; --accent-ink: #8A6400; --head: #141414; --head-ink: #FFFFFF; --head-muted: #D6D6D2;
+  --good: #0B8A0B; --good-soft: #E3F4E3; --warn: #B37400; --warn-soft: #FFF1D6; --bad: #C23131; --bad-soft: #FBE5E5; --none: #8E8E89;
+  --bar-off: #CFCFCA; --bar-on: #4A4A46;
+  --f: "Poppins", "Segoe UI", Helvetica, Arial, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html, body { background: var(--bg); }
+body { color: var(--ink); font-family: var(--f); font-size: 15px; line-height: 1.6; margin: 0; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 20px 64px; display: grid; gap: 44px; }
+.wrap > * { min-width: 0; }
+h1, h2, h3, h4 { margin: 0; line-height: 1.2; text-wrap: balance; }
+p, ul, ol { margin: 0; }
+a { color: inherit; }
+.eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.note { font-size: 13px; color: var(--muted); max-width: 80ch; }
+.panel { background: var(--card); border-radius: 16px; padding: clamp(18px, 3vw, 26px); border: 1px solid var(--line); display: grid; gap: 10px; }
+footer { font-size: 12px; color: var(--muted); display: grid; gap: 6px; }
+
+/* Header */
+.top { background: var(--head); color: var(--head-ink); border-radius: 20px; padding: clamp(24px, 4vw, 44px); display: grid; gap: 14px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .16em; font-size: 13px; }
+.brand i { width: 12px; height: 12px; border-radius: 3px; background: var(--accent); }
+.brand .sep { color: #8A8A85; font-weight: 400; letter-spacing: 0; }
+.top h1 { font-size: clamp(28px, 4.6vw, 42px); font-weight: 700; }
+.top h1 span { color: var(--accent); }
+.top p { max-width: 70ch; color: var(--head-muted); font-size: 16px; }
+.back { color: var(--head-muted); font-size: 13px; text-decoration: none; justify-self: start; }
+.back:hover, .back:focus-visible { color: var(--accent); }
+.toc { display: flex; flex-wrap: wrap; gap: 8px; }
+.toc a { color: var(--head-ink); text-decoration: none; font-size: 13px; font-weight: 500; border: 1px solid #5A5A56; border-radius: 99px; padding: 5px 13px; }
+.toc a:hover, .toc a:focus-visible { border-color: var(--accent); color: var(--accent); outline: none; }
+
+/* Filters */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.filters { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 10px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; border-bottom: 1px solid var(--line); }
+@media (max-width: 700px) { .filters { position: static; } }
+.presets { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: inherit; font-size: 13px; font-weight: 500; border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 99px; padding: 6px 14px; cursor: pointer; }
+.chip:hover { background: var(--accent-soft); }
+.chip[aria-pressed="true"] { background: var(--head); color: var(--head-ink); border-color: var(--head); font-weight: 600; }
+.chip:focus-visible, .range input:focus-visible, .range select:focus-visible, button:focus-visible, th button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.range { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
+.range input, .range select { font: inherit; font-size: 13px; border: 1px solid var(--line); border-radius: 10px; padding: 5px 8px; background: var(--card); color: var(--ink); max-width: 100%; }
+.period { font-size: 13px; color: var(--muted); width: 100%; }
+.period b { color: var(--ink); }
+
+/* Sections */
+.section { display: grid; gap: 16px; scroll-margin-top: 120px; }
+.section > * { min-width: 0; }
+.section-head { display: grid; gap: 4px; padding-bottom: 12px; border-bottom: 3px solid var(--accent); }
+.section-head h2 { font-size: clamp(21px, 3vw, 26px); }
+.section-head p { font-size: 14px; color: var(--muted); max-width: 80ch; }
+.sub-h { font-size: 17px; }
+
+/* KPI tiles */
+.kpis { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.kpi { background: var(--card); border-radius: 16px; padding: 18px; display: grid; gap: 4px; align-content: start; border: 1px solid var(--line); }
+.kpi .lbl { font-size: 13px; font-weight: 600; }
+.kpi .val { font-size: clamp(24px, 3vw, 30px); font-weight: 700; line-height: 1.15; font-variant-numeric: tabular-nums; }
+.kpi .val.na { font-size: 17px; color: var(--muted); font-weight: 600; }
+.kpi .sub { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.kpi.lead { border-bottom: 4px solid var(--accent); }
+.delta { font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; display: inline-flex; gap: 4px; align-items: baseline; flex-wrap: wrap; }
+.delta.up { color: var(--good); } .delta.down { color: var(--bad); } .delta.flat { color: var(--muted); }
+.delta small { font-weight: 400; color: var(--muted); font-size: 11px; }
+.meter { position: relative; height: 8px; border-radius: 99px; background: var(--panel); border: 1px solid var(--line); overflow: hidden; margin: 6px 0 2px; }
+.meter i { display: block; height: 100%; border-radius: 99px; background: var(--accent); }
+
+/* Status pills */
+.st { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; border-radius: 99px; padding: 2px 9px 2px 6px; white-space: nowrap; }
+.st::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.st.good { color: var(--good); background: var(--good-soft); }
+.st.warn { color: var(--warn); background: var(--warn-soft); }
+.st.bad { color: var(--bad); background: var(--bad-soft); }
+.st.none { color: var(--muted); background: var(--panel); }
+
+/* Flow blocks */
+.blocks { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+.block { background: var(--card); border: 1px solid var(--line); border-bottom: 4px solid var(--accent); border-radius: 16px; padding: clamp(18px, 3vw, 24px); display: grid; gap: 14px; align-content: start; }
+.block header { display: flex; justify-content: space-between; align-items: start; gap: 10px; flex-wrap: wrap; }
+.block h3 { font-size: 20px; }
+.block .big { font-size: clamp(30px, 4vw, 40px); font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
+.block .bigsub { font-size: 13px; color: var(--muted); }
+.cmp { display: grid; gap: 0; }
+.cmp-row { display: grid; grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr)); gap: 8px; padding: 8px 0; border-top: 1px solid var(--line); font-size: 13px; align-items: center; font-variant-numeric: tabular-nums; }
+.cmp-row.h { border-top: 0; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; padding-top: 0; }
+.cmp-row > :not(:first-child) { text-align: right; }
+.cmp-row b { font-weight: 600; }
+.bullet { position: relative; height: 14px; background: var(--panel); border-radius: 4px; min-width: 120px; overflow: hidden; }
+.bullet .band { position: absolute; top: 0; bottom: 0; background: var(--good-soft); }
+.bullet .fill { position: absolute; left: 0; top: 3px; bottom: 3px; border-radius: 3px; }
+.bullet .fill.good { background: var(--good); } .bullet .fill.warn { background: var(--accent); } .bullet .fill.bad { background: var(--bad); } .bullet .fill.none { background: var(--none); }
+.bullet .tick { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--ink); }
+.bullet-wrap { display: grid; gap: 4px; }
+.bullet-scale { display: flex; justify-content: space-between; font-size: 10px; color: var(--muted); }
+.legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 12px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend .sw { width: 12px; height: 12px; border-radius: 3px; background: var(--head); }
+.legend .sw.good { background: var(--good); } .legend .sw.warn { background: var(--accent); } .legend .sw.bad { background: var(--bad); }
+.legend .sw.band { background: var(--good-soft); border: 1px solid var(--good); }
+.legend .sw-goal { width: 18px; border-top: 2px dashed var(--accent-ink); }
+.legend .sw-tick { width: 2px; height: 12px; background: var(--ink); }
+
+/* Tables */
+.table-wrap { overflow-x: auto; background: var(--card); border-radius: 16px; border: 1px solid var(--line); }
+table { border-collapse: collapse; width: 100%; font-size: 13px; min-width: 760px; }
+th, td { padding: 10px 11px; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; vertical-align: middle; }
+th:first-child, td:first-child { text-align: left; }
+td.l, th.l { text-align: left; }
+thead th { font-size: 11px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); border-bottom: 2px solid var(--line); vertical-align: bottom; white-space: normal; }
+tbody tr + tr td { border-top: 1px solid var(--line); }
+tfoot td { font-weight: 700; border-top: 2px solid var(--ink); }
+td.wrap { white-space: normal; min-width: 220px; max-width: 340px; }
+td .nm { font-weight: 600; display: block; line-height: 1.3; }
+td .meta { font-size: 11px; color: var(--muted); display: block; line-height: 1.35; }
+td.dim, .dim { color: var(--muted); }
+th button { font: inherit; text-transform: inherit; letter-spacing: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; display: inline-flex; gap: 4px; align-items: center; }
+th button::after { content: "↕"; opacity: .45; font-size: 11px; }
+th button[data-dir="desc"]::after { content: "↓"; opacity: 1; color: var(--ink); }
+th button[data-dir="asc"]::after { content: "↑"; opacity: 1; color: var(--ink); }
+.badge { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; border-radius: 99px; padding: 1px 8px; margin-top: 3px; margin-right: 4px; }
+.badge.good { background: var(--good-soft); color: var(--good); } .badge.bad { background: var(--bad-soft); color: var(--bad); } .badge.info { background: var(--panel); color: var(--muted); border: 1px solid var(--line); }
+tr.hi td { background: var(--accent-soft); }
+
+/* Chart */
+.chart-card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: clamp(16px, 3vw, 24px); display: grid; gap: 12px; }
+.chart-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; align-items: center; }
+.chart-head h3 { font-size: 17px; }
+.ctrls { display: flex; flex-wrap: wrap; gap: 8px; }
+.seg { display: inline-flex; flex-wrap: wrap; gap: 4px; background: var(--panel); border-radius: 99px; padding: 3px; border: 1px solid var(--line); }
+.seg button { font: inherit; font-size: 12px; font-weight: 500; border: 0; background: transparent; color: var(--muted); border-radius: 99px; padding: 5px 12px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--head); color: var(--head-ink); font-weight: 600; }
+.chart { position: relative; }
+.chart svg { display: block; width: 100%; height: 300px; overflow: visible; }
+.chart .grid line { stroke: var(--line); stroke-width: 1; }
+.chart .axis text { fill: var(--muted); font-size: 11px; font-family: var(--f); }
+.chart .bar { fill: var(--head); }
+.chart .bar.on { fill: var(--bar-on); }
+.chart .goal { fill: none; stroke: var(--accent-ink); stroke-width: 2; stroke-dasharray: 5 4; }
+.chart .cum { fill: none; stroke: var(--head); stroke-width: 2.5; }
+.chart .cum-area { fill: var(--accent); opacity: .18; }
+.chart .dot { fill: var(--head); }
+.tip { position: absolute; pointer-events: none; background: var(--head); color: var(--head-ink); font-size: 12px; border-radius: 10px; padding: 8px 10px; white-space: nowrap; transform: translate(-50%, calc(-100% - 10px)); opacity: 0; transition: opacity .1s; z-index: 2; }
+.tip b { color: var(--accent); }
+.chart-sum { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.mini { background: var(--panel); border-radius: 12px; padding: 10px 14px; display: grid; gap: 2px; }
+.mini span { font-size: 12px; color: var(--muted); }
+.mini b { font-size: 18px; font-variant-numeric: tabular-nums; }
+
+/* Audiences */
+.aud-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.aud-card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: grid; gap: 4px; }
+.aud-card .k { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+.aud-card.good .k { color: var(--good); } .aud-card.bad .k { color: var(--bad); }
+.aud-card b { font-size: 17px; }
+.aud-card p { font-size: 13px; color: var(--muted); }
+details.more { background: var(--card); border: 1px solid var(--line); border-radius: 16px; }
+details.more summary { cursor: pointer; padding: 14px 18px; font-weight: 600; font-size: 14px; }
+details.more .table-wrap { border: 0; border-top: 1px solid var(--line); border-radius: 0 0 16px 16px; }
+
+/* Ads */
+.ads { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.ad { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; display: grid; grid-template-rows: auto 1fr; }
+.ad figure { margin: 0; background: var(--panel); border-bottom: 1px solid var(--line); display: grid; place-items: center; min-height: 260px; position: relative; }
+.ad figure img { display: block; width: 100%; height: auto; max-height: 520px; object-fit: contain; }
+.ad figure .noimg { padding: 40px 20px; font-size: 13px; color: var(--muted); text-align: center; }
+.ad .rank { position: absolute; top: 10px; left: 10px; background: var(--head); color: var(--accent); font-weight: 700; font-size: 13px; border-radius: 99px; padding: 2px 10px; }
+.ad .type { position: absolute; top: 10px; right: 10px; background: var(--card); color: var(--ink); font-size: 11px; font-weight: 600; border-radius: 99px; padding: 2px 9px; border: 1px solid var(--line); }
+.ad .body { padding: 14px 16px 16px; display: grid; gap: 10px; align-content: start; }
+.ad h4 { font-size: 14px; line-height: 1.35; word-break: break-word; }
+.ad .camp { font-size: 12px; color: var(--muted); line-height: 1.35; word-break: break-word; }
+.ad dl { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px 10px; margin: 0; }
+.ad dl div { display: grid; gap: 0; }
+.ad dt { font-size: 11px; color: var(--muted); }
+.ad dd { margin: 0; font-weight: 600; font-size: 14px; font-variant-numeric: tabular-nums; }
+.ad .hl { background: var(--accent-soft); border-radius: 10px; padding: 8px 10px; font-size: 13px; }
+.ad .hl b { font-variant-numeric: tabular-nums; }
+.ad a.go { font-size: 13px; font-weight: 600; text-decoration: none; }
+.ad a.go:hover, .ad a.go:focus-visible { text-decoration: underline; }
+
+/* Conclusions */
+.concl { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.concl .panel h3 { font-size: 16px; display: flex; gap: 8px; align-items: center; }
+.concl .panel h3::before { content: ""; width: 10px; height: 10px; border-radius: 3px; background: var(--accent); flex: none; }
+.concl .panel.good h3::before { background: var(--good); } .concl .panel.bad h3::before { background: var(--bad); } .concl .panel.warn h3::before { background: var(--warn); }
+.concl ul { padding-left: 18px; display: grid; gap: 8px; font-size: 14px; }
+.concl li b { font-variant-numeric: tabular-nums; }
+.concl .empty { font-size: 14px; color: var(--muted); }
+.pending { border-style: dashed; }
+.pending ul { padding-left: 18px; display: grid; gap: 6px; font-size: 13px; }
+/* Campaign filter */
+.cf { position: relative; display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); min-width: 0; }
+.cf-btn { font: inherit; font-size: 13px; font-weight: 600; border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 10px; padding: 5px 30px 5px 10px; cursor: pointer; max-width: min(340px, 70vw); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; position: relative; text-align: left; }
+.cf-btn::after { content: "▾"; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: inherit; opacity: .7; }
+.cf-btn.on { background: var(--head); color: var(--head-ink); border-color: var(--head); }
+.cf-panel { position: absolute; top: calc(100% + 6px); right: 0; z-index: 20; width: min(460px, calc(100vw - 32px)); background: var(--card); color: var(--ink); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 12px 32px rgba(20,20,20,.18); padding: 12px; display: grid; gap: 10px; }
+@media (max-width: 700px) { .cf-panel { position: fixed; top: calc(12px + env(safe-area-inset-top, 0px)); left: max(16px, env(safe-area-inset-left, 0px)); right: max(16px, env(safe-area-inset-right, 0px)); width: auto; } }
+.cf-panel input[type="search"] { font: inherit; font-size: 13px; border: 1px solid var(--line); border-radius: 10px; padding: 7px 10px; background: var(--panel); color: var(--ink); width: 100%; }
+.cf-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+.cf-actions button { font: inherit; font-size: 12px; font-weight: 600; border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 99px; padding: 4px 12px; cursor: pointer; }
+.cf-actions button:hover { background: var(--accent-soft); }
+.cf-actions button.primary { background: var(--accent); border-color: var(--accent); margin-left: auto; }
+.cf-list { max-height: min(360px, 55vh); overflow-y: auto; display: grid; gap: 1px; border-top: 1px solid var(--line); padding-top: 6px; }
+.cf-opt { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 6px 8px; border-radius: 8px; cursor: pointer; }
+.cf-opt:hover { background: var(--panel); }
+.cf-opt input { accent-color: var(--head); width: 16px; height: 16px; margin: 0; }
+.cf-opt .t { display: grid; min-width: 0; }
+.cf-opt .t b { font-size: 13px; font-weight: 600; line-height: 1.3; overflow-wrap: anywhere; }
+.cf-opt .t small { font-size: 11px; color: var(--muted); line-height: 1.3; }
+.cf-opt .sp { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.cf-opt.all { font-weight: 600; border-bottom: 1px solid var(--line); border-radius: 8px 8px 0 0; margin-bottom: 4px; }
+.cf-opt.off .t b { color: var(--muted); }
+.cf-empty { font-size: 13px; color: var(--muted); padding: 8px; }
+.sel-note { background: var(--accent-soft); border-radius: 12px; padding: 10px 14px; font-size: 13px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header class="top">
+  <a class="back" href="../index.html">← Todos los documentos</a>
+  <div class="brand"><i></i>ADCOM <span class="sep">×</span> GANA</div>
+  <h1>Reporte semanal · <span>Meta Ads</span></h1>
+  <p>Resultados de las campañas de Gana en Meta frente a las metas de los Flows de medios. Elige una semana o un rango de fechas y todo el reporte se recalcula.</p>
+  <nav class="toc" aria-label="Secciones">
+    <a href="#resumen">Resumen</a><a href="#flow">Frente al Flow</a><a href="#dias">Por día</a><a href="#campanas">Campañas</a><a href="#audiencias">Audiencias</a><a href="#anuncios">Top anuncios</a><a href="#conclusiones">Conclusiones</a>
+  </nav>
+</header>
+
+<div class="filters" role="group" aria-label="Filtro de fechas">
+  <div class="presets" id="presets"></div>
+  <div class="range">
+    <label for="week">Semana</label><select id="week"></select>
+    <label for="since">Desde</label><input type="date" id="since">
+    <label for="until">Hasta</label><input type="date" id="until">
+  </div>
+  <div class="cf" id="cf">
+    <label for="cf-btn">Campañas</label>
+    <button type="button" class="cf-btn" id="cf-btn" aria-haspopup="true" aria-expanded="false" aria-controls="cf-panel">Todas las campañas</button>
+    <div class="cf-panel" id="cf-panel" hidden>
+      <input type="search" id="cf-q" placeholder="Buscar por nombre de campaña…" aria-label="Buscar campaña por nombre" autocomplete="off">
+      <div class="cf-actions">
+        <button type="button" id="cf-match">Seleccionar las que coinciden</button>
+        <button type="button" id="cf-clear">Limpiar: ver todas</button>
+        <button type="button" id="cf-done" class="primary">Cerrar</button>
+      </div>
+      <div class="cf-list" id="cf-list" role="group" aria-label="Campañas de Meta Ads"></div>
+    </div>
+  </div>
+  <p class="period" id="period"></p>
+</div>
+
+<section class="section" id="resumen">
+  <div class="section-head">
+    <p class="eyebrow" id="resumen-eyebrow">Total de la cuenta</p>
+    <h2>Resumen general</h2>
+    <p id="resumen-note"></p>
+  </div>
+  <div class="kpis" id="kpis"></div>
+</section>
+
+<section class="section" id="flow">
+  <div class="section-head">
+    <p class="eyebrow">Metas del Flow de medios</p>
+    <h2>Resultados frente al Flow</h2>
+    <p>Cada línea del Flow se compara solo con sus campañas y sus días. La meta se reparte por día según el presupuesto de cada tramo, así que una semana se compara con la parte de la meta que le corresponde.</p>
+  </div>
+  <div class="blocks" id="blocks"></div>
+  <div class="legend" id="bullet-legend">
+    <span><i class="sw good"></i>Por encima de la meta (≥105%)</span>
+    <span><i class="sw warn"></i>Dentro (95–105%)</span>
+    <span><i class="sw bad"></i>Por debajo (&lt;95%)</span>
+    <span><i class="sw-tick"></i>100% de la meta</span>
+    <span><i class="sw band"></i>Rango 95–105%</span>
+  </div>
+  <div class="table-wrap">
+    <table id="lines">
+      <thead><tr><th>Línea del Flow</th><th>KPI del Flow</th><th>Días</th><th>Presupuesto</th><th>Inversión</th><th>Ejecución</th><th>Meta</th><th>Real</th><th class="l">Cumplimiento</th><th>Costo plan</th><th>Costo real</th><th class="l">Estado</th></tr></thead>
+      <tbody></tbody><tfoot></tfoot>
+    </table>
+  </div>
+  <p class="note" id="lines-note"></p>
+</section>
+
+<section class="section" id="dias">
+  <div class="section-head">
+    <p class="eyebrow">Evolución diaria</p>
+    <h2>Resultados por día</h2>
+    <p>Barras: resultado real de las campañas que tienen esa meta en el Flow. Línea punteada: meta diaria del Flow. En acumulado se ve si el periodo va por delante o por detrás de la meta.</p>
+  </div>
+  <div class="chart-card">
+    <div class="chart-head">
+      <h3 id="chart-title">Inversión por día</h3>
+      <div class="ctrls">
+        <div class="seg" id="metric-seg" role="group" aria-label="Métrica del gráfico"></div>
+        <div class="seg" id="mode-seg" role="group" aria-label="Vista del gráfico"></div>
+      </div>
+    </div>
+    <div class="legend" id="chart-legend"></div>
+    <div class="chart" id="chart"></div>
+    <div class="chart-sum" id="chart-sum"></div>
+    <p class="note" id="chart-note"></p>
+  </div>
+</section>
+
+<section class="section" id="campanas">
+  <div class="section-head">
+    <p class="eyebrow">Detalle por campaña</p>
+    <h2>Desempeño por campaña</h2>
+    <p>Haz clic en el encabezado de una columna para ordenar. Mejor y peor desempeño se marcan dentro de cada objetivo (CPM en alcance, CPC en tráfico), entre campañas con al menos 5% de la inversión de su objetivo.</p>
+  </div>
+  <div class="table-wrap">
+    <table id="camps">
+      <thead><tr>
+        <th><button type="button" data-k="name">Campaña</button></th>
+        <th class="l"><button type="button" data-k="grp">Objetivo</button></th>
+        <th><button type="button" data-k="spend">Inversión</button></th>
+        <th><button type="button" data-k="share">Part. inversión</button></th>
+        <th><button type="button" data-k="reach">Alcance</button></th>
+        <th><button type="button" data-k="impr">Impresiones</button></th>
+        <th><button type="button" data-k="freq">Frecuencia</button></th>
+        <th><button type="button" data-k="cpm">CPM</button></th>
+        <th><button type="button" data-k="clicks">Clics enlace</button></th>
+        <th><button type="button" data-k="cpc">CPC</button></th>
+        <th><button type="button" data-k="ctr">CTR</button></th>
+        <th class="l">Resultado principal</th>
+      </tr></thead>
+      <tbody></tbody><tfoot></tfoot>
+    </table>
+  </div>
+  <p class="note" id="camps-note"></p>
+</section>
+
+<section class="section" id="audiencias">
+  <div class="section-head">
+    <p class="eyebrow">Públicos</p>
+    <h2>Análisis de audiencias</h2>
+    <p>Los conjuntos de anuncios se agrupan por tipo de público según su nombre. Se comparan por separado los de alcance y los de tráfico, porque optimizan a resultados distintos.</p>
+  </div>
+  <div class="ctrls"><div class="seg" id="aud-seg" role="group" aria-label="Objetivo"></div></div>
+  <div class="aud-cards" id="aud-cards"></div>
+  <div class="table-wrap">
+    <table id="aud">
+      <thead><tr><th>Tipo de público</th><th>Conjuntos</th><th>Inversión</th><th>Part.</th><th>Impresiones</th><th>CPM</th><th>Clics enlace</th><th>CTR</th><th>CPC</th><th>Visitas a la página</th><th>Costo por visita</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <details class="more">
+    <summary>Ver cada conjunto de anuncios</summary>
+    <div class="table-wrap">
+      <table id="adsets">
+        <thead><tr><th>Conjunto</th><th class="l">Público</th><th>Inversión</th><th>Alcance</th><th>Impresiones</th><th>Frecuencia</th><th>CPM</th><th>Clics enlace</th><th>CTR</th><th>CPC</th><th>Visitas</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </details>
+  <p class="note" id="aud-note"></p>
+</section>
+
+<section class="section" id="anuncios">
+  <div class="section-head">
+    <p class="eyebrow">Creatividades</p>
+    <h2>Top anuncios del periodo</h2>
+    <p>Eficiencia: menor costo por resultado entre anuncios con inversión relevante en el periodo. Volumen: más resultados. En alcance el resultado son impresiones (KPI del Flow); en tráfico, clics en el enlace.</p>
+  </div>
+  <div class="ctrls">
+    <div class="seg" id="ad-grp" role="group" aria-label="Objetivo"></div>
+    <div class="seg" id="ad-crit" role="group" aria-label="Criterio"></div>
+  </div>
+  <div class="ads" id="ads"></div>
+  <p class="note" id="ads-note"></p>
+</section>
+
+<section class="section" id="conclusiones">
+  <div class="section-head">
+    <p class="eyebrow">Lectura estratégica</p>
+    <h2>Análisis y conclusiones</h2>
+    <p>Calculado con las cifras del periodo seleccionado. Describe lo que muestran los datos; no atribuye causas que los datos no prueban.</p>
+  </div>
+  <div class="concl" id="concl"></div>
+  <div class="panel pending" id="pending"></div>
+</section>
+
+<footer id="foot"></footer>
+</div>
+
+<script src="data/gana_data.js"></script>
+<script>
+(() => {
+  const D = window.GANA_DATA;
+
+  // ---------- dates (UTC, ISO strings) ----------
+  const DAY = 864e5;
+  const toT = s => Date.parse(s + "T00:00:00Z");
+  const toS = t => new Date(t).toISOString().slice(0, 10);
+  const addD = (s, n) => toS(toT(s) + n * DAY);
+  const nDays = (a, b) => Math.round((toT(b) - toT(a)) / DAY) + 1;
+  const eachDay = (a, b) => { const out = []; for (let t = toT(a); t <= toT(b); t += DAY) out.push(toS(t)); return out; };
+  const monday = s => addD(s, -((new Date(toT(s)).getUTCDay() + 6) % 7));
+  const mStart = s => s.slice(0, 8) + "01";
+  const mEnd = s => { const d = new Date(toT(mStart(s))); d.setUTCMonth(d.getUTCMonth() + 1); return addD(toS(d), -1); };
+  const MES = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
+  const MESL = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+  const fmtD = s => `${+s.slice(8)} ${MES[+s.slice(5, 7) - 1]}`;
+  const fmtR = (a, b) => a === b ? fmtD(a) : `${fmtD(a)} – ${fmtD(b)}`;
+  const DATA_MIN = D.since, MIN = D.display_since, MAX = D.until;
+  // Debe coincidir con previous_range() del script.
+  const prevRange = (a, b) => (a === mStart(a) && b === mEnd(a)) ? [mStart(addD(a, -1)), addD(a, -1)] : [addD(a, -nDays(a, b)), addD(a, -1)];
+
+  // ---------- numbers ----------
+  const nf0 = new Intl.NumberFormat("es-CO", { maximumFractionDigits: 0 });
+  const nf1 = new Intl.NumberFormat("es-CO", { maximumFractionDigits: 1, minimumFractionDigits: 1 });
+  const nf2 = new Intl.NumberFormat("es-CO", { maximumFractionDigits: 2, minimumFractionDigits: 2 });
+  const n = v => nf0.format(Math.round(v));
+  const cop = v => "$" + n(v);
+  const pct = (v, d = 1) => (d ? nf1 : nf0).format(v * 100) + "%";
+  const short = v => Math.abs(v) >= 1e6 ? nf1.format(v / 1e6) + " M" : n(v);
+  const copS = v => Math.abs(v) >= 1e6 ? "$" + nf1.format(v / 1e6) + " M" : cop(v);
+  const NA = "—";
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+  // ---------- data ----------
+  const KEYS = ["spend", "impr", "clicks", "lpv", "thru", "msg"];
+  const ZERO = () => ({ spend: 0, impr: 0, clicks: 0, lpv: 0, thru: 0, msg: 0 });
+  const add = (t, r) => { for (const k of KEYS) t[k] += r[k]; return t; };
+  const ROWS = D.days.map(r => { const ad = D.ads[r[1]] || {}; return { d: r[0], ad: r[1], c: ad.c, s: ad.s, spend: r[2], impr: r[3], clicks: r[4], lpv: r[5], thru: r[6], msg: r[7] }; });
+  const GROUPS = Object.fromEntries(D.objective_groups.map(g => [g.key, g]));
+  const groupOf = cid => { const o = (D.campaigns[cid] || {}).obj; const g = D.objective_groups.find(g => g.objectives.includes(o)); return g ? g.key : "otro"; };
+  const CGROUP = Object.fromEntries(Object.keys(D.campaigns).map(c => [c, groupOf(c)]));
+  const grpLabel = k => (GROUPS[k] || { label: "Otro" }).label;
+  const AUD = D.audiences.map(a => ({ ...a, re: new RegExp(a.pattern, "i") }));
+  const audOf = name => (AUD.find(a => a.re.test(name)) || AUD[AUD.length - 1]).key;
+  const audLabel = k => (AUD.find(a => a.key === k) || {}).label || k;
+  const temp = name => /^fr[ií]o/i.test(name) ? "Frío" : /^tibio/i.test(name) ? "Tibio" : /^caliente/i.test(name) ? "Caliente" : "";
+  const cleanName = s => s.replace(/^#\s*Ant\s*[\d ]+\.\s*/i, "").replace(/_ADEE?$/i, "").replace(/_/g, " · ");
+  const antOf = s => (s.match(/^#\s*Ant\s*([\d]+)/i) || [])[1];
+
+  // Campaign filter: SEL = null means all campaigns. Every aggregate reads FROWS, so each row counts once.
+  let SEL = null, FROWS = ROWS;
+  function sum(a, b, pred) { const t = ZERO(); for (const r of FROWS) if (r.d >= a && r.d <= b && (!pred || pred(r))) add(t, r); return t; }
+  function groupBy(a, b, key, pred) { const m = new Map(); for (const r of FROWS) { if (r.d < a || r.d > b || (pred && !pred(r))) continue; const k = r[key]; if (!m.has(k)) m.set(k, ZERO()); add(m.get(k), r); } return m; }
+  const R = (a, b) => D.reach[`${a}|${b}`] || null;
+  // Deduplicated reach for the current selection: whole account, or exactly one campaign. Meta gives no deduplicated reach for an arbitrary set of campaigns.
+  function reachSel(a, b, ids = SEL ? [...SEL] : null) {
+    const r = R(a, b);
+    if (!r) return { v: null, why: "range" };
+    if (!ids) return { v: r.acct[0] };
+    if (ids.length === 1) { const v = r.camp[ids[0]]; return v == null ? { v: null, why: "none" } : { v }; }
+    return { v: null, why: ids.length ? "multi" : "none" };
+  }
+  const REACH_WHY = {
+    range: "El alcance no se puede sumar por días. Está disponible para semanas, meses y rangos rápidos.",
+    multi: "Meta no permite sumar el alcance de varias campañas sin duplicar personas. Está disponible con una sola campaña o con todas.",
+    none: "Sin alcance registrado para esta selección.",
+  };
+  const rate = (num, den, k = 1) => den ? num / den * k : null;
+
+  // ---------- Flow ----------
+  const KPI = {
+    impressions: { k: "impr", label: "Impresiones", cost: "CPM", per: 1000, fmtC: cop },
+    clicks: { k: "clicks", label: "Clics en el enlace", cost: "CPC", per: 1, fmtC: cop },
+    lpv: { k: "lpv", label: "Visitas a la página de destino", cost: "Costo por visita", per: 1, fmtC: cop },
+    thru: { k: "thru", label: "ThruPlays", cost: "Costo por ThruPlay", per: 1, fmtC: cop },
+    messages: { k: "msg", label: "Conversaciones por mensaje", cost: "Costo por conversación", per: 1, fmtC: cop },
+  };
+  const LINES = D.flow.map(l => {
+    const segs = l.segments.map(s => ({ a: String(s.start), b: String(s.end), budget: +s.budget }));
+    const daily = {};
+    for (const s of segs) { const nd = nDays(s.a, s.b); for (const d of eachDay(s.a, s.b)) daily[d] = (daily[d] || 0) + s.budget / nd; }
+    return { ...l, camps: new Set(l.campaigns.map(String)), daily, K: KPI[l.kpi] };
+  });
+  // campaign -> lines (for labels)
+  const CAMP_LINES = {};
+  for (const l of LINES) for (const c of l.camps) (CAMP_LINES[c] = CAMP_LINES[c] || []).push(l);
+  // With a campaign filter, only Flow lines that include a selected campaign are shown.
+  const visibleLines = () => SEL ? LINES.filter(l => [...l.camps].some(c => SEL.has(c))) : LINES;
+  const goalOn = (l, d) => { const b = l.daily[d] || 0; return { budget: b, goal: b / l.unit_cost * l.K.per }; };
+  function lineGoal(l, a, b) { const g = { budget: 0, goal: 0, days: 0 }; for (const d of eachDay(a, b)) { const x = goalOn(l, d); if (x.budget > 0) { g.budget += x.budget; g.goal += x.goal; g.days++; } } return g; }
+  const lineActual = (l, a, b) => sum(a, b, r => l.camps.has(r.c) && (l.daily[r.d] || 0) > 0);
+  // A campaign-day counts toward the Flow when some line covers it. No campaign-day belongs to two lines.
+  const inFlow = r => { const ls = CAMP_LINES[r.c]; return !!ls && ls.some(l => (l.daily[r.d] || 0) > 0); };
+
+  function lineEval(l, a, b) {
+    const g = lineGoal(l, a, b);
+    if (!g.days) return null;
+    const act = lineActual(l, a, b);
+    const real = act[l.K.k];
+    const ratio = g.goal ? real / g.goal : null;
+    const exec = g.budget ? act.spend / g.budget : null;
+    const planCost = l.unit_cost;
+    const realCost = real ? act.spend / real * l.K.per : null;
+    const missing = SEL ? [...l.camps].filter(c => !SEL.has(c)) : [];
+    return { l, g, act, real, ratio, exec, planCost, realCost, noCamp: !l.camps.size, missing };
+  }
+
+  // ---------- status ----------
+  const pill = (cls, txt) => `<span class="st ${cls}">${txt}</span>`;
+  const volCls = r => r == null ? "none" : r >= 1.05 ? "good" : r >= 0.95 ? "warn" : "bad";
+  const volTxt = r => r == null ? "Sin dato" : r >= 1.05 ? "Por encima" : r >= 0.95 ? "Dentro" : "Por debajo";
+  const volPill = r => pill(volCls(r), volTxt(r));
+  const costCls = (c, t) => c == null ? "none" : c <= t * 0.95 ? "good" : c <= t * 1.05 ? "warn" : "bad";
+  const costTxt = (c, t) => c == null ? "Sin dato" : c <= t * 0.95 ? `${pct(1 - c / t, 0)} mejor que el plan` : c <= t * 1.05 ? "En el plan" : `${pct(c / t - 1, 0)} sobre el plan`;
+  const execPill = r => r == null ? pill("none", "Sin dato") : r > 1.05 ? pill("warn", "Sobre-ejecución") : r >= 0.95 ? pill("good", "En plan") : pill("bad", "Sub-ejecución");
+  function bullet(r, cls) {
+    const max = 1.5, w = v => Math.min(Math.max(v, 0), max) / max * 100;
+    return `<div class="bullet-wrap"><div class="bullet" role="img" aria-label="Cumplimiento ${r == null ? "sin dato" : pct(r)}">
+      <span class="band" style="left:${w(.95)}%;width:${w(1.05) - w(.95)}%"></span>
+      <span class="fill ${cls}" style="width:${r == null ? 0 : w(r)}%"></span>
+      <span class="tick" style="left:calc(${w(1)}% - 1px)"></span></div></div>`;
+  }
+
+  const $ = id => document.getElementById(id);
+
+  // ---------- 1. Resumen ----------
+  function delta(cur, prev, { inverse = false, neutral = false, label } = {}) {
+    if (cur == null || prev == null || !prev) return `<span class="delta flat">Sin comparativo</span>`;
+    const r = cur / prev - 1;
+    const dir = Math.abs(r) < 0.005 ? "flat" : (r > 0) !== inverse ? "up" : "down";
+    const cls = neutral ? "flat" : dir;
+    const arrow = r > 0.0049 ? "▲" : r < -0.0049 ? "▼" : "=";
+    return `<span class="delta ${cls}">${arrow} ${pct(Math.abs(r))} <small>vs ${label}</small></span>`;
+  }
+  function kpiTile({ lbl, val, sub = "", dl = "", lead = false, na = false, meter = null }) {
+    return `<div class="kpi${lead ? " lead" : ""}"><span class="lbl">${lbl}</span><span class="val${na ? " na" : ""}">${val}</span>${meter != null ? `<div class="meter"><i style="width:${Math.min(meter, 1) * 100}%"></i></div>` : ""}${dl}${sub ? `<span class="sub">${sub}</span>` : ""}</div>`;
+  }
+  function renderSummary(a, b, ctx) {
+    const { act, flowBudget, flowSpend } = ctx;
+    const [pa, pb] = prevRange(a, b);
+    const hasPrev = pa >= DATA_MIN;
+    const prev = hasPrev ? sum(pa, pb) : null;
+    const lab = fmtR(pa, pb);
+    const rs = reachSel(a, b), rps = hasPrev ? reachSel(pa, pb) : { v: null };
+    const reach = rs.v, reachP = rps.v;
+    const freq = reach ? act.impr / reach : null, freqP = reachP && prev ? prev.impr / reachP : null;
+    const cpm = rate(act.spend, act.impr, 1000), cpc = rate(act.spend, act.clicks), ctr = rate(act.clicks, act.impr);
+    const P = prev || ZERO();
+    const dl = (c, p, o = {}) => hasPrev ? delta(c, p, { ...o, label: lab }) : `<span class="delta flat">Sin datos del periodo anterior</span>`;
+    const exec = flowBudget ? flowSpend / flowBudget : null;
+    const off = act.spend - flowSpend;
+    const tiles = [
+      { lbl: SEL ? "Inversión de la selección" : "Inversión total", val: cop(act.spend), dl: dl(act.spend, P.spend, { neutral: true }), lead: true, sub: off > 0.5 ? `${cop(off)} en campañas o días fuera del Flow` : "Toda la inversión está en líneas del Flow" },
+      { lbl: "Presupuesto del Flow", val: flowBudget ? cop(flowBudget) : "Sin Flow", na: !flowBudget, lead: true, sub: "Parte del Flow que corresponde a estas fechas" },
+      { lbl: "Ejecución presupuestal", val: exec == null ? "Sin Flow" : pct(exec), na: exec == null, lead: true, meter: exec, sub: exec == null ? "" : `${cop(flowSpend)} invertidos en líneas del Flow ${execPill(exec)}` },
+      { lbl: "Alcance", val: reach != null ? n(reach) : "No disponible", na: reach == null, dl: reach != null ? dl(reach, reachP) : "", sub: reach != null ? "Personas únicas, deduplicado por Meta" : REACH_WHY[rs.why] },
+      { lbl: "Impresiones", val: n(act.impr), dl: dl(act.impr, P.impr) },
+      { lbl: "Frecuencia", val: freq != null ? nf2.format(freq) : "No disponible", na: freq == null, dl: freq != null ? dl(freq, freqP, { neutral: true }) : "", sub: freq != null ? "Impresiones ÷ alcance" : "Requiere alcance deduplicado de la selección" },
+      { lbl: "CPM", val: cpm != null ? cop(cpm) : NA, dl: dl(cpm, rate(P.spend, P.impr, 1000), { inverse: true }) },
+      { lbl: "Clics en el enlace", val: n(act.clicks), dl: dl(act.clicks, P.clicks) },
+      { lbl: "CPC del enlace", val: cpc != null ? cop(cpc) : NA, dl: dl(cpc, rate(P.spend, P.clicks), { inverse: true }) },
+      { lbl: "CTR del enlace", val: ctr != null ? pct(ctr, 1) : NA, dl: dl(ctr, rate(P.clicks, P.impr)) },
+      { lbl: "Visitas a la página de destino", val: act.lpv ? n(act.lpv) : "No disponible", na: !act.lpv, dl: act.lpv ? dl(act.lpv, P.lpv) : "", sub: act.lpv ? `Costo por visita ${cop(act.spend / act.lpv)} · ${pct(act.lpv / Math.max(act.clicks, 1))} de los clics` : "Sin visitas registradas por el píxel en estas fechas" },
+    ];
+    $("kpis").innerHTML = tiles.map(kpiTile).join("");
+    $("resumen-eyebrow").textContent = SEL ? `Campañas seleccionadas (${SEL.size})` : "Total de la cuenta";
+    $("resumen-note").textContent = hasPrev ? `Las variaciones comparan con ${lab} ${pb.slice(0, 4)}, el periodo anterior equivalente.` : "No hay datos descargados del periodo anterior equivalente para comparar.";
+  }
+
+  // ---------- 2. Flow ----------
+  function blockHtml(key, evals, a, b) {
+    const label = grpLabel(key);
+    const ev = evals.filter(e => e.l.group === key);
+    if (!ev.length) return `<article class="block"><header><div><p class="eyebrow">Objetivo</p><h3>${label}</h3></div>${pill("none", "Sin meta")}</header><p class="note">El Flow no tiene metas de ${label.toLowerCase()} para estas fechas.</p></article>`;
+    const budget = ev.reduce((s, e) => s + e.g.budget, 0), spend = ev.reduce((s, e) => s + e.act.spend, 0);
+    const byKpi = {};
+    for (const e of ev) { const k = e.l.kpi; const x = byKpi[k] = byKpi[k] || { goal: 0, real: 0, budget: 0, spend: 0, impr: 0, clicks: 0, lpv: 0 }; x.goal += e.g.goal; x.real += e.real; x.budget += e.g.budget; x.spend += e.act.spend; x.impr += e.act.impr; x.clicks += e.act.clicks; x.lpv += e.act.lpv; }
+    const kpis = Object.keys(byKpi);
+    const main = key === "alcance" ? (byKpi.impressions ? "impressions" : kpis[0]) : (byKpi.clicks ? "clicks" : byKpi.lpv ? "lpv" : kpis[0]);
+    const M = byKpi[main], mratio = M.goal ? M.real / M.goal : null;
+    const rows = [`<div class="cmp-row h"><span>Indicador</span><span>Plan (Flow)</span><span>Real</span><span>%</span></div>`];
+    for (const k of kpis) {
+      const x = byKpi[k], K = KPI[k];
+      rows.push(`<div class="cmp-row"><span>Meta de ${K.label.toLowerCase()}</span><b>${n(x.goal)}</b><b>${n(x.real)}</b><span>${x.goal ? pct(x.real / x.goal, 0) : NA}</span></div>`);
+      const pc = x.budget / x.goal * K.per, rc = x.real ? x.spend / x.real * K.per : null;
+      rows.push(`<div class="cmp-row"><span>${K.cost}</span><b>${cop(pc)}</b><b>${rc != null ? cop(rc) : NA}</b><span>${rc != null ? (rc <= pc ? "mejor" : "peor") : NA}</span></div>`);
+    }
+    rows.push(`<div class="cmp-row"><span>Inversión</span><b>${cop(budget)}</b><b>${cop(spend)}</b><span>${budget ? pct(spend / budget, 0) : NA}</span></div>`);
+    const tot = ev.reduce((s, e) => add(s, e.act), ZERO());
+    const r = R(a, b);
+    let gr = null;
+    if (r && !SEL) gr = r.groups[key];
+    else if (r) { const ids = [...SEL].filter(c => CGROUP[c] === key); if (ids.length) gr = reachSel(a, b, ids).v; }
+    const grImpr = sum(a, b, x => CGROUP[x.c] === key).impr;
+    const extra = [];
+    if (key === "alcance") {
+      extra.push(["Alcance real (personas únicas)", gr != null ? n(gr) : "No disponible"]);
+      extra.push(["Frecuencia", gr ? nf2.format(grImpr / gr) : "No disponible"]);
+      extra.push(["CPM real", tot.impr ? cop(tot.spend / tot.impr * 1000) : NA]);
+    } else {
+      extra.push(["CTR del enlace", tot.impr ? pct(tot.clicks / tot.impr, 2) : NA]);
+      extra.push(["CPM real", tot.impr ? cop(tot.spend / tot.impr * 1000) : NA]);
+      extra.push(["Visitas a la página", tot.lpv ? n(tot.lpv) : "No disponible"]);
+      extra.push(["Alcance real (personas únicas)", gr != null ? n(gr) : "No disponible"]);
+    }
+    const partial = ev.filter(e => e.missing.length);
+    const note = (key === "alcance"
+      ? `El Flow mide alcance por CPM: su meta es inversión ÷ CPM × 1.000, es decir impresiones. El alcance en personas únicas se muestra como dato real; el Flow no le fija meta. ${SEL ? "Alcance y frecuencia corresponden a la campaña de alcance seleccionada; con varias no están disponibles." : "Alcance y frecuencia incluyen todas las campañas de alcance de la cuenta."}`
+      : "Cada línea se mide con el KPI de su Flow: en octubre, visitas a la página de destino; en noviembre, clics en el enlace. No se suman entre sí.")
+      + (partial.length ? ` Atención: ${partial.map(e => esc(e.l.name)).join(", ")} comparte su meta con campañas no seleccionadas, así que la meta mostrada es la de toda la línea.` : "");
+    return `<article class="block"><header><div><p class="eyebrow">Objetivo</p><h3>${label}</h3></div>${volPill(mratio)}</header>
+      <div><span class="big">${mratio != null ? pct(mratio, 0) : NA}</span> <span class="bigsub">de la meta de ${KPI[main].label.toLowerCase()} del periodo</span></div>
+      ${bullet(mratio, volCls(mratio))}
+      <div class="cmp">${rows.join("")}</div>
+      <div class="chart-sum">${extra.map(([k, v]) => `<div class="mini"><span>${k}</span><b>${v}</b></div>`).join("")}</div>
+      <p class="note">${note}</p></article>`;
+  }
+  function renderFlow(a, b, evals) {
+    $("blocks").innerHTML = ["alcance", "trafico"].map(k => blockHtml(k, evals, a, b)).join("");
+    const body = evals.map(e => {
+      const { l, g, act } = e;
+      const camps = [...l.camps].map(c => D.campaigns[c] ? cleanName(D.campaigns[c].n) : c);
+      const st = e.noCamp ? pill("none", "Sin campaña en Meta") : volPill(e.ratio);
+      const miss = e.missing.length ? `<span class="badge info">Meta compartida con ${e.missing.length} campaña${e.missing.length > 1 ? "s" : ""} no seleccionada${e.missing.length > 1 ? "s" : ""}</span>` : "";
+      return `<tr><td class="wrap"><span class="nm">${esc(l.name)}</span><span class="meta">${e.noCamp ? "Sin campaña asociada" : esc(camps.join(" + "))}</span>${miss}<span class="meta">${esc(l.source)}${l.assumption ? " · Supuesto: " + esc(l.assumption) : ""}</span></td>
+        <td>${l.K.label}</td><td>${g.days}</td><td>${cop(g.budget)}</td><td>${cop(act.spend)}</td><td>${e.exec != null ? pct(e.exec, 0) : NA}</td>
+        <td>${n(g.goal)}</td><td>${e.noCamp ? NA : n(e.real)}</td>
+        <td class="l">${bullet(e.noCamp ? null : e.ratio, e.noCamp ? "none" : volCls(e.ratio))}<span class="meta">${e.noCamp ? "Sin dato" : pct(e.ratio, 0)}</span></td>
+        <td>${cop(e.planCost)}</td><td>${e.realCost != null ? cop(e.realCost) : NA}${e.realCost != null ? `<span class="meta">${costTxt(e.realCost, e.planCost)}</span>` : ""}</td>
+        <td class="l">${st}</td></tr>`;
+    }).join("");
+    $("lines").querySelector("tbody").innerHTML = body || `<tr><td colspan="12" class="dim">${SEL ? "Las campañas seleccionadas no tienen línea del Flow con días dentro de estas fechas." : "El Flow no tiene líneas con días dentro de estas fechas."}</td></tr>`;
+    const B = evals.reduce((s, e) => s + e.g.budget, 0), S = evals.reduce((s, e) => s + e.act.spend, 0);
+    $("lines").querySelector("tfoot").innerHTML = evals.length ? `<tr><td>Total Flow</td><td></td><td></td><td>${cop(B)}</td><td>${cop(S)}</td><td>${B ? pct(S / B, 0) : NA}</td><td colspan="6"></td></tr>` : "";
+    $("lines-note").textContent = "Costo plan = costo unitario del Flow. Costo real = inversión ÷ resultado del KPI de la línea (por mil en CPM). Las metas no se suman entre líneas con KPI distinto.";
+  }
+
+  // ---------- 3. Chart ----------
+  const METRICS = [
+    { key: "spend", label: "Inversión", kpi: null },
+    { key: "impr", label: "Impresiones", kpi: "impressions" },
+    { key: "clicks", label: "Clics en el enlace", kpi: "clicks" },
+    { key: "lpv", label: "Visitas a la página", kpi: "lpv" },
+  ];
+  let metric = "spend", mode = "day";
+  const chartEl = $("chart");
+  function series(a, b) {
+    const m = METRICS.find(x => x.key === metric);
+    const VL = visibleLines();
+    const lines = m.kpi ? VL.filter(l => l.kpi === m.kpi) : VL;
+    const days = eachDay(a, b);
+    const goal = days.map(d => { let g = 0, any = false; for (const l of lines) { const x = goalOn(l, d); if (x.budget > 0) { any = true; g += m.kpi ? x.goal : x.budget; } } return any ? g : null; });
+    const hasGoal = goal.some(g => g != null);
+    const real = Object.fromEntries(days.map(d => [d, 0]));
+    const all = Object.fromEntries(days.map(d => [d, 0]));
+    for (const r of FROWS) {
+      if (r.d < a || r.d > b) continue;
+      all[r.d] += r[metric];
+      if (lines.some(l => l.camps.has(r.c) && (l.daily[r.d] || 0) > 0)) real[r.d] += r[metric];
+    }
+    const vals = days.map(d => hasGoal ? real[d] : all[d]);
+    return { m, days, goal, vals, all: days.map(d => all[d]), hasGoal };
+  }
+  function drawChart(a, b) {
+    const S = series(a, b), { m, days } = S;
+    let vals = S.vals, goal = S.goal;
+    if (mode === "cum") {
+      let s = 0; vals = vals.map(v => s += v);
+      let g = 0, seen = false; goal = goal.map(v => { if (v != null) { seen = true; g += v; } return seen ? g : null; });
+    }
+    $("chart-title").textContent = `${m.label} ${mode === "cum" ? "acumulada" : "por día"}`.replace("Impresiones acumulada", "Impresiones acumuladas").replace("Clics en el enlace acumulada", "Clics en el enlace acumulados").replace("Visitas a la página acumulada", "Visitas a la página acumuladas");
+    $("chart-legend").innerHTML = `<span><i class="sw"></i>${S.hasGoal ? "Real (campañas con esta meta en el Flow)" : "Real (toda la cuenta)"}</span>` + (S.hasGoal ? `<span><i class="sw-goal"></i>Meta ${mode === "cum" ? "acumulada" : "diaria"} del Flow</span>` : "");
+    const isMoney = metric === "spend";
+    const fv = v => isMoney ? cop(v) : n(v);
+    const W = Math.max(chartEl.clientWidth, 280), H = 300, P = { l: 62, r: 10, t: 14, b: 28 };
+    const max = Math.max(1, ...vals, ...goal.filter(x => x != null)) * 1.1;
+    const iw = W - P.l - P.r, ih = H - P.t - P.b, bw = iw / days.length;
+    const y = v => P.t + ih - (v / max) * ih;
+    const step = (() => { const raw = max / 4, p = 10 ** Math.floor(Math.log10(raw)); return [1, 2, 2.5, 5, 10].map(k => k * p).find(k => k >= raw); })();
+    const fmtAx = v => isMoney ? (v >= 1e6 ? "$" + nf1.format(v / 1e6) + " M" : "$" + n(v / 1e3) + " mil") : (v >= 1e6 ? nf1.format(v / 1e6) + " M" : v >= 1e4 ? n(v / 1e3) + " mil" : n(v));
+    let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${m.label} frente a la meta del Flow"><g class="grid axis">`;
+    for (let v = 0; v <= max; v += step) svg += `<line x1="${P.l}" x2="${W - P.r}" y1="${y(v)}" y2="${y(v)}"/><text x="${P.l - 8}" y="${y(v) + 4}" text-anchor="end">${fmtAx(v)}</text>`;
+    svg += `</g><g class="axis">`;
+    const every = Math.max(1, Math.ceil(days.length / Math.max(1, Math.floor(iw / 48))));
+    days.forEach((d, i) => { if (i % every === 0) svg += `<text x="${P.l + bw * i + bw / 2}" y="${H - 8}" text-anchor="middle">${fmtD(d)}</text>`; });
+    svg += `</g>`;
+    if (mode === "day") {
+      const gap = Math.min(6, bw * .25), w = Math.max(bw - gap, 1), rr = Math.min(4, w / 2);
+      days.forEach((d, i) => {
+        const v = vals[i], x = P.l + bw * i + gap / 2, top = y(v), base = y(0), h = base - top;
+        const path = h <= 0 ? "" : h < rr ? `M${x},${base}h${w}v${-h}h${-w}z` : `M${x},${base}V${top + rr}q0,${-rr} ${rr},${-rr}h${w - 2 * rr}q${rr},0 ${rr},${rr}V${base}z`;
+        svg += `<rect class="hit" data-i="${i}" x="${P.l + bw * i}" y="${P.t}" width="${bw}" height="${ih}" fill="transparent"/><path class="bar" d="${path || "M0,0"}"/>`;
+      });
+      let gp = "";
+      goal.forEach((g, i) => { if (g == null) return; const x0 = P.l + bw * i, yy = y(g); gp += (i && goal[i - 1] != null ? `L${x0},${yy}` : `M${x0},${yy}`) + `H${x0 + bw}`; });
+      if (gp) svg += `<path class="goal" d="${gp}"/>`;
+    } else {
+      const cx = i => P.l + bw * i + bw / 2;
+      const pts = vals.map((v, i) => `${cx(i)},${y(v)}`);
+      svg += `<path class="cum-area" d="M${cx(0)},${y(0)}L${pts.join("L")}L${cx(days.length - 1)},${y(0)}Z"/><path class="cum" d="M${pts.join("L")}"/>`;
+      let gp = ""; goal.forEach((g, i) => { if (g == null) return; gp += (gp ? "L" : "M") + `${cx(i)},${y(g)}`; });
+      if (gp) svg += `<path class="goal" d="${gp}"/>`;
+      svg += `<circle class="dot" cx="${cx(days.length - 1)}" cy="${y(vals[vals.length - 1])}" r="4"/>`;
+      days.forEach((d, i) => { svg += `<rect class="hit" data-i="${i}" x="${P.l + bw * i}" y="${P.t}" width="${bw}" height="${ih}" fill="transparent"/>`; });
+    }
+    svg += `</svg><div class="tip" id="tip"></div>`;
+    chartEl.innerHTML = svg;
+    const tip = chartEl.querySelector("#tip");
+    chartEl.querySelectorAll(".hit").forEach(h => {
+      const i = +h.dataset.i, d = days[i], v = vals[i], g = goal[i];
+      const show = () => {
+        if (mode === "day" && h.nextSibling) h.nextSibling.classList.add("on");
+        tip.innerHTML = `${fmtD(d)}<br><b>${fv(v)}</b> ${mode === "cum" ? "acumulado" : m.label.toLowerCase()}` + (g != null ? `<br>Meta ${mode === "cum" ? "acumulada" : "diaria"} ${fv(g)} · ${pct(v / g, 0)}` : "") + (S.hasGoal && mode === "day" && S.all[i] !== v ? `<br>Toda la cuenta ${fv(S.all[i])}` : "");
+        const r = chartEl.getBoundingClientRect(), hb = h.getBoundingClientRect();
+        tip.style.left = Math.min(Math.max(hb.left - r.left + hb.width / 2, 80), r.width - 80) + "px";
+        tip.style.top = (y(Math.max(v, g || 0)) * r.height / H) + "px";
+        tip.style.opacity = 1;
+      };
+      const hide = () => { if (mode === "day" && h.nextSibling) h.nextSibling.classList.remove("on"); tip.style.opacity = 0; };
+      h.addEventListener("mouseenter", show); h.addEventListener("mouseleave", hide);
+      h.addEventListener("touchstart", show, { passive: true });
+    });
+    const tv = S.vals.reduce((s, v) => s + v, 0), tg = S.goal.reduce((s, v) => s + (v || 0), 0);
+    $("chart-sum").innerHTML = [
+      ["Real del periodo", fv(tv)],
+      ["Meta del Flow del periodo", S.hasGoal ? fv(tg) : "Sin meta"],
+      ["Cumplimiento", S.hasGoal && tg ? pct(tv / tg, 0) : NA],
+      ["Promedio diario real", fv(tv / days.length)],
+    ].map(([k, v]) => `<div class="mini"><span>${k}</span><b>${v}</b></div>`).join("");
+    $("chart-note").textContent = S.hasGoal ? "" : `El Flow no tiene meta de ${m.label.toLowerCase()} en estas fechas; las barras muestran el total de la cuenta.`;
+  }
+
+  // ---------- 4. Campañas ----------
+  let campSort = { k: "spend", dir: "desc" };
+  function campRows(a, b) {
+    const m = groupBy(a, b, "c"), tot = sum(a, b), r = R(a, b);
+    const rows = [...m.entries()].filter(([, x]) => x.spend > 0 || x.impr > 0).map(([c, x]) => {
+      const meta = D.campaigns[c] || { n: c, obj: "" };
+      const reach = r ? (r.camp[c] ?? null) : null;
+      const ls = (CAMP_LINES[c] || []).filter(l => lineGoal(l, a, b).days);
+      const grp = CGROUP[c];
+      return { c, name: cleanName(meta.n), full: meta.n, ant: antOf(meta.n), st: meta.st, grp, ...x,
+        share: tot.spend ? x.spend / tot.spend : 0, reach, freq: reach ? x.impr / reach : null,
+        cpm: rate(x.spend, x.impr, 1000), cpc: rate(x.spend, x.clicks), ctr: rate(x.clicks, x.impr), lines: ls };
+    });
+    // best / worst within objective (>= 5% of group spend)
+    for (const g of ["alcance", "trafico"]) {
+      const gs = rows.filter(x => x.grp === g), gsp = gs.reduce((s, x) => s + x.spend, 0);
+      const k = g === "alcance" ? "cpm" : "cpc";
+      const elig = gs.filter(x => x.spend >= gsp * 0.05 && x[k] != null);
+      if (elig.length >= 2) {
+        const best = elig.reduce((p, x) => x[k] < p[k] ? x : p), worst = elig.reduce((p, x) => x[k] > p[k] ? x : p);
+        best.badge = { cls: "good", txt: `Mejor ${k.toUpperCase()} de ${grpLabel(g).toLowerCase()}` };
+        worst.badge = { cls: "bad", txt: `${k.toUpperCase()} más alto de ${grpLabel(g).toLowerCase()}` };
+      }
+    }
+    return { rows, tot, r };
+  }
+  function mainResult(x) {
+    const l = x.lines[0];
+    if (l) { const v = x[l.K.k]; return `${n(v)} ${l.K.label.toLowerCase()}`; }
+    if (x.grp === "trafico") return `${n(x.clicks)} clics en el enlace`;
+    if (x.reach != null) return `${n(x.reach)} personas alcanzadas`;
+    return `${n(x.impr)} impresiones`;
+  }
+  function renderCamps(a, b) {
+    const { rows, tot, r } = campRows(a, b);
+    const k = campSort.k, dir = campSort.dir === "asc" ? 1 : -1;
+    rows.sort((p, q) => { const x = p[k], y = q[k]; if (x == null && y == null) return 0; if (x == null) return 1; if (y == null) return -1; return (typeof x === "string" ? x.localeCompare(y) : x - y) * dir; });
+    $("camps").querySelector("tbody").innerHTML = rows.map(x => `<tr>
+      <td class="wrap"><span class="nm" title="${esc(x.full)}">${esc(x.name)}</span><span class="meta">${x.ant ? "#Ant " + x.ant + " · " : ""}${x.st === "ACTIVE" ? "Activa" : x.st ? "Pausada" : ""}${x.lines.length ? " · Flow: " + esc(x.lines.map(l => l.name).join(", ")) : " · Sin línea del Flow en estas fechas"}</span>${x.badge ? `<span class="badge ${x.badge.cls}">${x.badge.txt}</span>` : ""}</td>
+      <td class="l">${grpLabel(x.grp)}</td><td>${cop(x.spend)}</td><td>${pct(x.share)}</td>
+      <td>${x.reach != null ? n(x.reach) : NA}</td><td>${n(x.impr)}</td><td>${x.freq != null ? nf2.format(x.freq) : NA}</td>
+      <td>${x.cpm != null ? cop(x.cpm) : NA}</td><td>${n(x.clicks)}</td><td>${x.cpc != null ? cop(x.cpc) : NA}</td><td>${x.ctr != null ? pct(x.ctr, 2) : NA}</td>
+      <td class="l">${mainResult(x)}</td></tr>`).join("") || `<tr><td colspan="12" class="dim">Sin campañas con entrega en estas fechas.</td></tr>`;
+    const reach = reachSel(a, b).v;
+    $("camps").querySelector("tfoot").innerHTML = `<tr><td>${SEL ? "Total selección" : "Total cuenta"} (${rows.length} campaña${rows.length === 1 ? "" : "s"})</td><td></td><td>${cop(tot.spend)}</td><td>100%</td><td>${reach != null ? n(reach) : NA}</td><td>${n(tot.impr)}</td><td>${reach ? nf2.format(tot.impr / reach) : NA}</td><td>${tot.impr ? cop(tot.spend / tot.impr * 1000) : NA}</td><td>${n(tot.clicks)}</td><td>${tot.clicks ? cop(tot.spend / tot.clicks) : NA}</td><td>${tot.impr ? pct(tot.clicks / tot.impr, 2) : NA}</td><td></td></tr>`;
+    $("camps").querySelectorAll("th button").forEach(btn => btn.dataset.dir = btn.dataset.k === campSort.k ? campSort.dir : "");
+    $("camps-note").textContent = r && SEL && SEL.size > 1 ? "El total de alcance no se muestra con varias campañas seleccionadas: sumar el alcance de cada campaña duplicaría personas." : r ? "El alcance total está deduplicado: no es la suma del alcance de cada campaña, porque una persona puede ver varias." : "Alcance y frecuencia por campaña están disponibles al elegir una semana, un mes o un rango rápido.";
+  }
+
+  // ---------- 5. Audiencias ----------
+  let audGrp = "alcance";
+  function renderAud(a, b) {
+    const m = groupBy(a, b, "s", r => CGROUP[r.c] === audGrp);
+    const r = R(a, b);
+    const types = new Map();
+    const sets = [];
+    for (const [s, x] of m) {
+      if (!(x.spend > 0)) continue;
+      const meta = D.adsets[s] || { n: s, c: "" };
+      const t = audOf(meta.n);
+      if (!types.has(t)) types.set(t, { ...ZERO(), sets: 0 });
+      const T = types.get(t); add(T, x); T.sets++;
+      sets.push({ s, name: meta.n, camp: (D.campaigns[meta.c] || {}).n || "", t, ...x, reach: r ? (r.adset[s] ?? null) : null });
+    }
+    const tot = [...types.values()].reduce((p, x) => add(p, x), ZERO());
+    const list = AUD.map(a => a.key).filter(k => types.has(k)).map(k => ({ k, ...types.get(k) }));
+    const isT = audGrp === "trafico";
+    const effK = isT ? "cpc" : "cpm";
+    for (const x of list) { x.cpm = rate(x.spend, x.impr, 1000); x.cpc = rate(x.spend, x.clicks); x.ctr = rate(x.clicks, x.impr); x.cpv = rate(x.spend, x.lpv); x.share = tot.spend ? x.spend / tot.spend : 0; }
+    const elig = list.filter(x => x.share >= 0.05 && x[effK] != null);
+    let best = null, worst = null;
+    if (elig.length >= 2) { best = elig.reduce((p, x) => x[effK] < p[effK] ? x : p); worst = elig.reduce((p, x) => x[effK] > p[effK] ? x : p); }
+    $("aud").querySelector("tbody").innerHTML = list.map(x => `<tr class="${x === best ? "hi" : ""}"><td><span class="nm">${audLabel(x.k)}</span>${x === best ? `<span class="badge good">Más eficiente</span>` : ""}${x === worst ? `<span class="badge bad">Oportunidad de optimización</span>` : ""}</td>
+      <td>${x.sets}</td><td>${cop(x.spend)}</td><td>${pct(x.share)}</td><td>${n(x.impr)}</td><td>${x.cpm != null ? cop(x.cpm) : NA}</td><td>${n(x.clicks)}</td><td>${x.ctr != null ? pct(x.ctr, 2) : NA}</td><td>${x.cpc != null ? cop(x.cpc) : NA}</td><td>${x.lpv ? n(x.lpv) : NA}</td><td>${x.cpv != null ? cop(x.cpv) : NA}</td></tr>`).join("")
+      || `<tr><td colspan="11" class="dim">Sin conjuntos de ${grpLabel(audGrp).toLowerCase()} con inversión en estas fechas.</td></tr>`;
+    const card = (x, cls, k) => {
+      const v = x[effK];
+      const others = elig.filter(y => y !== x), avg = others.length ? others.reduce((s, y) => s + y.spend, 0) / others.reduce((s, y) => s + (isT ? y.clicks : y.impr / 1000), 0) : null;
+      return `<div class="aud-card ${cls}"><span class="k">${k}</span><b>${audLabel(x.k)}</b><p>${effK.toUpperCase()} ${cop(v)} con ${cop(x.spend)} invertidos (${pct(x.share, 0)} del objetivo)${avg ? `; el resto de públicos promedia ${cop(avg)}` : ""}.</p></div>`;
+    };
+    $("aud-cards").innerHTML = best ? card(best, "good", "Más eficiente") + card(worst, "bad", "Oportunidad de optimización") : `<p class="note">Se necesitan al menos dos tipos de público con 5% o más de la inversión para comparar eficiencia.</p>`;
+    sets.sort((p, q) => q.spend - p.spend);
+    $("adsets").querySelector("tbody").innerHTML = sets.map(x => `<tr><td class="wrap"><span class="nm">${esc(x.name)}</span><span class="meta">${esc(cleanName(x.camp))}</span></td><td class="l">${audLabel(x.t)}${temp(x.name) ? `<span class="meta">${temp(x.name)}</span>` : ""}</td>
+      <td>${cop(x.spend)}</td><td>${x.reach != null ? n(x.reach) : NA}</td><td>${n(x.impr)}</td><td>${x.reach ? nf2.format(x.impr / x.reach) : NA}</td><td>${x.impr ? cop(x.spend / x.impr * 1000) : NA}</td><td>${n(x.clicks)}</td><td>${x.impr ? pct(x.clicks / x.impr, 2) : NA}</td><td>${x.clicks ? cop(x.spend / x.clicks) : NA}</td><td>${x.lpv ? n(x.lpv) : NA}</td></tr>`).join("");
+    $("aud-note").textContent = `Eficiencia medida por ${effK.toUpperCase()}${isT ? " (objetivo tráfico)" : " (objetivo alcance)"}, entre tipos con al menos 5% de la inversión. El alcance por tipo de público no se muestra porque sumar el alcance de varios conjuntos duplicaría personas; está por conjunto en el detalle${r ? "" : " cuando eliges una semana, un mes o un rango rápido"}.`;
+    return { list, best, worst };
+  }
+
+  // ---------- 6. Top anuncios ----------
+  let adGrp = "trafico", adCrit = "eff";
+  function adRank(a, b, grp, crit) {
+    const m = groupBy(a, b, "ad", r => CGROUP[r.c] === grp);
+    const all = [...m.entries()].map(([id, x]) => ({ id, ...x, meta: D.ads[id] || {} }));
+    const gsp = all.reduce((s, x) => s + x.spend, 0);
+    const isT = grp === "trafico";
+    const res = x => isT ? x.clicks : x.impr;
+    const cost = x => res(x) ? x.spend / res(x) * (isT ? 1 : 1000) : null;
+    let list;
+    if (crit === "vol") list = all.filter(x => res(x) > 0).sort((p, q) => res(q) - res(p));
+    else {
+      const min = Math.max(gsp * 0.02, 20000);
+      list = all.filter(x => x.spend >= min && cost(x) != null).sort((p, q) => cost(p) - cost(q));
+    }
+    return { list: list.slice(0, 6), gsp, res, cost, isT };
+  }
+  function renderAds(a, b) {
+    const { list, res, cost, isT, gsp } = adRank(a, b, adGrp, adCrit);
+    const r = R(a, b);
+    $("ads").innerHTML = list.map((x, i) => {
+      const meta = x.meta, camp = (D.campaigns[meta.c] || {}).n || "", set = (D.adsets[meta.s] || {}).n || "";
+      const reach = r ? (r.ad[x.id] ?? null) : null;
+      const type = { VIDEO: "Video", SHARE: "Imagen / carrusel", PHOTO: "Imagen", STATUS: "Publicación" }[meta.type] || "";
+      return `<article class="ad"><figure>${meta.img ? `<img src="${meta.img}" alt="Vista previa del anuncio ${esc(meta.n)}" loading="lazy">` : `<p class="noimg">Vista previa no disponible para este anuncio</p>`}<span class="rank">#${i + 1}</span>${type ? `<span class="type">${type}</span>` : ""}</figure>
+        <div class="body"><div><h4>${esc(meta.n || x.id)}</h4><p class="camp">${esc(cleanName(camp))}<br>${esc(set)}</p></div>
+        <div class="hl">${adCrit === "eff" ? `${isT ? "CPC" : "CPM"} <b>${cop(cost(x))}</b>` : `<b>${n(res(x))}</b> ${isT ? "clics en el enlace" : "impresiones"}`} · ${pct(x.spend / gsp, 1)} de la inversión de ${grpLabel(adGrp).toLowerCase()}</div>
+        <dl>
+          <div><dt>Inversión</dt><dd>${cop(x.spend)}</dd></div>
+          <div><dt>Alcance</dt><dd>${reach != null ? n(reach) : NA}</dd></div>
+          <div><dt>Impresiones</dt><dd>${n(x.impr)}</dd></div>
+          <div><dt>CTR</dt><dd>${x.impr ? pct(x.clicks / x.impr, 2) : NA}</dd></div>
+          <div><dt>CPC</dt><dd>${x.clicks ? cop(x.spend / x.clicks) : NA}</dd></div>
+          <div><dt>CPM</dt><dd>${x.impr ? cop(x.spend / x.impr * 1000) : NA}</dd></div>
+          <div><dt>Clics enlace</dt><dd>${n(x.clicks)}</dd></div>
+          <div><dt>Visitas</dt><dd>${x.lpv ? n(x.lpv) : NA}</dd></div>
+          <div><dt>ThruPlays</dt><dd>${x.thru ? n(x.thru) : NA}</dd></div>
+        </dl>
+        ${meta.link ? `<a class="go" href="${esc(meta.link)}" target="_blank" rel="noopener">Ver publicación en Meta ↗</a>` : ""}</div></article>`;
+    }).join("") || `<p class="note">Sin anuncios de ${grpLabel(adGrp).toLowerCase()} con entrega suficiente en estas fechas.</p>`;
+    $("ads-note").textContent = adCrit === "eff" ? `Solo entran anuncios con al menos 2% de la inversión de ${grpLabel(adGrp).toLowerCase()} del periodo (mínimo $20.000), para que un anuncio con muy poca entrega no lidere el ranking.` : "";
+  }
+
+  // ---------- 7. Conclusiones ----------
+  function renderConclusions(a, b, ctx, evals, aud) {
+    const { act, flowBudget, flowSpend } = ctx;
+    const live = evals.filter(e => !e.noCamp);
+    const L = e => `<b>${esc(e.l.name)}</b>`;
+    const logros = [], optim = [], desv = [], oport = [], recom = [];
+    // Logros
+    for (const e of live.filter(e => e.ratio >= 1.05).sort((p, q) => q.ratio - p.ratio))
+      logros.push(`${L(e)} superó su meta de ${e.l.K.label.toLowerCase()}: <b>${n(e.real)}</b> frente a ${n(e.g.goal)} (${pct(e.ratio, 0)}), con ${e.l.K.cost} de <b>${cop(e.realCost)}</b> frente a ${cop(e.planCost)} del Flow.`);
+    for (const e of live.filter(e => e.ratio >= 0.95 && e.ratio < 1.05))
+      logros.push(`${L(e)} está dentro de la meta (${pct(e.ratio, 0)}): ${n(e.real)} de ${n(e.g.goal)} ${e.l.K.label.toLowerCase()}.`);
+    const { rows } = campRows(a, b);
+    for (const x of rows.filter(x => x.badge && x.badge.cls === "good")) logros.push(`<b>${esc(x.name)}</b> tiene el ${x.badge.txt.toLowerCase()} del periodo: ${x.grp === "trafico" ? "CPC " + cop(x.cpc) : "CPM " + cop(x.cpm)} con ${cop(x.spend)} invertidos.`);
+    // Optimización
+    for (const e of live.filter(e => e.ratio != null && e.ratio < 0.95).sort((p, q) => p.ratio - q.ratio))
+      optim.push(`${L(e)} va al <b>${pct(e.ratio, 0)}</b> de su meta: ${n(e.real)} de ${n(e.g.goal)} ${e.l.K.label.toLowerCase()}. ${e.l.K.cost} real ${e.realCost != null ? cop(e.realCost) : NA} frente a ${cop(e.planCost)} del plan; ejecutó ${pct(e.exec, 0)} de su presupuesto.`);
+    for (const x of rows.filter(x => x.badge && x.badge.cls === "bad")) optim.push(`<b>${esc(x.name)}</b> tiene el ${x.badge.txt.toLowerCase()}: ${x.grp === "trafico" ? "CPC " + cop(x.cpc) : "CPM " + cop(x.cpm)}, CTR ${x.ctr != null ? pct(x.ctr, 2) : NA}.`);
+    for (const x of rows.filter(x => x.freq != null && x.freq >= 3)) optim.push(`<b>${esc(x.name)}</b> llega a frecuencia <b>${nf2.format(x.freq)}</b> en el periodo (${n(x.reach)} personas, ${n(x.impr)} impresiones).`);
+    // Desviaciones
+    if (flowBudget) desv.push(`En total se invirtió <b>${cop(flowSpend)}</b> en líneas del Flow frente a <b>${cop(flowBudget)}</b> planeados para estas fechas (${pct(flowSpend / flowBudget, 0)}).`);
+    for (const e of live.filter(e => e.exec != null && (e.exec < 0.9 || e.exec > 1.1)).sort((p, q) => Math.abs(q.exec - 1) - Math.abs(p.exec - 1)))
+      desv.push(`${L(e)} ejecutó <b>${pct(e.exec, 0)}</b> de su presupuesto (${cop(e.act.spend)} de ${cop(e.g.budget)}): ${e.exec < 1 ? "por debajo" : "por encima"} del ritmo del Flow.`);
+    for (const e of evals.filter(e => e.noCamp))
+      desv.push(`${L(e)} tiene <b>${cop(e.g.budget)}</b> planeados en estas fechas y no tiene campaña en Meta.`);
+    const off = act.spend - flowSpend;
+    if (off > 1) {
+      const offC = [...groupBy(a, b, "c", r => !inFlow(r)).entries()].filter(([, x]) => x.spend > 0).sort((p, q) => q[1].spend - p[1].spend);
+      desv.push(`<b>${cop(off)}</b> (${pct(off / act.spend, 0)} de la inversión) se fue a campañas o días sin línea del Flow: ${offC.slice(0, 5).map(([c, x]) => `${esc(cleanName((D.campaigns[c] || {}).n || c))} (${cop(x.spend)})`).join(", ")}${offC.length > 5 ? "…" : ""}.`);
+    }
+    // Oportunidades
+    for (const e of live.filter(e => e.exec != null && e.exec < 0.95 && e.realCost != null && e.realCost <= e.planCost))
+      oport.push(`${L(e)} rinde mejor que el plan (${e.l.K.cost} ${cop(e.realCost)} frente a ${cop(e.planCost)}) pero quedó <b>${cop(e.g.budget - e.act.spend)}</b> por debajo de su presupuesto: hay margen para invertir más sin salir del Flow.`);
+    if (aud.best) oport.push(`En ${grpLabel(audGrp).toLowerCase()}, el público <b>${audLabel(aud.best.k)}</b> es el más eficiente (${audGrp === "trafico" ? "CPC " + cop(aud.best.cpc) : "CPM " + cop(aud.best.cpm)}) con ${pct(aud.best.share, 0)} de la inversión.`);
+    const tAds = adRank(a, b, "trafico", "eff").list.slice(0, 2);
+    if (tAds.length) oport.push(`Anuncios de tráfico con menor CPC: ${tAds.map(x => `<b>${esc(x.meta.n)}</b> (${cop(x.spend / x.clicks)}, CTR ${pct(x.clicks / x.impr, 2)})`).join(" y ")}.`);
+    // Recomendaciones
+    for (const e of live.filter(e => e.exec != null && e.exec < 0.95 && e.realCost != null && e.realCost <= e.planCost).slice(0, 3)) {
+      const left = Object.entries(e.l.daily).filter(([d]) => d > MAX).reduce((s, [, v]) => s + v, 0);
+      const ld = Object.keys(e.l.daily).filter(d => d > MAX).length;
+      recom.push(`Subir la inversión de ${L(e)} hacia su ritmo del Flow${ld ? ` (${cop(left / ld)} diarios en los ${ld} días que le quedan)` : ""}: su costo por resultado está por debajo del plan.`);
+    }
+    for (const e of live.filter(e => e.ratio != null && e.ratio < 0.95 && e.realCost != null && e.realCost > e.planCost * 1.05).slice(0, 3))
+      recom.push(`Revisar públicos y creatividades de ${L(e)}: su ${e.l.K.cost} (${cop(e.realCost)}) supera el plan en ${pct(e.realCost / e.planCost - 1, 0)} y no alcanza la meta.`);
+    for (const e of live.filter(e => e.ratio != null && e.ratio < 0.95 && e.realCost != null && e.realCost <= e.planCost * 1.05 && e.exec < 0.95).slice(0, 3))
+      recom.push(`${L(e)} no llega a la meta por inversión, no por costo: ejecutar el presupuesto planeado.`);
+    for (const e of evals.filter(e => e.noCamp)) recom.push(`Crear o asignar la campaña de ${L(e)}, o confirmar con el cliente si esa línea sale del Flow.`);
+    if (aud.worst && aud.best) recom.push(`Comparar el público <b>${audLabel(aud.worst.k)}</b> (${audGrp === "trafico" ? "CPC " + cop(aud.worst.cpc) : "CPM " + cop(aud.worst.cpm)}) con <b>${audLabel(aud.best.k)}</b> y mover inversión hacia el más eficiente si el objetivo de comunicación lo permite.`);
+    if (off > 1) recom.push("Confirmar la línea del Flow de las campañas que hoy no tienen meta, para que su inversión se mida contra un objetivo.");
+    const box = (cls, title, items) => `<div class="panel ${cls}"><h3>${title}</h3>${items.length ? `<ul>${items.slice(0, 6).map(t => `<li>${t}</li>`).join("")}</ul>` : `<p class="empty">Nada que destacar con los datos de estas fechas.</p>`}</div>`;
+    $("concl").innerHTML = box("good", "Principales logros", logros) + box("bad", "Campañas que necesitan optimización", optim) + box("warn", "Desviaciones frente al Flow", desv) + box("", "Oportunidades de inversión", oport) + box("", "Recomendaciones para la siguiente semana", recom);
+
+    // Datos pendientes
+    const pend = [];
+    pend.push("Conversiones de compra: la cuenta no registra eventos de compra del píxel en estas campañas, así que el reporte no presenta conversiones ni ROAS.");
+    for (const e of evals.filter(e => e.noCamp)) pend.push(`${esc(e.l.name)} (${esc(e.l.source)}): sin campaña en Meta asociada.`);
+    const noFlow = rows.filter(x => !x.lines.length && x.spend > 0);
+    if (noFlow.length) pend.push(`Campañas con inversión y sin línea del Flow en estas fechas: ${noFlow.map(x => esc(x.name)).join(", ")}. Su inversión entra en los totales de la cuenta, pero no en el cumplimiento.`);
+    const ass = evals.filter(e => e.l.assumption);
+    if (ass.length) pend.push(`Supuestos de ventana o lectura del Flow que conviene confirmar: ${ass.map(e => `${esc(e.l.name)}: ${esc(e.l.assumption)}`).join(" ")}`);
+    const rsP = reachSel(a, b);
+    if (rsP.v == null) pend.push(`Alcance y frecuencia no disponibles: ${REACH_WHY[rsP.why]}`);
+    const part = evals.filter(e => e.missing.length);
+    if (part.length) pend.push(`Con el filtro de campañas, estas líneas comparten su meta con campañas no seleccionadas y se comparan contra la meta de toda la línea: ${part.map(e => `${esc(e.l.name)} (falta ${e.missing.map(c => esc(cleanName((D.campaigns[c] || {}).n || c))).join(", ")})`).join("; ")}.`);
+    $("pending").innerHTML = `<h3 class="sub-h">Datos pendientes y supuestos</h3><ul>${pend.map(p => `<li>${p}</li>`).join("")}</ul>`;
+  }
+
+  // ---------- render ----------
+  function render(a, b) {
+    const nd = nDays(a, b);
+    const rs = reachSel(a, b);
+    const selTxt = !SEL ? "todas las campañas" : SEL.size === 1 ? `<b>${esc(cleanName((D.campaigns[[...SEL][0]] || {}).n || ""))}</b>` : `<b>${SEL.size} campañas seleccionadas</b>`;
+    $("period").innerHTML = `Mostrando <b>${fmtR(a, b)} ${b.slice(0, 4)}</b> · ${nd} ${nd === 1 ? "día" : "días"} · ${selTxt} · datos hasta el ${fmtD(MAX)}` + (rs.v == null ? ` · alcance no disponible (${rs.why === "multi" ? "varias campañas" : rs.why === "range" ? "rango personalizado" : "sin dato"})` : "");
+    renderCF(a, b);
+    const act = sum(a, b);
+    const evals = visibleLines().map(l => lineEval(l, a, b)).filter(Boolean);
+    const flowBudget = evals.reduce((s, e) => s + e.g.budget, 0);
+    const flowSpend = evals.reduce((s, e) => s + e.act.spend, 0);
+    const ctx = { act, flowBudget, flowSpend };
+    renderSummary(a, b, ctx);
+    renderFlow(a, b, evals);
+    drawChart(a, b);
+    renderCamps(a, b);
+    const aud = renderAud(a, b);
+    renderAds(a, b);
+    renderConclusions(a, b, ctx, evals, aud);
+  }
+
+  // ---------- campaign filter (real Meta campaign names, read from the data) ----------
+  const norm = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  const CAMP_LIST = (() => {
+    const tot = {};
+    for (const r of ROWS) if (r.d >= MIN) tot[r.c] = (tot[r.c] || 0) + r.spend;
+    return Object.keys(D.campaigns).filter(c => ROWS.some(r => r.c === c)).map(c => {
+      const m = D.campaigns[c];
+      return { c, full: m.n, name: cleanName(m.n), ant: antOf(m.n), grp: grpLabel(CGROUP[c]), st: m.st, total: tot[c] || 0, key: norm(m.n + " " + cleanName(m.n)) };
+    }).sort((p, q) => q.total - p.total || p.full.localeCompare(q.full));
+  })();
+  const cfBtn = $("cf-btn"), cfPanel = $("cf-panel"), cfQ = $("cf-q"), cfList = $("cf-list");
+  let cfSpend = {};
+  function cfMatches() { const q = norm(cfQ.value.trim()); return CAMP_LIST.filter(x => !q || q.split(/\s+/).every(t => x.key.includes(t))); }
+  function drawCFList() {
+    const list = cfMatches();
+    const allRow = `<label class="cf-opt all"><input type="checkbox" id="cf-all" ${SEL ? "" : "checked"}><span class="t"><b>Todas las campañas</b><small>${CAMP_LIST.length} campañas en los datos de Meta Ads</small></span><span class="sp"></span></label>`;
+    cfList.innerHTML = allRow + (list.map(x => {
+      const sp = cfSpend[x.c] || 0;
+      return `<label class="cf-opt${sp ? "" : " off"}"><input type="checkbox" data-c="${x.c}" ${SEL && SEL.has(x.c) ? "checked" : ""}><span class="t"><b title="${esc(x.full)}">${esc(x.full)}</b><small>${x.grp} · ${x.st === "ACTIVE" ? "Activa" : "Pausada"}${sp ? "" : " · sin entrega en estas fechas"}</small></span><span class="sp">${sp ? copS(sp) : ""}</span></label>`;
+    }).join("") || `<p class="cf-empty">Ninguna campaña coincide con “${esc(cfQ.value)}”.</p>`);
+  }
+  function renderCF(a, b) {
+    cfSpend = {};
+    for (const r of ROWS) if (r.d >= a && r.d <= b) cfSpend[r.c] = (cfSpend[r.c] || 0) + r.spend;
+    cfBtn.textContent = !SEL ? "Todas las campañas" : SEL.size === 1 ? cleanName((D.campaigns[[...SEL][0]] || {}).n || "") : `${SEL.size} campañas`;
+    cfBtn.classList.toggle("on", !!SEL);
+    cfBtn.title = SEL ? [...SEL].map(c => (D.campaigns[c] || {}).n || c).join("\n") : "";
+    if (!cfPanel.hidden) drawCFList();
+  }
+  function setSel(next) {
+    SEL = next && next.size ? next : null;
+    FROWS = SEL ? ROWS.filter(r => SEL.has(r.c)) : ROWS;
+    render(...cur());
+  }
+  const openCF = open => { cfPanel.hidden = !open; cfBtn.setAttribute("aria-expanded", open); if (open) { drawCFList(); cfQ.focus(); } };
+  cfBtn.addEventListener("click", () => openCF(cfPanel.hidden));
+  $("cf-done").addEventListener("click", () => { openCF(false); cfBtn.focus(); });
+  $("cf-clear").addEventListener("click", () => { cfQ.value = ""; setSel(null); drawCFList(); });
+  $("cf-match").addEventListener("click", () => { const s = new Set(SEL || []); cfMatches().forEach(x => s.add(x.c)); setSel(s); drawCFList(); });
+  cfQ.addEventListener("input", drawCFList);
+  cfList.addEventListener("change", e => {
+    const t = e.target;
+    if (t.id === "cf-all") { setSel(null); drawCFList(); return; }
+    if (!t.dataset.c) return;
+    const s = new Set(SEL || []);
+    t.checked ? s.add(t.dataset.c) : s.delete(t.dataset.c);
+    setSel(s); drawCFList();
+  });
+  document.addEventListener("click", e => { if (!cfPanel.hidden && !$("cf").contains(e.target)) openCF(false); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && !cfPanel.hidden) { openCF(false); cfBtn.focus(); } });
+
+  // ---------- filter ----------
+  const clampS = s => s < MIN ? MIN : s > MAX ? MAX : s;
+  const lastSunday = addD(monday(MAX), -1);
+  const PRESETS = [
+    ["Última semana completa", () => [addD(lastSunday, -6), lastSunday]],
+    ["Semana en curso", () => [monday(MAX), MAX]],
+    ["Últimos 7 días", () => [addD(MAX, -6), MAX]],
+    ["Últimos 14 días", () => [addD(MAX, -13), MAX]],
+    ["Últimos 30 días", () => [addD(MAX, -29), MAX]],
+    ["Mes en curso", () => [mStart(MAX), MAX]],
+    ["Mes anterior", () => [mStart(addD(mStart(MAX), -1)), addD(mStart(MAX), -1)]],
+  ].filter(([, f]) => f()[1] >= MIN);
+  const WEEKS = [];
+  for (let s = monday(MIN); s <= MAX; s = addD(s, 7)) WEEKS.push([s < MIN ? MIN : s, addD(s, 6) > MAX ? MAX : addD(s, 6)]);
+  WEEKS.reverse();
+  const sinceEl = $("since"), untilEl = $("until"), weekEl = $("week");
+  [sinceEl, untilEl].forEach(el => { el.min = MIN; el.max = MAX; });
+  weekEl.innerHTML = `<option value="">Elegir…</option>` + WEEKS.map(([a, b]) => `<option value="${a}|${b}">${fmtR(a, b)}${b === MAX && nDays(a, b) < 7 ? " (en curso)" : ""}</option>`).join("");
+  let active = 0;
+  $("presets").innerHTML = PRESETS.map(([l], i) => `<button type="button" class="chip" data-i="${i}">${l}</button>`).join("");
+  const markPresets = () => $("presets").querySelectorAll(".chip").forEach(b => b.setAttribute("aria-pressed", +b.dataset.i === active));
+  function apply(a, b) {
+    a = clampS(a); b = clampS(b); if (a > b) [a, b] = [b, a];
+    sinceEl.value = a; untilEl.value = b;
+    weekEl.value = WEEKS.some(([x, y]) => x === a && y === b) ? `${a}|${b}` : "";
+    markPresets(); render(a, b);
+  }
+  $("presets").addEventListener("click", e => { const b = e.target.closest(".chip"); if (!b) return; active = +b.dataset.i; apply(...PRESETS[active][1]()); });
+  weekEl.addEventListener("change", () => { if (!weekEl.value) return; active = -1; apply(...weekEl.value.split("|")); });
+  [sinceEl, untilEl].forEach(el => el.addEventListener("change", () => { if (!sinceEl.value || !untilEl.value) return; active = -1; apply(sinceEl.value, untilEl.value); }));
+
+  const segInit = (id, opts, get, set) => {
+    const el = $(id);
+    el.innerHTML = opts.map(([k, l]) => `<button type="button" data-k="${k}">${l}</button>`).join("");
+    const mark = () => el.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", b.dataset.k === get()));
+    el.addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; set(b.dataset.k); mark(); });
+    mark();
+  };
+  const cur = () => [sinceEl.value, untilEl.value];
+  segInit("metric-seg", METRICS.map(m => [m.key, m.label]), () => metric, k => { metric = k; drawChart(...cur()); });
+  segInit("mode-seg", [["day", "Diario"], ["cum", "Acumulado"]], () => mode, k => { mode = k; drawChart(...cur()); });
+  segInit("aud-seg", [["alcance", "Alcance"], ["trafico", "Tráfico"]], () => audGrp, k => { audGrp = k; render(...cur()); });
+  segInit("ad-grp", [["trafico", "Tráfico"], ["alcance", "Alcance"]], () => adGrp, k => { adGrp = k; renderAds(...cur()); });
+  segInit("ad-crit", [["eff", "Eficiencia"], ["vol", "Volumen"]], () => adCrit, k => { adCrit = k; renderAds(...cur()); });
+  $("camps").querySelector("thead").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    const k = b.dataset.k;
+    campSort = { k, dir: campSort.k === k ? (campSort.dir === "desc" ? "asc" : "desc") : (["cpm", "cpc", "name", "grp"].includes(k) ? "asc" : "desc") };
+    renderCamps(...cur());
+  });
+  let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => drawChart(...cur()), 120); });
+
+  const gen = D.generated_at.replace("T", " a las ");
+  const sources = [...new Set(D.flow.map(l => l.source))].join(" · ");
+  $("foot").innerHTML = `<p>Fuente: Meta Ads, cuenta Gana (${D.account_id}), en pesos colombianos. Datos del ${fmtD(D.since)} al ${fmtD(MAX)} ${MAX.slice(0, 4)}, actualizados el ${gen}. Inversión, impresiones, clics y visitas salen de la misma descarga diaria por anuncio; campañas, públicos y totales son sumas de ella. Alcance y frecuencia vienen deduplicados de Meta para cada rango.</p>
+    <p>Definiciones: clics en el enlace = clics que llevan al destino del anuncio; visitas a la página de destino = cargas de la página registradas por el píxel después del clic; CTR y CPC se calculan sobre clics en el enlace. Metas: ${esc(sources)}.</p>`;
+
+  apply(...PRESETS[0][1]());
+})();
+</script>
+</body>
+</html>
