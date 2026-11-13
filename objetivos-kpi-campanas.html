@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Objetivos y KPI por campaña – Gana + Loti</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+/* Plantilla ADCOM de reportes de cliente: header negro redondeado, acento amarillo, tarjetas blancas sobre gris claro. Solo tema claro, como el resto de reportes. */
+:root {
+  --bg: #F5F5F5; --card: #FFFFFF; --ink: #141414; --muted: #63635E; --line: #E6E6E1; --panel: #F7F7F5;
+  --accent: #FFC000; --accent-soft: #FFF5D1; --accent-ink: #8A6400; --head: #141414; --head-ink: #FFFFFF; --head-muted: #D6D6D2;
+  --good: #0B8A0B; --good-soft: #E3F4E3; --warn: #B37400; --warn-soft: #FFF1D6; --bad: #C23131; --bad-soft: #FBE5E5;
+  --f: "Poppins", "Segoe UI", Helvetica, Arial, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { background: var(--bg); }
+body { color: var(--ink); font-family: var(--f); font-size: 15px; line-height: 1.55; margin: 0; }
+.wrap { max-width: 1240px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 20px 64px; display: grid; gap: 36px; }
+.wrap > * { min-width: 0; }
+h1, h2, h3 { margin: 0; line-height: 1.2; text-wrap: balance; }
+p { margin: 0; }
+
+/* Header */
+.top { background: var(--head); color: var(--head-ink); border-radius: 20px; padding: clamp(24px, 4vw, 40px); display: grid; gap: 14px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .16em; font-size: 13px; }
+.brand i { width: 12px; height: 12px; border-radius: 3px; background: var(--accent); }
+.brand .sep { color: #8A8A85; font-weight: 400; letter-spacing: 0; }
+.top h1 { font-size: clamp(26px, 4.4vw, 40px); font-weight: 700; }
+.top h1 span { color: var(--accent); }
+.top p { max-width: 72ch; color: var(--head-muted); font-size: 15px; }
+.back { color: var(--head-muted); font-size: 13px; text-decoration: none; justify-self: start; }
+.back:hover, .back:focus-visible { color: var(--accent); }
+.cut { display: inline-flex; gap: 8px; align-items: center; justify-self: start; border: 1px solid #5A5A56; border-radius: 99px; padding: 4px 14px; font-size: 13px; color: var(--head-ink); }
+.cut b { color: var(--accent); font-weight: 600; }
+
+/* Filters */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.filters { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 10px; display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; border-bottom: 1px solid var(--line); }
+@media (max-width: 700px) { .filters { position: static; } }
+.fgroup { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
+.fgroup > span { font-weight: 600; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; margin-right: 2px; }
+.chip { font: inherit; font-size: 13px; font-weight: 500; border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 99px; padding: 6px 14px; cursor: pointer; }
+.chip:hover { background: var(--accent-soft); }
+.chip[aria-pressed="true"] { background: var(--head); color: var(--head-ink); border-color: var(--head); font-weight: 600; }
+select { font: inherit; font-size: 13px; border: 1px solid var(--line); border-radius: 10px; padding: 6px 10px; background: var(--card); color: var(--ink); max-width: min(520px, 100%); }
+.chip:focus-visible, select:focus-visible, .linkbtn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.linkbtn { font: inherit; font-size: 13px; background: none; border: 0; color: var(--muted); text-decoration: underline; cursor: pointer; padding: 4px; }
+.count { font-size: 13px; color: var(--muted); margin-left: auto; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 14px; font-size: 12px; color: var(--muted); width: 100%; }
+
+/* Sections */
+.section { display: grid; gap: 16px; }
+.section > * { min-width: 0; }
+.section-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 6px 16px; padding-bottom: 12px; border-bottom: 3px solid var(--accent); }
+.section-head h2 { font-size: clamp(22px, 3vw, 28px); letter-spacing: .06em; }
+.section-head p { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.groups { display: grid; gap: 28px; }
+.group { display: grid; gap: 12px; min-width: 0; }
+.group-h { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.group-h h3 { font-size: 17px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.group-h h3::before { content: ""; width: 10px; height: 10px; border-radius: 3px; background: var(--accent); flex: none; }
+.group-h p { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.prod { font-size: 12px; font-weight: 600; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 1px 8px; }
+.tags { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.tag.loti { background: var(--accent); color: var(--head); }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 16px; align-items: start; }
+
+/* Card */
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px; display: grid; gap: 14px; min-width: 0; }
+.card.on { border-bottom: 4px solid var(--accent); }
+.c-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+.tag { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; background: var(--head); color: var(--accent); border-radius: 6px; padding: 2px 8px; }
+.card h3 { font-size: 15px; font-weight: 600; line-height: 1.35; word-break: break-word; }
+.dates { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.st { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; border-radius: 99px; padding: 2px 9px 2px 7px; white-space: nowrap; }
+.st::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.st.good { color: var(--good); background: var(--good-soft); }
+.st.warn { color: var(--warn); background: var(--warn-soft); }
+.st.bad { color: var(--bad); background: var(--bad-soft); }
+.st.none { color: var(--muted); background: var(--panel); border: 1px solid var(--line); }
+
+.objs { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 0; border: 1px solid var(--line); border-radius: 12px; }
+.objs div { padding: 9px 12px; display: grid; gap: 1px; min-width: 0; }
+.objs div + div { border-left: 1px solid var(--line); }
+.objs dt { font-size: 10.5px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
+.objs dd { margin: 0; font-size: 14px; font-weight: 600; line-height: 1.3; }
+.objs dd small { display: block; font-size: 10.5px; font-weight: 400; color: var(--muted); letter-spacing: .02em; word-break: break-all; }
+.pend { color: var(--warn); }
+
+.kpi { background: var(--accent-soft); border-radius: 12px; padding: 12px 14px; display: grid; gap: 0; }
+.kpi .lbl { font-size: 12px; font-weight: 600; color: var(--accent-ink); text-transform: uppercase; letter-spacing: .06em; }
+.kpi .val { font-size: clamp(28px, 3.4vw, 34px); font-weight: 700; line-height: 1.15; font-variant-numeric: tabular-nums; }
+.kpi .val.na { font-size: 17px; color: var(--warn); }
+.kpi .sub { font-size: 12px; color: var(--muted); }
+
+.flows { display: grid; gap: 10px; }
+.flows > .h { font-size: 10.5px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
+.none-goal { font-size: 13px; color: var(--muted); background: var(--panel); border-radius: 10px; padding: 8px 12px; }
+.fl { border-top: 1px solid var(--line); padding-top: 10px; display: grid; gap: 6px; }
+.flows > .h + .fl { border-top: 0; padding-top: 0; }
+.fl-h { display: flex; justify-content: space-between; align-items: start; gap: 8px; }
+.fl-h b { font-size: 13px; font-weight: 600; line-height: 1.3; }
+.fl-h span.p { font-size: 11px; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.nums { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; font-variant-numeric: tabular-nums; }
+.nums div { display: grid; }
+.nums span { font-size: 10.5px; color: var(--muted); line-height: 1.3; }
+.nums strong { font-size: 14px; font-weight: 600; }
+.nums strong.dim { font-size: 13px; font-weight: 500; color: var(--muted); }
+.nums .pct {font-size: 17px; font-weight: 700; }
+.pct.good { color: var(--good); } .pct.warn { color: var(--warn); } .pct.bad { color: var(--bad); }
+.meter { position: relative; height: 8px; border-radius: 99px; background: var(--panel); border: 1px solid var(--line); overflow: hidden; }
+.meter i { display: block; height: 100%; border-radius: 99px; }
+.meter i.good { background: var(--good); } .meter i.warn { background: var(--accent); } .meter i.bad { background: var(--bad); }
+.flag { font-size: 11.5px; color: var(--accent-ink); background: var(--accent-soft); border-radius: 6px; padding: 3px 8px; justify-self: start; line-height: 1.4; }
+.fn { font-size: 11.5px; color: var(--muted); line-height: 1.4; }
+.fut { font-size: 13px; color: var(--muted); }
+.fut strong { color: var(--ink); font-variant-numeric: tabular-nums; }
+
+.empty { background: var(--card); border: 1px dashed var(--line); border-radius: 16px; padding: 24px; color: var(--muted); font-size: 14px; }
+footer { font-size: 12px; color: var(--muted); display: grid; gap: 6px; border-top: 1px solid var(--line); padding-top: 18px; }
+footer ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; max-width: 110ch; }
+@media (max-width: 420px) { .objs { grid-template-columns: 1fr; } .objs div + div { border-left: 0; border-top: 1px solid var(--line); } }
+@media (prefers-reduced-motion: no-preference) { .chip, .meter i { transition: background-color .15s, width .3s; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <a class="back" href="./index.html">← Todos los documentos</a>
+    <div class="brand"><i></i>ADCOM GROUP <span class="sep">|</span> GANA + LOTI</div>
+    <h1>Objetivos y KPI por campaña – <span>Gana + Loti</span></h1>
+    <p>Cada tarjeta muestra el objetivo configurado en Meta Ads, el objetivo de optimización, el KPI que le corresponde y el resultado acumulado desde la primera entrega de la campaña. Incluye solo las campañas que tuvieron entrega en noviembre de 2026; las de Gana se agrupan por marca o producto.</p>
+    <div class="cut">Datos de Meta Ads al <b id="cutoff"></b></div>
+  </header>
+
+  <div class="filters" role="search">
+    <div class="fgroup" id="brandF"><span>Marca</span>
+      <button class="chip" type="button" data-b="all" aria-pressed="true">Todas</button>
+      <button class="chip" type="button" data-b="gana" aria-pressed="false">Gana</button>
+      <button class="chip" type="button" data-b="loti" aria-pressed="false">Loti</button>
+    </div>
+    <label class="fgroup" for="campF"><span>Campaña</span>
+      <select id="campF"></select>
+    </label>
+    <button class="linkbtn" type="button" id="reset" hidden>Quitar filtros</button>
+    <span class="count" id="count"></span>
+  </div>
+
+  <section class="section" id="sec-gana" aria-labelledby="h-gana">
+    <div class="section-head"><h2 id="h-gana">GANA</h2><p id="s-gana"></p></div>
+    <div class="groups" id="c-gana"></div>
+  </section>
+
+  <section class="section" id="sec-loti" aria-labelledby="h-loti">
+    <div class="section-head"><h2 id="h-loti">LOTI</h2><p id="s-loti"></p></div>
+    <div class="groups" id="c-loti"></div>
+  </section>
+
+  <footer>
+    <b>Cómo se mide</b>
+    <ul>
+      <li>Resultado acumulado: Meta Ads (Graph API), desde el primer día con entrega de cada campaña hasta el último día completo disponible. El alcance son personas únicas en todo el periodo, sin sumar días.</li>
+      <li>KPI principal: el resultado del objetivo de optimización de los conjuntos de anuncios (Alcance → personas alcanzadas; Visitas a la página de destino → visitas; Visitas al perfil → visitas al perfil; Conversiones → el evento del píxel optimizado).</li>
+      <li>Registros y compras: eventos del píxel de Meta, atribución 7 días clic / 1 día vista. No están validados contra las ventas de Loti.</li>
+      <li>Marca o producto: se identifica por el nombre de la campaña en Meta.</li>
+      <li>Campañas incluidas: las que tuvieron entrega (inversión o impresiones) al menos un día entre el 1 de noviembre y la fecha de corte. Las que se pausaron en noviembre aparecen como «Pausada».</li>
+    </ul>
+    <span id="gen"></span>
+  </footer>
+</div>
+
+<script>
+const DATA = {"cutoff":"2026-11-11","generated":"2026-11-13","cards":[{"id":"52545038433458","brand":"gana","name":"#Ant 35878. Always On_Alcance_Super chance_ADE","status":"ACTIVE","obj_code":"OUTCOME_AWARENESS","obj":"Reconocimiento","opt_code":"REACH","opt":"Alcance","kpi":"reach","kpi_label":"Personas alcanzadas","value":1310811,"first":"2026-09-24","last":"2026-11-11","note":null},{"id":"52545686797658","brand":"gana","name":"#Ant 35878. Always On_Alcance_Placa millonaria_ADE","status":"ACTIVE","obj_code":"OUTCOME_AWARENESS","obj":"Reconocimiento","opt_code":"REACH","opt":"Alcance","kpi":"reach","kpi_label":"Personas alcanzadas","value":1634272,"first":"2026-09-25","last":"2026-11-11","note":null},{"id":"52546178381258","brand":"gana","name":"#Ant 35878. Always On_Alcance_Raspa y Listo_ADE","status":"ACTIVE","obj_code":"OUTCOME_AWARENESS","obj":"Reconocimiento","opt_code":"REACH","opt":"Alcance","kpi":"reach","kpi_label":"Personas alcanzadas","value":2218737,"first":"2026-09-28","last":"2026-11-11","note":null},{"id":"52547216757458","brand":"gana","name":"#Ant 35878. Always On_Alcance_Keno_ADE","status":"ACTIVE","obj_code":"OUTCOME_AWARENESS","obj":"Reconocimiento","opt_code":"REACH","opt":"Alcance","kpi":"reach","kpi_label":"Personas alcanzadas","value":1388259,"first":"2026-10-02","last":"2026-11-11","note":null},{"id":"52548471241858","brand":"gana","name":"#Ant 36019. Keno_Alcance_ADE","status":"ACTIVE","obj_code":"OUTCOME_AWARENESS","obj":"Reconocimiento","opt_code":"REACH","opt":"Alcance","kpi":"reach","kpi_label":"Personas alcanzadas","value":1028003,"first":"2026-10-08","last":"2026-11-11","note":null},{"id":"52551851773458","brand":"gana","name":"#Ant 6169. Gana_Tráfico_Activación_ADE","status":"ACTIVE","obj_code":"OUTCOME_TRAFFIC","obj":"Tráfico","opt_code":"LANDING_PAGE_VIEWS","opt":"Visitas a la página de destino","kpi":"lpv","kpi_label":"Visitas a la página de destino","value":57681,"first":"2026-10-23","last":"2026-11-11","note":null},{"id":"52552595231858","brand":"gana","name":"#Ant 6110. NuBank_Alcance_ADE","status":"ACTIVE","obj_code":"OUTCOME_AWARENESS","obj":"Reconocimiento","opt_code":"REACH","opt":"Alcance","kpi":"reach","kpi_label":"Personas alcanzadas","value":667397,"first":"2026-10-27","last":"2026-11-11","note":null},{"id":"52553051126258","brand":"gana","name":"#Ant 6101. Rifazo_Alcance_ADE","status":"ACTIVE","obj_code":"OUTCOME_AWARENESS","obj":"Reconocimiento","opt_code":"REACH","opt":"Alcance","kpi":"reach","kpi_label":"Personas alcanzadas","value":912187,"first":"2026-11-04","last":"2026-11-11","note":null},{"id":"52553278173458","brand":"gana","name":"#Ant 36127. Servicio QR_Alcance_ADE","status":"ACTIVE","obj_code":"OUTCOME_AWARENESS","obj":"Reconocimiento","opt_code":"REACH","opt":"Alcance","kpi":"reach","kpi_label":"Personas alcanzadas","value":183975,"first":"2026-11-04","last":"2026-11-11","note":null},{"id":"52533600036258","brand":"gana","name":"#Ant 6169. Gana_Alcance_Activación_ADV_ADE","status":"PAUSED","obj_code":"OUTCOME_AWARENESS","obj":"Reconocimiento","opt_code":"REACH","opt":"Alcance","kpi":"reach","kpi_label":"Personas alcanzadas","value":5517320,"first":"2026-08-25","last":"2026-11-11","note":null},{"id":"52533605661858","brand":"gana","name":"#Ant 6169. Gana_Tráfico_Retención_Bases de datos_ADE","status":"PAUSED","obj_code":"OUTCOME_TRAFFIC","obj":"Tráfico","opt_code":"LANDING_PAGE_VIEWS","opt":"Visitas a la página de destino","kpi":"lpv","kpi_label":"Visitas a la página de destino","value":273883,"first":"2026-08-25","last":"2026-11-05","note":null},{"id":"52552382274458","brand":"gana","name":"#Ant 35878. Always On_Alcance_Goleador_ADEE","status":"PAUSED","obj_code":"OUTCOME_AWARENESS","obj":"Reconocimiento","opt_code":"REACH","opt":"Alcance","kpi":"reach","kpi_label":"Personas alcanzadas","value":620526,"first":"2026-10-26","last":"2026-11-10","note":null},{"id":"52552822378258","brand":"gana","name":"#Ant 36155. Adulto Mayor_Alcance_ADE","status":"PAUSED","obj_code":"OUTCOME_AWARENESS","obj":"Reconocimiento","opt_code":"REACH","opt":"Alcance","kpi":"reach","kpi_label":"Personas alcanzadas","value":1376711,"first":"2026-10-28","last":"2026-11-10","note":null},{"id":"120247515230990025","brand":"loti","name":"#Ant 6170. Alcance_Recordación_Advantage_ADE","status":"ACTIVE","obj_code":"OUTCOME_AWARENESS","obj":"Reconocimiento","opt_code":"REACH","opt":"Alcance","kpi":"reach","kpi_label":"Personas alcanzadas","value":1906655,"first":"2026-08-04","last":"2026-11-11","note":null},{"id":"120247536462390025","brand":"loti","name":"#Ant 6170 Interacción_Instagram + Facebook_ADE","status":"ACTIVE","obj_code":"OUTCOME_ENGAGEMENT","obj":"Interacción","opt_code":"PROFILE_AND_PAGE_ENGAGEMENT","opt":"Visitas al perfil de Instagram y página de Facebook","kpi":"pvis","kpi_label":"Visitas al perfil","value":40867,"first":"2026-08-06","last":"2026-11-11","note":null},{"id":"120247536631260025","brand":"loti","name":"#Ant 6170. Tráfico_Micro segmentación_ADE","status":"ACTIVE","obj_code":"OUTCOME_TRAFFIC","obj":"Tráfico","opt_code":"LANDING_PAGE_VIEWS","opt":"Visitas a la página de destino","kpi":"lpv","kpi_label":"Visitas a la página de destino","value":26740,"first":"2026-08-06","last":"2026-11-11","note":null},{"id":"120249402003000025","brand":"loti","name":"#Ant 6170. Conversiones_Registros_ADE","status":"ACTIVE","obj_code":"OUTCOME_SALES","obj":"Ventas","opt_code":"OFFSITE_CONVERSIONS","opt":"Conversiones en el sitio · registros completados","kpi":"reg","kpi_label":"Registros completados (píxel)","value":8,"first":"2026-11-09","last":"2026-11-11","note":null},{"id":"120249405389380025","brand":"loti","name":"#Ant 6170. Conversiones_Compras_ADE","status":"ACTIVE","obj_code":"OUTCOME_SALES","obj":"Ventas","opt_code":"OFFSITE_CONVERSIONS","opt":"Conversiones en el sitio · compras","kpi":"pur","kpi_label":"Compras (píxel)","value":53,"first":"2026-11-09","last":"2026-11-11","note":null},{"id":"120247538011420025","brand":"loti","name":"#Ant 6170. Tráfico_Activación_Público nuevo_ADE","status":"PAUSED","obj_code":"OUTCOME_TRAFFIC","obj":"Tráfico","opt_code":"LANDING_PAGE_VIEWS","opt":"Visitas a la página de destino","kpi":"lpv","kpi_label":"Visitas a la página de destino","value":32325,"first":"2026-08-06","last":"2026-11-10","note":null},{"id":"120249335395590025","brand":"loti","name":"#Ant 6170. Tráfico_Retención_Compradores activos_ADE","status":"PAUSED","obj_code":"OUTCOME_TRAFFIC","obj":"Tráfico","opt_code":"LANDING_PAGE_VIEWS","opt":"Visitas a la página de destino","kpi":"lpv","kpi_label":"Visitas a la página de destino","value":31,"first":"2026-11-06","last":"2026-11-10","note":null}]};
+const nf = new Intl.NumberFormat("es-CO");
+const MES = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+const d = s => { const [y, m, dd] = s.split("-").map(Number); return { y, m, dd }; };
+const fdate = (s, year = true) => { const x = d(s); return `${x.dd} ${MES[x.m - 1]}${year ? " " + x.y : ""}`; };
+const frange = (a, b) => { const A = d(a), B = d(b); return A.y === B.y ? `${fdate(a, false)} – ${fdate(b)}` : `${fdate(a)} – ${fdate(b)}`; };
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const STATUS = { ACTIVE: ["Activa", "good"], PAUSED: ["Pausada", "none"], CAMPAIGN_PAUSED: ["Pausada", "none"], ARCHIVED: ["Archivada", "none"] };
+const band = p => p >= 100 ? "good" : p >= 85 ? "warn" : "bad";
+const UNIT = { impressions: "impresiones", lpv: "visitas a la página", clicks: "clics en el enlace", pvis: "visitas al perfil", reg: "registros", pur: "compras", reach: "personas" };
+
+document.getElementById("cutoff").textContent = fdate(DATA.cutoff);
+document.getElementById("gen").textContent = `Actualizado el ${fdate(DATA.generated)} con datos al ${fdate(DATA.cutoff)}.`;
+
+const cards = DATA.cards.slice().sort((a, b) =>
+  (a.status === "ACTIVE" ? 0 : 1) - (b.status === "ACTIVE" ? 0 : 1) || b.first.localeCompare(a.first) || a.name.localeCompare(b.name));
+
+function flowHTML(f, c) {
+  const head = `<div class="fl-h"><b>${esc(f.name)}</b><span class="p">${frange(f.start, f.end)}</span></div>`;
+  const notes = [];
+  if (!f.match && f.goal != null) notes.push(`<span class="flag">El flow mide ${esc(UNIT[f.kpi])}, no ${esc(UNIT[c.kpi] || "el KPI de optimización")}</span>`);
+  if (f.shared.length) notes.push(`<span class="fn">Meta y resultado conjuntos con: ${f.shared.map(esc).join(" · ")}</span>`);
+  if (f.future) {
+    return `<div class="fl">${head}<p class="fut">${f.goal != null ? `Empieza el ${fdate(f.start)}. Meta: <strong>${nf.format(f.goal)}</strong> ${esc(UNIT[f.kpi])}.` : `Empieza el ${fdate(f.start)}. El flow no fija meta numérica.`}</p>${notes.join("")}</div>`;
+  }
+  if (f.goal == null) {
+    return `<div class="fl">${head}<div class="nums"><div><span>Meta</span><strong class="dim">Sin meta en el flow</strong></div><div><span>Real en el periodo</span><strong>${nf.format(f.real)}</strong></div><div></div></div>${notes.join("")}</div>`;
+  }
+  const g = f.closed ? f.goal : f.goal_to_date;
+  const p = g ? f.real / g * 100 : 0;
+  const b = band(p);
+  const gl = f.closed ? "Meta del flow" : `Meta al ${fdate(DATA.cutoff, false)}`;
+  const tot = f.closed ? "" : `<span class="fn">Meta total del periodo: ${nf.format(f.goal)} ${esc(UNIT[f.kpi])}</span>`;
+  return `<div class="fl">${head}
+    <div class="nums">
+      <div><span>${gl}</span><strong>${nf.format(g)}</strong></div>
+      <div><span>Real (${esc(UNIT[f.kpi])})</span><strong>${nf.format(f.real)}</strong></div>
+      <div><span>Cumplimiento</span><strong class="pct ${b}">${nf.format(Math.round(p))}%</strong></div>
+    </div>
+    <div class="meter" role="img" aria-label="Cumplimiento ${Math.round(p)}%"><i class="${b}" style="width:${Math.min(100, p).toFixed(1)}%"></i></div>
+    ${tot}${notes.join("")}</div>`;
+}
+
+function cardHTML(c) {
+  const [stl, stc] = STATUS[c.status] || [c.status || "Pendiente de validar", "none"];
+  const until = c.status === "ACTIVE" ? DATA.cutoff : c.last;
+  const kpi = c.kpi
+    ? `<div class="kpi"><span class="lbl">${esc(c.kpi_label)}</span><span class="val">${nf.format(c.value)}</span><span class="sub">Acumulado del ${fdate(c.first)} al ${fdate(until)}</span></div>`
+    : `<div class="kpi"><span class="lbl">KPI principal</span><span class="val na">Pendiente de validar</span><span class="sub">${esc(c.note || "Falta la configuración de optimización.")}</span></div>`;
+  const opt = c.opt === "Pendiente de validar" ? `<dd class="pend">Pendiente de validar</dd>` : `<dd>${esc(c.opt)}<small>${esc(c.opt_code || "")}</small></dd>`;
+  return `<article class="card${c.status === "ACTIVE" ? " on" : ""}" id="cp-${c.id}">
+    <div class="c-top"><span class="tags"><span class="tag ${c.brand}">${c.brand === "gana" ? "Gana" : "Loti"}</span>${c.brand === "gana" ? `<span class="prod">${esc(c.prod)}</span>` : ""}</span><span class="st ${stc}">${stl}</span></div>
+    <div><h3>${esc(c.name)}</h3><p class="dates">Entrega: ${frange(c.first, until)} · ID ${c.id}</p></div>
+    <dl class="objs">
+      <div><dt>Objetivo de campaña</dt><dd>${esc(c.obj)}<small>${esc(c.obj_code || "")}</small></dd></div>
+      <div><dt>Optimización</dt>${opt}</div>
+    </dl>
+    ${kpi}
+  </article>`;
+}
+
+const PRODUCTS = [
+  [/placa/i, "Placa Millonaria"], [/raspa/i, "Raspa y Listo"], [/super ?chance/i, "Super Chance"],
+  [/goleador/i, "Chance Goleador"], [/keno/i, "Keno"], [/rifazo/i, "Rifazo"], [/servicio qr/i, "Servicio QR"],
+  [/nubank/i, "NuBank"], [/\bara_/i, "ARA"], [/adulto mayor/i, "Adulto Mayor"], [/gana_/i, "Gana App"],
+];
+for (const c of cards) c.prod = c.brand === "loti" ? "Loti" : ((PRODUCTS.find(([re]) => re.test(c.name)) || [0, "Otras"])[1]);
+const prodOrder = b => {
+  const ps = [...new Set(cards.filter(c => c.brand === b).map(c => c.prod))];
+  const act = p => cards.filter(c => c.brand === b && c.prod === p && c.status === "ACTIVE").length;
+  return ps.sort((x, y) => (act(y) > 0) - (act(x) > 0) || x.localeCompare(y, "es"));
+};
+
+for (const b of ["gana", "loti"]) {
+  const list = cards.filter(c => c.brand === b);
+  const prods = prodOrder(b);
+  document.getElementById("c-" + b).innerHTML = prods.map(p => {
+    const g = list.filter(c => c.prod === p);
+    const act = g.filter(c => c.status === "ACTIVE").length;
+    const head = prods.length > 1 ? `<div class="group-h"><h3>${esc(p)}</h3><p>${g.length} ${g.length === 1 ? "campaña" : "campañas"} · ${act} ${act === 1 ? "activa" : "activas"}</p></div>` : "";
+    return `<div class="group" data-g="${b}|${esc(p)}">${head}<div class="cards">${g.map(cardHTML).join("")}</div></div>`;
+  }).join("");
+  const act = list.filter(c => c.status === "ACTIVE").length;
+  document.getElementById("s-" + b).textContent = `${list.length} campañas con entrega en noviembre · ${act} activas hoy` + (prods.length > 1 ? ` · ${prods.length} marcas` : "");
+}
+
+const state = { brand: "all", camp: "" };
+try { const s = JSON.parse(localStorage.getItem("kpi-filters") || "null"); if (s && typeof s === "object") Object.assign(state, s); } catch (e) {}
+const sel = document.getElementById("campF");
+
+function fillSelect() {
+  const groups = ["gana", "loti"].filter(b => state.brand === "all" || state.brand === b);
+  sel.innerHTML = `<option value="">Todas las campañas</option>` + groups.flatMap(b => prodOrder(b).map(p =>
+    `<optgroup label="${b === "gana" ? "Gana · " + esc(p) : "Loti"}">${cards.filter(c => c.brand === b && c.prod === p).map(c =>
+      `<option value="${c.id}">${esc(c.name)}${c.status === "ACTIVE" ? "" : " (" + (STATUS[c.status] || ["—"])[0].toLowerCase() + ")"}</option>`).join("")}</optgroup>`)).join("");
+  if (!cards.some(c => c.id === state.camp && groups.includes(c.brand))) state.camp = "";
+  sel.value = state.camp;
+}
+
+function apply() {
+  document.querySelectorAll("#brandF .chip").forEach(btn => btn.setAttribute("aria-pressed", String(btn.dataset.b === state.brand)));
+  fillSelect();
+  let shown = 0;
+  for (const c of cards) {
+    const el = document.getElementById("cp-" + c.id);
+    const vis = (state.brand === "all" || state.brand === c.brand) && (!state.camp || state.camp === c.id);
+    el.hidden = !vis; if (vis) shown++;
+  }
+  document.querySelectorAll(".group").forEach(g => { g.hidden = ![...g.querySelectorAll(".card")].some(x => !x.hidden); });
+  for (const b of ["gana", "loti"]) {
+    document.getElementById("sec-" + b).hidden = !cards.some(c => c.brand === b && !document.getElementById("cp-" + c.id).hidden);
+  }
+  document.getElementById("count").textContent = shown === 1 ? "1 campaña" : `${shown} campañas`;
+  document.getElementById("reset").hidden = state.brand === "all" && !state.camp;
+  try { localStorage.setItem("kpi-filters", JSON.stringify(state)); } catch (e) {}
+}
+
+document.getElementById("brandF").addEventListener("click", e => {
+  const btn = e.target.closest(".chip"); if (!btn) return;
+  state.brand = btn.dataset.b; state.camp = ""; apply();
+});
+sel.addEventListener("change", () => { state.camp = sel.value; apply(); });
+document.getElementById("reset").addEventListener("click", () => { state.brand = "all"; state.camp = ""; apply(); });
+apply();
+</script>
+</body>
+</html>
