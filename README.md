@@ -4,10 +4,10 @@ Mini-landing con los documentos web de medios pagos de Gana. Alineado con el sis
 
 ## URLs (GitHub Pages)
 - **Inicio:** `/index.html`
-- **Resumen ejecutivo:** `/resumen.html`
-- **Línea de tiempo de pauta:** `/linea-de-tiempo.html`
-- **Capítulo de gestión ATL:** `/atl.html`
-- **Informe Final Gana-Oriente:** `/informe-final-gana-oriente.html`
+- **Resumen ejecutivo:** `/campanas/placa-millonaria-resumen.html`
+- **Línea de tiempo de pauta:** `/campanas/placa-millonaria.html`
+- **Capítulo de gestión ATL:** `/campanas/placa-millonaria-atl.html`
+- **Informe Final Gana-Oriente:** `/campanas/oriente.html`
 
 ## Estructura
 ```
@@ -20,16 +20,16 @@ assets/
     resumen.js             ← inversión por mes, barras apiladas verticales
     linea-de-tiempo.js     ← datos semanales, barras apiladas y tabla
 index.html
-resumen.html
-linea-de-tiempo.html
-atl.html
+campanas/placa-millonaria-resumen.html
+campanas/placa-millonaria.html
+campanas/placa-millonaria-atl.html
 ```
 
 ## Los dos documentos
 
 Mismos datos, dos niveles de lectura. Ambos enlazan al otro desde la portada.
 
-| | `resumen.html` | `linea-de-tiempo.html` |
+| | `campanas/placa-millonaria-resumen.html` | `campanas/placa-millonaria.html` |
 |---|---|---|
 | **Para quién** | Cliente, dirección, cualquiera fuera del equipo de pauta | Equipo de medios |
 | **Grano** | 4 meses, 5 momentos clave | 15 semanas, acción por acción con fecha |
@@ -66,3 +66,38 @@ La fuente única de inversión es `V13 Master Flow Placa Millonaria`, hoja `151M
 
 ## Cliente
 **Gana** · Grupo Réditos Digital · esteban@adcom.group
+
+
+## Organización de documentos
+
+La portada es [index.html](index.html). Cada carpeta agrupa un tema. Los nombres
+usan minúsculas, guiones y fechas `AAAA-MM` o `AAAA-MM-DD` cuando distinguen cortes.
+El nombre del cliente vive en el repositorio y no se repite en cada URL.
+Los títulos de la portada y de cada documento usan el mismo nombre.
+
+Los HTML en las rutas anteriores solo redirigen para conservar enlaces compartidos,
+incluidos sus parámetros y secciones. Los documentos nuevos se guardan en las
+carpetas temáticas y se enlazan desde la portada.
+
+| Documento | Ruta |
+|---|---|
+| [Avance de pauta](informes/avance.html) | `informes/avance.html` |
+| [Resultados acumulados](informes/acumulado.html) | `informes/acumulado.html` |
+| [Objetivos por campaña](informes/objetivos.html) | `informes/objetivos.html` |
+| [Resultados de pauta · Octubre 2026](informes/2026-10.html) | `informes/2026-10.html` |
+| [Resultados de pauta · Septiembre 2026](informes/2026-09.html) | `informes/2026-09.html` |
+| [Resultados de Gana Ara](campanas/ara.html) | `campanas/ara.html` |
+| [Resultados de Gana Oriente](campanas/oriente.html) | `campanas/oriente.html` |
+| [Resultados de Gana Keno · Octubre 2026](campanas/keno-2026-10.html) | `campanas/keno-2026-10.html` |
+| [Placa Millonaria · Resumen](campanas/placa-millonaria-resumen.html) | `campanas/placa-millonaria-resumen.html` |
+| [Placa Millonaria · Historial](campanas/placa-millonaria.html) | `campanas/placa-millonaria.html` |
+| [Placa Millonaria · Versión para imprimir](campanas/placa-millonaria-imprimir.html) | `campanas/placa-millonaria-imprimir.html` |
+| [Placa Millonaria · Televisión y radio](campanas/placa-millonaria-atl.html) | `campanas/placa-millonaria-atl.html` |
+| [Plan de medios · 2026](planes/medios-2026.html) | `planes/medios-2026.html` |
+| [Presupuesto · Septiembre y octubre 2026](planes/presupuesto-2026-09-a-10.html) | `planes/presupuesto-2026-09-a-10.html` |
+| [Avance de pauta · 1 septiembre 2026](historico/avance-2026-09-01.html) | `historico/avance-2026-09-01.html` |
+| [Resultados acumulados · 14 septiembre 2026](historico/acumulado-2026-09-14.html) | `historico/acumulado-2026-09-14.html` |
+| [Resultados de septiembre 2026 · Borrador](historico/mensual/borrador-2026-09.html) | `historico/mensual/borrador-2026-09.html` |
+| [Resultados de septiembre 2026 · Gana y Loti](historico/mensual/resultados-2026-09.html) | `historico/mensual/resultados-2026-09.html` |
+| [Seguimiento semanal de Gana](reporte-semanal-meta/index.html) | `reporte-semanal-meta/index.html` |
+| [Seguimiento semanal de Loti](reporte-semanal-loti/index.html) | `reporte-semanal-loti/index.html` |

@@ -1,0 +1,1027 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gana y Loti | Resultados de pauta · Septiembre 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap">
+<style>
+  /* Layout: misma línea gráfica del "Reporte semanal por campañas" — portada, luego una banda por marca con tarjetas de campaña de color por producto */
+  :root {
+    color-scheme: light;
+    --bg:#F7F7F8; --surface:#FFFFFF; --surface-2:#F0F0EF; --ink:#111111; --ink-2:#47484A; --muted:#7A7B7D;
+    --line:#E7E7E7; --line-2:#ECECEE; --accent:#FFC000;
+    --good:#1E7A34; --good-tint:#E3F3E6; --warn:#A15400; --warn-tint:#FBEBD6; --bad:#B42318; --bad-tint:#FBE4E1;
+    --info:#1849A9; --info-tint:#E3EBFB;
+    --gana:#1E9B52; --placa:#D89B2E; --placa-ink:#B57A18; --raspa:#2E6FD6; --loti:#7C5CD6; --ao:#5E6B7A;
+    --shadow:0 1px 2px rgba(17,17,17,0.05), 0 6px 18px -10px rgba(17,17,17,0.14);
+    --font:"Poppins", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg:#131313; --surface:#1C1C1C; --surface-2:#242424; --ink:#F7F7F8; --ink-2:#C9C9CB; --muted:#98999B;
+      --line:#2E2E2E; --line-2:#383838; --accent:#FFC000;
+      --good:#4ADE80; --good-tint:#123420; --warn:#F5A623; --warn-tint:#3A2A10; --bad:#FF6B6B; --bad-tint:#3A1A1A;
+      --info:#6FA8FF; --info-tint:#16233D;
+      --gana:#2FB866; --placa:#E0A642; --placa-ink:#E8B456; --raspa:#5B93EC; --loti:#9B80E8; --ao:#8C99A8;
+      --shadow:0 1px 2px rgba(0,0,0,0.35), 0 10px 24px -12px rgba(0,0,0,0.55);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg:#131313; --surface:#1C1C1C; --surface-2:#242424; --ink:#F7F7F8; --ink-2:#C9C9CB; --muted:#98999B;
+    --line:#2E2E2E; --line-2:#383838; --accent:#FFC000;
+    --good:#4ADE80; --good-tint:#123420; --warn:#F5A623; --warn-tint:#3A2A10; --bad:#FF6B6B; --bad-tint:#3A1A1A;
+    --info:#6FA8FF; --info-tint:#16233D;
+    --gana:#2FB866; --placa:#E0A642; --placa-ink:#E8B456; --raspa:#5B93EC; --loti:#9B80E8; --ao:#8C99A8;
+    --shadow:0 1px 2px rgba(0,0,0,0.35), 0 10px 24px -12px rgba(0,0,0,0.55);
+  }
+
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:var(--font); -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:1180px; margin:0 auto; padding-block:40px 100px; padding-inline:24px; }
+  @media (max-width:600px){ .wrap { padding-inline:16px; } }
+  h1,h2,h3,h4 { margin:0; text-wrap:balance; }
+  .mono, td, .ind-real { font-variant-numeric:tabular-nums; }
+  p { margin:0; }
+
+  .cover { padding:36px 0 32px; border-bottom:1px solid var(--line); margin-bottom:40px; display:flex; flex-direction:column; gap:16px; }
+  .cover-brand { display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:800; letter-spacing:0.14em; text-transform:uppercase; }
+  .cover-brand .sq { width:16px; height:16px; background:var(--accent); border-radius:4px; }
+  .cover h1 { font-size:clamp(28px,4.2vw,44px); font-weight:800; letter-spacing:-0.01em; }
+  .cover-sub { font-size:15px; color:var(--ink-2); max-width:72ch; line-height:1.55; }
+  .cover-meta { display:flex; flex-wrap:wrap; gap:8px 26px; font-size:13px; color:var(--ink-2); }
+  .cover-meta strong { color:var(--ink); font-weight:600; }
+  .toc { display:flex; flex-wrap:wrap; gap:8px; }
+  .toc a { text-decoration:none; font-size:12px; font-weight:600; padding:6px 12px; border-radius:999px; background:var(--surface); border:1px solid var(--line); color:var(--ink); }
+  .toc a:hover, .toc a:focus-visible { border-color:var(--accent); outline:none; }
+
+  .section { margin-bottom:56px; }
+  .section-head { max-width:76ch; margin-bottom:20px; }
+  .section-head h2 { font-size:clamp(19px,2.2vw,24px); font-weight:700; }
+  .section-head p { font-size:14px; color:var(--ink-2); line-height:1.6; margin-top:8px; }
+
+  .brand-band { display:flex; align-items:center; gap:12px; padding:14px 0; margin:8px 0 22px; border-bottom:2px solid var(--fam); }
+  .brand-band .chip { padding:7px 18px; border-radius:999px; background:var(--fam); color:#fff; font-weight:800; font-size:15px; }
+  .brand-band .sub { font-size:13px; color:var(--ink-2); }
+
+  .sum-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr)); gap:22px; }
+  .camp-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr)); gap:22px; align-items:start; }
+
+  .camp-card { background:var(--surface); border:1.5px solid var(--fam); border-radius:16px; box-shadow:var(--shadow); overflow:hidden; display:flex; flex-direction:column; min-width:0; padding-bottom:20px; }
+  .camp-card.wide { grid-column:1 / -1; }
+  .camp-head { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:16px 20px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+  .camp-name-row { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .camp-name { display:inline-flex; align-items:center; padding:6px 16px; border-radius:999px; background:var(--fam); color:#fff; font-size:14px; font-weight:700; }
+  .camp-invest { display:inline-flex; align-items:center; gap:8px; padding:6px 14px; border-radius:999px; border:1.5px solid var(--fam); color:var(--fam-ink); font-size:12px; font-weight:700; }
+  .camp-invest .lbl { color:var(--muted); font-weight:600; }
+  .status-pill { display:inline-flex; align-items:center; gap:6px; padding:3px 10px; border-radius:999px; font-size:10px; font-weight:700; letter-spacing:0.02em; }
+  .status-pill .dot { width:6px; height:6px; border-radius:50%; background:currentColor; }
+  .status-pill.obj { background:var(--surface-2); color:var(--ink-2); }
+  .status-pill.paused { background:var(--bad-tint); color:var(--bad); }
+  .status-pill.offplan { background:var(--warn-tint); color:var(--warn); }
+
+  .range-badge { margin:14px 20px 0; display:inline-flex; align-self:flex-start; align-items:center; gap:8px; padding:7px 14px; border-radius:10px; background:var(--surface-2); border:1px dashed var(--fam); font-size:12px; font-weight:600; }
+  .pause-banner { margin:14px 20px 0; border-radius:10px; padding:10px 14px; font-size:12.5px; font-weight:600; line-height:1.5; background:var(--bad-tint); color:var(--bad); }
+  .pause-banner.warn { background:var(--warn-tint); color:var(--warn); }
+
+  .block-title { margin:18px 20px 8px; font-size:10.5px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--muted); }
+  .block-title .hint { font-weight:500; text-transform:none; letter-spacing:0; color:var(--ink-2); }
+
+  .ind-grid { display:grid; gap:1px; background:var(--line); margin:0 20px; border:1px solid var(--line); border-radius:14px; overflow:hidden; grid-template-columns:repeat(4,1fr); }
+  .ind-grid.cols-3 { grid-template-columns:repeat(3,1fr); }
+  .ind-box { background:var(--surface); padding:12px 14px; display:flex; flex-direction:column; gap:4px; min-width:0; }
+  .ind-label { font-size:10px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; color:var(--muted); }
+  .ind-real { font-size:18px; font-weight:800; overflow-wrap:anywhere; }
+  .ind-note { font-size:11px; font-weight:700; color:var(--fam-ink); }
+  @media (max-width:700px){ .ind-grid, .ind-grid.cols-3 { grid-template-columns:repeat(2,1fr); } }
+
+  .goal-list, .cost-compare-list { margin:0 20px; display:flex; flex-direction:column; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:14px; overflow:hidden; }
+  .goal-item, .cost-compare-item { background:var(--surface); padding:12px 14px; }
+  .goal-name, .cc-name { font-size:12px; font-weight:700; display:block; margin-bottom:6px; }
+  .goal-nums, .cc-nums { display:flex; flex-wrap:wrap; gap:4px 18px; font-size:12px; color:var(--ink-2); margin-bottom:6px; }
+  .goal-nums b, .cc-nums b { color:var(--ink); }
+  .goal-pct { font-weight:800; color:var(--fam-ink); }
+  .goal-pct.over, .good-var { font-weight:800; color:var(--good); }
+  .bad-var { font-weight:800; color:var(--bad); }
+  .goal-pct.low { color:var(--bad); }
+  .pct-track { height:7px; background:var(--surface-2); border-radius:5px; overflow:hidden; }
+  .pct-fill { height:100%; border-radius:5px; background:var(--fam); }
+  .pct-fill.over { background:var(--good); }
+  .pct-fill.low { background:var(--bad); }
+
+  .tbl-wrap { margin:0 20px; overflow-x:auto; border:1px solid var(--line); border-radius:14px; background:var(--surface); }
+  table { width:100%; border-collapse:collapse; font-size:12px; }
+  th { text-align:left; font-size:10px; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; color:var(--muted); padding:9px 12px; border-bottom:1px solid var(--line); white-space:nowrap; background:var(--surface-2); }
+  td { padding:9px 12px; border-bottom:1px solid var(--line-2); color:var(--ink-2); vertical-align:top; }
+  td:first-child { color:var(--ink); font-weight:600; }
+  tr:last-child td { border-bottom:0; }
+  td.num, th.num { text-align:right; white-space:nowrap; }
+  tr.win td { background:color-mix(in srgb, var(--good-tint) 70%, transparent); }
+  tr.lose td { background:color-mix(in srgb, var(--bad-tint) 60%, transparent); }
+  .tag { display:inline-block; font-size:10px; font-weight:700; padding:2px 8px; border-radius:999px; white-space:nowrap; }
+  .tag.good { background:var(--good-tint); color:var(--good); }
+  .tag.bad { background:var(--bad-tint); color:var(--bad); }
+  .tag.warn { background:var(--warn-tint); color:var(--warn); }
+  .tag.info { background:var(--info-tint); color:var(--info); }
+  .tbl-note { margin:6px 20px 0; font-size:11px; color:var(--muted); line-height:1.5; }
+
+  .strategy-box { margin:16px 20px 0; background:var(--surface-2); border-radius:12px; padding:14px 16px; }
+  .strategy-box .k { font-size:10px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:6px; }
+  .strategy-box p { font-size:13.5px; line-height:1.6; }
+  .strategy-box p + p { margin-top:8px; }
+  .strategy-box .act { font-weight:700; color:var(--fam-ink); }
+
+  .ads-section { margin:18px 20px 0; }
+  .ads-section .k { font-size:10px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:8px; }
+  .ads-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .ad-card { background:var(--surface-2); border:1px solid var(--line-2); border-radius:12px; padding:10px; display:flex; flex-direction:column; gap:6px; min-width:0; }
+  .ad-thumb { width:100%; max-width:100%; aspect-ratio:1; border-radius:8px; object-fit:cover; background:var(--line-2); }
+  .ad-rank { font-size:10px; font-weight:800; color:var(--muted); letter-spacing:0.05em; text-transform:uppercase; }
+  .ad-name { font-size:11px; font-weight:700; line-height:1.35; }
+  .ad-tags { display:flex; flex-wrap:wrap; gap:4px; }
+  .ad-public { font-size:9.5px; font-weight:700; padding:2px 8px; border-radius:999px; background:var(--fam); color:#fff; }
+  .ad-angle { font-size:9.5px; font-weight:700; padding:2px 8px; border-radius:999px; background:var(--surface); color:var(--ink); border:1px solid var(--line); }
+  .ad-result { font-size:11.5px; }
+  .ad-result b { color:var(--fam-ink); }
+  .ad-cpr { font-size:11px; color:var(--ink-2); }
+  .ad-why { font-size:10.5px; color:var(--ink-2); line-height:1.45; }
+  @media (max-width:640px){ .ads-grid { grid-template-columns:repeat(2,1fr); } }
+
+  .find-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr)); gap:14px; }
+  .find { background:var(--surface); border:1px solid var(--line); border-top:3px solid var(--fam); border-radius:14px; padding:16px; display:flex; flex-direction:column; gap:10px; box-shadow:var(--shadow); min-width:0; }
+  .find h3 { font-size:14.5px; font-weight:700; line-height:1.35; }
+  .find dl { margin:0; display:grid; grid-template-columns:auto 1fr; gap:6px 10px; font-size:12.5px; line-height:1.5; }
+  .find dt { font-size:10px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; color:var(--muted); padding-top:2px; }
+  .find dd { margin:0; color:var(--ink-2); }
+  .find dd.act { color:var(--ink); font-weight:600; }
+
+  .sum-card { background:var(--surface); border:1.5px solid var(--fam); border-radius:16px; box-shadow:var(--shadow); padding-bottom:20px; min-width:0; }
+  .list { margin:0 20px; padding-left:18px; font-size:13px; line-height:1.6; color:var(--ink-2); }
+  .list li + li { margin-top:6px; }
+  .list b { color:var(--ink); }
+
+  .panel { background:var(--surface); border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow); padding:20px 0; }
+  .panel > .tbl-wrap { border-radius:12px; }
+
+  .vid-grid { margin:0 20px; display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr)); gap:12px; }
+  .vid { display:grid; grid-template-columns:150px 1fr; gap:14px; background:var(--surface-2); border:1px solid var(--line-2); border-radius:12px; padding:12px; min-width:0; }
+  .vid-solo { margin:0 20px; }
+  @media (max-width:520px){ .vid { grid-template-columns:1fr; } }
+  .vid-prev { position:relative; display:block; border-radius:8px; overflow:hidden; align-self:start; text-decoration:none; }
+  .vid-prev img { width:100%; max-width:100%; aspect-ratio:1; object-fit:cover; display:block; background:var(--line-2); }
+  .vid-prev .play { position:absolute; inset:auto 8px 8px auto; width:30px; height:30px; border-radius:50%; background:rgba(17,17,17,0.72); display:grid; place-items:center; }
+  .vid-prev .play svg { width:12px; height:12px; fill:#fff; margin-left:2px; }
+  .vid-prev:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+  .vid-body { display:flex; flex-direction:column; gap:8px; min-width:0; }
+  .vid-kicker { font-size:10px; font-weight:800; letter-spacing:0.05em; text-transform:uppercase; color:var(--fam-ink); }
+  .vid-name { font-size:13px; font-weight:700; line-height:1.35; }
+  .vid-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:6px 12px; font-size:11px; color:var(--ink-2); }
+  .vid-stats b { display:block; font-size:13px; color:var(--ink); font-variant-numeric:tabular-nums; }
+  @media (max-width:420px){ .vid-stats { grid-template-columns:repeat(2,1fr); } }
+  .quart { display:flex; flex-direction:column; gap:3px; }
+  .q-row { display:grid; grid-template-columns:34px 1fr 92px; align-items:center; gap:8px; font-size:10.5px; color:var(--ink-2); font-variant-numeric:tabular-nums; }
+  .q-track { height:6px; background:var(--surface); border-radius:4px; overflow:hidden; }
+  .q-fill { height:100%; background:var(--fam); border-radius:4px; }
+  .vid-note { font-size:11px; color:var(--ink-2); line-height:1.45; }
+  .vid-link { font-size:11px; font-weight:700; color:var(--fam-ink); }
+
+  footer { margin-top:40px; padding-top:18px; border-top:1px solid var(--line); font-size:11.5px; color:var(--muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; }
+  @media (prefers-reduced-motion: reduce) { * { scroll-behavior:auto !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="cover">
+    <div class="cover-brand"><span class="sq"></span>ADCOM &middot; Meta Ads</div>
+    <h1>Resultados de pauta · Septiembre 2026</h1>
+    <p class="cover-sub">Qué funcionó, para quién, con qué mensaje y qué hacer en octubre. Cada campaña se lee en el mismo orden: resultados, ángulos, anuncios, videos, públicos y conclusión. Solo se reporta lo ocurrido del 1 al 30 de septiembre de 2026; las campañas que venían de agosto se evalúan contra el flow de agosto, que siguió vigente.</p>
+    <div class="cover-meta">
+      <span><strong>Periodo:</strong> 1 al 30 de septiembre de 2026</span>
+      <span><strong>Cuentas:</strong> Gana (act_1497284188840551) &middot; Loti Colombia (act_480041201276101)</span>
+      <span><strong>Planes de referencia:</strong> Flow_Gana_Agosto &middot; Flow Raspa y Listo &middot; Flow-CDM_Loti_Agosto 2026</span>
+    </div>
+    <nav class="toc" aria-label="Secciones">
+      <a href="#hallazgos">Hallazgos</a><a href="#gana">Gana</a><a href="#loti">Loti</a><a href="#aprendizajes">Aprendizajes generales</a>
+    </nav>
+  </header>
+
+  <!-- HALLAZGOS -->
+  <section class="section" id="hallazgos">
+    <div class="section-head">
+      <h2>Principales hallazgos del mes</h2>
+      <p>Cinco por marca, en orden de impacto. Cada uno sigue la secuencia hallazgo, evidencia, implicación y acción.</p>
+    </div>
+    <div class="brand-band" style="--fam:var(--gana);"><span class="chip">Gana</span></div>
+    <div class="find-grid" style="--fam:var(--gana);">
+      <article class="find"><h3>El tráfico sobre bases tibias rindió mucho mejor de lo que suponía el plan</h3><dl><dt>Evidencia</dt><dd>Cinco públicos de Gana App y Placa Descubrimiento costaron entre $82 y $96 por visita; el plan suponía $150 a $1.000. Placa Descubrimiento logró 57.548 visitas frente a 32.200 con el 57% del presupuesto.</dd><dt>Implicó</dt><dd>Las bases de visitantes web y de registros fueron el público más rentable de la cuenta para generar visitas.</dd><dt>Acción</dt><dd class="act">Replicar la lógica de bases tibias en las próximas campañas de tráfico de Gana. Placa terminó en septiembre.</dd></dl></article>
+      <article class="find"><h3>Dos creatividades sostuvieron el 65% del tráfico</h3><dl><dt>Evidencia</dt><dd>&ldquo;Mujer parada de bus&rdquo; (Ganancias y posibilidad, Placa): $5,3 M y 54.335 visitas. &ldquo;Ese número oriente&rdquo; (Aspiracional, Gana App): $3,2 M y 37.576 visitas.</dd><dt>Implicó</dt><dd>El resultado del mes dependió de dos piezas, lo que concentró el riesgo de fatiga.</dd><dt>Acción</dt><dd class="act">Crear nuevas variantes del concepto Aspiracional de Gana App (3 o más).</dd></dl></article>
+      <article class="find"><h3>La retención de Placa se saturó en compradores recientes</h3><dl><dt>Evidencia</dt><dd>El mismo anuncio costó $224 por visita en Única compra y $390 en Compras 90 días (+74%). Ese público llegó a una frecuencia de 14,6.</dd><dt>Implicó</dt><dd>El costo lo explicó el tamaño del público frente al presupuesto, no el mensaje.</dd><dt>Acción</dt><dd class="act">Replantear cómo se arma la retención en futuras campañas: limitar la frecuencia y evitar bases pequeñas de compradores recientes.</dd></dl></article>
+      <article class="find"><h3>En tráfico, el video costó más que la pieza estática</h3><dl><dt>Evidencia</dt><dd>Gana App: video $121 por visita frente a $86 del post (+41%). Placa Visitantes web: $117 frente a $79 (+48%). Incluso &ldquo;Placa única en sorteo&rdquo;, con buena retención, quedó 23% sobre el promedio.</dd><dt>Implicó</dt><dd>Sobre públicos que ya conocían la marca, el video generó atención pero no aceleró el clic.</dd><dt>Acción</dt><dd class="act">Reducir el video en tráfico y concentrarlo en alcance.</dd></dl></article>
+      <article class="find"><h3>&ldquo;No compra placa&rdquo; tuvo el costo de alcance más alto de la cuenta</h3><dl><dt>Evidencia</dt><dd>Costó $235.295 para alcanzar 6.705 cuentas, con un CPM de $23.016 (29 veces el de Placa Advantage). El plan le asignaba $0.</dd><dt>Implicó</dt><dd>Una base de datos muy pequeña no sirvió para un objetivo de alcance.</dd><dt>Acción</dt><dd class="act">Replantear: no usar bases tan pequeñas con objetivo de alcance en futuras campañas.</dd></dl></article>
+    </div>
+
+    <div class="brand-band" style="--fam:var(--loti); margin-top:28px;"><span class="chip">Loti Colombia</span></div>
+    <div class="find-grid" style="--fam:var(--loti);">
+      <article class="find"><h3>En tráfico, el público pesó más que la creatividad</h3><dl><dt>Evidencia</dt><dd>El mismo post &ldquo;Todas las loterías una plataforma&rdquo; costó $182 por visita en Intereses desconocidos y $311 en Similares 3% (+71%).</dd><dt>Implicó</dt><dd>Con la pieza idéntica, la diferencia la explicó el público.</dd><dt>Acción</dt><dd class="act">Cambiar distribución de presupuesto hacia Intereses desconocidos.</dd></dl></article>
+      <article class="find"><h3>La retención sobre compradores activos se saturó</h3><dl><dt>Evidencia</dt><dd>5.835 cuentas alcanzadas, frecuencia 8,9 y $1.497 por visita (6 veces el promedio de tráfico). El plan definía BD Registros excluyendo compradores.</dd><dt>Implicó</dt><dd>Se ejecutó sobre el público opuesto al planeado.</dd><dt>Acción</dt><dd class="act">Replantear: volver a Registros sin compra y limitar la frecuencia.</dd></dl></article>
+      <article class="find"><h3>El video funcionó en prospección cuando retuvo los primeros segundos</h3><dl><dt>Evidencia</dt><dd>Videos con 41% a 48% de reproducciones al 25% y 6 a 8 segundos de promedio costaron $172 a $225 por visita. En Similares, el video de &ldquo;Todas las loterías&rdquo; costó $218 frente a $311 del post.</dd><dt>Implicó</dt><dd>En público frío, el video ayudó a explicar el producto.</dd><dt>Acción</dt><dd class="act">Replicar en video los mensajes que hoy solo corren como post.</dd></dl></article>
+      <article class="find"><h3>La meta de costo por visita del plan no correspondió con la cuenta</h3><dl><dt>Evidencia</dt><dd>Plan: $80 a $120 por visita. Mejor combinación del mes: $157. Con $8 M al costo real, el volumen esperable ronda 32.000 visitas, no 89.167.</dd><dt>Implicó</dt><dd>El incumplimiento de tráfico fue en parte un problema de meta.</dd><dt>Acción</dt><dd class="act">Replantear la meta de octubre con $180 a $250 por visita.</dd></dl></article>
+      <article class="find"><h3>El 56% del Alcance se fue a piezas fuera del plan</h3><dl><dt>Evidencia</dt><dd>Los posts &ldquo;Bonos Éxito&rdquo; (7/09) no estaban en el plan ni tenían ángulo en el nombre. Tuvieron el CPM más alto ($795) y el 95% de los clics del Alcance.</dd><dt>Implicó</dt><dd>Se mezcló recordación con promoción.</dd><dt>Acción</dt><dd class="act">Separar Bonos Éxito en su propia campaña y nombrarlo con un ángulo.</dd></dl></article>
+    </div>
+  </section>
+
+  <!-- ===================== GANA ===================== -->
+  <section class="section" id="gana">
+    <div class="brand-band" style="--fam:var(--gana);"><span class="chip">Gana</span><span class="sub">Campaña por campaña &middot; cada tarjeta lleva el color de su producto</span></div>
+
+    <div class="camp-grid">
+
+      <!-- GANA APP TRAFICO -->
+      <article class="camp-card" style="--fam:var(--gana); --fam-ink:var(--gana);">
+        <div class="camp-head"><span class="camp-name-row"><span class="camp-name">Gana App &middot; Tráfico</span><span class="status-pill obj">Objetivo: tráfico</span></span><span class="camp-invest"><span class="lbl">Invertido</span>&nbsp;$4.741.866</span></div>
+        <div class="range-badge">Gana_Tráfico_Retención_Bases de datos &middot; 3 bases de datos de reactivación</div>
+        <div class="block-title">Resultados</div>
+        <div class="ind-grid">
+          <div class="ind-box"><span class="ind-label">Visitas</span><span class="ind-real">54.338</span><span class="ind-note">$87 c/u</span></div>
+          <div class="ind-box"><span class="ind-label">Clics enlace</span><span class="ind-real">61.463</span><span class="ind-note">$77 c/u</span></div>
+          <div class="ind-box"><span class="ind-label">Alcance</span><span class="ind-real">563.154</span><span class="ind-note">Frecuencia 1,97</span></div>
+          <div class="ind-box"><span class="ind-label">CTR &middot; CPM</span><span class="ind-real">6,32%</span><span class="ind-note">CPM $4.266</span></div>
+        </div>
+        <div class="block-title">Metas y cumplimiento</div>
+        <div class="goal-list"><div class="goal-item"><span class="goal-name">Clics (meta del flow)</span><div class="goal-nums"><span>Meta: <b>40.000</b></span><span>Logrado: <b>61.463</b></span><span>Costo: <b>$77</b> vs $150 del flow</span><span class="goal-pct over">154%</span></div><div class="pct-track"><div class="pct-fill over" style="width:100%"></div></div></div></div>
+        <div class="block-title">Ángulos <span class="hint">(promedio $87 por visita)</span></div>
+        <div class="tbl-wrap"><table><thead><tr><th>Ángulo</th><th class="num">% inv.</th><th class="num">Visitas</th><th class="num">Costo</th><th class="num">CTR enlace</th></tr></thead><tbody>
+          <tr class="win"><td>Aspiracional</td><td class="num">67%</td><td class="num">37.576</td><td class="num">$84</td><td class="num">4,96%</td></tr>
+          <tr><td>Facilidad y acceso</td><td class="num">6%</td><td class="num">3.015</td><td class="num">$89</td><td class="num">9,13%</td></tr>
+          <tr><td>Urgencia y activación</td><td class="num">14%</td><td class="num">7.086</td><td class="num">$95</td><td class="num">6,48%</td></tr>
+          <tr><td>Beneficio del producto</td><td class="num">13%</td><td class="num">6.661</td><td class="num">$95</td><td class="num">8,06%</td></tr>
+        </tbody></table></div>
+        <p class="tbl-note">Los cuatro ángulos quedaron dentro de un margen de 10%: sin ganador claro en costo. Aspiracional ganó por volumen.</p>
+        <div class="ads-section"><span class="k">Top 3 anuncios</span><div class="ads-grid">
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-40.jpg" alt="Anuncio Ese número oriente"><span class="ad-rank">#1</span><div class="ad-name">Ese número oriente</div><div class="ad-tags"><span class="ad-public">Abandonado</span><span class="ad-angle">Aspiracional</span></div><div class="ad-result"><b>10.818</b> visitas</div><div class="ad-cpr">$80 por visita &middot; CTR 5,45%</div><div class="ad-why">La misma pieza en P y Revisión dio 17.035 visitas a $82.</div></div>
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-41.jpg" alt="Anuncio Reactiva tu cuenta"><span class="ad-rank">#2</span><div class="ad-name">Reactiva tu cuenta</div><div class="ad-tags"><span class="ad-public">Abandonado</span><span class="ad-angle">Urgencia</span></div><div class="ad-result"><b>3.078</b> visitas</div><div class="ad-cpr">$85 por visita &middot; CTR 10,78%</div><div class="ad-why">El CTR más alto de la campaña con inversión relevante.</div></div>
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-42.jpg" alt="Anuncio A un paso de probar tu suerte"><span class="ad-rank">#3</span><div class="ad-name">A un paso de probar tu suerte</div><div class="ad-tags"><span class="ad-public">Abandonado</span><span class="ad-angle">Facilidad</span></div><div class="ad-result"><b>2.225</b> visitas</div><div class="ad-cpr">$87 por visita &middot; CTR 10,33%</div><div class="ad-why">3 de los 4 mejores anuncios estuvieron en el público Abandonado.</div></div>
+        </div></div>
+        <div class="block-title">Video con mejor rendimiento</div>
+        <div class="vid-solo"><div class="vid">
+          <a class="vid-prev" href="https://fb.me/2avYM8X8ROg9kDj" target="_blank" rel="noopener" aria-label="Ver video Nos renovamos, activa tu cuenta"><img src="../assets/img/2026-09-43.jpg" alt="Vista previa del video Nos renovamos, activa tu cuenta"><span class="play" aria-hidden="true"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span></a>
+          <div class="vid-body">
+            <span class="vid-kicker">278 visitas · $104 por visita (+20% vs. promedio)</span>
+            <div class="vid-name">Nos renovamos, activa tu cuenta</div>
+            <div class="ad-tags"><span class="ad-public">P y Revisión</span><span class="ad-angle">Urgencia y activación</span></div>
+            <div class="vid-stats">
+              <span>CTR<b>1,93%</b></span><span>CPC<b>$77</b></span><span>Reproducciones<b>3.280</b></span>
+              <span>Tiempo prom.<b>3 s</b></span><span>% prom. visto<b>No disponible</b></span><span>ThruPlays<b>114</b></span>
+            </div>
+            <div class="quart"><div class="q-row"><span>25%</span><div class="q-track"><div class="q-fill" style="width:12.3%"></div></div><span>404 &middot; 12,3%</span></div><div class="q-row"><span>50%</span><div class="q-track"><div class="q-fill" style="width:4.4%"></div></div><span>143 &middot; 4,4%</span></div><div class="q-row"><span>75%</span><div class="q-track"><div class="q-fill" style="width:1.8%"></div></div><span>59 &middot; 1,8%</span></div><div class="q-row"><span>100%</span><div class="q-track"><div class="q-fill" style="width:1.0%"></div></div><span>32 &middot; 1%</span></div></div>
+            <div class="vid-note">La mejor de las 3 versiones del video. Retuvo poco (12% al 25%) y costó más que el mismo mensaje en post ($85).</div>
+            <a class="vid-link" href="https://fb.me/2avYM8X8ROg9kDj" target="_blank" rel="noopener">Ver el anuncio en Meta &rarr;</a>
+          </div>
+        </div></div>
+        <div class="block-title">Públicos</div>
+        <div class="tbl-wrap"><table><thead><tr><th>Público</th><th class="num">Inversión</th><th class="num">Visitas</th><th class="num">Costo</th><th class="num">CTR</th><th class="num">Frec.</th></tr></thead><tbody>
+          <tr class="win"><td>P y Revisión</td><td class="num">$1.814.026</td><td class="num">21.643</td><td class="num">$84</td><td class="num">5,69%</td><td class="num">1,64</td></tr>
+          <tr class="win"><td>Abandonado</td><td class="num">$1.559.929</td><td class="num">18.485</td><td class="num">$84</td><td class="num">6,25%</td><td class="num">1,47</td></tr>
+          <tr><td>Registrados sin compra</td><td class="num">$1.367.911</td><td class="num">14.210</td><td class="num">$96</td><td class="num">7,97%</td><td class="num">1,75</td></tr>
+        </tbody></table></div>
+        <div class="strategy-box"><span class="k">Conclusión</span><p>La combinación Aspiracional + bases tibias (Abandonado, P y Revisión) generó 27.853 visitas a $80–$82, mejor que los mensajes literales de reactivación. Registrados sin compra tuvo el mejor CTR, pero pagó un CPM más alto.</p><p class="act">Acción: crear nuevas variantes del concepto Aspiracional.</p></div>
+      </article>
+
+      <!-- GANA APP ALCANCE -->
+      <article class="camp-card" style="--fam:var(--gana); --fam-ink:var(--gana);">
+        <div class="camp-head"><span class="camp-name-row"><span class="camp-name">Gana App &middot; Alcance</span><span class="status-pill obj">Objetivo: alcance</span></span><span class="camp-invest"><span class="lbl">Invertido</span>&nbsp;$4.147.181</span></div>
+        <div class="range-badge">Gana_Alcance_Activación_ADV &middot; Advantage, visibilidad de producto</div>
+        <div class="block-title">Resultados</div>
+        <div class="ind-grid">
+          <div class="ind-box"><span class="ind-label">Alcance</span><span class="ind-real">3.094.075</span><span class="ind-note">Frecuencia 1,70</span></div>
+          <div class="ind-box"><span class="ind-label">Impresiones</span><span class="ind-real">5.246.105</span></div>
+          <div class="ind-box"><span class="ind-label">CPM</span><span class="ind-real">$791</span></div>
+          <div class="ind-box"><span class="ind-label">CTR</span><span class="ind-real">0,16%</span><span class="ind-note">2.111 clics enlace</span></div>
+        </div>
+        <div class="block-title">Metas y cumplimiento</div>
+        <div class="goal-list"><div class="goal-item"><span class="goal-name">Alcance</span><div class="goal-nums"><span>Meta: <b>4.000.000</b></span><span>Logrado: <b>3.094.075</b></span><span>Inversión: <b>104%</b> del plan</span><span class="goal-pct">77%</span></div><div class="pct-track"><div class="pct-fill" style="width:77%"></div></div></div></div>
+        <div class="block-title">Costo del objetivo</div>
+        <div class="cost-compare-list"><div class="cost-compare-item"><span class="cc-name">CPM</span><div class="cc-nums"><span>Esperado (flow): <b>$1.000</b></span><span>Real: <b>$791</b></span><span class="good-var">-21%</span></div></div></div>
+        <div class="block-title">Ángulos <span class="hint">(CPM promedio $791)</span></div>
+        <div class="tbl-wrap"><table><thead><tr><th>Ángulo</th><th class="num">% inv.</th><th class="num">CPM</th><th class="num">vs prom.</th><th>Señal</th></tr></thead><tbody>
+          <tr class="win"><td>Urgencia y activación</td><td class="num">19%</td><td class="num">$709</td><td class="num">-10%</td><td>40.375 interacciones (videos)</td></tr>
+          <tr><td>Beneficio del producto</td><td class="num">51%</td><td class="num">$767</td><td class="num">-3%</td><td>90% de los clics</td></tr>
+          <tr class="lose"><td>Facilidad y acceso</td><td class="num">31%</td><td class="num">$898</td><td class="num">+14%</td><td>&mdash;</td></tr>
+        </tbody></table></div>
+        <div class="ads-section"><span class="k">Top 3 anuncios (menor CPM)</span><div class="ads-grid">
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-44.jpg" alt="Anuncio Sorteos y loterías favoritas"><span class="ad-rank">#1</span><div class="ad-name">Sorteos y loterías favoritas</div><div class="ad-tags"><span class="ad-public">Advantage</span><span class="ad-angle">Beneficio</span></div><div class="ad-result"><b>258.505</b> alcanzadas</div><div class="ad-cpr">CPM $621</div><div class="ad-why">21% bajo el promedio de la campaña.</div></div>
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-45.jpg" alt="Carrusel Gana se renovó"><span class="ad-rank">#2</span><div class="ad-name">Gana se renovó (carrusel)</div><div class="ad-tags"><span class="ad-public">Advantage</span><span class="ad-angle">Beneficio</span></div><div class="ad-result"><b>890.082</b> alcanzadas</div><div class="ad-cpr">CPM $673</div><div class="ad-why">El de mayor alcance con costo bajo.</div></div>
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-46.jpg" alt="Video Cómo actualizar tu cuenta"><span class="ad-rank">#3</span><div class="ad-name">Cómo actualizar tu cuenta (video)</div><div class="ad-tags"><span class="ad-public">Advantage</span><span class="ad-angle">Urgencia</span></div><div class="ad-result"><b>244.890</b> alcanzadas</div><div class="ad-cpr">CPM $686</div><div class="ad-why">3% llegó al 25%; 1 s de promedio.</div></div>
+        </div></div>
+        <div class="block-title">Video con mejor rendimiento</div>
+        <div class="vid-solo"><div class="vid">
+          <a class="vid-prev" href="https://fb.me/1VNed0O25JXoTzB" target="_blank" rel="noopener" aria-label="Ver video Cómo actualizar tu cuenta"><img src="../assets/img/2026-09-47.jpg" alt="Vista previa del video Cómo actualizar tu cuenta"><span class="play" aria-hidden="true"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span></a>
+          <div class="vid-body">
+            <span class="vid-kicker">244.890 alcanzadas · CPM $686 (-13%)</span>
+            <div class="vid-name">Cómo actualizar tu cuenta</div>
+            <div class="ad-tags"><span class="ad-public">Advantage</span><span class="ad-angle">Urgencia y activación</span></div>
+            <div class="vid-stats">
+              <span>CTR<b>0,05%</b></span><span>CPC<b>$1.266</b></span><span>Reproducciones<b>219.324</b></span>
+              <span>Tiempo prom.<b>1 s</b></span><span>% prom. visto<b>No disponible</b></span><span>ThruPlays<b>1.642</b></span>
+            </div>
+            <div class="quart"><div class="q-row"><span>25%</span><div class="q-track"><div class="q-fill" style="width:3.2%"></div></div><span>7.094 &middot; 3,2%</span></div><div class="q-row"><span>50%</span><div class="q-track"><div class="q-fill" style="width:1.0%"></div></div><span>2.237 &middot; 1%</span></div><div class="q-row"><span>75%</span><div class="q-track"><div class="q-fill" style="width:0.5%"></div></div><span>1.138 &middot; 0,5%</span></div><div class="q-row"><span>100%</span><div class="q-track"><div class="q-fill" style="width:0.3%"></div></div><span>723 &middot; 0,3%</span></div></div>
+            <div class="vid-note">Sumó alcance barato, pero se reprodujo 1 s en promedio (caso D).</div>
+            <a class="vid-link" href="https://fb.me/1VNed0O25JXoTzB" target="_blank" rel="noopener">Ver el anuncio en Meta &rarr;</a>
+          </div>
+        </div></div>
+        <div class="strategy-box"><span class="k">Conclusión</span><p>El post &ldquo;Más en la nueva página&rdquo; (Facilidad) se llevó $1.003.492 con el CPM más alto del grupo ($911). Los videos de reactivación se reprodujeron 1 segundo en promedio: sumaron impresiones, pero no retuvieron.</p><p class="act">Acción: cambiar distribución de presupuesto de &ldquo;Más en la nueva página&rdquo; hacia Beneficio y Urgencia (CPM $621–$689).</p></div>
+      </article>
+
+      <!-- PLACA VISITANTES -->
+      <article class="camp-card" style="--fam:var(--placa); --fam-ink:var(--placa-ink);">
+        <div class="camp-head"><span class="camp-name-row"><span class="camp-name">Placa &middot; Descubrimiento web</span><span class="status-pill obj">Objetivo: tráfico</span><span class="status-pill obj">Finalizó en septiembre</span></span><span class="camp-invest"><span class="lbl">Invertido</span>&nbsp;$2.345.552</span></div>
+        <div class="range-badge">Placa_Tráfico_Descubrimiento_Visitantes web &middot; Visitantes web 120 días</div>
+        <div class="block-title">Resultados</div>
+        <div class="ind-grid">
+          <div class="ind-box"><span class="ind-label">Visitas</span><span class="ind-real">28.086</span><span class="ind-note">$84 c/u</span></div>
+          <div class="ind-box"><span class="ind-label">Alcance</span><span class="ind-real">245.650</span><span class="ind-note">Frecuencia 1,99</span></div>
+          <div class="ind-box"><span class="ind-label">CTR</span><span class="ind-real">6,92%</span><span class="ind-note">CPC $69</span></div>
+          <div class="ind-box"><span class="ind-label">CPM</span><span class="ind-real">$4.806</span></div>
+        </div>
+        <div class="block-title">Metas y cumplimiento</div>
+        <div class="goal-list"><div class="goal-item"><span class="goal-name">Visitas a la página</span><div class="goal-nums"><span>Meta: <b>4.200</b></span><span>Logrado: <b>28.086</b></span><span>Costo: <b>$84</b> vs $1.000 del flow</span><span class="goal-pct over">669%</span></div><div class="pct-track"><div class="pct-fill over" style="width:100%"></div></div></div></div>
+        <div class="block-title">Ángulos <span class="hint">(promedio $84)</span></div>
+        <div class="tbl-wrap"><table><thead><tr><th>Ángulo</th><th class="num">% inv.</th><th class="num">Visitas</th><th class="num">Costo</th><th class="num">vs prom.</th></tr></thead><tbody>
+          <tr class="win"><td>Ganancias y posibilidad</td><td class="num">89%</td><td class="num">26.146</td><td class="num">$80</td><td class="num">-5%</td></tr>
+          <tr><td>Aspiracional</td><td class="num">8%</td><td class="num">1.856</td><td class="num">$104</td><td class="num">+24%</td></tr>
+          <tr class="lose"><td>Beneficio del producto</td><td class="num">2%</td><td class="num">68</td><td class="num">$608</td><td class="num">+624%</td></tr>
+          <tr class="lose"><td>Urgencia y activación</td><td class="num">1%</td><td class="num">16</td><td class="num">$1.272</td><td class="num">+1.414%</td></tr>
+        </tbody></table></div>
+        <div class="ads-section"><span class="k">Top 3 anuncios</span><div class="ads-grid">
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-48.jpg" alt="Anuncio Mujer parada de bus"><span class="ad-rank">#1</span><div class="ad-name">Mujer parada de bus</div><div class="ad-tags"><span class="ad-public">Visitantes web</span><span class="ad-angle">Ganancias</span></div><div class="ad-result"><b>24.329</b> visitas</div><div class="ad-cpr">$79 por visita &middot; CTR 7,34%</div><div class="ad-why">82% de la inversión de la campaña.</div></div>
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-49.jpg" alt="Anuncio Hombre moto"><span class="ad-rank">#2</span><div class="ad-name">Hombre moto</div><div class="ad-tags"><span class="ad-public">Visitantes web</span><span class="ad-angle">Ganancias</span></div><div class="ad-result"><b>1.097</b> visitas</div><div class="ad-cpr">$82 por visita &middot; CTR 10,31%</div><div class="ad-why">Duplicó el CTR del #1 con 21 veces menos inversión.</div></div>
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-50.jpg" alt="Video Placa única en sorteo"><span class="ad-rank">#3</span><div class="ad-name">Placa única en sorteo (video)</div><div class="ad-tags"><span class="ad-public">Visitantes web</span><span class="ad-angle">Ganancias</span></div><div class="ad-result"><b>709</b> visitas</div><div class="ad-cpr">$103 por visita &middot; 5 s prom.</div><div class="ad-why">41% llegó al 25% y 15,5% lo vio completo, pero costó 23% más.</div></div>
+        </div></div>
+        <div class="block-title">Video con mejor rendimiento</div>
+        <div class="vid-solo"><div class="vid">
+          <a class="vid-prev" href="https://fb.me/zgiJpZwsDfxmEab" target="_blank" rel="noopener" aria-label="Ver video Placa única en sorteo"><img src="../assets/img/2026-09-51.jpg" alt="Vista previa del video Placa única en sorteo"><span class="play" aria-hidden="true"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span></a>
+          <div class="vid-body">
+            <span class="vid-kicker">709 visitas · $103 por visita (+23%)</span>
+            <div class="vid-name">Placa única en sorteo</div>
+            <div class="ad-tags"><span class="ad-public">Visitantes web 120 días</span><span class="ad-angle">Ganancias y posibilidad</span></div>
+            <div class="vid-stats">
+              <span>CTR<b>4,48%</b></span><span>CPC<b>$67</b></span><span>Reproducciones<b>15.195</b></span>
+              <span>Tiempo prom.<b>5 s</b></span><span>% prom. visto<b>No disponible</b></span><span>ThruPlays<b>2.345</b></span>
+            </div>
+            <div class="quart"><div class="q-row"><span>25%</span><div class="q-track"><div class="q-fill" style="width:41.4%"></div></div><span>6.297 &middot; 41,4%</span></div><div class="q-row"><span>50%</span><div class="q-track"><div class="q-fill" style="width:24.4%"></div></div><span>3.712 &middot; 24,4%</span></div><div class="q-row"><span>75%</span><div class="q-track"><div class="q-fill" style="width:17.8%"></div></div><span>2.710 &middot; 17,8%</span></div><div class="q-row"><span>100%</span><div class="q-track"><div class="q-fill" style="width:15.5%"></div></div><span>2.354 &middot; 15,5%</span></div></div>
+            <div class="vid-note">La mejor retención de los videos de tráfico de Gana, con un costo por visita mayor que las piezas estáticas (caso B).</div>
+            <a class="vid-link" href="https://fb.me/zgiJpZwsDfxmEab" target="_blank" rel="noopener">Ver el anuncio en Meta &rarr;</a>
+          </div>
+        </div></div>
+        <p class="tbl-note">El otro video de la campaña, &ldquo;Qué harías con 3.000 millones&rdquo; (Aspiracional), tuvo 35.006 reproducciones, 14% al 25%, 7 s de promedio y $104 por visita (+24%): alta atención con resultado bajo (caso B).</p>
+        <div class="strategy-box"><span class="k">Conclusión</span><p>Ganancias y posibilidad + Visitantes web 120 días fue la combinación más eficiente de la cuenta en septiembre. El video retuvo bien, pero no bajó el costo de la visita.</p><p class="act">Aprendizaje: las bases de visitantes web, con un mensaje de premio visible en pieza estática, fueron el mejor punto de partida para generar tráfico.</p></div>
+      </article>
+
+      <!-- PLACA RMK -->
+      <article class="camp-card" style="--fam:var(--placa); --fam-ink:var(--placa-ink);">
+        <div class="camp-head"><span class="camp-name-row"><span class="camp-name">Placa &middot; Descubrimiento RMK</span><span class="status-pill obj">Objetivo: tráfico</span><span class="status-pill obj">Finalizó en septiembre</span></span><span class="camp-invest"><span class="lbl">Invertido</span>&nbsp;$2.416.972</span></div>
+        <div class="range-badge">Placa_Tráfico_Descubrimiento_RMK &middot; Registros en la landing de Placa</div>
+        <div class="block-title">Resultados</div>
+        <div class="ind-grid">
+          <div class="ind-box"><span class="ind-label">Visitas</span><span class="ind-real">29.462</span><span class="ind-note">$82 c/u</span></div>
+          <div class="ind-box"><span class="ind-label">Alcance</span><span class="ind-real">324.465</span><span class="ind-note">Frecuencia 2,10</span></div>
+          <div class="ind-box"><span class="ind-label">CTR</span><span class="ind-real">5,44%</span><span class="ind-note">CPC $65</span></div>
+          <div class="ind-box"><span class="ind-label">CPM</span><span class="ind-real">$3.547</span></div>
+        </div>
+        <div class="block-title">Metas y cumplimiento</div>
+        <div class="goal-list"><div class="goal-item"><span class="goal-name">Visitas a la página</span><div class="goal-nums"><span>Meta: <b>28.000</b></span><span>Logrado: <b>29.462</b></span><span>Costo: <b>$82</b> vs $150 del flow</span><span class="goal-pct over">105%</span></div><div class="pct-track"><div class="pct-fill over" style="width:100%"></div></div></div></div>
+        <div class="block-title">Ángulos <span class="hint">(promedio $82)</span></div>
+        <div class="tbl-wrap"><table><thead><tr><th>Ángulo</th><th class="num">Anuncios</th><th class="num">% inv.</th><th class="num">Visitas</th><th class="num">Costo</th><th class="num">vs prom.</th><th class="num">CTR enlace</th></tr></thead><tbody>
+          <tr class="win"><td>Ganancias y posibilidad</td><td class="num">6</td><td class="num">99,0%</td><td class="num">29.267</td><td class="num">$82</td><td class="num">0%</td><td class="num">5,01%</td></tr>
+          <tr class="lose"><td>Beneficio del producto</td><td class="num">2</td><td class="num">0,9%</td><td class="num">188</td><td class="num">$120</td><td class="num">+46%</td><td class="num">2,09%</td></tr>
+          <tr><td>Urgencia y activación</td><td class="num">1</td><td class="num">0,02%</td><td class="num">7</td><td class="num">$76</td><td class="num">&mdash;</td><td class="num">2,15%</td></tr>
+        </tbody></table></div>
+        <p class="tbl-note">Ganancias y posibilidad concentró casi toda la inversión y marcó el promedio de la campaña, con un CTR de enlace de 5,01%. Beneficio del producto costó 46% más, con $22.644 de inversión. Urgencia tuvo $533: no concluyente.</p>
+        <div class="ads-section"><span class="k">Top 3 anuncios</span><div class="ads-grid">
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-52.jpg" alt="Anuncio Mujer parada de bus"><span class="ad-rank">#1</span><div class="ad-name">Mujer parada de bus</div><div class="ad-tags"><span class="ad-public">Registros Placa</span><span class="ad-angle">Ganancias</span></div><div class="ad-result"><b>25.297</b> visitas</div><div class="ad-cpr">$81 por visita &middot; CTR 5,24%</div><div class="ad-why">85% de la inversión de la campaña.</div></div>
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-53.jpg" alt="Anuncio Hombre moto"><span class="ad-rank">#2</span><div class="ad-name">Hombre moto</div><div class="ad-tags"><span class="ad-public">Registros Placa</span><span class="ad-angle">Ganancias</span></div><div class="ad-result"><b>3.509</b> visitas</div><div class="ad-cpr">$87 por visita &middot; CTR 10,66%</div><div class="ad-why">El doble de CTR que el #1.</div></div>
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-54.jpg" alt="Video Juega placa moto y carro"><span class="ad-rank">#3</span><div class="ad-name">Juega placa moto y carro (video)</div><div class="ad-tags"><span class="ad-public">Registros Placa</span><span class="ad-angle">Beneficio</span></div><div class="ad-result"><b>183</b> visitas</div><div class="ad-cpr">$122 por visita &middot; 3 s prom.</div><div class="ad-why">15% llegó al 25%; costó 49% más.</div></div>
+        </div></div>
+        <div class="block-title">Video con mejor rendimiento</div>
+        <div class="vid-solo"><div class="vid">
+          <a class="vid-prev" href="https://fb.me/23mabAPzS79BBHc" target="_blank" rel="noopener" aria-label="Ver video Juega placa moto y carro"><img src="../assets/img/2026-09-55.jpg" alt="Vista previa del video Juega placa moto y carro"><span class="play" aria-hidden="true"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span></a>
+          <div class="vid-body">
+            <span class="vid-kicker">183 visitas · $122 por visita (+49%)</span>
+            <div class="vid-name">Juega placa moto y carro</div>
+            <div class="ad-tags"><span class="ad-public">Registros Placa</span><span class="ad-angle">Beneficio del producto</span></div>
+            <div class="vid-stats">
+              <span>CTR<b>2,31%</b></span><span>CPC<b>$92</b></span><span>Reproducciones<b>3.166</b></span>
+              <span>Tiempo prom.<b>3 s</b></span><span>% prom. visto<b>No disponible</b></span><span>ThruPlays<b>136</b></span>
+            </div>
+            <div class="quart"><div class="q-row"><span>25%</span><div class="q-track"><div class="q-fill" style="width:14.8%"></div></div><span>470 &middot; 14,8%</span></div><div class="q-row"><span>50%</span><div class="q-track"><div class="q-fill" style="width:5.9%"></div></div><span>186 &middot; 5,9%</span></div><div class="q-row"><span>75%</span><div class="q-track"><div class="q-fill" style="width:2.4%"></div></div><span>76 &middot; 2,4%</span></div><div class="q-row"><span>100%</span><div class="q-track"><div class="q-fill" style="width:1.5%"></div></div><span>49 &middot; 1,5%</span></div></div>
+            <div class="vid-note">Único video de la campaña; retuvo poco (15% al 25%).</div>
+            <a class="vid-link" href="https://fb.me/23mabAPzS79BBHc" target="_blank" rel="noopener">Ver el anuncio en Meta &rarr;</a>
+          </div>
+        </div></div>
+        <div class="strategy-box"><span class="k">Conclusión</span><p>Cumplió la meta con el 58% del presupuesto. Dependió casi por completo de una pieza, lo que concentró el riesgo de fatiga.</p><p class="act">Aprendizaje: la base de registros de la landing respondió al mensaje de premio con visitas a $82, por debajo de los $150 del flow.</p></div>
+      </article>
+
+      <!-- PLACA RETENCION -->
+      <article class="camp-card" style="--fam:var(--placa); --fam-ink:var(--placa-ink);">
+        <div class="camp-head"><span class="camp-name-row"><span class="camp-name">Placa &middot; Retención</span><span class="status-pill obj">Objetivo: tráfico</span><span class="status-pill obj">Finalizó en septiembre</span></span><span class="camp-invest"><span class="lbl">Invertido</span>&nbsp;$3.503.196</span></div>
+        <div class="range-badge">Placa_Tráfico_Retención_BBDD &middot; Única compra, Compras 90 días, Abandono</div>
+        <div class="block-title">Resultados</div>
+        <div class="ind-grid">
+          <div class="ind-box"><span class="ind-label">Visitas</span><span class="ind-real">10.426</span><span class="ind-note">$336 c/u</span></div>
+          <div class="ind-box"><span class="ind-label">Alcance</span><span class="ind-real">52.708</span><span class="ind-note">Frecuencia 8,93</span></div>
+          <div class="ind-box"><span class="ind-label">CTR</span><span class="ind-real">2,84%</span><span class="ind-note">CPC $262</span></div>
+          <div class="ind-box"><span class="ind-label">CPM</span><span class="ind-real">$7.446</span></div>
+        </div>
+        <div class="block-title">Metas y cumplimiento</div>
+        <div class="goal-list"><div class="goal-item"><span class="goal-name">Visitas a la página</span><div class="goal-nums"><span>Meta: <b>9.000</b></span><span>Logrado: <b>10.426</b></span><span>Costo: <b>$336</b> vs $700 del flow</span><span class="goal-pct over">116%</span></div><div class="pct-track"><div class="pct-fill over" style="width:100%"></div></div></div></div>
+        <div class="block-title">Ángulos <span class="hint">(promedio $336)</span></div>
+        <div class="tbl-wrap"><table><thead><tr><th>Ángulo</th><th class="num">% inv.</th><th class="num">Visitas</th><th class="num">Costo</th><th class="num">vs prom.</th></tr></thead><tbody>
+          <tr class="win"><td>Ganancias y posibilidad</td><td class="num">86%</td><td class="num">9.391</td><td class="num">$321</td><td class="num">-4%</td></tr>
+          <tr class="lose"><td>Beneficio del producto</td><td class="num">14%</td><td class="num">1.019</td><td class="num">$471</td><td class="num">+40%</td></tr>
+        </tbody></table></div>
+        <div class="ads-section"><span class="k">Top 3 anuncios</span><div class="ads-grid">
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-56.jpg" alt="Anuncio Mujer parada de bus"><span class="ad-rank">#1</span><div class="ad-name">Mujer parada de bus</div><div class="ad-tags"><span class="ad-public">Única compra</span><span class="ad-angle">Ganancias</span></div><div class="ad-result"><b>2.918</b> visitas</div><div class="ad-cpr">$224 por visita &middot; frec. 3,3</div><div class="ad-why">33% bajo el promedio.</div></div>
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-57.jpg" alt="Anuncio Hombre moto"><span class="ad-rank">#2</span><div class="ad-name">Hombre moto</div><div class="ad-tags"><span class="ad-public">Única compra</span><span class="ad-angle">Ganancias</span></div><div class="ad-result"><b>3.018</b> visitas</div><div class="ad-cpr">$283 por visita &middot; frec. 4,1</div><div class="ad-why">El de mayor volumen de la campaña.</div></div>
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-58.jpg" alt="Anuncio Mujer parada de bus"><span class="ad-rank">#3</span><div class="ad-name">Mujer parada de bus</div><div class="ad-tags"><span class="ad-public">Compras 90 días</span><span class="ad-angle">Ganancias</span></div><div class="ad-result"><b>1.791</b> visitas</div><div class="ad-cpr">$390 por visita &middot; frec. 7,6</div><div class="ad-why">La misma pieza del #1 costó 74% más en este público.</div></div>
+        </div></div>
+        <div class="block-title">Video con mejor rendimiento</div>
+        <div class="vid-solo"><div class="vid">
+          <a class="vid-prev" href="https://fb.me/2t0EdBiEYknIGn9" target="_blank" rel="noopener" aria-label="Ver video Juega placa moto y carro"><img src="../assets/img/2026-09-59.jpg" alt="Vista previa del video Juega placa moto y carro"><span class="play" aria-hidden="true"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span></a>
+          <div class="vid-body">
+            <span class="vid-kicker">23 visitas · $417 por visita (+24%)</span>
+            <div class="vid-name">Juega placa moto y carro</div>
+            <div class="ad-tags"><span class="ad-public">Única compra</span><span class="ad-angle">Beneficio del producto</span></div>
+            <div class="vid-stats">
+              <span>CTR<b>2,15%</b></span><span>CPC<b>$300</b></span><span>Reproducciones<b>1.078</b></span>
+              <span>Tiempo prom.<b>2 s</b></span><span>% prom. visto<b>No disponible</b></span><span>ThruPlays<b>41</b></span>
+            </div>
+            <div class="quart"><div class="q-row"><span>25%</span><div class="q-track"><div class="q-fill" style="width:8.5%"></div></div><span>92 &middot; 8,5%</span></div><div class="q-row"><span>50%</span><div class="q-track"><div class="q-fill" style="width:5.1%"></div></div><span>55 &middot; 5,1%</span></div><div class="q-row"><span>75%</span><div class="q-track"><div class="q-fill" style="width:2.4%"></div></div><span>26 &middot; 2,4%</span></div><div class="q-row"><span>100%</span><div class="q-track"><div class="q-fill" style="width:2.0%"></div></div><span>22 &middot; 2%</span></div></div>
+            <div class="vid-note">Mejor costo entre los videos de la campaña, con poca inversión ($9.584). En Compras 90 días el mismo video costó $615.</div>
+            <a class="vid-link" href="https://fb.me/2t0EdBiEYknIGn9" target="_blank" rel="noopener">Ver el anuncio en Meta &rarr;</a>
+          </div>
+        </div></div>
+        <div class="block-title">Públicos</div>
+        <div class="tbl-wrap"><table><thead><tr><th>Público</th><th class="num">Inversión</th><th class="num">Alcance</th><th class="num">Visitas</th><th class="num">Costo</th><th class="num">Frec.</th></tr></thead><tbody>
+          <tr class="win"><td>Única compra</td><td class="num">$1.768.401</td><td class="num">40.641</td><td class="num">6.608</td><td class="num">$268</td><td class="num">6,02</td></tr>
+          <tr class="lose"><td>Compras 90 días</td><td class="num">$1.608.855</td><td class="num">13.998</td><td class="num">3.599</td><td class="num">$447</td><td class="num">14,64</td></tr>
+          <tr class="lose"><td>Abandono Gana</td><td class="num">$125.940</td><td class="num">5.074</td><td class="num">219</td><td class="num">$575</td><td class="num">4,14</td></tr>
+        </tbody></table></div>
+        <div class="strategy-box"><span class="k">Conclusión</span><p>Cumplió porque el plan suponía $700 por visita, pero costó 4 veces lo que Descubrimiento. El costo subió a medida que el público se achicó y la frecuencia creció.</p><p class="act">Aprendizaje: en retención, frecuencias por encima de 6 coincidieron con costos de $268 a $447 por visita.</p></div>
+      </article>
+
+      <!-- PLACA ALCANCE -->
+      <article class="camp-card" style="--fam:var(--placa); --fam-ink:var(--placa-ink);">
+        <div class="camp-head"><span class="camp-name-row"><span class="camp-name">Placa &middot; Activación</span><span class="status-pill obj">Objetivo: alcance</span><span class="status-pill obj">Finalizó en septiembre</span></span><span class="camp-invest"><span class="lbl">Invertido</span>&nbsp;$1.910.624</span></div>
+        <div class="range-badge">Placa_Alcance_Activación_Advantage + Placa_Alcance_Activación (No compra placa)</div>
+        <div class="pause-banner warn">&ldquo;No compra placa&rdquo; gastó $235.295 sin presupuesto en el plan, con 6.705 cuentas alcanzadas y un CPM de $23.016 (29 veces el de Advantage).</div>
+        <div class="block-title">Resultados &middot; Advantage</div>
+        <div class="ind-grid">
+          <div class="ind-box"><span class="ind-label">Alcance</span><span class="ind-real">918.433</span><span class="ind-note">Frecuencia 2,32</span></div>
+          <div class="ind-box"><span class="ind-label">Impresiones</span><span class="ind-real">2.126.793</span></div>
+          <div class="ind-box"><span class="ind-label">CPM</span><span class="ind-real">$788</span></div>
+          <div class="ind-box"><span class="ind-label">CTR</span><span class="ind-real">0,14%</span></div>
+        </div>
+        <div class="block-title">Metas y cumplimiento</div>
+        <div class="goal-list"><div class="goal-item"><span class="goal-name">Alcance (Advantage)</span><div class="goal-nums"><span>Meta: <b>3.500.000</b></span><span>Logrado: <b>918.433</b></span><span>Inversión: <b>32%</b> del plan</span><span class="goal-pct low">26%</span></div><div class="pct-track"><div class="pct-fill low" style="width:26%"></div></div></div></div>
+        <div class="block-title">Costo del objetivo</div>
+        <div class="cost-compare-list"><div class="cost-compare-item"><span class="cc-name">CPM (Advantage)</span><div class="cc-nums"><span>Esperado (flow): <b>$1.500</b></span><span>Real: <b>$788</b></span><span class="good-var">-47%</span></div></div></div>
+        <div class="block-title">Ángulos <span class="hint">(CPM promedio $788)</span></div>
+        <div class="tbl-wrap"><table><thead><tr><th>Ángulo</th><th class="num">% inv.</th><th class="num">CPM</th><th class="num">CTR</th><th class="num">Interacciones</th></tr></thead><tbody>
+          <tr class="win"><td>Beneficio del producto</td><td class="num">85%</td><td class="num">$765</td><td class="num">0,10%</td><td class="num">829</td></tr>
+          <tr><td>Ganancias y posibilidad</td><td class="num">11%</td><td class="num">$942</td><td class="num">0,38%</td><td class="num">27.520</td></tr>
+          <tr><td>Aspiracional</td><td class="num">4%</td><td class="num">$981</td><td class="num">0,39%</td><td class="num">7.153</td></tr>
+        </tbody></table></div>
+        <div class="ads-section"><span class="k">Top 3 anuncios</span><div class="ads-grid">
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-60.jpg" alt="Anuncio Placa carro y moto"><span class="ad-rank">#1</span><div class="ad-name">Placa carro y moto</div><div class="ad-tags"><span class="ad-public">Advantage</span><span class="ad-angle">Beneficio</span></div><div class="ad-result"><b>687.489</b> alcanzadas</div><div class="ad-cpr">CPM $729</div><div class="ad-why">Menor CPM y mayor volumen.</div></div>
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-61.jpg" alt="Anuncio Explicativo con letras y números"><span class="ad-rank">#2</span><div class="ad-name">Explicativo con letras y números</div><div class="ad-tags"><span class="ad-public">Advantage</span><span class="ad-angle">Beneficio</span></div><div class="ad-result"><b>331.710</b> alcanzadas</div><div class="ad-cpr">CPM $847</div><div class="ad-why">Segundo en volumen.</div></div>
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-62.jpg" alt="Video Placa carro"><span class="ad-rank">#3</span><div class="ad-name">Placa carro (video)</div><div class="ad-tags"><span class="ad-public">Advantage</span><span class="ad-angle">Ganancias</span></div><div class="ad-result"><b>133.301</b> alcanzadas</div><div class="ad-cpr">CPM $931 &middot; CTR 0,38%</div><div class="ad-why">Retuvo poco (2% al 25%) pero cuadruplicó el CTR de los posts (caso C).</div></div>
+        </div></div>
+        <div class="block-title">Video con mejor rendimiento</div>
+        <div class="vid-solo"><div class="vid">
+          <a class="vid-prev" href="https://fb.me/2nx9VI5VbMngsNy" target="_blank" rel="noopener" aria-label="Ver video Placa carro"><img src="../assets/img/2026-09-63.jpg" alt="Vista previa del video Placa carro"><span class="play" aria-hidden="true"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span></a>
+          <div class="vid-body">
+            <span class="vid-kicker">133.301 alcanzadas · CPM $931 (+18%)</span>
+            <div class="vid-name">Placa carro</div>
+            <div class="ad-tags"><span class="ad-public">Advantage</span><span class="ad-angle">Ganancias y posibilidad</span></div>
+            <div class="vid-stats">
+              <span>CTR<b>0,38%</b></span><span>CPC<b>$245</b></span><span>Reproducciones<b>125.148</b></span>
+              <span>Tiempo prom.<b>2 s</b></span><span>% prom. visto<b>No disponible</b></span><span>ThruPlays<b>2.034</b></span>
+            </div>
+            <div class="quart"><div class="q-row"><span>25%</span><div class="q-track"><div class="q-fill" style="width:2.4%"></div></div><span>2.943 &middot; 2,4%</span></div><div class="q-row"><span>50%</span><div class="q-track"><div class="q-fill" style="width:1.2%"></div></div><span>1.507 &middot; 1,2%</span></div><div class="q-row"><span>75%</span><div class="q-track"><div class="q-fill" style="width:0.9%"></div></div><span>1.106 &middot; 0,9%</span></div><div class="q-row"><span>100%</span><div class="q-track"><div class="q-fill" style="width:0.4%"></div></div><span>551 &middot; 0,4%</span></div></div>
+            <div class="vid-note">Retuvo poco (2% al 25%), pero su CTR casi cuadruplicó el de los posts (caso C).</div>
+            <a class="vid-link" href="https://fb.me/2nx9VI5VbMngsNy" target="_blank" rel="noopener">Ver el anuncio en Meta &rarr;</a>
+          </div>
+        </div></div>
+        <div class="strategy-box"><span class="k">Conclusión</span><p>Advantage fue eficiente en costo (CPM 47% bajo el flow), pero recibió solo un tercio del presupuesto y por eso quedó en 26% de la meta.</p><p class="act">Aprendizaje: Advantage distribuyó alcance a la mitad del costo esperado; la base pequeña de &ldquo;No compra placa&rdquo; fue el uso menos eficiente del presupuesto.</p></div>
+      </article>
+
+      <!-- RASPA ACTIVACION -->
+      <article class="camp-card" style="--fam:var(--raspa); --fam-ink:var(--raspa);">
+        <div class="camp-head"><span class="camp-name-row"><span class="camp-name">Raspa y Listo &middot; Activación</span><span class="status-pill paused"><span class="dot"></span>Pausada el 10 sept</span></span><span class="camp-invest"><span class="lbl">Invertido sept</span>&nbsp;$1.413.745</span></div>
+        <div class="range-badge">Raspa y listo_Alcance_Activación_Advantage &middot; Advantage</div>
+        <div class="pause-banner">La campaña se pausó el 10 de septiembre por un cambio de enfoque en la estrategia, no por bajo rendimiento. Las cifras corresponden al cierre real del mes.</div>
+        <div class="block-title">Resultados</div>
+        <div class="ind-grid">
+          <div class="ind-box"><span class="ind-label">Alcance</span><span class="ind-real">967.713</span><span class="ind-note">Frecuencia 2,11</span></div>
+          <div class="ind-box"><span class="ind-label">Impresiones</span><span class="ind-real">2.038.935</span></div>
+          <div class="ind-box"><span class="ind-label">CPM</span><span class="ind-real">$693</span></div>
+          <div class="ind-box"><span class="ind-label">CTR</span><span class="ind-real">0,13%</span></div>
+        </div>
+        <div class="block-title">Costo del objetivo</div>
+        <div class="cost-compare-list"><div class="cost-compare-item"><span class="cc-name">CPM (Advantage)</span><div class="cc-nums"><span>Esperado (flow): <b>$1.300</b></span><span>Real: <b>$693</b></span><span class="good-var">-47%</span></div></div></div>
+        <div class="block-title">Ángulos</div>
+        <p class="tbl-note" style="margin-top:0;">Beneficio del producto $692 (92% de la inversión) y Ganancias y posibilidad $712: empate (3%).</p>
+        <div class="ads-section"><span class="k">Top 3 anuncios</span><div class="ads-grid">
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-64.jpg" alt="Anuncio Mujer descubre al instante"><span class="ad-rank">#1</span><div class="ad-name">Mujer descubre al instante</div><div class="ad-tags"><span class="ad-public">Advantage</span><span class="ad-angle">Beneficio</span></div><div class="ad-result"><b>67.561</b> alcanzadas</div><div class="ad-cpr">CPM $689</div><div class="ad-why">Menor CPM con inversión relevante.</div></div>
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-65.jpg" alt="Anuncio Amigos descubre al instante"><span class="ad-rank">#2</span><div class="ad-name">Amigos descubre al instante</div><div class="ad-tags"><span class="ad-public">Advantage</span><span class="ad-angle">Beneficio</span></div><div class="ad-result"><b>842.275</b> alcanzadas</div><div class="ad-cpr">CPM $691</div><div class="ad-why">83% de la inversión de la campaña.</div></div>
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-66.jpg" alt="Video Cosquillas, raspa en 3 segundos"><span class="ad-rank">#3</span><div class="ad-name">Cosquillas, raspa en 3 segundos (video)</div><div class="ad-tags"><span class="ad-public">Advantage</span><span class="ad-angle">Ganancias</span></div><div class="ad-result"><b>68.153</b> alcanzadas</div><div class="ad-cpr">CPM $710</div><div class="ad-why">5% llegó al 25%; 1 s de promedio.</div></div>
+        </div></div>
+        <div class="block-title">Video con mejor rendimiento</div>
+        <div class="vid-solo"><div class="vid">
+          <a class="vid-prev" href="https://fb.me/26ji6yjIW01uCSP" target="_blank" rel="noopener" aria-label="Ver video Encuentra tu emisión favorita"><img src="../assets/img/2026-09-67.jpg" alt="Vista previa del video Encuentra tu emisión favorita"><span class="play" aria-hidden="true"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span></a>
+          <div class="vid-body">
+            <span class="vid-kicker">30.196 alcanzadas · CPM $704 (+2%)</span>
+            <div class="vid-name">Encuentra tu emisión favorita</div>
+            <div class="ad-tags"><span class="ad-public">Advantage</span><span class="ad-angle">Beneficio del producto</span></div>
+            <div class="vid-stats">
+              <span>CTR<b>0,17%</b></span><span>CPC<b>$425</b></span><span>Reproducciones<b>30.928</b></span>
+              <span>Tiempo prom.<b>1 s</b></span><span>% prom. visto<b>No disponible</b></span><span>ThruPlays<b>312</b></span>
+            </div>
+            <div class="quart"><div class="q-row"><span>25%</span><div class="q-track"><div class="q-fill" style="width:6.6%"></div></div><span>2.056 &middot; 6,6%</span></div><div class="q-row"><span>50%</span><div class="q-track"><div class="q-fill" style="width:2.1%"></div></div><span>636 &middot; 2,1%</span></div><div class="q-row"><span>75%</span><div class="q-track"><div class="q-fill" style="width:1.1%"></div></div><span>344 &middot; 1,1%</span></div><div class="q-row"><span>100%</span><div class="q-track"><div class="q-fill" style="width:0.7%"></div></div><span>219 &middot; 0,7%</span></div></div>
+            <div class="vid-note">El menor CPM entre los videos de la campaña; 7% llegó al 25%.</div>
+            <a class="vid-link" href="https://fb.me/26ji6yjIW01uCSP" target="_blank" rel="noopener">Ver el anuncio en Meta &rarr;</a>
+          </div>
+        </div></div>
+        <div class="strategy-box"><span class="k">Conclusión</span><p>Hasta la pausa, el costo fue casi la mitad del esperado. El ángulo no movió el CPM.</p><p class="act">Aprendizaje: Raspa y Listo distribuyó alcance a casi la mitad del costo previsto en su flow.</p></div>
+      </article>
+
+      <!-- RASPA REMARKETING -->
+      <article class="camp-card" style="--fam:var(--raspa); --fam-ink:var(--raspa);">
+        <div class="camp-head"><span class="camp-name-row"><span class="camp-name">Raspa y Listo &middot; Remarketing</span><span class="status-pill paused"><span class="dot"></span>Pausada el 10 sept</span></span><span class="camp-invest"><span class="lbl">Invertido sept</span>&nbsp;$605.803</span></div>
+        <div class="range-badge">Raspa y listo_Alcance_Remarketing &middot; Visitantes web 120 días</div>
+        <div class="pause-banner">La campaña se pausó el 10 de septiembre por un cambio de enfoque en la estrategia, no por bajo rendimiento. Las cifras corresponden al cierre real del mes.</div>
+        <div class="block-title">Resultados</div>
+        <div class="ind-grid">
+          <div class="ind-box"><span class="ind-label">Alcance</span><span class="ind-real">597.185</span><span class="ind-note">Frecuencia 1,60</span></div>
+          <div class="ind-box"><span class="ind-label">Impresiones</span><span class="ind-real">957.303</span></div>
+          <div class="ind-box"><span class="ind-label">CPM</span><span class="ind-real">$633</span></div>
+          <div class="ind-box"><span class="ind-label">CTR</span><span class="ind-real">0,09%</span></div>
+        </div>
+        <div class="block-title">Costo del objetivo</div>
+        <div class="cost-compare-list"><div class="cost-compare-item"><span class="cc-name">CPM (Remarketing)</span><div class="cc-nums"><span>Esperado (flow): <b>$1.100</b></span><span>Real: <b>$633</b></span><span class="good-var">-42%</span></div></div></div>
+        <div class="block-title">Ángulos y públicos</div>
+        <p class="tbl-note" style="margin-top:0;">Beneficio del producto tuvo el 97% de la inversión: sin comparación. El conjunto &ldquo;Fieles Gana&rdquo; casi no entregó ($203).</p>
+        <div class="ads-section"><span class="k">Top 3 anuncios</span><div class="ads-grid">
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-68.jpg" alt="Anuncio Amigos descubre al instante"><span class="ad-rank">#1</span><div class="ad-name">Amigos descubre al instante</div><div class="ad-tags"><span class="ad-public">Visitantes web</span><span class="ad-angle">Beneficio</span></div><div class="ad-result"><b>29.472</b> alcanzadas</div><div class="ad-cpr">CPM $622</div><div class="ad-why">Menor CPM.</div></div>
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-69.jpg" alt="Anuncio Mujer descubre al instante"><span class="ad-rank">#2</span><div class="ad-name">Mujer descubre al instante</div><div class="ad-tags"><span class="ad-public">Visitantes web</span><span class="ad-angle">Beneficio</span></div><div class="ad-result"><b>517.296</b> alcanzadas</div><div class="ad-cpr">CPM $632</div><div class="ad-why">85% de la inversión.</div></div>
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-70.jpg" alt="Video La copa"><span class="ad-rank">#3</span><div class="ad-name">La copa (video)</div><div class="ad-tags"><span class="ad-public">Visitantes web</span><span class="ad-angle">Beneficio</span></div><div class="ad-result"><b>55.622</b> alcanzadas</div><div class="ad-cpr">CPM $645</div><div class="ad-why">15% llegó al 25%, la mejor retención de Raspa y Listo.</div></div>
+        </div></div>
+        <div class="block-title">Video con mejor rendimiento</div>
+        <div class="vid-solo"><div class="vid">
+          <a class="vid-prev" href="https://fb.me/27OZ5oBJaZkSDu1" target="_blank" rel="noopener" aria-label="Ver video La copa"><img src="../assets/img/2026-09-71.jpg" alt="Vista previa del video La copa"><span class="play" aria-hidden="true"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span></a>
+          <div class="vid-body">
+            <span class="vid-kicker">55.622 alcanzadas · CPM $645 (+2%)</span>
+            <div class="vid-name">La copa</div>
+            <div class="ad-tags"><span class="ad-public">Visitantes web 120 días</span><span class="ad-angle">Beneficio del producto</span></div>
+            <div class="vid-stats">
+              <span>CTR<b>0,08%</b></span><span>CPC<b>$797</b></span><span>Reproducciones<b>53.915</b></span>
+              <span>Tiempo prom.<b>1 s</b></span><span>% prom. visto<b>No disponible</b></span><span>ThruPlays<b>1.065</b></span>
+            </div>
+            <div class="quart"><div class="q-row"><span>25%</span><div class="q-track"><div class="q-fill" style="width:14.8%"></div></div><span>7.980 &middot; 14,8%</span></div><div class="q-row"><span>50%</span><div class="q-track"><div class="q-fill" style="width:5.7%"></div></div><span>3.086 &middot; 5,7%</span></div><div class="q-row"><span>75%</span><div class="q-track"><div class="q-fill" style="width:3.3%"></div></div><span>1.779 &middot; 3,3%</span></div><div class="q-row"><span>100%</span><div class="q-track"><div class="q-fill" style="width:1.9%"></div></div><span>1.029 &middot; 1,9%</span></div></div>
+            <div class="vid-note">La mejor retención de Raspa y Listo (15% al 25%).</div>
+            <a class="vid-link" href="https://fb.me/27OZ5oBJaZkSDu1" target="_blank" rel="noopener">Ver el anuncio en Meta &rarr;</a>
+          </div>
+        </div></div>
+        <div class="strategy-box"><span class="k">Conclusión</span><p>Tuvo el CPM más bajo de las campañas grandes de la cuenta: el remarketing sobre visitantes web fue barato de distribuir.</p></div>
+      </article>
+
+      <!-- ALWAYS ON -->
+      <article class="camp-card wide" style="--fam:var(--ao); --fam-ink:var(--ao);">
+        <div class="camp-head"><span class="camp-name-row"><span class="camp-name">Always On</span><span class="status-pill obj">Respaldo: Flow Always On</span></span><span class="camp-invest"><span class="lbl">Invertido</span>&nbsp;$2.032.832</span></div>
+        <div class="range-badge">4 campañas de alcance: Super chance, Goleador, Placa millonaria y Raspa y Listo</div>
+        <div class="block-title">Resultados</div>
+        <div class="tbl-wrap"><table><thead><tr><th>Campaña</th><th class="num">Inversión</th><th class="num">Alcance</th><th class="num">Frec.</th><th class="num">CPM</th><th class="num">CTR</th><th>Mejor ángulo (CPM)</th><th>Señal</th></tr></thead><tbody>
+          <tr><td>Super chance</td><td class="num">$694.109</td><td class="num">405.003</td><td class="num">1,80</td><td class="num">$950</td><td class="num">0,32%</td><td>Aspiracional $925</td><td>Ganancias duplicó el CTR (0,41%)</td></tr>
+          <tr><td>Goleador</td><td class="num">$683.453</td><td class="num">435.755</td><td class="num">1,78</td><td class="num">$879</td><td class="num">0,12%</td><td>Beneficio $846</td><td>Empate (5%)</td></tr>
+          <tr><td>Placa millonaria</td><td class="num">$533.865</td><td class="num">481.490</td><td class="num">1,23</td><td class="num">$901</td><td class="num">0,23%</td><td>Ganancias $885</td><td>Empate (2%)</td></tr>
+          <tr class="win"><td>Raspa y Listo</td><td class="num">$121.405</td><td class="num">314.338</td><td class="num">1,22</td><td class="num">$316</td><td class="num">0,15%</td><td>Beneficio (93%)</td><td>CPM más bajo de la cuenta</td></tr>
+        </tbody></table></div>
+        <p class="tbl-note">Las metas numéricas del Flow Always On no están cargadas en esta versión del informe; las campañas se evalúan por costo y respuesta.</p>
+        <div class="ads-section"><span class="k">Anuncios destacados</span><div class="ads-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr));">
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-72.jpg" alt="Video Billete 5000"><span class="ad-rank">Mejor video de alcance</span><div class="ad-name">Billete 5000 (video)</div><div class="ad-tags"><span class="ad-public">BD compradores</span><span class="ad-angle">Ganancias</span></div><div class="ad-result"><b>CTR 0,80%</b></div><div class="ad-cpr">20% llegó al 25% &middot; 9.075 ThruPlays</div><div class="ad-why">Retuvo 3 a 10 veces más que el resto de los videos de alcance (caso A).</div></div>
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-73.jpg" alt="Carrusel Date el chance"><span class="ad-rank">Mayor volumen</span><div class="ad-name">Date el chance (carrusel)</div><div class="ad-tags"><span class="ad-public">Advantage</span><span class="ad-angle">Aspiracional</span></div><div class="ad-result"><b>359.877</b> alcanzadas</div><div class="ad-cpr">CPM $906 &middot; CTR 0,23%</div><div class="ad-why">68% de Always On Placa millonaria.</div></div>
+        </div></div>
+        <div class="block-title">Videos con mejor rendimiento por campaña</div>
+        <div class="vid-grid"><div class="vid">
+          <a class="vid-prev" href="https://fb.me/27ir6wpWu3orwH3" target="_blank" rel="noopener" aria-label="Ver video Billete 5000 · Super chance"><img src="../assets/img/2026-09-74.jpg" alt="Vista previa del video Billete 5000 · Super chance"><span class="play" aria-hidden="true"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span></a>
+          <div class="vid-body">
+            <span class="vid-kicker">118.144 alcanzadas · CPM $1.013 (+7%)</span>
+            <div class="vid-name">Billete 5000 · Super chance</div>
+            <div class="ad-tags"><span class="ad-public">BD compradores Super chance</span><span class="ad-angle">Ganancias y posibilidad</span></div>
+            <div class="vid-stats">
+              <span>CTR<b>0,8%</b></span><span>CPC<b>$127</b></span><span>Reproducciones<b>147.529</b></span>
+              <span>Tiempo prom.<b>3 s</b></span><span>% prom. visto<b>No disponible</b></span><span>ThruPlays<b>9.075</b></span>
+            </div>
+            <div class="quart"><div class="q-row"><span>25%</span><div class="q-track"><div class="q-fill" style="width:20.1%"></div></div><span>29.607 &middot; 20,1%</span></div><div class="q-row"><span>50%</span><div class="q-track"><div class="q-fill" style="width:9.7%"></div></div><span>14.332 &middot; 9,7%</span></div><div class="q-row"><span>75%</span><div class="q-track"><div class="q-fill" style="width:7.6%"></div></div><span>11.208 &middot; 7,6%</span></div><div class="q-row"><span>100%</span><div class="q-track"><div class="q-fill" style="width:5.3%"></div></div><span>7.828 &middot; 5,3%</span></div></div>
+            <div class="vid-note">El video de alcance con mejor retención de la cuenta y un CTR de 0,80% (caso A).</div>
+            <a class="vid-link" href="https://fb.me/27ir6wpWu3orwH3" target="_blank" rel="noopener">Ver el anuncio en Meta &rarr;</a>
+          </div>
+        </div><div class="vid">
+          <a class="vid-prev" href="https://fb.me/qw7mhirmkXH8md1" target="_blank" rel="noopener" aria-label="Ver video Une tus números · Goleador"><img src="../assets/img/2026-09-75.jpg" alt="Vista previa del video Une tus números · Goleador"><span class="play" aria-hidden="true"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span></a>
+          <div class="vid-body">
+            <span class="vid-kicker">13.660 alcanzadas · CPM $887 (+1%)</span>
+            <div class="vid-name">Une tus números · Goleador</div>
+            <div class="ad-tags"><span class="ad-public">Advantage</span><span class="ad-angle">Beneficio del producto</span></div>
+            <div class="vid-stats">
+              <span>CTR<b>0,23%</b></span><span>CPC<b>$391</b></span><span>Reproducciones<b>12.722</b></span>
+              <span>Tiempo prom.<b>1 s</b></span><span>% prom. visto<b>No disponible</b></span><span>ThruPlays<b>99</b></span>
+            </div>
+            <div class="quart"><div class="q-row"><span>25%</span><div class="q-track"><div class="q-fill" style="width:6.4%"></div></div><span>808 &middot; 6,4%</span></div><div class="q-row"><span>50%</span><div class="q-track"><div class="q-fill" style="width:2.1%"></div></div><span>268 &middot; 2,1%</span></div><div class="q-row"><span>75%</span><div class="q-track"><div class="q-fill" style="width:1.2%"></div></div><span>150 &middot; 1,2%</span></div><div class="q-row"><span>100%</span><div class="q-track"><div class="q-fill" style="width:0.7%"></div></div><span>94 &middot; 0,7%</span></div></div>
+            <div class="vid-note">El menor CPM entre las versiones del video; 6% llegó al 25%.</div>
+            <a class="vid-link" href="https://fb.me/qw7mhirmkXH8md1" target="_blank" rel="noopener">Ver el anuncio en Meta &rarr;</a>
+          </div>
+        </div><div class="vid">
+          <a class="vid-prev" href="https://fb.me/2ZXxOTj0J1Elm8m" target="_blank" rel="noopener" aria-label="Ver video Juega y gana · Placa millonaria"><img src="../assets/img/2026-09-76.jpg" alt="Vista previa del video Juega y gana · Placa millonaria"><span class="play" aria-hidden="true"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span></a>
+          <div class="vid-body">
+            <span class="vid-kicker">3.177 alcanzadas · CPM $927 (+3%)</span>
+            <div class="vid-name">Juega y gana · Placa millonaria</div>
+            <div class="ad-tags"><span class="ad-public">Advantage</span><span class="ad-angle">Beneficio del producto</span></div>
+            <div class="vid-stats">
+              <span>CTR<b>0,27%</b></span><span>CPC<b>$341</b></span><span>Reproducciones<b>3.073</b></span>
+              <span>Tiempo prom.<b>1 s</b></span><span>% prom. visto<b>No disponible</b></span><span>ThruPlays<b>34</b></span>
+            </div>
+            <div class="quart"><div class="q-row"><span>25%</span><div class="q-track"><div class="q-fill" style="width:5.2%"></div></div><span>159 &middot; 5,2%</span></div><div class="q-row"><span>50%</span><div class="q-track"><div class="q-fill" style="width:1.9%"></div></div><span>58 &middot; 1,9%</span></div><div class="q-row"><span>75%</span><div class="q-track"><div class="q-fill" style="width:1.6%"></div></div><span>49 &middot; 1,6%</span></div><div class="q-row"><span>100%</span><div class="q-track"><div class="q-fill" style="width:0.6%"></div></div><span>17 &middot; 0,6%</span></div></div>
+            <div class="vid-note">Único video de la campaña, con 0,6% de la inversión: evidencia limitada.</div>
+            <a class="vid-link" href="https://fb.me/2ZXxOTj0J1Elm8m" target="_blank" rel="noopener">Ver el anuncio en Meta &rarr;</a>
+          </div>
+        </div></div>
+        <p class="tbl-note">Always On Raspa y Listo no tuvo videos.</p>
+        <div class="block-title">Públicos</div>
+        <p class="tbl-note" style="margin-top:0;">El tipo de público (frío o base de datos) movió el CPM menos de 10%. En Super chance, BD compradores triplicó el CTR (0,57%) por el video &ldquo;Billete 5000&rdquo;; en Goleador, Intereses finanzas y apuestas tuvo el CPM más bajo ($831).</p>
+        <div class="strategy-box"><span class="k">Conclusión</span><p>En Always On el ángulo casi no cambió el CPM (5% o menos en las campañas comparables), pero Ganancias y posibilidad sí cambió la respuesta: más clics e interacciones. Raspa y Listo tuvo el CPM más bajo de la cuenta ($316).</p><p class="act">Acción: replicar el formato &ldquo;Billete 5000&rdquo; en las demás campañas de alcance.</p></div>
+      </article>
+
+      <!-- ORIENTE -->
+      <article class="camp-card wide" style="--fam:var(--ao); --fam-ink:var(--ao);">
+        <div class="camp-head"><span class="camp-name-row"><span class="camp-name">Oriente</span><span class="status-pill obj">Enfoque regional</span></span><span class="camp-invest"><span class="lbl">Invertido</span>&nbsp;$1.250.982</span></div>
+        <div class="range-badge">2 campañas de alcance regionales: Goleador y Placa millonaria</div>
+        <div class="block-title">Resultados</div>
+        <div class="tbl-wrap"><table><thead><tr><th>Campaña</th><th class="num">Inversión</th><th class="num">Alcance</th><th class="num">Frec.</th><th class="num">CPM</th><th class="num">CTR</th><th>Mejor ángulo (CPM)</th><th>Señal</th></tr></thead><tbody>
+          <tr><td>Goleador</td><td class="num">$1.089.282</td><td class="num">574.891</td><td class="num">1,96</td><td class="num">$966</td><td class="num">0,17%</td><td>Beneficio $955 &asymp; Urgencia $973</td><td>Empate</td></tr>
+          <tr><td>Placa millonaria</td><td class="num">$161.700</td><td class="num">150.942</td><td class="num">1,16</td><td class="num">$924</td><td class="num">0,35%</td><td>Ganancias $917</td><td>100% de los clics</td></tr>
+        </tbody></table></div>
+        <div class="ads-section"><span class="k">Anuncio destacado</span><div class="ads-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,220px));">
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-77.jpg" alt="Anuncio Hoy es el partido"><span class="ad-rank">Mayor inversión</span><div class="ad-name">Hoy es el partido</div><div class="ad-tags"><span class="ad-public">BD Compra -4 Oriente</span><span class="ad-angle">Urgencia</span></div><div class="ad-result"><b>265.939</b> alcanzadas</div><div class="ad-cpr">CPM $973 &middot; CTR 0,16%</div><div class="ad-why">El mismo post en Advantage Oriente costó $955.</div></div>
+        </div></div>
+        <div class="block-title">Videos con mejor rendimiento por campaña</div>
+        <div class="vid-grid"><div class="vid">
+          <a class="vid-prev" href="https://fb.me/2eeddJW73Ms28XQ" target="_blank" rel="noopener" aria-label="Ver video Une tus números · Goleador"><img src="../assets/img/2026-09-78.jpg" alt="Vista previa del video Une tus números · Goleador"><span class="play" aria-hidden="true"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span></a>
+          <div class="vid-body">
+            <span class="vid-kicker">174.456 alcanzadas · CPM $986 (+2%)</span>
+            <div class="vid-name">Une tus números · Goleador</div>
+            <div class="ad-tags"><span class="ad-public">BD Compra -4 Oriente</span><span class="ad-angle">Beneficio del producto</span></div>
+            <div class="vid-stats">
+              <span>CTR<b>0,27%</b></span><span>CPC<b>$360</b></span><span>Reproducciones<b>201.535</b></span>
+              <span>Tiempo prom.<b>1 s</b></span><span>% prom. visto<b>No disponible</b></span><span>ThruPlays<b>1.583</b></span>
+            </div>
+            <div class="quart"><div class="q-row"><span>25%</span><div class="q-track"><div class="q-fill" style="width:6.1%"></div></div><span>12.272 &middot; 6,1%</span></div><div class="q-row"><span>50%</span><div class="q-track"><div class="q-fill" style="width:2.2%"></div></div><span>4.484 &middot; 2,2%</span></div><div class="q-row"><span>75%</span><div class="q-track"><div class="q-fill" style="width:1.2%"></div></div><span>2.359 &middot; 1,2%</span></div><div class="q-row"><span>100%</span><div class="q-track"><div class="q-fill" style="width:0.8%"></div></div><span>1.525 &middot; 0,8%</span></div></div>
+            <div class="vid-note">6% llegó al 25%; generó 11.055 interacciones con la página.</div>
+            <a class="vid-link" href="https://fb.me/2eeddJW73Ms28XQ" target="_blank" rel="noopener">Ver el anuncio en Meta &rarr;</a>
+          </div>
+        </div><div class="vid">
+          <a class="vid-prev" href="https://fb.me/2aozIOQOg7ipZcJ" target="_blank" rel="noopener" aria-label="Ver video Juega y gana · Placa millonaria"><img src="../assets/img/2026-09-79.jpg" alt="Vista previa del video Juega y gana · Placa millonaria"><span class="play" aria-hidden="true"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span></a>
+          <div class="vid-body">
+            <span class="vid-kicker">24.774 alcanzadas · CPM $967 (+5%)</span>
+            <div class="vid-name">Juega y gana · Placa millonaria</div>
+            <div class="ad-tags"><span class="ad-public">BD Compra -4 Oriente</span><span class="ad-angle">Beneficio del producto</span></div>
+            <div class="vid-stats">
+              <span>CTR<b>0,29%</b></span><span>CPC<b>$337</b></span><span>Reproducciones<b>22.551</b></span>
+              <span>Tiempo prom.<b>1 s</b></span><span>% prom. visto<b>No disponible</b></span><span>ThruPlays<b>314</b></span>
+            </div>
+            <div class="quart"><div class="q-row"><span>25%</span><div class="q-track"><div class="q-fill" style="width:6.0%"></div></div><span>1.364 &middot; 6%</span></div><div class="q-row"><span>50%</span><div class="q-track"><div class="q-fill" style="width:2.3%"></div></div><span>509 &middot; 2,3%</span></div><div class="q-row"><span>75%</span><div class="q-track"><div class="q-fill" style="width:1.5%"></div></div><span>336 &middot; 1,5%</span></div><div class="q-row"><span>100%</span><div class="q-track"><div class="q-fill" style="width:0.7%"></div></div><span>152 &middot; 0,7%</span></div></div>
+            <div class="vid-note">6% llegó al 25%.</div>
+            <a class="vid-link" href="https://fb.me/2aozIOQOg7ipZcJ" target="_blank" rel="noopener">Ver el anuncio en Meta &rarr;</a>
+          </div>
+        </div></div>
+        <div class="block-title">Públicos</div>
+        <p class="tbl-note" style="margin-top:0;">En Goleador, Advantage Oriente tuvo el CPM más bajo ($920) frente a las bases Intermitente ($964) y Compra -4 ($973). En Placa millonaria, Intermitente ($858) costó menos que Compra -4 ($945).</p>
+        <div class="strategy-box"><span class="k">Conclusión</span><p>Las campañas regionales de Oriente tuvieron un CPM de $924 a $966, en línea con Always On. En Placa millonaria, el mensaje de Ganancias y posibilidad generó todos los clics (309).</p></div>
+      </article>
+    </div>
+
+    <div class="section-head" style="margin-top:44px;">
+      <h2>Gana &middot; Matriz de aprendizajes</h2>
+    </div>
+    <div class="panel">
+      <div class="tbl-wrap"><table><thead><tr><th>Objetivo</th><th>Público ganador</th><th>Ángulo ganador</th><th>Anuncio ganador</th><th>Resultado</th><th>Aprendizaje</th><th>Acción siguiente</th></tr></thead><tbody>
+        <tr><td>Tráfico &middot; Gana App</td><td>Abandonado y P y Revisión</td><td>Aspiracional</td><td>Ese número oriente</td><td>27.853 visitas a $80–$82</td><td>Una pieza Aspiracional rindió mejor que los mensajes literales de reactivación</td><td><span class="tag info">Crear nuevas variantes</span></td></tr>
+        <tr><td>Tráfico &middot; Placa Descubrimiento</td><td>Registros Placa y Visitantes web</td><td>Ganancias y posibilidad</td><td>Mujer parada de bus</td><td>49.626 visitas a $79–$81</td><td>Las bases tibias entregaron visitas a menos de la mitad del costo planeado</td><td><span class="tag info">Replicar en futuras campañas de tráfico</span></td></tr>
+        <tr><td>Tráfico &middot; Placa Retención</td><td>Única compra</td><td>Ganancias y posibilidad</td><td>Mujer parada de bus</td><td>$224 frente a $390 en Compras 90 días</td><td>La saturación encareció la misma pieza en 74%</td><td><span class="tag bad">Replantear la retención en futuras campañas</span></td></tr>
+        <tr><td>Tráfico &middot; formato</td><td>Visitantes web</td><td>Ganancias y posibilidad</td><td>Placa única en sorteo (video)</td><td>41% al 25%, pero +23% de costo</td><td>La retención del video no bajó el costo de la visita</td><td><span class="tag bad">Reducir</span></td></tr>
+        <tr><td>Alcance &middot; Gana App</td><td>Advantage</td><td>Urgencia (CPM) &middot; Beneficio (clics)</td><td>Sorteos y loterías favoritas</td><td>CPM $621 (-21%)</td><td>&ldquo;Más en la nueva página&rdquo; se llevó $1 M con el CPM más alto</td><td><span class="tag warn">Cambiar distribución de presupuesto</span></td></tr>
+        <tr><td>Alcance &middot; Always On y Oriente</td><td>Indiferente (&lt;10%)</td><td>Ganancias y posibilidad</td><td>Billete 5000 (video)</td><td>CTR 0,80%; 20% al 25%</td><td>El ángulo no cambió el CPM, pero Ganancias duplicó el CTR</td><td><span class="tag info">Replicar</span></td></tr>
+        <tr><td>Alcance &middot; Placa BBDD</td><td>Ninguno</td><td>No concluyente</td><td>&mdash;</td><td>CPM $23.016 sobre 6.705 cuentas</td><td>Una base muy chica no sirvió para alcance</td><td><span class="tag bad">Replantear</span></td></tr>
+      </tbody></table></div>
+      <p class="tbl-note">Placa finalizó en septiembre: sus filas recogen aprendizajes para futuras campañas, no acciones de continuidad.</p>
+    </div>
+
+    <div class="section-head" style="margin-top:44px;">
+      <h2>Gana &middot; Recomendaciones para octubre</h2>
+    </div>
+    <div class="sum-card" style="--fam:var(--gana); padding-top:18px;">
+      <ol class="list">
+        <li><b>Crear nuevas variantes</b> del concepto Aspiracional de Gana App (&ldquo;Ese número oriente&rdquo;): al menos 3.</li>
+        <li><b>Llevar a futuras campañas de tráfico</b> lo que funcionó en Placa: bases tibias (visitantes web y registros), premio visible y piezas estáticas. Placa no continúa.</li>
+        <li><b>Limitar la frecuencia en retención</b> (máximo 3 por semana) y evitar bases pequeñas de compradores recientes.</li>
+        <li><b>Reducir el video en tráfico</b> y <b>replicar &ldquo;Billete 5000&rdquo;</b> en las campañas de alcance.</li>
+        <li><b>Cambiar distribución en Gana App Alcance</b> de &ldquo;Más en la nueva página&rdquo; hacia Beneficio y Urgencia.</li>
+        <li><b>Activar la línea de Registros</b> del plan ($1 M) para medir costo por registro.</li>
+        <li><b>No usar bases muy pequeñas</b> con objetivo de alcance.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===================== LOTI ===================== -->
+  <section class="section" id="loti">
+    <div class="brand-band" style="--fam:var(--loti);"><span class="chip">Loti Colombia</span><span class="sub">Campaña por campaña &middot; plan Flow-CDM_Loti_Agosto 2026</span></div>
+
+    <div class="camp-grid">
+
+      <!-- LOTI SITIO WEB -->
+      <article class="camp-card" style="--fam:var(--loti); --fam-ink:var(--loti);">
+        <div class="camp-head"><span class="camp-name-row"><span class="camp-name">Tráfico &middot; Sitio Web</span><span class="status-pill obj">Objetivo: tráfico</span></span><span class="camp-invest"><span class="lbl">Invertido</span>&nbsp;$1.899.234</span></div>
+        <div class="range-badge">Prospección &middot; Intereses desconocidos y Similares 3% compradores</div>
+        <div class="block-title">Resultados</div>
+        <div class="ind-grid">
+          <div class="ind-box"><span class="ind-label">Visitas</span><span class="ind-real">9.190</span><span class="ind-note">$207 c/u</span></div>
+          <div class="ind-box"><span class="ind-label">Alcance</span><span class="ind-real">139.971</span><span class="ind-note">Frecuencia 2,46</span></div>
+          <div class="ind-box"><span class="ind-label">CTR</span><span class="ind-real">5,58%</span><span class="ind-note">CPC $99</span></div>
+          <div class="ind-box"><span class="ind-label">CPM</span><span class="ind-real">$5.509</span></div>
+        </div>
+        <div class="block-title">Metas y cumplimiento</div>
+        <div class="goal-list"><div class="goal-item"><span class="goal-name">Visitas a la página</span><div class="goal-nums"><span>Meta: <b>50.000</b></span><span>Logrado: <b>9.190</b></span><span>Costo: <b>$207</b> vs $80 del flow</span><span class="goal-pct low">18%</span></div><div class="pct-track"><div class="pct-fill low" style="width:18%"></div></div></div></div>
+        <div class="block-title">Ángulos <span class="hint">(promedio $207)</span></div>
+        <div class="tbl-wrap"><table><thead><tr><th>Ángulo</th><th class="num">% inv.</th><th class="num">Visitas</th><th class="num">Costo</th><th class="num">vs prom.</th></tr></thead><tbody>
+          <tr class="win"><td>Aspiracional</td><td class="num">18%</td><td class="num">1.779</td><td class="num">$195</td><td class="num">-6%</td></tr>
+          <tr class="win"><td>Beneficio del producto</td><td class="num">74%</td><td class="num">6.864</td><td class="num">$205</td><td class="num">-1%</td></tr>
+          <tr class="lose"><td>Urgencia y activación</td><td class="num">7%</td><td class="num">497</td><td class="num">$268</td><td class="num">+29%</td></tr>
+        </tbody></table></div>
+        <div class="ads-section"><span class="k">Top 3 anuncios</span><div class="ads-grid">
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-80.jpg" alt="Anuncio Tu número está esperando"><span class="ad-rank">#1</span><div class="ad-name">Tu número está esperando</div><div class="ad-tags"><span class="ad-public">Intereses desconocidos</span><span class="ad-angle">Aspiracional</span></div><div class="ad-result"><b>881</b> visitas</div><div class="ad-cpr">$157 por visita</div><div class="ad-why">24% bajo el promedio.</div></div>
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-81.jpg" alt="Reel Qué haríamos si ganáramos la lotería"><span class="ad-rank">#2</span><div class="ad-name">Qué haríamos si ganáramos (reel)</div><div class="ad-tags"><span class="ad-public">Intereses desconocidos</span><span class="ad-angle">Aspiracional</span></div><div class="ad-result"><b>229</b> visitas</div><div class="ad-cpr">$172 por visita &middot; 7 s prom.</div><div class="ad-why">47% llegó al 25%; 20% lo vio completo (caso A).</div></div>
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-82.jpg" alt="Anuncio Todas las loterías una plataforma"><span class="ad-rank">#3</span><div class="ad-name">Todas las loterías una plataforma</div><div class="ad-tags"><span class="ad-public">Intereses desconocidos</span><span class="ad-angle">Beneficio</span></div><div class="ad-result"><b>4.360</b> visitas</div><div class="ad-cpr">$182 por visita</div><div class="ad-why">Líder en volumen. En Similares costó $311.</div></div>
+        </div></div>
+        <div class="block-title">Video con mejor rendimiento</div>
+        <div class="vid-solo"><div class="vid">
+          <a class="vid-prev" href="https://fb.me/27KYFLBTy4aPXZV" target="_blank" rel="noopener" aria-label="Ver video Qué haríamos si ganáramos la lotería (reel)"><img src="../assets/img/2026-09-83.jpg" alt="Vista previa del video Qué haríamos si ganáramos la lotería (reel)"><span class="play" aria-hidden="true"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span></a>
+          <div class="vid-body">
+            <span class="vid-kicker">229 visitas · $172 por visita (-17%)</span>
+            <div class="vid-name">Qué haríamos si ganáramos la lotería (reel)</div>
+            <div class="ad-tags"><span class="ad-public">Intereses desconocidos</span><span class="ad-angle">Aspiracional</span></div>
+            <div class="vid-stats">
+              <span>CTR<b>6,66%</b></span><span>CPC<b>$84</b></span><span>Reproducciones<b>3.779</b></span>
+              <span>Tiempo prom.<b>7 s</b></span><span>% prom. visto<b>42%</b></span><span>ThruPlays<b>849</b></span>
+            </div>
+            <div class="quart"><div class="q-row"><span>25%</span><div class="q-track"><div class="q-fill" style="width:47.5%"></div></div><span>1.794 &middot; 47,5%</span></div><div class="q-row"><span>50%</span><div class="q-track"><div class="q-fill" style="width:33.6%"></div></div><span>1.269 &middot; 33,6%</span></div><div class="q-row"><span>75%</span><div class="q-track"><div class="q-fill" style="width:25.5%"></div></div><span>965 &middot; 25,5%</span></div><div class="q-row"><span>100%</span><div class="q-track"><div class="q-fill" style="width:19.8%"></div></div><span>747 &middot; 19,8%</span></div></div>
+            <div class="vid-note">Caso A: alta retención y el mejor costo entre los videos de tráfico de Loti.</div>
+            <a class="vid-link" href="https://fb.me/27KYFLBTy4aPXZV" target="_blank" rel="noopener">Ver el anuncio en Meta &rarr;</a>
+          </div>
+        </div></div>
+        <div class="block-title">Públicos</div>
+        <div class="tbl-wrap"><table><thead><tr><th>Público</th><th class="num">Inversión</th><th class="num">Visitas</th><th class="num">Costo</th><th class="num">CTR</th><th class="num">CPM</th></tr></thead><tbody>
+          <tr class="win"><td>Intereses desconocidos</td><td class="num">$1.090.265</td><td class="num">6.094</td><td class="num">$179</td><td class="num">6,10%</td><td class="num">$5.404</td></tr>
+          <tr><td>Similares 3% compradores</td><td class="num">$808.969</td><td class="num">3.096</td><td class="num">$261</td><td class="num">4,86%</td><td class="num">$5.657</td></tr>
+        </tbody></table></div>
+        <div class="strategy-box"><span class="k">Conclusión</span><p>La mejor combinación fue Aspiracional o Beneficio + Intereses desconocidos (11% a 24% bajo el promedio). En Similares 3%, el video de &ldquo;Todas las loterías&rdquo; costó $218 frente a $311 del post.</p><p class="act">Acción: cambiar distribución hacia Intereses desconocidos y dejar en Similares solo video y reel.</p></div>
+      </article>
+
+      <!-- LOTI MICRO -->
+      <article class="camp-card" style="--fam:var(--loti); --fam-ink:var(--loti);">
+        <div class="camp-head"><span class="camp-name-row"><span class="camp-name">Tráfico &middot; Micro segmentación</span><span class="status-pill obj">Objetivo: tráfico</span></span><span class="camp-invest"><span class="lbl">Invertido</span>&nbsp;$1.182.599</span></div>
+        <div class="range-badge">Advantage +30 años &middot; plan: Cundinamarca y loterías de Bogotá</div>
+        <div class="block-title">Resultados</div>
+        <div class="ind-grid">
+          <div class="ind-box"><span class="ind-label">Visitas</span><span class="ind-real">4.595</span><span class="ind-note">$257 c/u</span></div>
+          <div class="ind-box"><span class="ind-label">Alcance</span><span class="ind-real">65.510</span><span class="ind-note">Frecuencia 2,51</span></div>
+          <div class="ind-box"><span class="ind-label">CTR</span><span class="ind-real">5,85%</span><span class="ind-note">CPC $123</span></div>
+          <div class="ind-box"><span class="ind-label">CPM</span><span class="ind-real">$7.200</span></div>
+        </div>
+        <div class="block-title">Metas y cumplimiento</div>
+        <div class="goal-list"><div class="goal-item"><span class="goal-name">Visitas a la página</span><div class="goal-nums"><span>Meta: <b>21.667</b></span><span>Logrado: <b>4.595</b></span><span>Costo: <b>$257</b> vs $120 del flow</span><span class="goal-pct low">21%</span></div><div class="pct-track"><div class="pct-fill low" style="width:21%"></div></div></div></div>
+        <div class="block-title">Ángulos <span class="hint">(promedio $257)</span></div>
+        <div class="tbl-wrap"><table><thead><tr><th>Ángulo</th><th class="num">% inv.</th><th class="num">Visitas</th><th class="num">Costo</th><th class="num">vs prom.</th></tr></thead><tbody>
+          <tr class="win"><td>Ganancias y posibilidad</td><td class="num">5%</td><td class="num">262</td><td class="num">$243</td><td class="num">-5%</td></tr>
+          <tr><td>Urgencia y activación</td><td class="num">75%</td><td class="num">3.517</td><td class="num">$252</td><td class="num">-2%</td></tr>
+          <tr><td>Aspiracional</td><td class="num">8%</td><td class="num">360</td><td class="num">$272</td><td class="num">+6%</td></tr>
+          <tr class="lose"><td>Beneficio del producto</td><td class="num">11%</td><td class="num">441</td><td class="num">$297</td><td class="num">+16%</td></tr>
+        </tbody></table></div>
+        <div class="ads-section"><span class="k">Top 3 anuncios</span><div class="ads-grid">
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-84.jpg" alt="Anuncio Lotería Bogotá el jueves"><span class="ad-rank">#1</span><div class="ad-name">Lotería Bogotá el jueves</div><div class="ad-tags"><span class="ad-public">Advantage +30</span><span class="ad-angle">Ganancias</span></div><div class="ad-result"><b>144</b> visitas</div><div class="ad-cpr">$246 por visita</div><div class="ad-why">Pieza local de Bogotá, con poca inversión.</div></div>
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-85.jpg" alt="Anuncio Lotería de Boyacá"><span class="ad-rank">#2</span><div class="ad-name">Lotería de Boyacá</div><div class="ad-tags"><span class="ad-public">Advantage +30</span><span class="ad-angle">Urgencia</span></div><div class="ad-result"><b>3.466</b> visitas</div><div class="ad-cpr">$251 por visita &middot; CTR 6,24%</div><div class="ad-why">75% de la inversión; sostuvo el costo a escala.</div></div>
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-86.jpg" alt="Video Lotería de Bogotá"><span class="ad-rank">#3</span><div class="ad-name">Lotería de Bogotá (video)</div><div class="ad-tags"><span class="ad-public">Advantage +30</span><span class="ad-angle">Aspiracional</span></div><div class="ad-result"><b>271</b> visitas</div><div class="ad-cpr">$252 por visita &middot; 5 s prom.</div><div class="ad-why">Retuvo poco (27% al 25%) pero tuvo CTR de 5,22% (caso C).</div></div>
+        </div></div>
+        <div class="block-title">Video con mejor rendimiento</div>
+        <div class="vid-solo"><div class="vid">
+          <a class="vid-prev" href="https://fb.me/22ufeQKGXbiTA2p" target="_blank" rel="noopener" aria-label="Ver video Lotería de Bogotá"><img src="../assets/img/2026-09-87.jpg" alt="Vista previa del video Lotería de Bogotá"><span class="play" aria-hidden="true"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span></a>
+          <div class="vid-body">
+            <span class="vid-kicker">271 visitas · $252 por visita (-2%)</span>
+            <div class="vid-name">Lotería de Bogotá</div>
+            <div class="ad-tags"><span class="ad-public">Advantage +30 años</span><span class="ad-angle">Aspiracional</span></div>
+            <div class="vid-stats">
+              <span>CTR<b>5,22%</b></span><span>CPC<b>$113</b></span><span>Reproducciones<b>7.169</b></span>
+              <span>Tiempo prom.<b>5 s</b></span><span>% prom. visto<b>25%</b></span><span>ThruPlays<b>680</b></span>
+            </div>
+            <div class="quart"><div class="q-row"><span>25%</span><div class="q-track"><div class="q-fill" style="width:27.2%"></div></div><span>1.947 &middot; 27,2%</span></div><div class="q-row"><span>50%</span><div class="q-track"><div class="q-fill" style="width:14.0%"></div></div><span>1.007 &middot; 14%</span></div><div class="q-row"><span>75%</span><div class="q-track"><div class="q-fill" style="width:9.8%"></div></div><span>705 &middot; 9,8%</span></div><div class="q-row"><span>100%</span><div class="q-track"><div class="q-fill" style="width:5.3%"></div></div><span>383 &middot; 5,3%</span></div></div>
+            <div class="vid-note">Caso C: retuvo poco, pero el inicio con la lotería local motivó el clic.</div>
+            <a class="vid-link" href="https://fb.me/22ufeQKGXbiTA2p" target="_blank" rel="noopener">Ver el anuncio en Meta &rarr;</a>
+          </div>
+        </div></div>
+        <div class="strategy-box"><span class="k">Conclusión</span><p>El top 3 quedó dentro de un margen de 2%: no hubo ganador claro en eficiencia. El mensaje local de Bogotá que pedía el plan tuvo solo el 12% de la inversión.</p><p class="act">Acción: testear las piezas de Bogotá con el mismo presupuesto que Boyacá y verificar la geografía del conjunto.</p></div>
+      </article>
+
+      <!-- LOTI RETENCION -->
+      <article class="camp-card" style="--fam:var(--loti); --fam-ink:var(--loti);">
+        <div class="camp-head"><span class="camp-name-row"><span class="camp-name">Tráfico &middot; Retención</span><span class="status-pill obj">Objetivo: tráfico</span></span><span class="camp-invest"><span class="lbl">Invertido</span>&nbsp;$408.595</span></div>
+        <div class="range-badge">BD compradores activos &middot; el plan pedía BD Registros sin compra</div>
+        <div class="block-title">Resultados</div>
+        <div class="ind-grid">
+          <div class="ind-box"><span class="ind-label">Visitas</span><span class="ind-real">273</span><span class="ind-note">$1.497 c/u</span></div>
+          <div class="ind-box"><span class="ind-label">Alcance</span><span class="ind-real">5.835</span><span class="ind-note">Frecuencia 8,88</span></div>
+          <div class="ind-box"><span class="ind-label">CTR</span><span class="ind-real">1,53%</span><span class="ind-note">CPC $515</span></div>
+          <div class="ind-box"><span class="ind-label">CPM</span><span class="ind-real">$7.889</span></div>
+        </div>
+        <div class="block-title">Metas y cumplimiento</div>
+        <div class="goal-list"><div class="goal-item"><span class="goal-name">Visitas a la página</span><div class="goal-nums"><span>Meta: <b>17.500</b></span><span>Logrado: <b>273</b></span><span>Costo: <b>$1.497</b> vs $80 del flow</span><span class="goal-pct low">2%</span></div><div class="pct-track"><div class="pct-fill low" style="width:2%"></div></div></div></div>
+        <div class="block-title">Ángulos</div>
+        <p class="tbl-note" style="margin-top:0;">Aspiracional $1.481 (86%), Urgencia $1.751, Ganancias $1.230 (10 visitas). Con 273 visitas en total, ningún ángulo se diferenció de forma confiable.</p>
+        <div class="ads-section"><span class="k">Top 3 anuncios</span><div class="ads-grid">
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-88.jpg" alt="Video Así celebran los que juegan"><span class="ad-rank">#1</span><div class="ad-name">Así celebran los que juegan (video)</div><div class="ad-tags"><span class="ad-public">BD compradores</span><span class="ad-angle">Aspiracional</span></div><div class="ad-result"><b>30</b> visitas</div><div class="ad-cpr">$1.408 por visita &middot; 2 s prom.</div><div class="ad-why">12% llega al 25% (caso D).</div></div>
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-89.jpg" alt="Anuncio Así se ve ganar"><span class="ad-rank">#2</span><div class="ad-name">Así se ve ganar</div><div class="ad-tags"><span class="ad-public">BD compradores</span><span class="ad-angle">Aspiracional</span></div><div class="ad-result"><b>203</b> visitas</div><div class="ad-cpr">$1.496 por visita &middot; frec. 7,7</div><div class="ad-why">74% de la inversión.</div></div>
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-90.jpg" alt="Anuncio Lotería de Boyacá"><span class="ad-rank">#3</span><div class="ad-name">Lotería de Boyacá</div><div class="ad-tags"><span class="ad-public">BD compradores</span><span class="ad-angle">Urgencia</span></div><div class="ad-result"><b>23</b> visitas</div><div class="ad-cpr">$1.684 por visita</div><div class="ad-why">La misma pieza costó $251 en Micro.</div></div>
+        </div></div>
+        <div class="block-title">Video con mejor rendimiento</div>
+        <div class="vid-solo"><div class="vid">
+          <a class="vid-prev" href="https://fb.me/1WG8jUPbhiG9Pg1" target="_blank" rel="noopener" aria-label="Ver video Así celebran los que juegan"><img src="../assets/img/2026-09-91.jpg" alt="Vista previa del video Así celebran los que juegan"><span class="play" aria-hidden="true"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span></a>
+          <div class="vid-body">
+            <span class="vid-kicker">30 visitas · $1.408 por visita (-6%)</span>
+            <div class="vid-name">Así celebran los que juegan</div>
+            <div class="ad-tags"><span class="ad-public">BD compradores</span><span class="ad-angle">Aspiracional</span></div>
+            <div class="vid-stats">
+              <span>CTR<b>1,74%</b></span><span>CPC<b>$515</b></span><span>Reproducciones<b>3.748</b></span>
+              <span>Tiempo prom.<b>2 s</b></span><span>% prom. visto<b>11%</b></span><span>ThruPlays<b>193</b></span>
+            </div>
+            <div class="quart"><div class="q-row"><span>25%</span><div class="q-track"><div class="q-fill" style="width:11.9%"></div></div><span>446 &middot; 11,9%</span></div><div class="q-row"><span>50%</span><div class="q-track"><div class="q-fill" style="width:7.4%"></div></div><span>276 &middot; 7,4%</span></div><div class="q-row"><span>75%</span><div class="q-track"><div class="q-fill" style="width:5.6%"></div></div><span>211 &middot; 5,6%</span></div><div class="q-row"><span>100%</span><div class="q-track"><div class="q-fill" style="width:2.5%"></div></div><span>95 &middot; 2,5%</span></div></div>
+            <div class="vid-note">Caso D: baja retención en un público saturado.</div>
+            <a class="vid-link" href="https://fb.me/1WG8jUPbhiG9Pg1" target="_blank" rel="noopener">Ver el anuncio en Meta &rarr;</a>
+          </div>
+        </div></div>
+        <div class="strategy-box"><span class="k">Conclusión</span><p>Todos los anuncios rindieron igual de mal: la señal fue de saturación de un público pequeño, no de mensaje.</p><p class="act">Acción: replantear, volver a BD Registros sin compra y bajar la inversión sobre compradores.</p></div>
+      </article>
+
+      <!-- LOTI INTERACCION -->
+      <article class="camp-card" style="--fam:var(--loti); --fam-ink:var(--loti);">
+        <div class="camp-head"><span class="camp-name-row"><span class="camp-name">Interacción</span><span class="status-pill obj">Objetivo: interacción</span></span><span class="camp-invest"><span class="lbl">Invertido</span>&nbsp;$540.682</span></div>
+        <div class="range-badge">Interacción_Instagram + Facebook &middot; Seguidores IG+FB / visitas</div>
+        <div class="block-title">Resultados</div>
+        <div class="ind-grid">
+          <div class="ind-box"><span class="ind-label">Visitas al perfil</span><span class="ind-real">6.522</span><span class="ind-note">$83 c/u</span></div>
+          <div class="ind-box"><span class="ind-label">Alcance</span><span class="ind-real">68.317</span><span class="ind-note">Frecuencia 2,74</span></div>
+          <div class="ind-box"><span class="ind-label">CTR</span><span class="ind-real">3,25%</span><span class="ind-note">CPC $89</span></div>
+          <div class="ind-box"><span class="ind-label">CPM</span><span class="ind-real">$2.891</span></div>
+        </div>
+        <div class="block-title">Metas y cumplimiento</div>
+        <div class="goal-list"><div class="goal-item"><span class="goal-name">Visitas al perfil</span><div class="goal-nums"><span>Meta: <b>6.666</b></span><span>Logrado: <b>6.522</b></span><span>Costo: <b>$83</b> vs $150 del flow</span><span class="goal-pct">98%</span></div><div class="pct-track"><div class="pct-fill" style="width:98%"></div></div></div></div>
+        <div class="block-title">Ángulos <span class="hint">(promedio $83)</span></div>
+        <div class="tbl-wrap"><table><thead><tr><th>Ángulo</th><th class="num">% inv.</th><th class="num">Visitas perfil</th><th class="num">Costo</th><th class="num">Interacciones</th></tr></thead><tbody>
+          <tr class="win"><td>Beneficio del producto</td><td class="num">92%</td><td class="num">6.166</td><td class="num">$81</td><td class="num">4.652</td></tr>
+          <tr><td>Urgencia y activación</td><td class="num">8%</td><td class="num">354</td><td class="num">$119</td><td class="num">3.292</td></tr>
+        </tbody></table></div>
+        <div class="ads-section"><span class="k">Top 3 anuncios</span><div class="ads-grid">
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-92.jpg" alt="Anuncio Disponibles todas las loterías"><span class="ad-rank">#1</span><div class="ad-name">Disponibles todas las loterías</div><div class="ad-tags"><span class="ad-public">Seguidores</span><span class="ad-angle">Beneficio</span></div><div class="ad-result"><b>6.120</b> visitas al perfil</div><div class="ad-cpr">$81 c/u</div><div class="ad-why">91% de la inversión.</div></div>
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-93.jpg" alt="Video Tus resultados"><span class="ad-rank">#2</span><div class="ad-name">Tus resultados (video)</div><div class="ad-tags"><span class="ad-public">Seguidores</span><span class="ad-angle">Urgencia</span></div><div class="ad-result"><b>354</b> visitas al perfil</div><div class="ad-cpr">$119 c/u &middot; 4 s prom.</div><div class="ad-why">78 interacciones por cada $1.000, contra 9 del #1.</div></div>
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-94.jpg" alt="Anuncio Sin desplazarte juega"><span class="ad-rank">#3</span><div class="ad-name">Sin desplazarte juega</div><div class="ad-tags"><span class="ad-public">Seguidores</span><span class="ad-angle">Beneficio</span></div><div class="ad-result"><b>22</b> visitas al perfil</div><div class="ad-cpr">$70 c/u</div><div class="ad-why">Poca inversión ($1.547): no concluyente.</div></div>
+        </div></div>
+        <div class="block-title">Video con mejor rendimiento</div>
+        <div class="vid-solo"><div class="vid">
+          <a class="vid-prev" href="https://fb.me/2aYK8PIyChA01dr" target="_blank" rel="noopener" aria-label="Ver video Tus resultados"><img src="../assets/img/2026-09-95.jpg" alt="Vista previa del video Tus resultados"><span class="play" aria-hidden="true"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span></a>
+          <div class="vid-body">
+            <span class="vid-kicker">354 visitas al perfil · $119 (+43%)</span>
+            <div class="vid-name">Tus resultados</div>
+            <div class="ad-tags"><span class="ad-public">Seguidores IG+FB / visitas</span><span class="ad-angle">Urgencia y activación</span></div>
+            <div class="vid-stats">
+              <span>CTR<b>4,41%</b></span><span>CPC<b>$120</b></span><span>Reproducciones<b>7.760</b></span>
+              <span>Tiempo prom.<b>4 s</b></span><span>% prom. visto<b>21%</b></span><span>ThruPlays<b>361</b></span>
+            </div>
+            <div class="quart"><div class="q-row"><span>25%</span><div class="q-track"><div class="q-fill" style="width:21.0%"></div></div><span>1.626 &middot; 21%</span></div><div class="q-row"><span>50%</span><div class="q-track"><div class="q-fill" style="width:9.3%"></div></div><span>725 &middot; 9,3%</span></div><div class="q-row"><span>75%</span><div class="q-track"><div class="q-fill" style="width:5.0%"></div></div><span>391 &middot; 5%</span></div><div class="q-row"><span>100%</span><div class="q-track"><div class="q-fill" style="width:3.4%"></div></div><span>267 &middot; 3,4%</span></div></div>
+            <div class="vid-note">Más caro por visita al perfil, pero generó 3.292 interacciones.</div>
+            <a class="vid-link" href="https://fb.me/2aYK8PIyChA01dr" target="_blank" rel="noopener">Ver el anuncio en Meta &rarr;</a>
+          </div>
+        </div></div>
+        <div class="strategy-box"><span class="k">Conclusión</span><p>Casi cumplió con la mitad del presupuesto. El mensaje de catálogo completo generó visitas al perfil; el video de resultados generó conversación.</p><p class="act">Acción: mantener el post y testear el segundo público del plan (no seguidores).</p></div>
+      </article>
+
+      <!-- LOTI ALCANCE -->
+      <article class="camp-card wide" style="--fam:var(--loti); --fam-ink:var(--loti);">
+        <div class="camp-head"><span class="camp-name-row"><span class="camp-name">Alcance &middot; Recordación</span><span class="status-pill obj">Objetivo: alcance</span></span><span class="camp-invest"><span class="lbl">Invertido</span>&nbsp;$707.432</span></div>
+        <div class="range-badge">Alcance_Recordación_Advantage &middot; Advantage, todos</div>
+        <div class="block-title">Resultados</div>
+        <div class="ind-grid">
+          <div class="ind-box"><span class="ind-label">Alcance</span><span class="ind-real">625.776</span><span class="ind-note">Frecuencia 1,50</span></div>
+          <div class="ind-box"><span class="ind-label">Impresiones</span><span class="ind-real">941.440</span></div>
+          <div class="ind-box"><span class="ind-label">CPM</span><span class="ind-real">$751</span></div>
+          <div class="ind-box"><span class="ind-label">CTR</span><span class="ind-real">0,18%</span></div>
+        </div>
+        <div class="block-title">Metas y cumplimiento</div>
+        <div class="goal-list"><div class="goal-item"><span class="goal-name">Impresiones</span><div class="goal-nums"><span>Meta: <b>1.000.000</b></span><span>Logrado: <b>941.440</b></span><span>CPM: <b>$751</b> vs $1.000 del flow</span><span class="goal-pct">94%</span></div><div class="pct-track"><div class="pct-fill" style="width:94%"></div></div></div></div>
+        <div class="block-title">Ángulos <span class="hint">(CPM promedio $751)</span></div>
+        <div class="tbl-wrap"><table><thead><tr><th>Ángulo</th><th class="num">% inv.</th><th class="num">Impresiones</th><th class="num">CPM</th><th class="num">vs prom.</th><th class="num">Clics enlace</th></tr></thead><tbody>
+          <tr class="win"><td>Ganancias y posibilidad</td><td class="num">10%</td><td class="num">114.877</td><td class="num">$639</td><td class="num">-15%</td><td class="num">7</td></tr>
+          <tr><td>Beneficio del producto</td><td class="num">3%</td><td class="num">31.169</td><td class="num">$681</td><td class="num">-9%</td><td class="num">1</td></tr>
+          <tr><td>Facilidad y acceso</td><td class="num">30%</td><td class="num">293.183</td><td class="num">$729</td><td class="num">-3%</td><td class="num">26</td></tr>
+          <tr class="lose"><td>No identificado (Bonos Éxito)</td><td class="num">56%</td><td class="num">502.211</td><td class="num">$795</td><td class="num">+6%</td><td class="num">729</td></tr>
+        </tbody></table></div>
+        <div class="ads-section"><span class="k">Top 3 anuncios</span><div class="ads-grid">
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-96.jpg" alt="Anuncio Tu jugada vale millones"><span class="ad-rank">#1</span><div class="ad-name">Tu jugada vale millones</div><div class="ad-tags"><span class="ad-public">Advantage</span><span class="ad-angle">Ganancias</span></div><div class="ad-result"><b>98.656</b> alcanzadas</div><div class="ad-cpr">CPM $639</div><div class="ad-why">15% bajo el promedio; mejor anuncio y mejor ángulo coinciden.</div></div>
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-97.jpg" alt="Anuncio Tres pasos para comprar lotería"><span class="ad-rank">#2</span><div class="ad-name">Tres pasos para comprar lotería</div><div class="ad-tags"><span class="ad-public">Advantage</span><span class="ad-angle">Facilidad</span></div><div class="ad-result"><b>181.806</b> alcanzadas</div><div class="ad-cpr">CPM $738</div><div class="ad-why">Segundo en volumen.</div></div>
+          <div class="ad-card"><img class="ad-thumb" src="../assets/img/2026-09-98.jpg" alt="Anuncio Bonos Éxito 1"><span class="ad-rank">#3</span><div class="ad-name">Bonos Éxito 1</div><div class="ad-tags"><span class="ad-public">Advantage</span><span class="ad-angle">No identificado</span></div><div class="ad-result"><b>216.783</b> alcanzadas</div><div class="ad-cpr">CPM $835 &middot; CTR 0,25%</div><div class="ad-why">Mayor volumen y más clics, pero el CPM más alto.</div></div>
+        </div></div>
+        <div class="block-title">Video con mejor rendimiento</div>
+        <div class="vid-solo"><div class="vid">
+          <a class="vid-prev" href="https://fb.me/27NvKUcr1Qm9ViS" target="_blank" rel="noopener" aria-label="Ver video Juega tu lotería favorita"><img src="../assets/img/2026-09-99.jpg" alt="Vista previa del video Juega tu lotería favorita"><span class="play" aria-hidden="true"><svg viewBox="0 0 10 12"><path d="M0 0l10 6-10 6z"/></svg></span></a>
+          <div class="vid-body">
+            <span class="vid-kicker">27.260 alcanzadas · CPM $680 (-9%)</span>
+            <div class="vid-name">Juega tu lotería favorita</div>
+            <div class="ad-tags"><span class="ad-public">Advantage</span><span class="ad-angle">Facilidad y acceso</span></div>
+            <div class="vid-stats">
+              <span>CTR<b>0,16%</b></span><span>CPC<b>$426</b></span><span>Reproducciones<b>26.322</b></span>
+              <span>Tiempo prom.<b>1 s</b></span><span>% prom. visto<b>5%</b></span><span>ThruPlays<b>88</b></span>
+            </div>
+            <div class="quart"><div class="q-row"><span>25%</span><div class="q-track"><div class="q-fill" style="width:2.3%"></div></div><span>597 &middot; 2,3%</span></div><div class="q-row"><span>50%</span><div class="q-track"><div class="q-fill" style="width:0.7%"></div></div><span>190 &middot; 0,7%</span></div><div class="q-row"><span>75%</span><div class="q-track"><div class="q-fill" style="width:0.3%"></div></div><span>88 &middot; 0,3%</span></div><div class="q-row"><span>100%</span><div class="q-track"><div class="q-fill" style="width:0.2%"></div></div><span>59 &middot; 0,2%</span></div></div>
+            <div class="vid-note">1 s de promedio: en alcance el video no retuvo (caso D).</div>
+            <a class="vid-link" href="https://fb.me/27NvKUcr1Qm9ViS" target="_blank" rel="noopener">Ver el anuncio en Meta &rarr;</a>
+          </div>
+        </div></div>
+        <p class="tbl-note">Los videos de esta campaña se reprodujeron 1 s en promedio y solo 2% llegó al 25%: aquí el video no aportó más que un post.</p>
+        <div class="strategy-box"><span class="k">Conclusión</span><p>Superó la eficiencia del plan (CPM 25% bajo lo esperado) con frecuencia sana. El contenido se desvió hacia Bonos Éxito, que mezcló promoción con recordación.</p><p class="act">Acción: escalar &ldquo;Tu jugada vale millones&rdquo;, devolver el contenido educativo del plan y llevar Bonos Éxito a una campaña de tráfico propia.</p></div>
+      </article>
+    </div>
+
+    <div class="section-head" style="margin-top:44px;">
+      <h2>Loti &middot; Matriz de aprendizajes</h2>
+    </div>
+    <div class="panel">
+      <div class="tbl-wrap"><table><thead><tr><th>Objetivo</th><th>Público ganador</th><th>Ángulo ganador</th><th>Anuncio ganador</th><th>Resultado</th><th>Aprendizaje</th><th>Acción siguiente</th></tr></thead><tbody>
+        <tr><td>Tráfico &middot; prospección</td><td>Intereses desconocidos</td><td>Aspiracional (eficiencia) &middot; Beneficio (volumen)</td><td>Tu número está esperando</td><td>$157 por visita (-24%)</td><td>La misma pieza rindió 71% mejor en Intereses desconocidos que en Similares</td><td><span class="tag warn">Cambiar distribución de presupuesto</span></td></tr>
+        <tr><td>Tráfico &middot; formato</td><td>Intereses desconocidos y Similares</td><td>Aspiracional y Beneficio en video</td><td>Qué haríamos si ganáramos (reel)</td><td>$172; 20% completo</td><td>En público frío, el video igualó o mejoró al post</td><td><span class="tag info">Crear nuevas variantes</span></td></tr>
+        <tr><td>Tráfico &middot; Micro</td><td>Advantage +30</td><td>Ganancias &asymp; Urgencia</td><td>Lotería de Boyacá (volumen)</td><td>3.466 visitas a $251</td><td>Sin ganador en eficiencia; Bogotá tuvo 12% de la inversión</td><td><span class="tag info">Testear</span></td></tr>
+        <tr><td>Tráfico &middot; Retención</td><td>Ninguno</td><td>No concluyente</td><td>&mdash;</td><td>$1.497; frecuencia 8,9</td><td>El problema fue el público, no el ángulo</td><td><span class="tag bad">Replantear</span></td></tr>
+        <tr><td>Interacción</td><td>Seguidores (único)</td><td>Beneficio del producto</td><td>Disponibles todas las loterías</td><td>6.120 visitas al perfil a $81</td><td>El catálogo completo llevó al perfil; el video generó conversación</td><td><span class="tag good">Mantener</span></td></tr>
+        <tr><td>Alcance</td><td>Advantage (único)</td><td>Ganancias y posibilidad</td><td>Tu jugada vale millones</td><td>CPM $639 (-15%)</td><td>El mensaje de ganancia fue el más barato de distribuir</td><td><span class="tag good">Escalar</span></td></tr>
+      </tbody></table></div>
+    </div>
+
+    <div class="section-head" style="margin-top:44px;">
+      <h2>Loti &middot; Recomendaciones para octubre</h2>
+    </div>
+    <div class="sum-card" style="--fam:var(--loti); padding-top:18px;">
+      <ol class="list">
+        <li><b>Cambiar distribución en prospección:</b> Intereses desconocidos a por lo menos 60% de Sitio Web; en Similares, solo video y reel.</li>
+        <li><b>Crear nuevas variantes de video</b> Aspiracional y Beneficio (3 por ángulo).</li>
+        <li><b>Replantear Retención:</b> volver a BD Registros sin compra y limitar la frecuencia a 3 por semana.</li>
+        <li><b>Testear el mensaje local</b> de Bogotá con el mismo presupuesto que Boyacá.</li>
+        <li><b>Ordenar Alcance:</b> escalar &ldquo;Tu jugada vale millones&rdquo; y sacar Bonos Éxito a su propia campaña.</li>
+        <li><b>Testear Confianza y seguridad</b> con 2 piezas en Intereses desconocidos.</li>
+        <li><b>Replantear la meta de tráfico</b> con $180 (prospección) a $250 (Micro) por visita.</li>
+        <li><b>Separar los dos públicos de Interacción</b> del plan.</li>
+        <li><b>Exigir el ángulo</b> en el nombre de todos los anuncios.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- GENERAL -->
+  <section class="section" id="aprendizajes">
+    <div class="section-head">
+      <h2>Aprendizajes generales</h2>
+      <p>Las dos cuentas no se comparan en eficiencia: tienen productos, públicos e inversiones distintos. Estos son los patrones que se repiten en ambas.</p>
+    </div>
+    <div class="find-grid" style="--fam:var(--accent);">
+      <article class="find"><h3>La retención sobre compradores se saturó en las dos marcas</h3><dl><dt>Evidencia</dt><dd>Loti BD compradores: frecuencia 8,9 y $1.497 por visita. Gana Compras 90 días: frecuencia 14,6 y $447.</dd><dt>Acción</dt><dd class="act">Limitar la frecuencia en toda campaña de retención.</dd></dl></article>
+      <article class="find"><h3>El público pesó más que el ángulo cuando la misma pieza corrió en varios conjuntos</h3><dl><dt>Evidencia</dt><dd>Loti: $182 frente a $311 (+71%). Gana: $224 frente a $390 (+74%).</dd><dt>Acción</dt><dd class="act">Decidir primero la distribución entre públicos y después los ángulos.</dd></dl></article>
+      <article class="find"><h3>El video funcionó distinto en cada marca</h3><dl><dt>Evidencia</dt><dd>Loti, público frío: el video igualó o mejoró al post. Gana, bases tibias: costó 41% a 48% más por visita.</dd><dt>Hipótesis</dt><dd>El video ayuda cuando el público no conoce el producto.</dd><dt>Acción</dt><dd class="act">Testear el mismo video en un público frío y uno tibio de cada marca.</dd></dl></article>
+      <article class="find"><h3>En alcance, el ángulo no cambió el costo pero sí la respuesta</h3><dl><dt>Evidencia</dt><dd>CPM casi igual entre ángulos en ambas cuentas. Ganancias y posibilidad: mejor CPM en Loti y el doble de CTR en Gana.</dd><dt>Acción</dt><dd class="act">Usar Ganancias y posibilidad como ángulo base de alcance.</dd></dl></article>
+      <article class="find"><h3>Ninguna cuenta midió resultado de negocio en Meta</h3><dl><dt>Evidencia</dt><dd>Todas las campañas optimizaron visitas, alcance o visitas al perfil; no hubo registros ni compras reportados.</dd><dt>Acción</dt><dd class="act">Activar eventos de registro y compra y una campaña de conversión por marca.</dd></dl></article>
+      <article class="find"><h3>Confianza y seguridad no se usó en ninguna marca</h3><dl><dt>Evidencia</dt><dd>Ninguno de los 293 anuncios lleva ese ángulo en el nombre, aunque los planes hablan de método y pago de premios.</dd><dt>Acción</dt><dd class="act">Testear 2 piezas por marca en tráfico de prospección.</dd></dl></article>
+    </div>
+  </section>
+
+  <footer>
+    <span>ADCOM &middot; Informe mensual Meta Ads &middot; Datos del 1 al 30 sept 2026 (act_1497284188840551 Gana vía Graph API &middot; act_480041201276101 Loti Colombia vía conector de Meta Ads)</span>
+    <span>Generado 2026-10-08 &middot; Equipo de medios pagos ADCOM</span>
+  </footer>
+</div>
+</body>
+</html>

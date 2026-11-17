@@ -1,0 +1,543 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gana y Loti | Resultados acumulados · 14 septiembre 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    color-scheme: light;
+    --bg:        #F7F7F8;
+    --surface:   #FFFFFF;
+    --surface-2: #F0F0EF;
+    --ink:       #111111;
+    --ink-2:     #47484A;
+    --muted:     #7A7B7D;
+    --line:      #E7E7E7;
+    --line-2:    #ECECEE;
+    --accent:    #FFC000;
+    --good:      #1E7A34;  --good-tint: #E3F3E6;
+    --warn:      #A15400;  --warn-tint: #FBEBD6;
+    --bad:       #B42318;  --bad-tint:  #FBE4E1;
+    --info:      #1849A9;  --info-tint: #E3EBFB;
+    --shadow: 0 1px 2px rgba(17,17,17,0.05), 0 6px 18px -10px rgba(17,17,17,0.14);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg:        #131313;
+      --surface:   #1C1C1C;
+      --surface-2: #242424;
+      --ink:       #F7F7F8;
+      --ink-2:     #C9C9CB;
+      --muted:     #98999B;
+      --line:      #2E2E2E;
+      --line-2:    #383838;
+      --accent:    #FFC000;
+      --good:      #4ADE80;  --good-tint: #123420;
+      --warn:      #F5A623;  --warn-tint: #3A2A10;
+      --bad:       #FF6B6B;  --bad-tint:  #3A1A1A;
+      --info:      #6FA8FF;  --info-tint: #16233D;
+      --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 10px 24px -12px rgba(0,0,0,0.55);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg:        #131313;
+    --surface:   #1C1C1C;
+    --surface-2: #242424;
+    --ink:       #F7F7F8;
+    --ink-2:     #C9C9CB;
+    --muted:     #98999B;
+    --line:      #2E2E2E;
+    --line-2:    #383838;
+    --accent:    #FFC000;
+    --good:      #4ADE80;  --good-tint: #123420;
+    --warn:      #F5A623;  --warn-tint: #3A2A10;
+    --bad:       #FF6B6B;  --bad-tint:  #3A1A1A;
+    --info:      #6FA8FF;  --info-tint: #16233D;
+    --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 10px 24px -12px rgba(0,0,0,0.55);
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Poppins", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 40px 24px 100px; }
+  h1, h2, h3, h4 { margin: 0; text-wrap: balance; }
+  .mono { font-variant-numeric: tabular-nums; }
+  a { color: inherit; }
+
+  .cover { padding: 36px 0 32px; border-bottom: 1px solid var(--line); margin-bottom: 40px; display: flex; flex-direction: column; gap: 16px; }
+  .cover-brand { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); }
+  .cover-brand .sq { width: 16px; height: 16px; background: var(--accent); border-radius: 4px; }
+  .cover h1 { font-size: clamp(28px, 4.2vw, 44px); font-weight: 800; letter-spacing: -0.01em; }
+  .cover-sub { font-size: 15px; color: var(--ink-2); max-width: 68ch; line-height: 1.55; }
+  .cover-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; font-size: 13px; color: var(--ink-2); }
+  .cover-meta strong { color: var(--ink); font-weight: 600; }
+
+  .section { margin-bottom: 48px; }
+  .section-head { max-width: 74ch; margin-bottom: 20px; }
+  .section-head h2 { font-size: clamp(19px, 2.2vw, 24px); font-weight: 700; letter-spacing: -0.005em; }
+  .section-head p { font-size: 14px; color: var(--ink-2); line-height: 1.6; margin: 8px 0 0; }
+
+  .camp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(520px, 1fr)); gap: 22px; }
+
+  .camp-card {
+    background: var(--surface);
+    border: 1.5px solid var(--fam);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .camp-card.paused { opacity: 0.97; }
+  .camp-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+  .camp-name-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .camp-name { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; border-radius: 999px; background: var(--fam); color: #fff; font-size: 14px; font-weight: 700; }
+  .camp-invest { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px; border: 1.5px solid var(--fam); color: var(--fam-ink); font-size: 12px; font-weight: 700; }
+  .camp-invest .lbl { color: var(--muted); font-weight: 600; }
+  .status-pill { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; font-size: 10px; font-weight: 700; letter-spacing: 0.02em; }
+  .status-pill.live { background: var(--good-tint); color: var(--good); }
+  .status-pill.paused { background: var(--bad-tint); color: var(--bad); }
+  .status-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+  .pause-banner { margin: 14px 20px 0; background: var(--bad-tint); color: var(--bad); border-radius: 10px; padding: 10px 14px; font-size: 12.5px; font-weight: 600; line-height: 1.5; }
+
+  .range-badge { margin: 14px 20px 0; display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 10px; background: var(--surface-2); border: 1px dashed var(--fam); font-size: 12px; font-weight: 600; color: var(--ink); }
+
+  .block-title { margin: 18px 20px 8px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+
+  .ind-grid { display: grid; gap: 1px; background: var(--line); margin: 0 20px; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  .ind-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .ind-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .ind-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .ind-box { background: var(--surface); padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; }
+  .ind-box .ind-label { font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); }
+  .ind-box .ind-real { font-size: 18px; font-weight: 800; color: var(--ink); }
+  .ind-box .ind-pct-inline { font-size: 11px; font-weight: 800; color: var(--fam-ink); }
+
+  .goal-list { margin: 0 20px; display: flex; flex-direction: column; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  .goal-item { background: var(--surface); padding: 12px 14px; }
+  .goal-item .goal-name { font-size: 12px; font-weight: 700; color: var(--ink); display: block; margin-bottom: 6px; }
+  .goal-item .goal-nums { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 12px; color: var(--ink-2); margin-bottom: 6px; }
+  .goal-item .goal-nums b { color: var(--ink); }
+  .goal-item .goal-nums .goal-pct { font-weight: 800; color: var(--fam-ink); }
+  .goal-item .goal-nums .over { color: var(--good); }
+  .pct-track { height: 7px; background: var(--surface-2); border-radius: 5px; overflow: hidden; }
+  .pct-fill { height: 100%; border-radius: 5px; background: var(--fam); }
+  .pct-fill.over { background: var(--good); }
+
+  .cost-compare-list { margin: 0 20px; display: flex; flex-direction: column; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  .cost-compare-item { background: var(--surface); padding: 12px 14px; }
+  .cost-compare-item .cc-name { font-size: 12px; font-weight: 700; color: var(--ink); display: block; margin-bottom: 6px; }
+  .cost-compare-item .cc-nums { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 12px; color: var(--ink-2); margin-bottom: 4px; }
+  .cost-compare-item .cc-nums b { color: var(--ink); }
+  .cost-compare-item .cc-nums .na { color: var(--muted); font-style: italic; }
+  .cost-compare-item .cc-nums .good-var { font-weight: 800; color: var(--good); }
+  .cost-compare-item .cc-nums .bad-var { font-weight: 800; color: var(--bad); }
+
+  .strategy-box { margin: 16px 20px 0; background: var(--surface-2); border-radius: 12px; padding: 14px 16px; }
+  .strategy-box .k { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 6px; }
+  .strategy-box p { margin: 0; font-size: 13.5px; line-height: 1.6; color: var(--ink); }
+
+  .ads-section { margin: 18px 20px 20px; }
+  .ads-section .k { font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 8px; }
+  .ads-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .ad-card { background: var(--surface-2); border: 1px solid var(--line-2); border-radius: 12px; padding: 10px; display: flex; flex-direction: column; gap: 6px; }
+  .ad-thumb { width: 100%; aspect-ratio: 1; border-radius: 8px; object-fit: cover; background: var(--line-2); }
+  .ad-name { font-size: 11px; font-weight: 700; color: var(--ink); line-height: 1.35; min-height: 28px; }
+  .ad-public { display: inline-flex; align-self: flex-start; font-size: 9.5px; font-weight: 700; letter-spacing: 0.02em; padding: 2px 8px; border-radius: 999px; background: var(--fam); color: #fff; }
+  .ad-result { font-size: 11.5px; color: var(--ink); }
+  .ad-result b { color: var(--fam-ink); }
+  .ad-cpr { font-size: 11px; color: var(--ink-2); }
+  .ad-why { font-size: 10.5px; color: var(--ink-2); line-height: 1.45; }
+  @media (max-width: 900px) {
+    .ads-grid { grid-template-columns: 1fr; }
+    .ind-grid.cols-3, .ind-grid.cols-4 { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+
+  .pdf-btn { display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; padding: 10px 18px; border-radius: 999px; background: var(--ink); color: var(--bg); border: none; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; box-shadow: var(--shadow); }
+  .pdf-btn:hover { opacity: 0.88; }
+  .pdf-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+  @media print {
+    .pdf-btn { display: none !important; }
+    body { background: #fff; }
+    .wrap { max-width: none; padding: 0 12px; }
+    * { box-shadow: none !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .camp-card { break-inside: avoid; page-break-inside: avoid; }
+    .camp-grid { display: block; }
+    .camp-grid > .camp-card { margin-bottom: 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="cover">
+    <div class="cover-brand"><span class="sq"></span>ADCOM &middot; Meta Ads</div>
+    <h1>Resultados acumulados · 14 septiembre 2026</h1>
+    <p class="cover-sub">Cuánto hemos invertido, qué hemos conseguido, qué tan cerca estamos de la meta, a qué costo lo estamos logrando y qué anuncios están funcionando mejor &mdash; por campaña, acumulado desde el inicio de cada una hasta el 15 de septiembre de 2026.</p>
+    <div class="cover-meta">
+      <span><strong>Corte:</strong> 15 de septiembre de 2026 &middot; cada campaña muestra su propio rango desde su fecha real de inicio</span>
+      <span><strong>Cuentas:</strong> Gana &middot; Loti Colombia</span>
+    </div>
+    <button type="button" class="pdf-btn" onclick="window.print()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+      Descargar PDF
+    </button>
+  </header>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Números por campaña</h2>
+      <p>Para cada campaña: el rango de fechas analizado, el presupuesto y lo gastado, la meta y el resultado logrado en cada objetivo con su % de cumplimiento, y el costo real por objetivo. Cuando el costo esperado del flow no está disponible, se indica explícitamente en vez de estimarlo.</p>
+    </div>
+
+    <div class="camp-grid">
+
+      <!-- GANA APP -->
+      <article class="camp-card" style="--fam:#1E9B52; --fam-ink:#1E9B52;">
+        <div class="camp-head">
+          <span class="camp-name-row">
+            <span class="camp-name">Gana APP</span>
+            <span class="status-pill live"><span class="dot"></span>Activa</span>
+          </span>
+          <span class="camp-invest"><span class="lbl">Presupuesto</span>&nbsp;$10.000.000 hasta el 15 sept</span>
+        </div>
+        <div class="range-badge">Del 6 de agosto al 15 de septiembre de 2026 (40 días) &mdash; coincide con el cierre del presupuesto vigente</div>
+
+        <div class="block-title">Presupuesto</div>
+        <div class="ind-grid cols-3">
+          <div class="ind-box"><span class="ind-label">Presupuesto total</span><span class="ind-real mono">$10.000.000</span></div>
+          <div class="ind-box"><span class="ind-label">Gastado acumulado</span><span class="ind-real mono">$6.500.534</span></div>
+          <div class="ind-box"><span class="ind-label">% ejecutado</span><span class="ind-real mono">65,0%</span></div>
+        </div>
+
+        <div class="block-title">Metas y cumplimiento</div>
+        <div class="goal-list">
+          <div class="goal-item">
+            <span class="goal-name">Alcance</span>
+            <div class="goal-nums"><span>Meta: <b>4.000.000</b></span><span>Logrado: <b>3.146.255</b></span><span>Gastado en este objetivo: <b>$3.170.502</b></span><span class="goal-pct">Cumplimiento: 78,7%</span></div>
+            <div class="pct-track"><div class="pct-fill" style="width:78.7%"></div></div>
+          </div>
+          <div class="goal-item">
+            <span class="goal-name">Tráfico (vistas de landing)</span>
+            <div class="goal-nums"><span>Meta: <b>40.000</b></span><span>Logrado: <b>38.091</b></span><span>Gastado en este objetivo: <b>$3.330.032</b></span><span class="goal-pct">Cumplimiento: 95,2%</span></div>
+            <div class="pct-track"><div class="pct-fill" style="width:95.2%"></div></div>
+          </div>
+        </div>
+
+        <div class="block-title">Costo del objetivo</div>
+        <div class="cost-compare-list">
+          <div class="cost-compare-item">
+            <span class="cc-name">Alcance &mdash; CPM</span>
+            <div class="cc-nums"><span>Esperado (flow): <b>$1.000</b></span><span>Real: <b>$713</b></span><span class="good-var">Variación: -28,7%</span></div>
+          </div>
+          <div class="cost-compare-item">
+            <span class="cc-name">Tráfico &mdash; CPC</span>
+            <div class="cc-nums"><span>Esperado (flow): <b>$150</b></span><span>Real: <b>$64</b></span><span class="good-var">Variación: -57,3%</span></div>
+          </div>
+        </div>
+
+        <div class="strategy-box">
+          <span class="k">¿Qué significa este resultado?</span>
+          <p>Alcanzamos 3,1 millones de personas (79% de la meta) y 38.091 visitas a la página (95% de la meta), con solo 65% del presupuesto ejecutado. El tráfico casi cumple su objetivo gastando menos de lo previsto: es el resultado más fuerte de la campaña hasta ahora.</p>
+        </div>
+
+        <div class="ads-section">
+          <span class="k">Top 3 anuncios más efectivos</span>
+          <div class="ads-grid">
+            <div class="ad-card">
+              <img class="ad-thumb" src="../assets/img/acumulado-2026-09-14-14.png" alt="Anuncio">
+              <span class="ad-public">Público: Caliente &mdash; Base de datos (P y Revisión)</span>
+              <div class="ad-name">Ese número te espera (aspiracional)</div>
+              <div class="ad-result">Resultado: <b>13.805</b> vistas de landing</div>
+              <div class="ad-cpr">Costo por resultado: $77</div>
+              <div class="ad-why">Es, de lejos, el anuncio que más vistas de landing genera en toda la campaña, al costo más bajo.</div>
+            </div>
+            <div class="ad-card">
+              <img class="ad-thumb" src="../assets/img/acumulado-2026-09-14-15.jpg" alt="Anuncio">
+              <span class="ad-public">Público: Frío &mdash; Advantage (visibilidad de producto)</span>
+              <div class="ad-name">Gana se renovó (carrusel)</div>
+              <div class="ad-result">Resultado: <b>890.082</b> personas alcanzadas</div>
+              <div class="ad-cpr">CPM: $673 por 1.000 personas</div>
+              <div class="ad-why">El anuncio con más alcance de toda la campaña y uno de los más baratos por cada 1.000 personas.</div>
+            </div>
+            <div class="ad-card">
+              <img class="ad-thumb" src="../assets/img/acumulado-2026-09-14-16.png" alt="Anuncio">
+              <span class="ad-public">Público: Frío &mdash; Advantage (visibilidad de producto)</span>
+              <div class="ad-name">Activar cuenta (urgencia)</div>
+              <div class="ad-result">Resultado: <b>262.825</b> personas alcanzadas</div>
+              <div class="ad-cpr">CPM: $638 por 1.000 personas</div>
+              <div class="ad-why">Tiene el costo por cada 1.000 personas más bajo de toda la campaña.</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- LOTI -->
+      <article class="camp-card" style="--fam:#7C5CD6; --fam-ink:#7C5CD6;">
+        <div class="camp-head">
+          <span class="camp-name-row">
+            <span class="camp-name">Loti</span>
+            <span class="status-pill live"><span class="dot"></span>Activa</span>
+          </span>
+          <span class="camp-invest"><span class="lbl">Presupuesto</span>&nbsp;$10.000.000 hasta el 30 sept</span>
+        </div>
+        <div class="range-badge">Del 4 de agosto al 15 de septiembre de 2026 (42 de 57 días del presupuesto)</div>
+
+        <div class="block-title">Presupuesto</div>
+        <div class="ind-grid cols-3">
+          <div class="ind-box"><span class="ind-label">Presupuesto total</span><span class="ind-real mono">$10.000.000</span></div>
+          <div class="ind-box"><span class="ind-label">Gastado acumulado</span><span class="ind-real mono">$8.026.375</span></div>
+          <div class="ind-box"><span class="ind-label">% ejecutado</span><span class="ind-real mono">80,3%</span></div>
+        </div>
+
+        <div class="block-title">Metas y cumplimiento</div>
+        <div class="goal-list">
+          <div class="goal-item">
+            <span class="goal-name">Alcance</span>
+            <div class="goal-nums"><span>Meta: <b>1.000.000</b></span><span>Logrado: <b>1.301.354</b></span><span>Gastado en este objetivo: <b>$888.810</b></span><span class="goal-pct over">Cumplimiento: 130,1%</span></div>
+            <div class="pct-track"><div class="pct-fill over" style="width:100%"></div></div>
+          </div>
+          <div class="goal-item">
+            <span class="goal-name">Tráfico (vistas de landing)</span>
+            <div class="goal-nums"><span>Meta: <b>91.667</b></span><span>Logrado: <b>21.598</b></span><span>Gastado en este objetivo: <b>$6.363.000</b></span><span class="goal-pct">Cumplimiento: 23,6%</span></div>
+            <div class="pct-track"><div class="pct-fill" style="width:23.6%"></div></div>
+          </div>
+          <div class="goal-item">
+            <span class="goal-name">Interacciones</span>
+            <div class="goal-nums"><span>Meta: <b>6.667</b></span><span>Logrado: <b>8.218</b></span><span>Gastado en este objetivo: <b>$774.565</b></span><span class="goal-pct over">Cumplimiento: 123,3%</span></div>
+            <div class="pct-track"><div class="pct-fill over" style="width:100%"></div></div>
+          </div>
+        </div>
+        <p class="cost-note" style="margin:8px 20px 0; font-size:11px; color:var(--muted); line-height:1.5;">Aunque la mayor inversión se realizó en agosto, el sobrecumplimiento responde a una mayor eficiencia de la campaña: los costos reales fueron significativamente menores a los proyectados, permitiendo superar la meta con la inversión ejecutada.</p>
+
+        <div class="block-title">Costo del objetivo</div>
+        <div class="cost-compare-list">
+          <div class="cost-compare-item">
+            <span class="cc-name">Alcance &mdash; CPM</span>
+            <div class="cc-nums"><span>Esperado (flow): <b>$1.000</b></span><span>Real: <b>$712</b></span><span class="good-var">Variación: -28,8%</span></div>
+          </div>
+          <div class="cost-compare-item">
+            <span class="cc-name">Tráfico &mdash; costo por visita</span>
+            <div class="cc-nums"><span>Esperado (flow): <b>$93</b></span><span>Real: <b>$295</b></span><span class="bad-var">Variación: +217,2%</span></div>
+          </div>
+          <div class="cost-compare-item">
+            <span class="cc-name">Interacciones &mdash; costo por resultado (CPI)</span>
+            <div class="cc-nums"><span>Esperado (flow): <b>$150</b></span><span>Real: <b>$94</b></span><span class="good-var">Variación: -37,2%</span></div>
+          </div>
+        </div>
+
+        <div class="strategy-box">
+          <span class="k">¿Qué significa este resultado?</span>
+          <p>Ya superamos la meta de alcance (130%) y de interacciones (123%), a buen costo. El tráfico va atrasado (24% de la meta) y es lo que hay que reforzar. Llevamos el 80% del presupuesto ejecutado, con 15 días para el cierre del flow.</p>
+        </div>
+
+        <div class="ads-section">
+          <span class="k">Top 3 anuncios más efectivos</span>
+          <div class="ads-grid">
+            <div class="ad-card">
+              <img class="ad-thumb" src="../assets/img/acumulado-2026-09-14-17.jpg" alt="Anuncio">
+              <span class="ad-public">Público: Caliente &mdash; Seguidores IG+FB que visitaron el perfil</span>
+              <div class="ad-name">Disponibles todas las loterías (interacción)</div>
+              <div class="ad-result">Resultado: <b>7.358</b> interacciones (visitas al perfil)</div>
+              <div class="ad-cpr">Costo por resultado: $91</div>
+              <div class="ad-why">Genera casi el 90% de todas las interacciones de la cuenta, al costo más bajo.</div>
+            </div>
+            <div class="ad-card">
+              <img class="ad-thumb" src="../assets/img/acumulado-2026-09-14-18.png" alt="Anuncio">
+              <span class="ad-public">Público: Frío &mdash; Advantage (mayores de 30 años)</span>
+              <div class="ad-name">Lotería de Boyacá (tráfico)</div>
+              <div class="ad-result">Resultado: <b>4.661</b> vistas de landing</div>
+              <div class="ad-cpr">Costo por resultado: $238</div>
+              <div class="ad-why">El anuncio con más vistas de landing de toda la cuenta.</div>
+            </div>
+            <div class="ad-card">
+              <img class="ad-thumb" src="../assets/img/acumulado-2026-09-14-19.png" alt="Anuncio">
+              <span class="ad-public">Público: Frío &mdash; Advantage (audiencia amplia)</span>
+              <div class="ad-name">Disponibles todas las loterías (alcance)</div>
+              <div class="ad-result">Resultado: <b>264.924</b> personas alcanzadas</div>
+              <div class="ad-cpr">CPM: $719 por 1.000 personas</div>
+              <div class="ad-why">La misma pieza que funciona para interacciones es también el anuncio con más alcance: un diseño que rinde en varios frentes.</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- PLACA MILLONARIA -->
+      <article class="camp-card" style="--fam:#D89B2E; --fam-ink:#B57A18;">
+        <div class="camp-head">
+          <span class="camp-name-row">
+            <span class="camp-name">Placa Millonaria</span>
+            <span class="status-pill live"><span class="dot"></span>Activa</span>
+          </span>
+          <span class="camp-invest"><span class="lbl">Presupuesto</span>&nbsp;$21.000.000 hasta el 30 sept</span>
+        </div>
+        <div class="range-badge">Del 20 de agosto al 15 de septiembre de 2026 (26 de 41 días del presupuesto)</div>
+
+        <div class="block-title">Presupuesto</div>
+        <div class="ind-grid cols-3">
+          <div class="ind-box"><span class="ind-label">Presupuesto total</span><span class="ind-real mono">$21.000.000</span></div>
+          <div class="ind-box"><span class="ind-label">Gastado acumulado</span><span class="ind-real mono">$15.579.750</span></div>
+          <div class="ind-box"><span class="ind-label">% ejecutado</span><span class="ind-real mono">74,2%</span></div>
+        </div>
+
+        <div class="block-title">Metas y cumplimiento</div>
+        <div class="goal-list">
+          <div class="goal-item">
+            <span class="goal-name">Alcance</span>
+            <div class="goal-nums"><span>Meta: <b>3.500.000</b></span><span>Logrado: <b>2.118.126</b></span><span>Gastado en este objetivo: <b>$6.023.665</b></span><span class="goal-pct">Cumplimiento: 60,5%</span></div>
+            <div class="pct-track"><div class="pct-fill" style="width:60.5%"></div></div>
+          </div>
+          <div class="goal-item">
+            <span class="goal-name">Tráfico (vistas de landing)</span>
+            <div class="goal-nums"><span>Meta: <b>41.200</b></span><span>Logrado: <b>45.420</b></span><span>Gastado en este objetivo: <b>$9.556.085</b></span><span class="goal-pct over">Cumplimiento: 110,2%</span></div>
+            <div class="pct-track"><div class="pct-fill over" style="width:100%"></div></div>
+          </div>
+        </div>
+
+        <div class="block-title">Costo del objetivo</div>
+        <div class="cost-compare-list">
+          <div class="cost-compare-item">
+            <span class="cc-name">Alcance &mdash; CPM</span>
+            <div class="cc-nums"><span>Esperado (flow): <b>$1.500</b></span><span>Real: <b>$1.300</b></span><span class="good-var">Variación: -13,3%</span></div>
+          </div>
+          <div class="cost-compare-item">
+            <span class="cc-name">Tráfico &mdash; costo por visita</span>
+            <div class="cc-nums"><span>Esperado (flow): <b>$617</b></span><span>Real: <b>$210</b></span><span class="good-var">Variación: -66,0%</span></div>
+          </div>
+        </div>
+
+        <div class="strategy-box">
+          <span class="k">¿Qué significa este resultado?</span>
+          <p>Superamos la meta de tráfico (110%) con 45.420 visitas a la página, y llevamos 60% de la meta de alcance con 74% del presupuesto ejecutado. El tráfico rinde mejor que lo esperado; el alcance necesita acelerar para cerrar cerca de su meta.</p>
+        </div>
+
+        <div class="ads-section">
+          <span class="k">Top 3 anuncios más efectivos</span>
+          <div class="ads-grid">
+            <div class="ad-card">
+              <img class="ad-thumb" src="../assets/img/acumulado-2026-09-14-20.png" alt="Anuncio">
+              <span class="ad-public">Público: Caliente &mdash; Base de datos (registrados Placa)</span>
+              <div class="ad-name">Mujer en parada de bus (tráfico)</div>
+              <div class="ad-result">Resultado: <b>12.402</b> vistas de landing</div>
+              <div class="ad-cpr">Costo por resultado: $73</div>
+              <div class="ad-why">El anuncio con más vistas de landing y el costo más bajo de toda la campaña.</div>
+            </div>
+            <div class="ad-card">
+              <img class="ad-thumb" src="../assets/img/acumulado-2026-09-14-21.png" alt="Anuncio">
+              <span class="ad-public">Público: Caliente &mdash; Base de datos (registrados Placa)</span>
+              <div class="ad-name">Revisa si ganaste (tráfico)</div>
+              <div class="ad-result">Resultado: <b>7.086</b> vistas de landing</div>
+              <div class="ad-cpr">Costo por resultado: $144</div>
+              <div class="ad-why">Segundo en volumen de vistas de landing, sostenido desde el inicio de la campaña.</div>
+            </div>
+            <div class="ad-card">
+              <img class="ad-thumb" src="../assets/img/acumulado-2026-09-14-22.png" alt="Anuncio">
+              <span class="ad-public">Público: Frío &mdash; Advantage (visibilidad de producto)</span>
+              <div class="ad-name">Placa carro y moto (alcance)</div>
+              <div class="ad-result">Resultado: <b>1.407.759</b> personas alcanzadas</div>
+              <div class="ad-cpr">CPM: $757 por 1.000 personas</div>
+              <div class="ad-why">El anuncio con más alcance de toda la campaña.</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- RASPA Y LISTO -->
+      <article class="camp-card paused" style="--fam:#2E6FD6; --fam-ink:#2E6FD6;">
+        <div class="camp-head">
+          <span class="camp-name-row">
+            <span class="camp-name">Raspa y listo</span>
+            <span class="status-pill paused"><span class="dot"></span>Pausada el 10 sept</span>
+          </span>
+          <span class="camp-invest"><span class="lbl">Presupuesto total</span>&nbsp;$18.750.000 hasta el 31 oct</span>
+        </div>
+        <div class="range-badge">Del 21 de agosto al 10 de septiembre de 2026 (fecha de pausa) &mdash; sin cambios hasta el 15 de septiembre</div>
+        <div class="pause-banner">La campaña fue pausada el 10 de septiembre por solicitud de Mauricio, debido a un cambio en la estrategia. Los datos de abajo son el cierre real de la campaña, no una proyección: el gasto y el alcance ya no van a crecer.</div>
+
+        <div class="block-title">Presupuesto</div>
+        <div class="ind-grid cols-3">
+          <div class="ind-box"><span class="ind-label">Presupuesto total</span><span class="ind-real mono">$18.750.000</span></div>
+          <div class="ind-box"><span class="ind-label">Gastado acumulado (final)</span><span class="ind-real mono">$7.626.704</span></div>
+          <div class="ind-box"><span class="ind-label">% ejecutado</span><span class="ind-real mono">40,7%</span></div>
+        </div>
+        <p class="cost-note" style="margin:8px 20px 0; font-size:11px; color:var(--muted); line-height:1.5;">Según el flow, para esta fecha debía llevar acumulado $12.146.501 de gasto (agosto+septiembre). Se gastó realmente $7.626.704, un 62,8% de lo planeado: la campaña se pausó gastando menos de lo que tenía presupuestado para este punto.</p>
+
+        <div class="block-title">Metas y cumplimiento</div>
+        <div class="goal-list">
+          <div class="goal-item">
+            <span class="goal-name">Alcance</span>
+            <div class="goal-nums"><span>Meta: <b>15.209.790</b></span><span>Logrado: <b>4.976.532</b></span><span>Gastado en este objetivo: <b>$7.626.704</b></span><span class="goal-pct">Cumplimiento: 32,7%</span></div>
+            <div class="pct-track"><div class="pct-fill" style="width:32.7%"></div></div>
+          </div>
+        </div>
+
+        <div class="block-title">Costo del objetivo <span style="font-weight:500; text-transform:none; letter-spacing:0; color:var(--ink-2);">(el flow define un costo esperado distinto por público, no se mezclan)</span></div>
+        <div class="cost-compare-list">
+          <div class="cost-compare-item">
+            <span class="cc-name">Alcance &mdash; CPM (Advantage / clientes Gana)</span>
+            <div class="cc-nums"><span>Esperado (flow): <b>$1.300</b></span><span>Real: <b>$724</b></span><span class="good-var">Variación: -44,3%</span></div>
+          </div>
+          <div class="cost-compare-item">
+            <span class="cc-name">Alcance &mdash; CPM (Remarketing)</span>
+            <div class="cc-nums"><span>Esperado (flow): <b>$1.100</b></span><span>Real: <b>$782</b></span><span class="good-var">Variación: -28,9%</span></div>
+          </div>
+        </div>
+
+        <div class="strategy-box">
+          <span class="k">¿Qué significa este resultado?</span>
+          <p>La campaña se pausó el 10 de septiembre por decisión de Mauricio. Hasta ese momento llegamos a cerca de 5 millones de personas (33% de la meta), gastando 63% de lo que el flow tenía planeado para este punto. Este es el resultado final de la campaña.</p>
+        </div>
+
+        <div class="ads-section">
+          <span class="k">Top 3 anuncios más efectivos</span>
+          <div class="ads-grid">
+            <div class="ad-card">
+              <img class="ad-thumb" src="../assets/img/acumulado-2026-09-14-23.jpg" alt="Anuncio">
+              <span class="ad-public">Público: Tibio &mdash; Visitantes del sitio web (120 días)</span>
+              <div class="ad-name">La copa (video)</div>
+              <div class="ad-result">Resultado: <b>1.460.500</b> personas alcanzadas</div>
+              <div class="ad-cpr">CPM: $814 por 1.000 personas</div>
+              <div class="ad-why">El anuncio con más alcance de toda la campaña.</div>
+            </div>
+            <div class="ad-card">
+              <img class="ad-thumb" src="../assets/img/acumulado-2026-09-14-24.png" alt="Anuncio">
+              <span class="ad-public">Público: Tibio &mdash; Visitantes del sitio web (120 días)</span>
+              <div class="ad-name">Mujer descubre al instante</div>
+              <div class="ad-result">Resultado: <b>538.514</b> personas alcanzadas</div>
+              <div class="ad-cpr">$987 por persona alcanzada</div>
+              <div class="ad-why">El costo más bajo por persona alcanzada de toda la campaña, aunque con menos volumen que los anuncios de video.</div>
+            </div>
+            <div class="ad-card">
+              <img class="ad-thumb" src="../assets/img/acumulado-2026-09-14-25.jpg" alt="Anuncio">
+              <span class="ad-public">Público: Frío &mdash; Advantage (visibilidad de producto)</span>
+              <div class="ad-name">UNO (video)</div>
+              <div class="ad-result">Resultado: <b>1.049.340</b> personas alcanzadas</div>
+              <div class="ad-cpr">$767 por 1.000 personas (CPM)</div>
+              <div class="ad-why">El mejor equilibrio entre volumen de alcance y costo.</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <footer>
+    <span>ADCOM &middot; Reporte semanal por campañas &middot; Datos reales acumulados desde el inicio de cada campaña hasta el 15 sept 2026 (act_1497284188840551 Gana &middot; act_480041201276101 Loti Colombia)</span>
+    <span>Generado 2026-09-14 &middot; Responsable: equipo de medios pagos ADCOM</span>
+  </footer>
+
+</div>
+</body>
+</html>
+
+</body></html>
