@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gana y Loti | Resultados de Gana Oriente</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;1,300;1,600;1,700&display=swap">
+<style>
+/* Layout: línea gráfica ADCOM — fondo gris claro, header negro redondeado con logo, cards blancas con borde inferior amarillo, tablas con encabezado negro y fila destacada amarilla. Look único claro por marca. Placa = negro, Goleador = amarillo en todas las gráficas. */
+:root{
+  --bg:#F5F5F5; --surface:#FFFFFF; --black:#1A1A1A; --fg:#1A1A1A; --t2:#333333; --t3:#999999; --muted:#666666;
+  --line:#E0E0E0; --zebra:#F9F9F9; --yellow:#FFC000; --gray-bar:#888888;
+  --good:#2E7D32; --crit:#D32F2F;
+  --f-body:"Poppins","Segoe UI",Arial,sans-serif;
+  color-scheme:light;
+}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-weight:300;font-size:14.5px;line-height:1.6}
+b,strong{font-weight:600}
+.wrap{max-width:1000px;margin:0 auto;padding-block:20px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:44px}
+header{display:grid;gap:12px}
+.bar{background:var(--black);border-radius:12px;padding:12px 20px 12px 12px;display:flex;align-items:center;gap:14px}
+.bar img{width:52px;height:52px;border-radius:50%;flex:none}
+.bar .eyebrow{color:var(--yellow);font-weight:600;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;display:block}
+h1{font-weight:400;color:#FFFFFF;font-size:clamp(19px,3.2vw,26px);line-height:1.25;margin:0;text-wrap:balance}
+h1 em{font-weight:700;font-style:italic}
+h2{font-weight:400;font-size:21px;margin:0;text-wrap:balance;display:flex;gap:12px;align-items:center;background:var(--black);color:#FFFFFF;border-radius:10px;padding:9px 16px 9px 10px}
+h2 em{font-weight:700;font-style:italic}
+h2 .n{flex:none;width:30px;height:30px;border-radius:50%;background:var(--yellow);color:var(--black);font-weight:700;font-size:14px;display:grid;place-items:center}
+h3{font-weight:600;font-size:16px;color:var(--t2);margin:0}
+h3.prod{font-size:18px;color:var(--fg);display:flex;align-items:center;gap:10px}
+p{margin:0;max-width:76ch}
+.meta{color:var(--muted);font-size:13px;font-style:italic;display:flex;flex-wrap:wrap;gap:4px 18px}
+section{display:grid;gap:18px;min-width:0}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.kpis.six{grid-template-columns:repeat(3,1fr)}
+.kpis.five{grid-template-columns:repeat(5,1fr)}
+.kpis.five .kpi .v{font-size:23px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-bottom:6px solid var(--yellow);border-radius:10px 10px 0 0;padding:14px 12px 12px;display:grid;gap:2px;align-content:start;text-align:center}
+.kpi .v{font-weight:700;font-size:26px;color:var(--fg);font-variant-numeric:tabular-nums;order:1;line-height:1.2}
+.kpi .l{font-weight:600;font-size:13px;color:var(--t2);order:2}
+.kpi .d{font-size:12px;color:var(--t3);order:3}
+.up{color:var(--crit)!important;font-weight:600} .ok{color:var(--good)!important;font-weight:600}
+.tbl{overflow-x:auto;border:1px solid #DDDDDD;border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+th,td{padding:9px 12px;text-align:right;border-bottom:1px solid #DDDDDD;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+thead th{font-size:12px;color:#FFFFFF;font-weight:600;background:var(--black)}
+thead th.cur{background:var(--yellow);color:var(--black)}
+tbody tr:nth-child(even) td{background:var(--zebra)}
+tbody tr.hl td{background:var(--yellow);color:var(--black);font-weight:600}
+tbody td:first-child{font-weight:600;color:var(--t2)}
+tbody tr.hl td:first-child{color:var(--black)}
+tbody tr:last-child td{border-bottom:0}
+td .best{font-weight:600}
+.ficha th,.ficha td{white-space:normal;text-align:left}
+.ficha td{min-width:200px}
+.ficha td:first-child{min-width:140px;width:22%}
+.sw{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:6px;flex:none}
+.sw.p{background:var(--black)} .sw.g{background:var(--yellow)}
+.note{font-size:12.5px;color:var(--muted);font-style:italic}
+.callout{background:var(--surface);border:1px solid var(--line);border-left:7px solid var(--yellow);border-radius:0 10px 10px 0;padding:14px 16px;display:grid;gap:6px;color:var(--muted)}
+.callout.crit{border-left-color:var(--crit)}
+.callout.dark{border-left-color:var(--black)}
+.callout b.tag{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--black)}
+.callout.crit b.tag{color:var(--crit)}
+.chip{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:1px 7px;border-radius:999px;margin-right:6px;vertical-align:1px}
+.chip.obs{background:var(--black);color:#FFFFFF}
+.chip.int{background:var(--yellow);color:var(--black)}
+.chip.rec{background:#E8E8E8;color:var(--t2)}
+.chart{background:var(--surface);border:1px solid var(--line);border-bottom:6px solid var(--yellow);border-radius:10px 10px 0 0;padding:16px;display:grid;gap:10px;position:relative;min-width:0}
+.chart .sub{font-size:12px;color:var(--t3)}
+.chart .take{font-size:13px;color:var(--t2);border-top:1px solid var(--line);padding-top:10px}
+.chart .take b{color:var(--fg)}
+.legend{display:flex;gap:18px;font-size:13px;color:var(--muted);flex-wrap:wrap;align-items:center}
+.chart svg{width:100%;height:auto;display:block;overflow:visible}
+.chart svg text{fill:var(--muted);font-family:var(--f-body);font-size:11px}
+.chart svg .lbl{fill:var(--fg)}
+.grid line{stroke:var(--line);stroke-width:1}
+.tip{position:absolute;pointer-events:none;background:var(--black);color:#FFFFFF;font-size:12.5px;padding:7px 10px;border-radius:4px;white-space:nowrap;font-variant-numeric:tabular-nums;z-index:2}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.cols>div{min-width:0;display:grid;gap:10px;align-content:start}
+.conc{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.ads{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.ad{background:var(--bg);border-radius:10px;overflow:hidden;display:grid;align-content:start;min-width:0;border-bottom:6px solid var(--yellow)}
+.ad.top{outline:2px solid var(--yellow);outline-offset:-2px}
+.ad figure{margin:0;position:relative}
+.ad img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;background:var(--surface)}
+.ad .rank{position:absolute;top:10px;left:10px;width:32px;height:32px;border-radius:50%;background:var(--black);color:var(--yellow);font-weight:700;display:grid;place-items:center;font-size:15px}
+.ad .body{padding:12px 14px 14px;display:grid;gap:8px}
+.ad .name{font-weight:600;font-size:14px;color:var(--fg);line-height:1.35}
+.ad .name small{display:block;font-weight:300;font-size:12px;color:var(--t3)}
+.ad dl{margin:0;display:grid;grid-template-columns:1fr auto;gap:3px 10px;font-size:12.5px;font-variant-numeric:tabular-nums}
+.ad dt{color:var(--muted)} .ad dd{margin:0;text-align:right;font-weight:600;color:var(--fg)}
+.ad dd.key{background:var(--yellow);padding:0 6px;border-radius:4px}
+.conc>div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:grid;gap:6px;align-content:start;color:var(--muted);font-size:13.5px}
+.conc .k{font-weight:700;font-size:20px;color:var(--fg)}
+.prodbox{display:grid;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px}
+.prodbox .kpi{background:var(--bg);border-color:transparent}
+.mini{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.mini .panel{display:grid;gap:8px;min-width:0}
+.mini .panel h4{margin:0;font-size:13.5px;font-weight:600;color:var(--t2)}
+.mini .panel .u{font-size:11.5px;color:var(--t3);font-weight:300}
+.hb{display:grid;grid-template-columns:76px 1fr;gap:6px 10px;align-items:center;font-size:12.5px}
+.hb .track{position:relative;height:22px;background:var(--zebra);border-radius:4px;min-width:0}
+.hb .fill{position:absolute;inset:0 auto 0 0;border-radius:0 4px 4px 0}
+.hb .val{position:absolute;top:50%;transform:translateY(-50%);font-weight:600;font-size:12px;white-space:nowrap;font-variant-numeric:tabular-nums}
+ul{margin:0;padding-left:20px;display:grid;gap:7px;max-width:82ch}
+.src{font-size:11.5px;color:var(--t3)}
+@media (max-width:720px){.kpis,.kpis.six,.kpis.five{grid-template-columns:repeat(2,1fr)}.cols,.conc,.mini,.ads{grid-template-columns:1fr}.kpi .v{font-size:22px}}
+</style>
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+<div class="wrap">
+<header>
+  <div class="bar">
+    <img src="../assets/img/oriente-07.png" alt="ADCOM">
+    <div><span class="eyebrow">Gana · Meta Ads · Informe final de pauta</span>
+    <h1>Resultados de Gana Oriente</h1></div>
+  </div>
+  <div class="meta">
+    <span>Periodo de resultados: 25 sep – 19 oct 2026</span>
+    <span>Objetivo de pauta: alcance (el tráfico se mide con clics en enlace)</span>
+    <span>Fuente: Meta Ads, consultada el 29 oct 2026</span>
+  </div>
+</header>
+
+<!-- 1 -->
+<section>
+  <h2><span class="n">1</span>Resumen <em>ejecutivo</em></h2>
+  <div class="kpis five">
+    <div class="kpi"><span class="l">Presupuesto ejecutado</span><span class="v">$5.313.898</span><span class="d">106,3% del flow ($5.000.000)</span></div>
+    <div class="kpi"><span class="l">Alcance</span><span class="v">2.598.736</span><span class="d">personas únicas, ambos productos</span></div>
+    <div class="kpi"><span class="l">Impresiones</span><span class="v">6.337.017</span><span class="d ok">633,7% de la meta (1.000.000)</span></div>
+    <div class="kpi"><span class="l">Frecuencia</span><span class="v">2,44</span><span class="d">veces que vio la pauta cada persona</span></div>
+    <div class="kpi"><span class="l">CPM</span><span class="v">$839</span><span class="d ok">−83,2% vs. objetivo $5.000</span></div>
+  </div>
+  <div class="conc">
+    <div><span class="chip obs">Dato</span><span class="k">6,3 veces la meta</span>Se entregaron 6.337.017 impresiones frente a 1.000.000 planeadas, a un CPM de $839 frente a los $5.000 supuestos en el flow. El objetivo de alcance se cumplió con amplitud: 2.598.736 personas únicas.</div>
+    <div><span class="chip obs">Dato</span><span class="k">Cada producto aportó distinto</span>Goleador alcanzó más personas (1.410.062 frente a 1.333.066) y a menor costo por persona. Placa entregó más impresiones (3.646.130 frente a 2.690.887) y repitió más el mensaje.</div>  </div>
+</section>
+
+<!-- 2 -->
+<section>
+  <h2><span class="n">2</span>Presupuesto: flow frente a <em>Meta</em></h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Producto</th><th>Flow (referencia)</th><th class="cur">Ejecutado en Meta</th><th>Ejecutado / flow</th></tr></thead>
+    <tbody>
+      <tr><td><span class="sw p"></span>Placa Millonaria</td><td>$2.500.000</td><td>$3.143.870</td><td class="up">125,8%</td></tr>
+      <tr><td><span class="sw g"></span>Chance Goleador</td><td>$2.500.000</td><td>$2.170.028</td><td>86,8%</td></tr>
+      <tr class="hl"><td>Total</td><td>$5.000.000</td><td>$5.313.898</td><td>106,3%</td></tr>
+    </tbody>
+  </table></div>  <div class="callout">
+    <b class="tag">Lectura del presupuesto</b>
+    <p><span class="chip int">Lectura</span>En conjunto, Meta ejecutó el 106,3% del flow. El sobregasto está en Placa (+$643.870 sobre su referencia); Goleador quedó por debajo (−$329.972).</p>
+  </div>
+</section>
+
+<!-- 3 -->
+<section>
+  <h2><span class="n">3</span>Impacto por <em>producto</em></h2>
+
+  <div class="prodbox">
+    <h3 class="prod"><span class="sw g"></span>Chance Goleador</h3>
+    <div class="kpis">
+      <div class="kpi"><span class="l">Inversión</span><span class="v">$2.170.028</span><span class="d">40,8% del presupuesto ejecutado</span></div>
+      <div class="kpi"><span class="l">Alcance</span><span class="v">1.410.062</span><span class="d">personas únicas</span></div>
+      <div class="kpi"><span class="l">Impresiones</span><span class="v">2.690.887</span><span class="d">frecuencia 1,91</span></div>
+      <div class="kpi"><span class="l">CPM</span><span class="v">$806</span><span class="d ok">−83,9% vs. objetivo $5.000</span></div>    </div>
+    <ul>
+      <li><span class="chip obs">Dato</span>Llegó a 1.410.062 personas, cada una con 1,91 impresiones en promedio, a un CPM de $806. Sus piezas principales fueron “Hoy es el partido” (36,4% del gasto) y “1 número 6 goleadores” (27,7%).</li>
+      <li><span class="chip int">Lectura</span>Para el objetivo de alcance, Goleador cumplió: llegó a 1,4 millones de personas con una frecuencia baja.</li>    </ul>
+  </div>
+
+  <div class="prodbox">
+    <h3 class="prod"><span class="sw p"></span>Placa Millonaria</h3>
+    <div class="kpis">
+      <div class="kpi"><span class="l">Inversión</span><span class="v">$3.143.870</span><span class="d">59,2% del presupuesto ejecutado</span></div>
+      <div class="kpi"><span class="l">Alcance</span><span class="v">1.333.066</span><span class="d">personas únicas</span></div>
+      <div class="kpi"><span class="l">Impresiones</span><span class="v">3.646.130</span><span class="d">frecuencia 2,74</span></div>
+      <div class="kpi"><span class="l">CPM</span><span class="v">$862</span><span class="d ok">−82,8% vs. objetivo $5.000</span></div>    </div>
+    <ul>
+      <li><span class="chip obs">Dato</span>Llegó a 1.333.066 personas, cada una con 2,74 impresiones en promedio, a un CPM de $862. Sus piezas principales fueron “Mira esa placa” (carrusel) y “Arma tu placa” (post), con el 85% del gasto.</li>
+      <li><span class="chip int">Lectura</span>Para el objetivo de alcance, Placa cumplió: llegó a 1,3 millones de personas con una frecuencia menor a 3. No hay evidencia de ventas atribuibles a la pauta.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 4 -->
+<section>
+  <h2><span class="n">4</span>Comparativo entre <em>productos</em></h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Indicador</th><th><span class="sw g"></span>Chance Goleador</th><th><span class="sw p"></span>Placa Millonaria</th><th>Mejor resultado</th></tr></thead>
+    <tbody>
+      <tr><td>Inversión</td><td>$2.170.028</td><td>$3.143.870</td><td>—</td></tr>
+      <tr><td>Alcance (personas únicas)</td><td><span class="best">1.410.062</span></td><td>1.333.066</td><td>Goleador (+5,8%)</td></tr>
+      <tr><td>Impresiones</td><td>2.690.887</td><td><span class="best">3.646.130</span></td><td>Placa (+35,5%)</td></tr>
+      <tr><td>Frecuencia</td><td>1,91</td><td>2,74</td><td>Placa repitió más el mensaje</td></tr>
+      <tr><td>CPM (costo por mil impresiones)</td><td><span class="best">$806</span></td><td>$862</td><td>Goleador (−6,5%)</td></tr>
+      <tr><td>Costo por mil personas alcanzadas</td><td><span class="best">$1.539</span></td><td>$2.358</td><td>Goleador (−34,7%)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="chart">
+    <h3>Comparativo de resultados por producto</h3>
+    <span class="sub">Cada panel tiene su propia unidad; las dos barras de un panel usan la misma escala</span>
+    <div class="legend"><span><span class="sw g"></span>Chance Goleador</span><span><span class="sw p"></span>Placa Millonaria</span></div>
+    <div class="mini" id="mini"></div>
+    <p class="take"><span class="chip int">Lectura</span>No hay un ganador absoluto. <b>Goleador</b> llegó a más personas y a menor costo por persona alcanzada. <b>Placa</b> entregó más impresiones, con una mayor frecuencia.</p>
+  </div>
+</section>
+
+<!-- 5 -->
+<section>
+  <h2><span class="n">5</span>Top 3 anuncios por <em>producto</em></h2>
+  <p class="note">Anuncios ordenados por alcance (personas únicas), una pieza distinta por puesto. El alcance de varios anuncios no se suma, porque una persona pudo ver más de uno.</p>
+
+  <div class="prodbox">
+    <h3 class="prod"><span class="sw g"></span>Chance Goleador</h3>
+    <div class="ads">
+      <article class="ad top"><figure><img src="../assets/img/oriente-08.jpg" alt="Anuncio de Chance Goleador: Hoy es el partido con tus goleadores favoritos" loading="lazy"><span class="rank">1</span></figure>
+        <div class="body"><span class="name">Hoy es el partido<small>Post</small></span>
+          <dl><dt>Alcance</dt><dd class="key">399.958</dd><dt>Impresiones</dt><dd>607.710</dd><dt>Frecuencia</dt><dd>1,52</dd><dt>Inversión</dt><dd>$498.683 · 23,0%</dd><dt>CPM</dt><dd>$821</dd><dt>Costo por mil alcanzados</dt><dd>$1.247</dd></dl></div></article>
+      <article class="ad"><figure><img src="../assets/img/oriente-09.jpg" alt="Anuncio de Chance Goleador: 1 número + 6 goleadores" loading="lazy"><span class="rank">2</span></figure>
+        <div class="body"><span class="name">1 número + 6 goleadores<small>Post</small></span>
+          <dl><dt>Alcance</dt><dd class="key">313.174</dd><dt>Impresiones</dt><dd>380.122</dd><dt>Frecuencia</dt><dd>1,21</dd><dt>Inversión</dt><dd>$290.441 · 13,4%</dd><dt>CPM</dt><dd>$764</dd><dt>Costo por mil alcanzados</dt><dd>$927</dd></dl></div></article>
+      <article class="ad"><figure><img src="../assets/img/oriente-10.jpg" alt="Anuncio de Chance Goleador: Une tus números + 6 goleadores" loading="lazy"><span class="rank">3</span></figure>
+        <div class="body"><span class="name">Une tus números + 6 goleadores<small>Post</small></span>
+          <dl><dt>Alcance</dt><dd class="key">209.597</dd><dt>Impresiones</dt><dd>240.277</dd><dt>Frecuencia</dt><dd>1,15</dd><dt>Inversión</dt><dd>$203.859 · 9,4%</dd><dt>CPM</dt><dd>$848</dd><dt>Costo por mil alcanzados</dt><dd>$973</dd></dl></div></article>
+    </div>
+    <ul>
+      <li><span class="chip obs">Dato</span>Los tres anuncios suman el 45,8% de la inversión de Goleador. “Hoy es el partido” fue el de mayor alcance y mayor inversión.</li>
+      <li><span class="chip int">Lectura</span>“1 número 6 goleadores” fue el más eficiente del top: llegó a 313.174 personas con el CPM más bajo ($764) y $927 por cada mil personas alcanzadas. Es un buen candidato para recibir más presupuesto.</li>
+    </ul>
+  </div>
+
+  <div class="prodbox">
+    <h3 class="prod"><span class="sw p"></span>Placa Millonaria</h3>
+    <div class="ads">
+      <article class="ad top"><figure><img src="../assets/img/oriente-11.jpg" alt="Anuncio de Placa Millonaria: Antes de seguir, mira esa placa (primera tarjeta del carrusel)" loading="lazy"><span class="rank">1</span></figure>
+        <div class="body"><span class="name">Mira esa placa<small>Carrusel · se muestra la primera tarjeta</small></span>
+          <dl><dt>Alcance</dt><dd class="key">664.171</dd><dt>Impresiones</dt><dd>1.140.173</dd><dt>Frecuencia</dt><dd>1,72</dd><dt>Inversión</dt><dd>$972.103 · 30,9%</dd><dt>CPM</dt><dd>$853</dd><dt>Costo por mil alcanzados</dt><dd>$1.464</dd></dl></div></article>
+      <article class="ad"><figure><img src="../assets/img/oriente-12.jpg" alt="Anuncio de Placa Millonaria: Arma tu placa con esa fecha especial" loading="lazy"><span class="rank">2</span></figure>
+        <div class="body"><span class="name">Arma tu placa<small>Post</small></span>
+          <dl><dt>Alcance</dt><dd class="key">543.595</dd><dt>Impresiones</dt><dd>864.967</dd><dt>Frecuencia</dt><dd>1,59</dd><dt>Inversión</dt><dd>$738.358 · 23,5%</dd><dt>CPM</dt><dd>$854</dd><dt>Costo por mil alcanzados</dt><dd>$1.358</dd></dl></div></article>
+      <article class="ad"><figure><img src="../assets/img/oriente-13.jpg" alt="Anuncio de Placa Millonaria: 3 letras + 3 números, una combinación ganadora" loading="lazy"><span class="rank">3</span></figure>
+        <div class="body"><span class="name">3 letras + 3 números<small>Post</small></span>
+          <dl><dt>Alcance</dt><dd class="key">107.973</dd><dt>Impresiones</dt><dd>129.802</dd><dt>Frecuencia</dt><dd>1,20</dd><dt>Inversión</dt><dd>$102.981 · 3,3%</dd><dt>CPM</dt><dd>$793</dd><dt>Costo por mil alcanzados</dt><dd>$954</dd></dl></div></article>
+    </div>
+    <ul>
+      <li><span class="chip obs">Dato</span>Los tres anuncios suman el 57,7% de la inversión de Placa. El carrusel “Mira esa placa” fue el de mayor alcance, con 664.171 personas.</li>
+      <li><span class="chip int">Lectura</span>“3 letras + 3 números” fue el más eficiente del top: $954 por cada mil personas alcanzadas, con el CPM más bajo ($793). Recibió poca inversión (3,3%) y es un buen candidato para recibir más presupuesto.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 6 -->
+<section>
+  <h2><span class="n">6</span>Conclusiones y <em>recomendaciones</em></h2>
+  <div class="cols">
+    <div>
+      <h3>Logros</h3>
+      <ul>
+        <li><span class="chip obs">Dato</span>6,34 millones de impresiones, 6,3 veces la meta, con un CPM 83,2% menor al previsto.</li>
+        <li><span class="chip obs">Dato</span>2,6 millones de personas alcanzadas sin duplicar entre productos, con una frecuencia por producto menor a 3 (Goleador 1,91 y Placa 2,74).</li>
+        <li><span class="chip obs">Dato</span>Cada mil personas alcanzadas costaron $2.045 en conjunto.</li>
+        <li><span class="chip obs">Dato</span>Creatividades ganadoras identificadas: “Hoy es el partido” y “1 número + 6 goleadores” en Goleador; “Mira esa placa” y “Arma tu placa” en Placa.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Oportunidades de mejora</h3>
+      <ul>
+        <li><span class="chip obs">Dato</span>El presupuesto ejecutado superó el flow en 6,3%, todo por Placa (125,8% de su referencia).</li>
+        <li><span class="chip int">Lectura</span>Al menos el 39% del alcance de Placa en Antioquia quedó fuera del Oriente, porque los radios de Guarne y El Retiro llegan al Valle de Aburrá.</li>
+        <li><span class="chip obs">Dato</span>En Placa, los públicos de base de datos (−4 compras e intermitentes) quedaron como exclusión, no como público objetivo.</li>
+        <li><span class="chip obs">Dato</span>No hay resultados por municipio. En Placa, la visita a la página de destino no se está midiendo (1 registro frente a 3.331 clics en enlace).</li>
+      </ul>
+    </div>
+  </div>
+
+</section>
+
+<p class="src">Fuente: Meta Marketing API, cuenta Gana (1497284188840551), consultada el 26 y el 29 oct 2026. Moneda: COP. Alcance = personas únicas; impresiones = veces que se mostró un anuncio; clic en enlace = clic que lleva fuera de Meta; CTR = clics / impresiones; CPC = gasto / clics. No se reportan conversiones ni ventas porque no hay datos que las respalden.</p>
+</div>
+
+<script>
+(function(){
+  const NS="http://www.w3.org/2000/svg";
+  const el=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p&&p.appendChild(e);return e};
+  const fmt=n=>"$"+Math.round(n).toLocaleString("es-CO");
+  const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  function tipFor(box){
+    const t=document.createElement("div");t.className="tip";t.hidden=true;box.appendChild(t);
+    return {show(html,x,y){t.innerHTML=html;t.hidden=false;const bw=box.clientWidth;let l=x+12;if(l+t.offsetWidth>bw)l=x-t.offsetWidth-12;t.style.left=Math.max(4,l)+"px";t.style.top=Math.max(4,y-10)+"px"},hide(){t.hidden=true}};
+  }
+  const roundTop=(bx,by,bw,base,r)=>`M${bx},${base}V${by+r}Q${bx},${by} ${bx+r},${by}H${bx+bw-r}Q${bx+bw},${by} ${bx+bw},${by+r}V${base}Z`;
+
+  // (gráfica semanal eliminada)
+  if(false)(function(){
+    const box=document.getElementById("c-weekly"),svg=box.querySelector("svg");
+    const cats=["S1 · 24 sep–1 oct","S2 · 2–8 oct","S3 · 9–15 oct","S4 · 16–19 oct","S5 · 20–26 oct"];
+    const vals=[[970851,987078],[945975,641289],[1605985,1588980],[1426525,1441224],[664436,655327]];
+    const W=900,H=260,m={l:56,r:16,t:22,b:34},iw=W-m.l-m.r,ih=H-m.t-m.b,max=2000000;
+    const y=v=>m.t+ih-v/max*ih;
+    const g=el("g",{class:"grid"},svg);
+    [0,500000,1000000,1500000,2000000].forEach(v=>{el("line",{x1:m.l,x2:W-m.r,y1:y(v),y2:y(v)},g);const t=el("text",{x:m.l-8,y:y(v)+4,"text-anchor":"end"},svg);t.textContent=v?"$"+(v/1e6).toLocaleString("es-CO")+" M":"0"});
+    const gw=iw/cats.length,bw=Math.min(56,gw*0.3),cols=["--gray-bar","--yellow"],names=["Programado","Ejecutado"];
+    const tip=tipFor(box);
+    cats.forEach((c,i)=>{
+      const cx=m.l+gw*i+gw/2;
+      const t=el("text",{x:cx,y:H-12,"text-anchor":"middle",class:"lbl"},svg);t.textContent=c;
+      vals[i].forEach((v,j)=>{
+        const bx=cx+(j===0?-bw-1:1),by=y(v);
+        el("path",{d:roundTop(bx,by,bw,m.t+ih,4),fill:css(cols[j])},svg);
+        const lb=el("text",{x:bx+bw/2,y:by-6,"text-anchor":"middle",class:"lbl"},svg);lb.textContent="$"+(v/1e6).toLocaleString("es-CO",{maximumFractionDigits:2})+" M";
+        const hit=el("rect",{x:bx-4,y:m.t,width:bw+8,height:ih,fill:"transparent"},svg);
+        hit.addEventListener("pointermove",e=>{const br=box.getBoundingClientRect();tip.show(`<b>${c}</b><br>${names[j]}: ${fmt(v)}<br>Ejecución: ${(vals[i][1]/vals[i][0]*100).toLocaleString("es-CO",{maximumFractionDigits:1})}%`,e.clientX-br.left,e.clientY-br.top)});
+        hit.addEventListener("pointerleave",()=>tip.hide());
+      });
+    });
+  })();
+
+  // Comparativo por producto: paneles con escala compartida dentro de cada panel
+  (function(){
+    const box=document.getElementById("mini");
+    const panels=[
+      ["Alcance","personas únicas",1410062,1333066,v=>v.toLocaleString("es-CO")],
+      ["Impresiones","número de impresiones",2690887,3646130,v=>v.toLocaleString("es-CO")],
+      ["CPM","COP por mil impresiones, menor es mejor",806,862,v=>"$"+v.toLocaleString("es-CO")],
+      ["Costo por mil personas alcanzadas","COP, menor es mejor",1539,2358,v=>"$"+v.toLocaleString("es-CO")]
+    ];
+    panels.forEach(([t,u,g,p,f])=>{
+      const max=Math.max(g,p);
+      const d=document.createElement("div");d.className="panel";
+      const row=(name,v,col,txt)=>{const w=v/max*100;const inside=w>55;return `<span>${name}</span><div class="track"><div class="fill" style="width:${w}%;background:${col}"></div><span class="val" style="${inside?`right:${100-w}%;padding-right:8px;color:${txt}`:`left:calc(${w}% + 8px);color:var(--fg)`}">${f(v)}</span></div>`};
+      d.innerHTML=`<h4>${t} <span class="u">· ${u}</span></h4><div class="hb">${row("Goleador",g,"var(--yellow)","var(--black)")}${row("Placa",p,"var(--black)","#FFFFFF")}</div>`;
+      box.appendChild(d);
+    });
+  })();
+
+  // (gráfica de audiencia por municipio eliminada con la sección geográfica)
+  if(false)(function(){
+    const box=document.getElementById("c-muni"),svg=box.querySelector("svg");
+    const rows=[["Guarne",3700000,4400000,1],["El Retiro",3700000,4400000,1],["La Ceja",719000,845900],["Rionegro",639500,752300],["Marinilla",574500,675900],["El Carmen de Viboral",496100,583600],["El Santuario",473400,557000],["El Peñol",420600,494800],["Granada",367400,432300],["La Unión",353400,415700],["Guatapé",218500,257100],["Concepción",160900,189300],["Abejorral",134400,158100],["Alejandría",131600,154800],["San Rafael",84200,99100],["Sonsón",80700,94900],["Argelia",52500,61800],["Nariño",49500,58300]];
+    const W=900,H=520,m={l:150,r:150,t:8,b:26},iw=W-m.l-m.r,ih=H-m.t-m.b,max=1000000;
+    const x=v=>m.l+Math.min(v,max)/max*iw,rh=ih/rows.length,bh=Math.min(14,rh*0.6);
+    const g=el("g",{class:"grid"},svg);
+    [0,250000,500000,750000,1000000].forEach(v=>{el("line",{x1:x(v),x2:x(v),y1:m.t,y2:m.t+ih},g);const t=el("text",{x:x(v),y:H-8,"text-anchor":"middle"},svg);t.textContent=v?(v/1000).toLocaleString("es-CO")+" mil":"0"});
+    const tip=tipFor(box);
+    rows.forEach(([n,lo,hi,out],i)=>{
+      const cy=m.t+rh*i+rh/2;
+      const t=el("text",{x:m.l-10,y:cy+4,"text-anchor":"end",class:"lbl"},svg);t.textContent=n;
+      const col=out?css("--crit"):css("--black");
+      if(out){
+        el("rect",{x:x(0),y:cy-bh/2,width:x(max)-x(0),height:bh,rx:3,fill:col},svg);
+        el("path",{d:`M${x(max)-16},${cy-bh/2-2}l6,${bh+4}M${x(max)-9},${cy-bh/2-2}l6,${bh+4}`,stroke:css("--surface"),"stroke-width":3,fill:"none"},svg);
+      }else{
+        el("rect",{x:x(0),y:cy-bh/2,width:x(lo)-x(0),height:bh,rx:3,fill:col,"fill-opacity":.18},svg);
+        el("rect",{x:x(lo),y:cy-bh/2,width:Math.max(4,x(hi)-x(lo)),height:bh,rx:3,fill:col},svg);
+      }
+      const lab=el("text",{x:x(Math.min(hi,max))+8,y:cy+4,class:"lbl"},svg);
+      lab.textContent=out?"3,7–4,4 millones":(lo/1000).toLocaleString("es-CO",{maximumFractionDigits:0})+"–"+(hi/1000).toLocaleString("es-CO",{maximumFractionDigits:0})+" mil";
+      const hit=el("rect",{x:0,y:cy-rh/2,width:W,height:rh,fill:"transparent"},svg);
+      hit.addEventListener("pointermove",e=>{const br=box.getBoundingClientRect();tip.show(`<b>${n}</b><br>Audiencia potencial: ${lo.toLocaleString("es-CO")} – ${hi.toLocaleString("es-CO")}${out?"<br>Incluye parte del Valle de Aburrá":""}`,e.clientX-br.left,e.clientY-br.top)});
+      hit.addEventListener("pointerleave",()=>tip.hide());
+    });
+  })();
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,866 @@
+<title>Gana y Loti | Avance de pauta</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    color-scheme: light;
+    --bg:        #F7F7F8;
+    --surface:   #FFFFFF;
+    --surface-2: #F0F0EF;
+    --ink:       #111111;
+    --ink-2:     #47484A;
+    --muted:     #7A7B7D;
+    --line:      #E7E7E7;
+    --line-2:    #ECECEE;
+    --accent:    #FFC000;
+    --accent-ink:#111111;
+    --good:      #1E7A34;  --good-tint: #E3F3E6;
+    --warn:      #A15400;  --warn-tint: #FBEBD6;
+    --bad:       #B42318;  --bad-tint:  #FBE4E1;
+    --info:      #1849A9;  --info-tint: #E3EBFB;
+    --shadow: 0 1px 2px rgba(17,17,17,0.05), 0 6px 18px -10px rgba(17,17,17,0.14);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg:        #131313;
+      --surface:   #1C1C1C;
+      --surface-2: #242424;
+      --ink:       #F7F7F8;
+      --ink-2:     #C9C9CB;
+      --muted:     #98999B;
+      --line:      #2E2E2E;
+      --line-2:    #383838;
+      --accent:    #FFC000;
+      --accent-ink:#111111;
+      --good:      #4ADE80;  --good-tint: #123420;
+      --warn:      #F5A623;  --warn-tint: #3A2A10;
+      --bad:       #FF6B6B;  --bad-tint:  #3A1A1A;
+      --info:      #6FA8FF;  --info-tint: #16233D;
+      --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 10px 24px -12px rgba(0,0,0,0.55);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg:        #131313;
+    --surface:   #1C1C1C;
+    --surface-2: #242424;
+    --ink:       #F7F7F8;
+    --ink-2:     #C9C9CB;
+    --muted:     #98999B;
+    --line:      #2E2E2E;
+    --line-2:    #383838;
+    --accent:    #FFC000;
+    --accent-ink:#111111;
+    --good:      #4ADE80;  --good-tint: #123420;
+    --warn:      #F5A623;  --warn-tint: #3A2A10;
+    --bad:       #FF6B6B;  --bad-tint:  #3A1A1A;
+    --info:      #6FA8FF;  --info-tint: #16233D;
+    --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 10px 24px -12px rgba(0,0,0,0.55);
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Poppins", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 40px 24px 100px; }
+  h1, h2, h3 { margin: 0; text-wrap: balance; }
+  .mono { font-variant-numeric: tabular-nums; }
+  a { color: inherit; }
+
+  .kicker { display: inline-flex; align-items: center; gap: 8px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .kicker .bar { width: 14px; height: 5px; border-radius: 2px; background: var(--accent); flex-shrink: 0; }
+
+  .cover { padding: 36px 0 32px; border-bottom: 1px solid var(--line); margin-bottom: 40px; display: flex; flex-direction: column; gap: 16px; }
+  .cover-brand { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); }
+  .cover-brand .sq { width: 16px; height: 16px; background: var(--accent); border-radius: 4px; }
+  .cover h1 { font-size: clamp(28px, 4.2vw, 44px); font-weight: 800; letter-spacing: -0.01em; }
+  .cover-sub { font-size: 15px; color: var(--ink-2); max-width: 62ch; line-height: 1.55; }
+  .cover-meta { display: flex; flex-wrap: wrap; gap: 8px 26px; font-size: 13px; color: var(--ink-2); }
+  .cover-meta strong { color: var(--ink); font-weight: 600; }
+
+  .section { margin-bottom: 56px; }
+  .section-head { max-width: 74ch; margin-bottom: 20px; }
+  .section-head h2 { font-size: clamp(19px, 2.2vw, 24px); font-weight: 700; letter-spacing: -0.005em; }
+  .section-head p { font-size: 14px; color: var(--ink-2); line-height: 1.6; margin: 8px 0 0; }
+
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); margin-bottom: 8px; }
+  .kpi { background: var(--surface); padding: 18px 18px 16px; display: flex; flex-direction: column; gap: 6px; }
+  .kpi .label { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+  .kpi .value { font-size: 24px; font-weight: 800; color: var(--ink); letter-spacing: -0.01em; }
+  .kpi .sub { font-size: 12px; color: var(--ink-2); }
+
+  .exec-list { list-style: none; margin: 20px 0 0; padding: 0; display: flex; flex-direction: column; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
+  .exec-list li { background: var(--surface); padding: 14px 18px; display: flex; gap: 12px; font-size: 13.5px; line-height: 1.6; color: var(--ink-2); }
+  .exec-list li .num { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; background: var(--surface-2); color: var(--ink); font-size: 11.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  .exec-list strong { color: var(--ink); font-weight: 600; }
+  .reading { margin-top: 16px; background: var(--surface); border: 1px solid var(--line); border-left: 6px solid var(--accent); border-radius: 12px; padding: 16px 20px; font-size: 14px; line-height: 1.65; color: var(--ink); box-shadow: var(--shadow); }
+  .reading .k { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+
+  .account-tag { display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px 4px 10px; border-radius: 999px; background: var(--surface-2); font-size: 12px; font-weight: 600; color: var(--ink); margin-bottom: 14px; }
+  .account-tag .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+
+  .plan-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
+  .plan-card { background: var(--surface); padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; }
+  .plan-card .fam-tag-row { display: flex; align-items: center; justify-content: space-between; }
+  .plan-bar-track { height: 8px; background: var(--surface-2); border-radius: 5px; overflow: hidden; }
+  .plan-bar-fill { height: 100%; border-radius: 5px; background: var(--accent); }
+  .plan-bar-fill.critical { background: var(--bad); }
+  .plan-bar-fill.good { background: var(--good); }
+  .plan-pct { font-size: 21px; font-weight: 800; }
+  .plan-pct.critical { color: var(--bad); }
+  .plan-pct.good { color: var(--good); }
+  .plan-pct-label { font-size: 11.5px; color: var(--muted); line-height: 1.4; }
+
+  .tag { display: inline-flex; align-items: center; gap: 6px; padding: 3px 11px 3px 9px; border-radius: 999px; font-size: 11.5px; font-weight: 600; letter-spacing: 0.02em; background: var(--surface-2); color: var(--ink); }
+  .tag .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+
+  section.family { margin-bottom: 36px; }
+  .family-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 6px; }
+  .family-title-row { display: flex; align-items: center; gap: 10px; }
+  section.family h3 { font-size: 18px; font-weight: 700; }
+  .family-spend { font-size: 12.5px; color: var(--ink-2); }
+  .family-spend .mono { color: var(--ink); font-weight: 700; }
+  .family-note { font-size: 13.5px; color: var(--ink-2); max-width: 72ch; margin: 8px 0 16px; line-height: 1.55; }
+  .family-note strong { color: var(--ink); }
+
+  .campaign-list { display: flex; flex-direction: column; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
+  .campaign { background: var(--surface); padding: 16px 20px; display: flex; gap: 16px; }
+  .campaign.paused { background: var(--surface-2); }
+  .c-thumb { width: 54px; height: 54px; border-radius: 10px; object-fit: cover; border: 1px solid var(--line-2); flex-shrink: 0; background: var(--surface-2); }
+  .c-thumb.placeholder { display: flex; align-items: center; justify-content: center; font-size: 9.5px; color: var(--muted); text-align: center; padding: 4px; line-height: 1.3; }
+  .c-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 9px; }
+  .c-top { display: grid; grid-template-columns: 1.4fr auto auto auto; gap: 10px 22px; align-items: center; }
+  .c-name { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .c-name .n { font-size: 14px; font-weight: 700; color: var(--ink); }
+  .c-name .obj { font-size: 11.5px; color: var(--muted); display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+  .pill { font-size: 10px; font-weight: 600; letter-spacing: 0.02em; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line-2); color: var(--ink-2); white-space: nowrap; }
+  .pill.date { background: var(--surface-2); color: var(--ink-2); }
+  .c-result { text-align: right; min-width: 122px; }
+  .c-result .val { font-size: 16px; font-weight: 700; color: var(--ink); }
+  .delta { display: inline-block; font-size: 9px; font-weight: 800; padding: 1px 5px; border-radius: 6px; margin-left: 4px; white-space: nowrap; vertical-align: middle; }
+  .delta.good { background: var(--good-tint); color: var(--good); }
+  .delta.bad { background: var(--bad-tint); color: var(--bad); }
+  .vs-prev { font-size: 9.5px; color: var(--muted); }
+  .c-result .lbl { font-size: 10.5px; color: var(--muted); margin-top: 1px; }
+  .c-cost { text-align: right; min-width: 104px; }
+  .c-cost .val { font-size: 13.5px; font-weight: 700; }
+  .c-cost .val.flag-critical { color: var(--bad); }
+  .c-cost .val.flag-good { color: var(--good); }
+  .c-cost .lbl { font-size: 10.5px; color: var(--muted); margin-top: 1px; }
+  .c-extra { text-align: right; font-size: 11.5px; color: var(--ink-2); line-height: 1.5; min-width: 96px; }
+  .c-meta-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 20px; padding-top: 9px; border-top: 1px dashed var(--line-2); }
+  .c-meta { font-size: 11.5px; line-height: 1.55; color: var(--ink-2); }
+  .c-meta .k { font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 2px; }
+  .c-meta.plan-line .verdict.critical { color: var(--bad); font-weight: 600; }
+  .c-meta.plan-line .verdict.good { color: var(--good); font-weight: 600; }
+  .c-meta.pace-line { grid-column: 1 / -1; }
+  .c-meta.pace-line strong { color: var(--ink); font-weight: 700; }
+  .c-meta.pace-line strong.critical { color: var(--bad); }
+  .c-meta.pace-line strong.good { color: var(--good); }
+  .paused-note { font-size: 11.5px; color: var(--muted); font-style: italic; }
+
+  .c-insight { grid-column: 1 / -1; display: flex; gap: 9px; align-items: flex-start; background: var(--surface-2); border-radius: 10px; padding: 9px 13px; margin-top: 2px; }
+  .c-insight .k { font-size: 9.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); flex-shrink: 0; padding-top: 1px; }
+  .c-insight p { margin: 0; font-size: 11.5px; line-height: 1.55; color: var(--ink-2); }
+  .c-insight p strong { color: var(--ink); }
+  .campaign.paused .c-insight { background: var(--surface); border: 1px dashed var(--line-2); }
+
+  @media (max-width: 700px) {
+    .kpi-grid, .plan-summary { grid-template-columns: repeat(2, 1fr); }
+    .c-top { grid-template-columns: 1fr; text-align: left; }
+    .c-result, .c-cost, .c-extra { text-align: left; }
+    .c-meta-row { grid-template-columns: 1fr; }
+    .campaign { flex-direction: column; }
+  }
+
+  .chart-card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 20px 22px 18px; margin-top: 18px; box-shadow: var(--shadow); }
+  .chart-card h4 { font-size: 13.5px; font-weight: 700; margin-bottom: 2px; }
+  .chart-card .chart-sub { font-size: 11.5px; color: var(--muted); margin-bottom: 16px; }
+  .bar-row { display: grid; grid-template-columns: 200px 1fr 92px; align-items: center; gap: 12px; padding: 7px 0; }
+  .bar-row .b-label { font-size: 12px; color: var(--ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-track { position: relative; height: 18px; background: var(--surface-2); border-radius: 4px; overflow: hidden; }
+  .bar-fill { position: absolute; inset: 0 auto 0 0; border-radius: 4px; background: var(--accent); }
+  .bar-fill.critical { background: var(--bad); }
+  .bar-fill.good { background: var(--good); }
+  .bar-row .b-value { font-size: 12px; text-align: right; font-weight: 700; }
+  .bar-row .b-value.flag-critical { color: var(--bad); }
+  .bar-row .b-value.flag-good { color: var(--good); }
+  .chart-legend { display: flex; gap: 18px; margin-top: 14px; font-size: 11px; color: var(--muted); flex-wrap: wrap; }
+  .chart-legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .chart-legend i { width: 9px; height: 9px; border-radius: 2px; display: inline-block; }
+
+  .weekly-chart { display: flex; align-items: flex-end; gap: 14px; height: 150px; padding: 20px 4px 0; }
+  .week-col { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; }
+  .week-col .amt { font-size: 10px; font-weight: 700; color: var(--ink-2); white-space: nowrap; margin-bottom: 5px; }
+  .week-col .bar { width: 100%; max-width: 56px; border-radius: 5px 5px 0 0; background: var(--accent); min-height: 3px; }
+  .week-col .bar.partial { background: var(--info); opacity: 0.75; background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.25) 0 4px, transparent 4px 8px); }
+  .week-col .wk { font-size: 10.5px; color: var(--muted); margin-top: 6px; text-align: center; line-height: 1.3; }
+  .weekly-chart-legend { display: flex; gap: 18px; margin-top: 10px; font-size: 11px; color: var(--muted); flex-wrap: wrap; }
+  .weekly-chart-legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .weekly-chart-legend i { width: 9px; height: 9px; border-radius: 2px; display: inline-block; }
+  .share-card { display: flex; flex-direction: column; gap: 10px; margin: 18px 0 8px; }
+  .share-bar { display: flex; height: 32px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); }
+  .share-seg { display: flex; align-items: center; justify-content: center; font-size: 11.5px; font-weight: 700; color: #fff; white-space: nowrap; }
+  .share-key { display: flex; gap: 20px; flex-wrap: wrap; font-size: 12px; color: var(--ink-2); }
+  .share-key span { display: inline-flex; align-items: center; gap: 6px; }
+  .share-key i { width: 9px; height: 9px; border-radius: 2px; display: inline-block; }
+
+  .insights { display: flex; flex-direction: column; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
+  .insight { background: var(--surface); padding: 15px 20px; display: flex; gap: 14px; align-items: flex-start; }
+  .insight .stripe { width: 4px; align-self: stretch; border-radius: 2px; flex-shrink: 0; }
+  .insight.good .stripe { background: var(--good); }
+  .insight.warn .stripe { background: var(--warn); }
+  .insight.bad .stripe { background: var(--bad); }
+  .insight.info .stripe { background: var(--info); }
+  .insight .badge { font-size: 9.5px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; flex-shrink: 0; margin-top: 2px; white-space: nowrap; }
+  .insight.good .badge { background: var(--good-tint); color: var(--good); }
+  .insight.warn .badge { background: var(--warn-tint); color: var(--warn); }
+  .insight.bad .badge { background: var(--bad-tint); color: var(--bad); }
+  .insight.info .badge { background: var(--info-tint); color: var(--info); }
+  .insight p { margin: 0; font-size: 13px; line-height: 1.6; color: var(--ink-2); }
+  .insight p strong { color: var(--ink); font-weight: 600; }
+  .insight p .mono { color: var(--ink); }
+
+  .ads-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
+  .ad-card { background: var(--surface); padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start; }
+  .ad-card .tag.good { background: var(--good-tint); color: var(--good); }
+  .ad-card .ad-body { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .ad-card .name { font-size: 12px; font-weight: 700; color: var(--ink); line-height: 1.35; }
+  .ad-card .stat { font-size: 11.5px; color: var(--ink-2); line-height: 1.5; }
+  .ad-card .stat strong { color: var(--good); }
+
+  .decisions { display: flex; flex-direction: column; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
+  .decision { background: var(--surface); padding: 12px 18px; display: flex; flex-direction: column; gap: 3px; }
+  .decision .action { font-size: 13.5px; font-weight: 700; color: var(--ink); line-height: 1.4; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .prio-pill { flex-shrink: 0; font-size: 10px; font-weight: 800; letter-spacing: 0.03em; padding: 2px 7px; border-radius: 6px; }
+  .prio-pill.p1 { background: var(--bad-tint); color: var(--bad); }
+  .prio-pill.p2 { background: var(--warn-tint); color: var(--warn); }
+  .prio-pill.p3 { background: var(--info-tint); color: var(--info); }
+  .horizon { font-size: 9.5px; font-weight: 600; color: var(--muted); white-space: nowrap; margin-left: auto; text-transform: uppercase; letter-spacing: 0.04em; }
+  .decision .desc { font-size: 12.5px; color: var(--ink-2); line-height: 1.5; margin: 0; }
+  .decision .evidence { font-size: 12px; color: var(--ink-2); line-height: 1.55; }
+  .decision .evidence .k { font-weight: 700; color: var(--ink); }
+
+  .method-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); margin-bottom: 16px; }
+  .method-cell { background: var(--surface); padding: 14px 18px; }
+  .method-cell .k { font-size: 10.5px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 4px; }
+  .method-cell .v { font-size: 13px; color: var(--ink); line-height: 1.5; }
+  .limitations { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .limitations li { font-size: 12.5px; color: var(--ink-2); line-height: 1.6; padding-left: 16px; position: relative; }
+  .limitations li::before { content: ""; position: absolute; left: 0; top: 8px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+  footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+</style>
+
+<div class="wrap">
+
+  <header class="cover">
+    <div class="cover-brand"><span class="sq"></span>ADCOM &middot; Meta Ads</div>
+    <h1>Avance de pauta</h1>
+    <p class="cover-sub">Seguimiento de inversión, resultado y cumplimiento de plan de las campañas activas en las dos cuentas publicitarias de Meta administradas por ADCOM para Gana y Loti Colombia.</p>
+    <div class="cover-meta">
+      <span><strong>Periodo:</strong> Del 4 al 9 de noviembre de 2026</span>
+      <span><strong>Actualizado:</strong> 9 de noviembre de 2026</span>
+    </div>
+  </header>
+
+  <section class="section">
+    <span class="account-tag"><span class="dot"></span>Cuenta Gana</span>
+    <div class="section-head">
+      <h2>Inversión, entrega y ritmo de la semana</h2>
+      <p>Del 4 al 9 de noviembre, Gana invirtió <strong>$12.071.246</strong> en toda la cuenta &mdash; más del doble que la semana anterior ($5.028.083, +140,1%). <strong>Gana</strong> (la familia) siguió siendo la línea dominante (51,7%, $6.234.092), aunque Tráfico_Retención_Bases de datos pasó a pausada al cierre tras otra semana de gasto. <strong>Always On</strong> volvió a tener sus 5 campañas activas (13,6%, $1.636.154): Goleador se reactivó. Aparecieron <strong>dos campañas nuevas</strong>: <strong>Rifazo_Alcance</strong> ($1.177.196, 9,8%) y <strong>Servicio QR_Alcance</strong> ($1.147.683, 9,5%, con un CPM muy por encima del resto de la cuenta), ninguna con flow ni presupuesto documentado. <strong>Adulto Mayor_Alcance</strong> ($1.189.907, 9,9%) ya lleva 13 días activa, 3 más de los 10 planeados, y acumula 87,1% de su presupuesto de $2.000.000. <strong>NuBank_Alcance</strong> ($395.687, 3,3%) lleva 20,4% de su presupuesto total. <strong>ARA_Alcance</strong> sigue pausada, sin gasto. <strong>Keno_Alcance</strong> ($290.527, 2,4%) sigue sin objetivo de costo.</p>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi"><div class="label">Inversión de la semana</div><div class="value mono">$12.071.246</div><div class="sub">COP · 13 campañas con gasto</div></div>
+      <div class="kpi"><div class="label">Impresiones</div><div class="value mono">11.435.256</div><div class="sub">Alcance combinado ≈7,7M</div></div>
+      <div class="kpi"><div class="label">Vistas de landing</div><div class="value mono">39.256</div><div class="sub">2 campañas de tráfico</div></div>
+      <div class="kpi"><div class="label">Leads / registros</div><div class="value mono">0</div><div class="sub">Sin leads ni registros nuevos en la semana</div></div>
+    </div>
+
+    <div class="share-card">
+      <h4 style="font-size:12.5px; font-weight:700; color:var(--ink-2); letter-spacing:0.02em; text-transform:uppercase; margin:0 0 4px;">Reparto de la inversión por familia (4&ndash;9 de noviembre)</h4>
+      <div class="share-bar">
+        <div class="share-seg" style="width:51.7%; background:#B8862E;">Gana · 51,7%</div>
+        <div class="share-seg" style="width:13.6%; background:#3B6E91;">Always On · 13,6%</div>
+        <div class="share-seg" style="width:2.4%; background:#4A7A4A;">Keno_Alcance · 2,4%</div>
+        <div class="share-seg" style="width:3.3%; background:#2E8B8B;">NuBank_Alcance · 3,3%</div>
+        <div class="share-seg" style="width:9.9%; background:#8B5E2E;">Adulto Mayor_Alcance · 9,9%</div>
+        <div class="share-seg" style="width:9.8%; background:#7A3B91;">Rifazo_Alcance · 9,8%</div>
+        <div class="share-seg" style="width:9.5%; background:#B4423C;">Servicio QR_Alcance · 9,5%</div>
+      </div>
+      <div class="share-key">
+        <span><i style="background:#B8862E"></i>Gana &mdash; $6.234.092</span>
+        <span><i style="background:#3B6E91"></i>Always On &mdash; $1.636.154</span>
+        <span><i style="background:#4A7A4A"></i>Keno_Alcance &mdash; $290.527</span>
+        <span><i style="background:#2E8B8B"></i>NuBank_Alcance &mdash; $395.687</span>
+        <span><i style="background:#8B5E2E"></i>Adulto Mayor_Alcance &mdash; $1.189.907</span>
+        <span><i style="background:#7A3B91"></i>Rifazo_Alcance &mdash; $1.177.196</span>
+        <span><i style="background:#B4423C"></i>Servicio QR_Alcance &mdash; $1.147.683</span>
+      </div>
+    </div>
+
+    <div class="plan-summary" id="plan-summary" style="margin-top:12px;"></div>
+  </section>
+
+  <section class="section">
+    <span class="account-tag"><span class="dot"></span>Cuenta Gana</span>
+    <div class="section-head">
+      <h2>Diagnóstico por familia y campaña</h2>
+    </div>
+    <div id="families"></div>
+  </section>
+
+  <section class="section">
+    <span class="account-tag"><span class="dot"></span>Cuenta Gana</span>
+    <div class="section-head">
+      <h2>Anuncios más efectivos</h2>
+      <p>Los anuncios con inversión suficiente para evaluarse y el mejor costo por resultado, del 4 al 9 de noviembre.</p>
+    </div>
+    <div class="ads-grid">
+      <div class="ad-card"><span class="tag good">Rifazo_Alcance (nueva)</span>
+        <div class="ad-body"><div class="name">&ldquo;Estrena un iphone 18 pro max&rdquo; (Copia)</div><div class="stat">12,9% del presupuesto de la campaña ($151.947 de $1.177.196) &middot; <strong>$0,90</strong> por persona alcanzada</div></div>
+      </div>
+      <div class="ad-card"><span class="tag good">Adulto Mayor_Alcance</span>
+        <div class="ad-body"><div class="name">&ldquo;Hoy iniciamos&rdquo; (Video)</div><div class="stat">22,3% del presupuesto de la campaña ($266.010 de $1.189.907) &middot; <strong>$0,78</strong> por persona alcanzada</div></div>
+      </div>
+      <div class="ad-card"><span class="tag good">Gana · Bases de datos (ya pausada)</span>
+        <div class="ad-body"><div class="name">&ldquo;Activa tu cuenta&rdquo; (Copia)</div><div class="stat">15,8% del presupuesto de la campaña ($295.784 de $1.866.549) &middot; <strong>$270,62</strong> por vista de landing &mdash; la campaña pasó a pausada al cierre</div></div>
+      </div>
+    </div>
+
+    <div class="section-head" style="margin-top:28px;">
+      <h2>Decisiones priorizadas</h2>
+      <p>Decisiones sobre públicos, inversión y anuncios, sustentadas con datos del 4 al 9 de noviembre.</p>
+    </div>
+    <div class="decisions">
+      <div class="decision">
+        <div class="action"><span class="prio-pill p1">P1</span>Revisar con urgencia Bases de datos: el costo por clic llegó casi al doble del objetivo y la campaña ya se pausó<span class="horizon">Ahora</span></div>
+        <p class="desc">El deterioro lleva cuatro semanas consecutivas (6,4% &rarr; 10,2% &rarr; 31,5% &rarr; 99,2% por encima del objetivo) y esta vez la campaña pasó a pausada al cierre del periodo; conviene decidir si se reactiva con un ajuste de público y creativos o si se reemplaza.</p>
+        <div class="evidence"><span class="k">Evidencia:</span> Gana_Tráfico_Retención_Bases de datos_ADE costó $99,62 por clic del 4 al 9 de noviembre (99,2% por encima del objetivo de $50), frente a $65,74 la semana anterior, y quedó pausada al momento de generar este informe.</div>
+      </div>
+      <div class="decision">
+        <div class="action"><span class="prio-pill p2">P2</span>Confirmar con el cliente el salto a más del doble en el gasto total de la cuenta<span class="horizon">Ahora</span></div>
+        <p class="desc">La inversión pasó de $5.028.083 a $12.071.246 en una semana, con Always On de vuelta a sus 5 campañas y dos campañas nuevas (Rifazo_Alcance y Servicio QR_Alcance); conviene confirmar que el ritmo de escalamiento es intencional antes del próximo ciclo.</p>
+        <div class="evidence"><span class="k">Evidencia:</span> Gana gastó $12.071.246 del 4 al 9 de noviembre, +140,1% frente a la semana anterior ($5.028.083).</div>
+      </div>
+      <div class="decision">
+        <div class="action"><span class="prio-pill p3">P3</span>Decidir si Adulto Mayor_Alcance se detiene o se extiende formalmente: ya lleva 13 de los 10 días planeados<span class="horizon">Ahora</span></div>
+        <p class="desc">La campaña sigue activa y gastando con fuerza tres días después de que debía terminar su ventana de 10 días; conviene confirmar con el cliente si se extiende el presupuesto o se detiene antes de superarlo.</p>
+        <div class="evidence"><span class="k">Evidencia:</span> Adulto Mayor_Alcance acumula $1.741.645 (87,1% de su presupuesto de $2.000.000) en 13 días, 3 más de los 10 planeados originalmente.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="account-tag"><span class="dot"></span>Cuenta Loti Colombia</span>
+    <div class="section-head">
+      <h2>Inversión, entrega y ritmo de la semana</h2>
+      <p>El presupuesto de Loti corre del <strong>21 de agosto</strong> al <strong>30 de septiembre</strong> y ya está vencido. Del 4 al 9 de noviembre, el gasto casi se duplicó: Loti gastó <strong>$2.167.811</strong> (+89,9% frente a $1.141.793 la semana anterior). Hubo un cambio estructural: la campaña Tráfico_Retención_Compradores activos (mismo ID de siempre) se renombró a <strong>Tráfico_Activación_Público nuevo</strong>, y el 6 de noviembre se creó una campaña nueva con el nombre anterior, <strong>Tráfico_Retención_Compradores activos_ADE &ndash; Copia</strong>. Prueba_Geolocalizada no tuvo ningún gasto esta semana. Adquisición concentró 76,4% ($1.656.926) y Notoriedad el resto (23,6%, $510.885).</p>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi"><div class="label">Inversión de la semana</div><div class="value mono">$2.167.811</div><div class="sub">COP · 5 campañas activas</div></div>
+      <div class="kpi"><div class="label">Impresiones</div><div class="value mono">846.729</div><div class="sub">Alcance combinado ≈609.800</div></div>
+      <div class="kpi"><div class="label">Vistas de landing</div><div class="value mono">10.184</div><div class="sub">3 campañas de tráfico con datos</div></div>
+      <div class="kpi"><div class="label">% del plan usado</div><div class="value mono">21,7%</div><div class="sub">De $10.000.000 aprobados, gastado esta semana</div></div>
+    </div>
+
+    <div class="plan-summary" id="loti-plan-summary" style="margin-top:12px;"></div>
+  </section>
+
+  <section class="section">
+    <span class="account-tag"><span class="dot"></span>Cuenta Loti Colombia</span>
+    <div class="section-head">
+      <h2>Diagnóstico por grupo y campaña</h2>
+      <p>Notoriedad (alcance e interacción) y Adquisición (tráfico calificado), con creativo, público, resultado del 4 al 9 de noviembre frente al plan e insight por campaña.</p>
+    </div>
+    <div id="loti-families"></div>
+
+    <div class="chart-card">
+      <h4>Costo por vista de landing page, por campaña</h4>
+      <div class="chart-sub">Campañas de tráfico (LPV) con volumen suficiente del 4 al 9 de noviembre, ordenadas de más a menos eficiente (se excluye Retención_Compradores &ndash; Copia, campaña nueva con muestra muy pequeña: 22 vistas)</div>
+      <div class="bar-row"><div class="b-label">Tráfico_Activación_Público nuevo</div><div class="bar-track"><div class="bar-fill good" style="width:77.7%"></div></div><div class="b-value flag-good mono">$121,16</div></div>
+      <div class="bar-row"><div class="b-label">Microsegmentación</div><div class="bar-track"><div class="bar-fill critical" style="width:100%"></div></div><div class="b-value flag-critical mono">$155,88</div></div>
+      <div class="chart-legend">
+        <span><i style="background:var(--good)"></i>Más eficiente del periodo</span>
+        <span><i style="background:var(--bad)"></i>La más cara del periodo</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <span class="account-tag"><span class="dot"></span>Cuenta Loti Colombia</span>
+    <div class="section-head">
+      <h2>Anuncios más efectivos</h2>
+      <p>Los anuncios con inversión suficiente para evaluarse y el mejor costo por resultado, del 4 al 9 de noviembre.</p>
+    </div>
+    <div class="ads-grid">
+      <div class="ad-card"><span class="tag good">Interacción_Instagram+Facebook</span>
+        <div class="ad-body"><div class="name">&ldquo;Car revisa los resultados&rdquo; (Reel, Copia)</div><div class="stat">72,6% del presupuesto de la campaña ($191.594 de $263.945) &middot; <strong>$6,63</strong> por interacción &mdash; el más barato de toda la cuenta esta semana</div></div>
+      </div>
+      <div class="ad-card"><span class="tag good">Tráfico_Activación_Público nuevo</span>
+        <div class="ad-body"><div class="name">&ldquo;Compra en línea&rdquo; (Video)</div><div class="stat">21,6% del presupuesto de la campaña ($175.129 de $809.091) &middot; <strong>$95,54</strong> por vista de landing</div></div>
+      </div>
+      <div class="ad-card"><span class="tag good">Retención_Compradores activos &ndash; Copia (nueva)</span>
+        <div class="ad-body"><div class="name">&ldquo;Lotería de Bogotá&rdquo; (Video)</div><div class="stat">40,8% del presupuesto de la campaña ($124.366 de $304.766) &middot; campaña creada el 6 de noviembre, todavía con muestra muy pequeña (7 vistas de landing)</div></div>
+      </div>
+    </div>
+
+    <div class="section-head" style="margin-top:28px;">
+      <h2>Decisiones priorizadas</h2>
+      <p>Decisiones sobre públicos, inversión y anuncios, sustentadas con datos del 4 al 9 de noviembre.</p>
+    </div>
+    <div class="decisions">
+      <div class="decision">
+        <div class="action"><span class="prio-pill p1">P1</span>Confirmar con el cliente el cambio estructural en Adquisición y el salto a casi el doble de gasto<span class="horizon">Ahora</span></div>
+        <p class="desc">La campaña de siempre (Compradores activos) se renombró a Tráfico_Activación_Público nuevo, y tres días antes de que cerrara este periodo se creó una campaña nueva con el nombre anterior; conviene entender qué está probando el equipo de medios antes de que se acumule más gasto sin un objetivo claro para cada una.</p>
+        <div class="evidence"><span class="k">Evidencia:</span> Loti gastó $2.167.811 del 4 al 9 de noviembre (+89,9% frente a $1.141.793 la semana anterior); Tráfico_Retención_Compradores activos_ADE &ndash; Copia se creó el 6 de noviembre y ya gastó $304.766 en 4 días.</div>
+      </div>
+      <div class="decision">
+        <div class="action"><span class="prio-pill p2">P2</span>Dar seguimiento a Retención_Compradores &ndash; Copia antes de escalarla más: el costo por vista todavía es muy alto<span class="horizon">Próximo ciclo</span></div>
+        <p class="desc">Es muy nueva (4 días) y su muestra es pequeña, así que el dato aún no es concluyente, pero vale la pena vigilarla de cerca la próxima semana antes de aumentar su presupuesto.</p>
+        <div class="evidence"><span class="k">Evidencia:</span> Retención_Compradores activos_ADE &ndash; Copia costó $13.853 por vista de landing (solo 22 vistas de landing sobre $304.766 de gasto), muy por encima del objetivo de $300 que usan las demás campañas de Adquisición.</div>
+      </div>
+      <div class="decision">
+        <div class="action"><span class="prio-pill p3">P3</span>Mantener Interacción_Instagram+Facebook como prioridad; sigue siendo, por lejos, la más eficiente<span class="horizon">Próximo ciclo</span></div>
+        <p class="desc">El Reel &ldquo;Car revisa los resultados&rdquo; concentra la mayoría del presupuesto de la campaña y se mantiene muy por debajo del objetivo; vale la pena revisar ese formato para las demás campañas de Loti.</p>
+        <div class="evidence"><span class="k">Evidencia:</span> Interacción_Instagram+Facebook costó $6,63 por interacción del 4 al 9 de noviembre (95,6% más barato que el objetivo de $150).</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <span class="kicker"><span class="bar"></span>Metodología</span>
+      <h2>Fuentes, definiciones y limitaciones</h2>
+    </div>
+    <div class="method-grid">
+      <div class="method-cell"><span class="k">Fuente de datos</span><span class="v">Meta Graph API &mdash; nivel de campaña, conjunto de anuncios y anuncio</span></div>
+      <div class="method-cell"><span class="k">Fuente del plan</span><span class="v">Google Drive: Flow_Gana_Agosto.xlsx, Flow_Campañas_Gana_Agosto.xlsx, Flow-CDM_Loti_Agosto 2026.xlsx &middot; presupuesto de Gana ($10.000.000, vigente hasta el 15 sept, comunicado directo del cliente). Always On ($20.000.000, objetivo CPM por conjunto, incluido Keno: $4.000.000 y $2.000 CPM, confirmado por imagen de flow compartida por el cliente el 13 de octubre) según flow compartido por el cliente el 29 de septiembre. Keno_Alcance y ARA_Alcance tuvieron presupuesto asignado ($1.100.000 y $2.000.000 para 10 días, respectivamente) pero sin flow de costos. NuBank_Alcance ($3.000.000 hasta el 30 de diciembre) y Adulto Mayor_Alcance ($2.000.000 para 10 días) tienen presupuesto confirmado por el cliente directamente, sin objetivo de costo (CPM) ni flow formal. Gana &middot; Tráfico_Activación, Rifazo_Alcance y Servicio QR_Alcance tampoco tienen flow ni presupuesto documentado. Para Loti &middot; Prueba_Geolocalizada, sin presupuesto oficial documentado, se aplicó el mismo objetivo de $300 CPLPV usado en el resto de Adquisición, a solicitud del cliente.</span></div>
+      <div class="method-cell"><span class="k">Cuentas</span><span class="v">act_1497284188840551 (Gana) &middot; act_480041201276101 (Loti Colombia)</span></div>
+      <div class="method-cell"><span class="k">Periodo</span><span class="v">Una sola ventana para todo el informe: del 4 al 9 de noviembre de 2026 (6 días; todas las campañas llevan activas desde agosto o septiembre, excepto Keno y Keno_Alcance desde el 1 de octubre; ARA_Alcance corrió del 14 al 23 de octubre y sigue pausada; Rifazo_Alcance y Servicio QR_Alcance se crearon el 4 de noviembre, detectadas por primera vez en esta edición)</span></div>
+      <div class="method-cell"><span class="k">Moneda / zona horaria</span><span class="v">COP &middot; America/Bogota</span></div>
+      <div class="method-cell"><span class="k">Nivel de agregación</span><span class="v">Campaña (métricas y presupuesto) · Conjunto de anuncios (público) · Anuncio (creativo y desempeño individual). Para Prueba_Geolocalizada, el desglose por público se hizo a nivel de conjunto de anuncios (adset).</span></div>
+      <div class="method-cell"><span class="k">Fecha de generación</span><span class="v">9 de noviembre de 2026</span></div>
+    </div>
+    <ul class="limitations">
+      <li>Esta edición detectó dos campañas nuevas en Gana, sin flow ni presupuesto documentado: Rifazo_Alcance y Servicio QR_Alcance (ambas creadas el 4 de noviembre, el primer día de este periodo). Servicio QR_Alcance tiene un CPM entre 4 y 5 veces más caro que el resto de la cuenta Gana, vale la pena revisarlo.</li>
+      <li>Adulto Mayor_Alcance ya lleva 13 días activa, 3 más de los 10 planeados en su presupuesto fijo, y acumula 87,1% de ese presupuesto ($1.741.645 de $2.000.000); se marcó como decisión prioritaria confirmar con el cliente si se extiende o se detiene.</li>
+      <li>El gasto de toda la cuenta Gana más que se duplicó (+140,1%) y el de Loti casi se duplicó (+89,9%) frente a la semana anterior.</li>
+      <li>En Loti, la campaña Tráfico_Retención_Compradores activos (mismo ID desde agosto) se renombró a Tráfico_Activación_Público nuevo esta semana, sin documentación del cambio en el flow. El 6 de noviembre se creó una campaña nueva, con ID distinto, usando el nombre anterior (&ldquo;Tráfico_Retención_Compradores activos_ADE &ndash; Copia&rdquo;); su costo por vista todavía no es concluyente por el tamaño pequeño de su muestra (22 vistas).</li>
+      <li>ARA_Alcance completó sus 10 días de presupuesto fijo ($2.000.000) el 23 de octubre y sigue pausada, sin ningún gasto nuevo esta semana. El gasto total de la campaña se mantiene en $2.048.488 (102,4% de lo planeado). Se sigue mostrando como su propia línea dentro de la cuenta Gana, igual que Keno_Alcance.</li>
+      <li>Dentro de Always On, el conjunto Goleador se reactivó esta semana y las cinco campañas de la línea volvieron a estar activas.</li>
+      <li>Gana &middot; Tráfico_Retención_Bases de datos pasó a pausada al cierre de este periodo, después de otra semana de deterioro en su costo por clic (ya 99,2% por encima del objetivo).</li>
+      <li>A solicitud del cliente, esta edición ya no incluye la línea Oriente (antes mostrada aparte dentro de Gana) ni la marca Placa ni la línea Raspa y listo. La cuenta Gana muestra Gana (la familia, con 3 campañas), Always On, y las campañas independientes Keno_Alcance, ARA_Alcance, NuBank_Alcance, Adulto Mayor_Alcance, Rifazo_Alcance y Servicio QR_Alcance.</li>
+      <li>Loti &middot; Tráfico_Prueba_Geolocalizada: las dos campañas (la original y la &ldquo;Copia&rdquo;) quedaron pausadas esta semana, sin ningún público con gasto. A solicitud del cliente, se sigue aplicando el mismo objetivo de $300 CPLPV del resto de Adquisición a cada público para cuando vuelva a tener actividad, aunque esta campaña no tiene flow propio ni presupuesto oficial documentado.</li>
+      <li>Esta edición usa <strong>una sola ventana de tiempo, del 4 al 9 de noviembre de 2026</strong> (6 días, no 7, porque el periodo termina en la fecha de generación de este informe), para todo el informe: los KPI de cuenta, el reparto de inversión, las barras de ritmo (plan-summary), las tarjetas de diagnóstico por campaña y los anuncios más efectivos muestran únicamente lo que ocurrió en esos días &mdash; no un acumulado desde la activación. Las barras de plan-summary comparan el gasto de la semana contra el presupuesto total del flow (o presupuesto asignado) correspondiente, solo para dar contexto de escala; no reflejan cuánto se ha gastado en total desde la activación de cada línea (salvo donde se indica explícitamente un acumulado, como en NuBank_Alcance y Adulto Mayor_Alcance). Donde fue relevante, se menciona la comparación contra la semana anterior (28 de octubre&ndash;3 de noviembre) dentro del texto, pero no como un campo estructurado.</li>
+      <li>Keno_Alcance (activada el 1 de octubre) es una campaña nueva e independiente de &ldquo;Always On_Alcance_Keno&rdquo;: no comparte conjunto ni presupuesto con la línea Always On. Tiene un presupuesto de $1.100.000 asignado por el cliente, pero no se le hizo flow de costos: no tiene objetivo de CPM registrado.</li>
+      <li>El presupuesto se muestra únicamente a nivel de familia/marca (presupuesto total del flow y % que representó el gasto de esta semana puntual), no por campaña individual.</li>
+      <li>Sigue sin incluirse Gana &middot; Interacción_Adquisición_Visibilidad página (nunca se ha activado) ni Loti &middot; Interacción_Visitas_Instagram (sin gasto significativo).</li>
+      <li>Las campañas de conversión de Gana (Bases de datos) no sumaron ningún lead o registro nuevo en la semana; el último lead y registro ocurrieron antes del 31 de agosto. Puede ser rezago de atribución de Meta o un problema real de conversión &mdash; no se puede distinguir solo con estos datos.</li>
+      <li>El estado activo/pausado de cada campaña corresponde al momento de generación de este informe (9 de noviembre).</li>
+      <li>El alcance combinado que se muestra por familia y a nivel de portafolio es una suma de alcances por campaña: una misma persona puede estar contada en más de una campaña (posible solapamiento).</li>
+      <li>Loti Colombia no tiene conversiones de registro o compra instrumentadas en el píxel de Meta durante este periodo; sus resultados se miden por alcance, interacción y vistas de landing.</li>
+      <li>El objetivo del plan de Gana &middot; Alcance_Activación_ADV usa una unidad ("20.000 resultados a $150 c/u") que no es directamente comparable con la métrica de "personas alcanzadas" reportada por Meta.</li>
+      <li>Los anuncios destacados en "Anuncios más efectivos" y las decisiones priorizadas se identificaron a nivel de anuncio individual (Meta Graph API, level=ad) del 4 al 9 de noviembre, considerando solo anuncios con inversión suficiente para evaluarse (se excluyeron los de gasto marginal, con muy pocos datos para ser concluyentes).</li>
+      <li>Ninguna cifra, causa o benchmark de este informe fue inferido sin evidencia directa de Meta Graph API o de los archivos de flow citados, salvo el objetivo de $300 CPLPV aplicado a Prueba_Geolocalizada, que fue una instrucción explícita del cliente y no un dato de flow.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <span>ADCOM &middot; Informe de avance pauta &middot; v7.7 (4&ndash;9 nov, gasto se duplica, con Rifazo_Alcance y Servicio QR_Alcance; Loti renombra Compradores activos)</span>
+    <span>Generado 2026-11-09 &middot; Responsable: equipo de medios pagos ADCOM</span>
+  </footer>
+
+</div>
+
+<script>
+const IMG = {
+  gana_rifazo: "../assets/img/avance-191.jpg",
+  gana_servicioqr: "../assets/img/avance-192.jpg",
+  gana_nubank: "../assets/img/avance-193.jpg",
+  gana_adultomayor: "../assets/img/avance-194.jpg",
+  gana_trafico_activacion: "../assets/img/avance-195.jpg",
+  placa_adv_advantage: "../assets/img/avance-196.png",
+  placa_adv_bbdd: "../assets/img/avance-197.png",
+  placa_trafico_rmk: "../assets/img/avance-198.png",
+  placa_trafico_visitantesweb: "../assets/img/avance-199.png",
+  placa_trafico_abandonado: "../assets/img/avance-200.jpg",
+  raspa_alcance_advantage: "../assets/img/avance-201.jpg",
+  raspa_alcance_remarketing: "../assets/img/avance-202.jpg",
+  gana_alcance_adv: "../assets/img/avance-203.png",
+  gana_trafico_basesdatos: "../assets/img/avance-204.png",
+  gana_ao_superchance: "../assets/img/avance-205.png",
+  gana_ao_goleador: "../assets/img/avance-206.png",
+  gana_ao_placamillonaria: "../assets/img/avance-207.jpg",
+  gana_ao_raspalisto: "../assets/img/avance-208.png",
+  gana_ao_keno: "../assets/img/avance-209.jpg",
+  gana_or_goleador: "../assets/img/avance-210.png",
+  gana_or_placamillonaria: "../assets/img/avance-211.png",
+  gana_keno_standalone: "../assets/img/avance-212.jpg",
+  gana_ara: "../assets/img/avance-213.jpg",
+};
+
+const FAMILIES = [
+  {
+    key: "gana", tagClass: "gana", label: "Gana", count: "3 campañas activas",
+    spend: "$6.234.092", start: "6 de agosto de 2026",
+    note: "La familia con más tiempo activa (desde el 6 de agosto). Entre el 4 y el 9 de noviembre gastó <strong>$6.234.092</strong> &mdash; mucho más que la semana anterior &mdash; sobre un presupuesto mensual de $10.000.000 que venció el 15 de septiembre. Tráfico_Retención_Bases de datos pasó a pausada al cierre del periodo.",
+    planTotal: 10000000, weekSpend: 6234092, planPeriodLabel: "del presupuesto vencido (15 sept), gastado esta semana",
+    campaigns: [
+      { id:"gana_alcance_adv", name:"Alcance_Activación_ADV", objPill:"Notoriedad", optPill:"Optimiza: Alcance",
+        result:"1.633.145", resultLabel:"personas alcanzadas", cost:"$1,08", costLabel:"por persona", costFlag:"",
+        extra:"$1.756.015 gasto &middot; frec. 1,53", start:"6 de agosto de 2026",
+        audience:"Todo Antioquia, sin segmentar &mdash; herramienta automática de Meta (Advantage+).",
+        planLabel:"Meta del plan: 20.000 resultados a $150 c/u", actualLabel:"1.633.145 personas a $1,08/persona", verdict:"unidad del plan no es comparable en línea recta con “personas alcanzadas”", verdictFlag:"",
+        insight:"Del 4 al 9 de noviembre alcanzó a 1.633.145 personas a $1,08 cada una, con $1.756.015 de gasto &mdash; más del doble que la semana anterior ($793.596). El post &ldquo;Acumulado de Billeton&rdquo; (Copia) concentró 20,7% del presupuesto de la semana." },
+      { id:"gana_trafico_basesdatos", name:"Tráfico_Retención_Bases de datos", objPill:"Tráfico", optPill:"Optimiza: Landing page",
+        result:"13.910", resultLabel:"vistas de landing", cost:"$134,19", costLabel:"por vista", costFlag:"critical",
+        extra:"$1.866.549 &middot; CTR 3,66%", start:"6 de agosto de 2026",
+        audience:"Registrados sin compra, casos pendientes de revisión y personas que abandonaron el registro, en web y en la app.",
+        planLabel:"$50 por clic", actualLabel:"$99,62 por clic", verdict:"99,2% por encima del objetivo", verdictFlag:"critical",
+        insight:"Del 4 al 9 de noviembre sumó 13.910 vistas de landing a $134,19 cada una, con $1.866.549 de gasto. El costo por clic ($99,62) empeoró con fuerza por cuarta semana consecutiva &mdash; ya casi el doble del objetivo de $50 (frente a 31,5% la semana pasada) &mdash; y la campaña pasó a pausada al cierre del periodo. El carrusel &ldquo;Activa tu cuenta&rdquo; (Copia) concentró 15,8% del presupuesto de la semana." },
+      { id:"gana_trafico_activacion", name:"Tráfico_Activación", objPill:"Tráfico", optPill:"Optimiza: Landing page",
+        result:"25.346", resultLabel:"vistas de landing", cost:"$103,04", costLabel:"por vista", costFlag:"",
+        extra:"$2.611.528 &middot; CTR 4,74%", start:"Detectada en esta edición (inicio exacto sin confirmar)",
+        audience:"Sin segmentación documentada en flow.",
+        planLabel:"Sin objetivo de costo registrado (campaña sin flow)", actualLabel:"$103,04 por vista de landing", verdict:"sin objetivo de referencia", verdictFlag:"",
+        insight:"Del 4 al 9 de noviembre sumó 25.346 vistas de landing a $103,04 cada una, con $2.611.528 de gasto &mdash; casi 5 veces más que la semana anterior ($547.291), ya como la mayor inversión de toda la cuenta Gana. No tiene objetivo de costo registrado porque no hay flow documentado para ella. El video &ldquo;A unos clics&rdquo; (Copia) concentró 16,5% del presupuesto de la semana." }
+    ]
+  },
+];
+
+const NEW_FAMILIES = [
+  {
+    key: "always-on", tagClass: "always-on", label: "Always On", count: "5 campañas activas",
+    spend: "$1.636.154", start: "24 de septiembre de 2026",
+    note: "Según el flow Always On compartido por el cliente ($20.000.000 en total, 5 conjuntos al 20% c/u, objetivo CPM). Del 4 al 9 de noviembre gastó <strong>$1.636.154</strong>, un <strong>8,2%</strong> del presupuesto total de la línea &mdash; mucho más que la semana anterior, porque Goleador se reactivó y las cinco campañas volvieron a estar activas.",
+    planTotal: 20000000, weekSpend: 1636154, planPeriodLabel: "del presupuesto total de la línea, gastado esta semana",
+    campaigns: [
+      { id:"gana_ao_superchance", name:"Alcance_Super chance", objPill:"Notoriedad", optPill:"Optimiza: Alcance",
+        result:"497.100", resultLabel:"impresiones", cost:"$649,37", costLabel:"CPM (por 1.000 impr.)", costFlag:"good",
+        extra:"$322.804 gasto", start:"24 de septiembre de 2026",
+        audience:"BD compradores Super chance Advantage, intereses en juegos y apuestas online.",
+        planLabel:"$1.500 CPM (objetivo del flow)", actualLabel:"$649,37 CPM", verdict:"56,7% más barato que el objetivo", verdictFlag:"good",
+        pacePlanned:4000000, paceSpent:322804, pacePct:8.1, paceFlag:"good", pacePeriodLabel:"del conjunto (20% de la línea Always On), gastado esta semana",
+        insight:"Del 4 al 9 de noviembre: $649,37 de CPM, 56,7% más barato que el objetivo de $1.500 &mdash; mejoró frente a la semana anterior ($912,61), con casi el triple de gasto. El post &ldquo;Suerte a tu favor&rdquo; concentró 20,4% del presupuesto de la semana." },
+      { id:"gana_ao_goleador", name:"Alcance_Goleador", objPill:"Notoriedad", optPill:"Optimiza: Alcance",
+        result:"581.151", resultLabel:"impresiones", cost:"$501,42", costLabel:"CPM (por 1.000 impr.)", costFlag:"good",
+        extra:"$291.398 gasto", start:"24 de septiembre de 2026",
+        audience:"BD compradores chance goleador, BD compradores super chance Advantage.",
+        planLabel:"$2.000 CPM (objetivo del flow)", actualLabel:"$501,42 CPM", verdict:"74,9% más barato que el objetivo", verdictFlag:"good",
+        pacePlanned:4000000, paceSpent:291398, pacePct:7.3, paceFlag:"good", pacePeriodLabel:"del conjunto (20% de la línea Always On), gastado esta semana",
+        insight:"Del 4 al 9 de noviembre se reactivó por completo: $501,42 de CPM, 74,9% más barato que el objetivo de $2.000 &mdash; el mejor resultado de toda la línea Always On esta semana, con $291.398 de gasto. El carrusel &ldquo;Si tuvieras que elegir goleadores&rdquo; (Copia) concentró 35,4% del presupuesto de la semana." },
+      { id:"gana_ao_placamillonaria", name:"Alcance_Placa millonaria", objPill:"Notoriedad", optPill:"Optimiza: Alcance",
+        result:"512.444", resultLabel:"impresiones", cost:"$636,15", costLabel:"CPM (por 1.000 impr.)", costFlag:"good",
+        extra:"$325.990 gasto", start:"25 de septiembre de 2026",
+        audience:"BD compradores Placa millonaria, BD compradores super chance Advantage.",
+        planLabel:"$1.800 CPM (objetivo del flow)", actualLabel:"$636,15 CPM", verdict:"64,7% más barato que el objetivo", verdictFlag:"good",
+        pacePlanned:4000000, paceSpent:325990, pacePct:8.1, paceFlag:"good", pacePeriodLabel:"del conjunto (20% de la línea Always On), gastado esta semana",
+        insight:"Del 4 al 9 de noviembre: $636,15 de CPM, 64,7% más barato que el objetivo de $1.800 &mdash; mejoró frente a la semana anterior ($877,69), con más del doble de gasto. El carrusel &ldquo;Mira esa placa&rdquo; concentró 50,1% del presupuesto de la semana." },
+      { id:"gana_ao_raspalisto", name:"Alcance_Raspa y gana", objPill:"Notoriedad", optPill:"Optimiza: Alcance",
+        result:"624.656", resultLabel:"impresiones", cost:"$546,50", costLabel:"CPM (por 1.000 impr.)", costFlag:"good",
+        extra:"$341.375 gasto", start:"28 de septiembre de 2026",
+        audience:"BD compradores Raspa y gana, BD compradores super chance Advantage.",
+        planLabel:"$1.500 CPM (objetivo del flow)", actualLabel:"$546,50 CPM", verdict:"63,6% más barato que el objetivo", verdictFlag:"good",
+        pacePlanned:4000000, paceSpent:341375, pacePct:8.5, paceFlag:"good", pacePeriodLabel:"del conjunto (20% de la línea Always On), gastado esta semana",
+        insight:"Del 4 al 9 de noviembre: $546,50 de CPM, 63,6% más barato que el objetivo de $1.500, con casi el triple de gasto que la semana anterior ($122.591). El post &ldquo;Navidad&rdquo; (Copia) concentró 60,6% del presupuesto de la semana." },
+      { id:"gana_ao_keno", name:"Alcance_Keno", objPill:"Notoriedad", optPill:"Optimiza: Alcance",
+        result:"621.402", resultLabel:"impresiones", cost:"$570,62", costLabel:"CPM (por 1.000 impr.)", costFlag:"good",
+        extra:"$354.587 gasto", start:"1 de octubre de 2026",
+        audience:"BD compradores Keno, BD compradores super chance Advantage (misma lógica que el resto de la línea).",
+        planLabel:"$2.000 CPM (objetivo del flow)", actualLabel:"$570,62 CPM", verdict:"71,5% más barato que el objetivo", verdictFlag:"good",
+        pacePlanned:4000000, paceSpent:354587, pacePct:8.9, paceFlag:"good", pacePeriodLabel:"del conjunto (20% de la línea Always On), gastado esta semana",
+        insight:"Del 4 al 9 de noviembre: $570,62 de CPM, 71,5% más barato que el objetivo de $2.000 &mdash; mejoró frente a la semana anterior ($846,25), con más del doble de gasto. El video &ldquo;Escoge tus números&rdquo; (Copia) concentró 23,3% del presupuesto de la semana." }
+    ]
+  },
+  {
+    key: "keno-standalone", tagClass: "oriente", label: "Keno_Alcance", count: "1 campaña activa",
+    spend: "$290.527", start: "1 de octubre de 2026",
+    note: "Campaña nueva e independiente de Keno dentro de Always On &mdash; no comparte conjunto ni presupuesto con esa línea. Tiene un presupuesto de $1.100.000 asignado por el cliente, pero no se le hizo flow: no tiene objetivo de costo (CPM) registrado. Del 4 al 9 de noviembre gastó <strong>$290.527</strong>, un <strong>26,4%</strong> de ese presupuesto.",
+    planTotal: 1100000, weekSpend: 290527, planPeriodLabel: "del presupuesto asignado (sin flow de costos), gastado esta semana",
+    campaigns: [
+      { id:"gana_keno_standalone", name:"Keno_Alcance", objPill:"Notoriedad", optPill:"Optimiza: Alcance",
+        result:"473.228", resultLabel:"impresiones", cost:"$613,93", costLabel:"CPM (por 1.000 impr.)", costFlag:"",
+        extra:"$290.527 gasto &middot; frec. 1,31", start:"1 de octubre de 2026",
+        audience:"Alcance sobre base de compradores e intereses en juegos y apuestas online, misma lógica que el resto del portafolio Gana.",
+        planLabel:"Sin objetivo de costo registrado (campaña lanzada sin flow)", actualLabel:"$613,93 CPM", verdict:"sin objetivo de referencia", verdictFlag:"",
+        pacePlanned:1100000, paceSpent:290527, pacePct:26.4, paceFlag:"good", pacePeriodLabel:"del presupuesto asignado a la campaña, gastado esta semana",
+        insight:"Del 4 al 9 de noviembre alcanzó a 360.835 personas (473.228 impresiones) a $613,93 de CPM, con $290.527 de gasto (26,4% de su presupuesto de $1.100.000) &mdash; volvió a subir frente a la semana anterior ($149.651). No tiene objetivo de costo registrado porque se lanzó sin flow. El carrusel &ldquo;Cómo funciona realmente&rdquo; (Copia) concentró 21,9% del presupuesto de la semana." }
+    ]
+  },
+  {
+    key: "ara", tagClass: "placa", label: "ARA_Alcance", count: "1 campaña finalizada (pausada)",
+    spend: "$0", start: "14 de octubre de 2026",
+    note: "Campaña finalizada: corrió del 14 al 23 de octubre con presupuesto fijo de $2.000.000 y ya está pausada por completo. No tuvo ningún gasto nuevo esta semana. El gasto total de la campaña se mantiene en <strong>$2.048.488</strong> (102,4% de lo planeado).",
+    planTotal: 2000000, weekSpend: 0, planPeriodLabel: "del presupuesto fijo de 10 días (ya finalizado), gastado esta semana",
+    campaigns: [
+      { id:"gana_ara", name:"ARA_Alcance", objPill:"Notoriedad", optPill:"Optimiza: Alcance", paused: true,
+        start:"14 de octubre de 2026",
+        audience:"Alcance amplio sobre públicos de interés de la cuenta Gana (campaña ya finalizada, sin segmentación documentada en flow).",
+        planLabel:"Sin objetivo de costo registrado (campaña lanzada sin flow)", verdict:"finalizada, sin gasto esta semana", verdictFlag:"",
+        insight:"Del 28 de octubre al 3 de noviembre no tuvo ninguna entrega ni gasto &mdash; sigue pausada desde que completó sus 10 días de presupuesto fijo el 23 de octubre. El gasto total final quedó en $2.048.488 (102,4% de los $2.000.000 planeados)." }
+    ]
+  },
+  {
+    key: "nubank", tagClass: "oriente", label: "NuBank_Alcance", count: "1 campaña activa (nueva)",
+    spend: "$215.307", start: "27 de octubre de 2026",
+    note: "Campaña nueva, confirmada por el cliente: presupuesto fijo de <strong>$3.000.000 hasta el 30 de diciembre</strong>; no tiene objetivo de costo (CPM) registrado. Del 4 al 9 de noviembre gastó <strong>$395.687</strong>, un <strong>13,2%</strong> de ese presupuesto &mdash; lleva acumulado 20,4% ($610.994 de $3.000.000) entre sus dos primeras semanas.",
+    planTotal: 3000000, weekSpend: 395687, planPeriodLabel: "del presupuesto fijo hasta el 30 de diciembre, gastado esta semana",
+    campaigns: [
+      { id:"gana_nubank", name:"NuBank_Alcance", objPill:"Notoriedad", optPill:"Optimiza: Alcance",
+        result:"445.961", resultLabel:"personas alcanzadas", cost:"$0,84", costLabel:"por persona", costFlag:"",
+        extra:"$395.687 gasto &middot; frec. 1,27", start:"27 de octubre de 2026",
+        audience:"Público nuevo, sin segmentación documentada en flow (nombre sugiere enfoque en clientes o tarjetahabientes de NuBank).",
+        planLabel:"Sin objetivo de costo registrado (presupuesto confirmado, sin flow de costos)", actualLabel:"$0,84 por persona alcanzada", verdict:"sin objetivo de referencia", verdictFlag:"",
+        pacePlanned:3000000, paceSpent:610994, pacePct:20.4, paceFlag:"good", pacePeriodLabel:"del presupuesto fijo hasta el 30 de diciembre, acumulado en 2 semanas",
+        insight:"Del 4 al 9 de noviembre alcanzó a 445.961 personas (566.618 impresiones) a $0,84 por persona, con $395.687 de gasto &mdash; casi el doble que la semana anterior ($215.307). Lleva acumulado $610.994 (20,4% de su presupuesto de $3.000.000 hasta el 30 de diciembre). No tiene objetivo de costo (CPM) registrado. El post &ldquo;Tienes nu y necesitas retirar&rdquo; concentró 24,1% del presupuesto de la semana." }
+    ]
+  },
+  {
+    key: "adultomayor", tagClass: "placa", label: "Adulto Mayor_Alcance", count: "1 campaña activa (nueva, fuera de su ventana de 10 días)",
+    spend: "$1.189.907", start: "28 de octubre de 2026",
+    note: "Campaña confirmada por el cliente: presupuesto fijo de <strong>$2.000.000 para 10 días</strong> (no mensual), activa desde el 28 de octubre. Ya lleva <strong>13 días</strong>, 3 más de los 10 planeados, y sigue gastando con fuerza: del 4 al 9 de noviembre gastó <strong>$1.189.907</strong>, con lo que acumula $1.741.645 (87,1% de su presupuesto) &mdash; conviene confirmar con el cliente si se extiende o se detiene antes de superarlo.",
+    planTotal: 2000000, weekSpend: 1189907, planPeriodLabel: "del presupuesto fijo de 10 días (ya vencido), gastado esta semana",
+    campaigns: [
+      { id:"gana_adultomayor", name:"Adulto Mayor_Alcance", objPill:"Notoriedad", optPill:"Optimiza: Alcance",
+        result:"1.077.726", resultLabel:"personas alcanzadas", cost:"$0,78", costLabel:"por persona", costFlag:"",
+        extra:"$1.189.907 gasto &middot; frec. 1,64", start:"28 de octubre de 2026",
+        audience:"Público nuevo, sin segmentación documentada en flow (nombre sugiere enfoque en adultos mayores).",
+        planLabel:"Sin objetivo de costo registrado (presupuesto confirmado, sin flow de costos)", actualLabel:"$0,78 por persona alcanzada", verdict:"sin objetivo de referencia", verdictFlag:"",
+        pacePlanned:2000000, paceSpent:1741645, pacePct:87.1, paceFlag:"", pacePeriodLabel:"del presupuesto fijo de 10 días, acumulado en 13 días (3 de más)",
+        insight:"Del 4 al 9 de noviembre alcanzó a 1.077.726 personas (1.771.699 impresiones) a $0,78 por persona, con $1.189.907 de gasto &mdash; más del doble que la semana anterior. La campaña ya lleva 13 días activa, 3 más de los 10 planeados, y acumula $1.741.645 (87,1% de su presupuesto de $2.000.000); vale la pena confirmar con el cliente si se extiende formalmente o se detiene antes de agotar el presupuesto. El video &ldquo;Hoy iniciamos&rdquo; concentró 22,3% del presupuesto de la semana." }
+    ]
+  },
+  {
+    key: "rifazo", tagClass: "oriente", label: "Rifazo_Alcance", count: "1 campaña activa (nueva)",
+    spend: "$1.177.196", start: "4 de noviembre de 2026",
+    note: "Campaña nueva, detectada en esta edición: no tiene flow ni presupuesto documentado. Del 4 al 9 de noviembre gastó <strong>$1.177.196</strong>.",
+    planTotal: 0, weekSpend: 1177196, planPeriodLabel: "sin presupuesto de plan registrado (campaña nueva), gastado esta semana",
+    campaigns: [
+      { id:"gana_rifazo", name:"Rifazo_Alcance", objPill:"Notoriedad", optPill:"Optimiza: Alcance",
+        result:"782.534", resultLabel:"personas alcanzadas", cost:"$0,90", costLabel:"por persona", costFlag:"",
+        extra:"$1.177.196 gasto &middot; frec. 2,20", start:"4 de noviembre de 2026",
+        audience:"Público nuevo, sin segmentación documentada en flow (nombre sugiere una mecánica de rifa/sorteo).",
+        planLabel:"Sin objetivo de costo registrado (campaña nueva, sin flow)", actualLabel:"$0,90 por persona alcanzada", verdict:"sin objetivo de referencia", verdictFlag:"",
+        insight:"Campaña nueva detectada en esta edición (creada el 4 de noviembre, el primer día de este periodo): alcanzó a 782.534 personas (1.718.660 impresiones) a $0,90 por persona, con $1.177.196 de gasto. No tiene objetivo de costo registrado porque no hay flow documentado. El post &ldquo;Estrena un iphone 18 pro max&rdquo; (Copia) concentró 12,9% del presupuesto de la semana." }
+    ]
+  },
+  {
+    key: "servicioqr", tagClass: "placa", label: "Servicio QR_Alcance", count: "1 campaña activa (nueva)",
+    spend: "$1.147.683", start: "4 de noviembre de 2026",
+    note: "Campaña nueva, detectada en esta edición: no tiene flow ni presupuesto documentado. Su CPM ($2.926,30) es entre 4 y 5 veces más caro que el resto de la cuenta Gana esta semana &mdash; vale la pena revisar si la segmentación o el formato están limitando el alcance.",
+    planTotal: 0, weekSpend: 1147683, planPeriodLabel: "sin presupuesto de plan registrado (campaña nueva), gastado esta semana",
+    campaigns: [
+      { id:"gana_servicioqr", name:"Servicio QR_Alcance", objPill:"Notoriedad", optPill:"Optimiza: Alcance",
+        result:"392.196", resultLabel:"impresiones", cost:"$2.926,30", costLabel:"CPM (por 1.000 impr.)", costFlag:"critical",
+        extra:"$1.147.683 gasto &middot; frec. 2,34", start:"4 de noviembre de 2026",
+        audience:"Público nuevo, sin segmentación documentada en flow (nombre sugiere enfoque en comercios o usuarios de pago por QR).",
+        planLabel:"Sin objetivo de costo registrado (campaña nueva, sin flow)", actualLabel:"$2.926,30 CPM", verdict:"sin objetivo de referencia, pero muy por encima del resto de la cuenta", verdictFlag:"critical",
+        insight:"Campaña nueva detectada en esta edición (creada el 4 de noviembre): alcanzó a 167.481 personas (392.196 impresiones) a un CPM de $2.926,30 &mdash; entre 4 y 5 veces más caro que el resto de las campañas de alcance de Gana esta semana, con solo 56.990 personas alcanzadas por el anuncio top. No tiene objetivo de costo registrado porque no hay flow documentado. El post &ldquo;Pagar con qr en tu punto de venta&rdquo; concentró 20,9% del presupuesto de la semana, a $4,22 por persona alcanzada." }
+    ]
+  }
+];
+
+function fmtCOP(n) {
+  return "$" + Math.round(n).toLocaleString("es-CO");
+}
+
+function paceFlagFor(pct) {
+  if (pct === null || pct === undefined) return "";
+  if (pct >= 100 || pct === 0) return "critical";
+  if (pct <= 50) return "good";
+  return "";
+}
+
+function renderPlanSummary(list, containerId) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = list.map(f => {
+    if (!f.planTotal) {
+      return `<div class="plan-card">
+      <div class="fam-tag-row"><span class="tag"><span class="dot"></span>${f.label}</span></div>
+      <div class="plan-pct">&mdash;</div>
+      <div class="plan-bar-track"><div class="plan-bar-fill" style="width:0%"></div></div>
+      <div class="plan-pct-label">${f.planPeriodLabel || "sin presupuesto de plan registrado"} &mdash; <span class="mono">${fmtCOP(f.weekSpend)}</span> gastado</div>
+    </div>`;
+    }
+    const pct = (f.weekSpend / f.planTotal * 100);
+    const flag = paceFlagFor(pct);
+    return `<div class="plan-card">
+      <div class="fam-tag-row"><span class="tag"><span class="dot"></span>${f.label}</span></div>
+      <div class="plan-pct ${flag}">${pct.toFixed(1)}%</div>
+      <div class="plan-bar-track"><div class="plan-bar-fill ${flag}" style="width:${Math.min(pct,100).toFixed(1)}%"></div></div>
+      <div class="plan-pct-label">${f.planPeriodLabel || "del último presupuesto conocido (agosto)"} (<span class="mono">${fmtCOP(f.planTotal)}</span>) &mdash; <span class="mono">${fmtCOP(f.weekSpend)}</span> gastado</div>
+    </div>`;
+  }).join("");
+}
+
+function renderCampaign(c) {
+  const img = c.id && IMG[c.id] ? IMG[c.id] : null;
+  const thumb = img
+    ? `<img class="c-thumb" src="../${img}" alt="Creativo activo de ${c.name}">`
+    : `<div class="c-thumb placeholder">sin<br>creativo<br>activo</div>`;
+
+  if (c.paused) {
+    return `<div class="campaign paused">
+      ${thumb}
+      <div class="c-body">
+        <div class="c-top">
+          <div class="c-name">
+            <div class="n">${c.name}</div>
+            <div class="obj"><span class="pill">${c.objPill}</span><span class="pill">${c.optPill}</span><span class="pill date">Desde ${c.start}</span></div>
+          </div>
+          <div class="c-result"><div class="val" style="color:var(--muted)">&mdash;</div><div class="lbl">${c.result ? c.resultLabel : "sin inversión"}</div></div>
+          <div class="c-cost"><div class="val" style="color:var(--muted)">&mdash;</div><div class="lbl">pausada</div></div>
+          <div class="c-extra"><span class="paused-note">Sin actividad</span></div>
+        </div>
+        <div class="c-meta-row">
+          <div class="c-meta"><span class="k">Público</span>${c.audience}</div>
+          <div class="c-meta plan-line"><span class="k">Según el plan</span>${c.planLabel} &middot; <span class="verdict ${c.verdictFlag}">${c.verdict}</span></div>
+          ${(c.pacePlanned !== undefined) ? `<div class="c-meta pace-line"><span class="k">Presupuesto del conjunto</span><strong class="${c.paceFlag}">${c.pacePct}%</strong> de ${fmtCOP(c.pacePlanned)} ${c.pacePeriodLabel || "de agosto (vencido)"} &middot; ${fmtCOP(c.paceSpent)} gastado</div>` : ""}
+          <div class="c-insight"><span class="k">Insight</span><p>${c.insight}</p></div>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  const paceLine = (c.pacePlanned !== undefined) ? `<div class="c-meta pace-line"><span class="k">Presupuesto del conjunto</span><strong class="${c.paceFlag}">${c.pacePct}%</strong> de ${fmtCOP(c.pacePlanned)} ${c.pacePeriodLabel || "de agosto (vencido)"} &middot; ${fmtCOP(c.paceSpent)} gastado en el periodo</div>` : "";
+
+  return `<div class="campaign">
+    ${thumb}
+    <div class="c-body">
+      <div class="c-top">
+        <div class="c-name">
+          <div class="n">${c.name}</div>
+          <div class="obj"><span class="pill">${c.objPill}</span><span class="pill">${c.optPill}</span><span class="pill date">Desde ${c.start}</span></div>
+        </div>
+        <div class="c-result"><div class="val mono">${c.result}${c.resultDelta ? ` <span class="delta ${c.resultDelta.good ? 'good' : 'bad'}">${c.resultDelta.arrow} ${c.resultDelta.pct}%</span>` : ""}</div><div class="lbl">${c.resultLabel}${c.resultDelta ? ` <span class="vs-prev">vs. sem. anterior</span>` : ""}</div></div>
+        <div class="c-cost"><div class="val mono flag-${c.costFlag}">${c.cost}${c.costDelta ? ` <span class="delta ${c.costDelta.good ? 'good' : 'bad'}">${c.costDelta.arrow} ${c.costDelta.pct}%</span>` : ""}</div><div class="lbl">${c.costLabel}</div></div>
+        <div class="c-extra"><div class="mono">${c.extra}</div></div>
+      </div>
+      <div class="c-meta-row">
+        <div class="c-meta"><span class="k">Público</span>${c.audience}</div>
+        <div class="c-meta plan-line"><span class="k">Según el plan</span>${c.planLabel} &rarr; real: ${c.actualLabel} &middot; <span class="verdict ${c.verdictFlag}">${c.verdict}</span></div>
+        ${paceLine}
+        <div class="c-insight"><span class="k">Insight</span><p>${c.insight}</p></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderFamilies(list, containerId) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = list.map(f => `
+    <section class="family">
+      <div class="family-head">
+        <div class="family-title-row"><span class="tag"><span class="dot"></span>${f.label}</span><h3>${f.count}</h3></div>
+        <div class="family-spend">Inversión desde activación: <span class="mono">${f.spend}</span> COP</div>
+      </div>
+      <p class="family-note">${f.note}</p>
+      ${f.campaigns.length ? `<div class="campaign-list">${f.campaigns.map(renderCampaign).join("")}</div>` : ""}
+    </section>
+  `).join("");
+}
+
+const LOTI_IMG = {
+  loti_trafico_compradores_copia: "../assets/img/avance-214.jpg",
+  loti_geo_antioquia: "../assets/img/avance-215.jpg",
+  loti_geo_valle: "../assets/img/avance-216.jpg",
+  loti_geo_santander: "../assets/img/avance-217.jpg",
+  loti_geo_boyaca: "../assets/img/avance-218.jpg",
+  loti_geo_atlantico: "../assets/img/avance-219.jpg",
+  loti_alcance_advantage: "../assets/img/avance-220.jpg",
+  loti_interaccion_igfb: "../assets/img/avance-221.jpg",
+  loti_trafico_sitioweb: "../assets/img/avance-222.png",
+  loti_trafico_microseg: "../assets/img/avance-223.jpg",
+  loti_trafico_compradores: "../assets/img/avance-224.png"
+};
+Object.assign(IMG, LOTI_IMG);
+
+const LOTI_GROUPS = [
+  {
+    key: "loti-notoriedad", tagClass: "gana", label: "Notoriedad", count: "2 campañas activas",
+    spend: "$510.885", start: "4 de agosto de 2026",
+    note: "Alcance amplio (Advantage) más una línea de interacción. Del 4 al 9 de noviembre gastó <strong>$510.885</strong>, un <strong>25,5%</strong> de su presupuesto vigente de $2.000.000 &mdash; más del doble que la semana anterior. Ambas campañas estuvieron activas toda la semana.",
+    planTotal: 2000000, weekSpend: 510885, planPeriodLabel: "del presupuesto vigente, gastado esta semana",
+    campaigns: [
+      { id:"loti_alcance_advantage", name:"Alcance_Recordación_Advantage_ADE", objPill:"Notoriedad", optPill:"Optimiza: Alcance",
+        result:"403.267", resultLabel:"impresiones", cost:"$612,35", costLabel:"CPM (por 1.000 impr.)", costFlag:"good",
+        extra:"$246.940 gasto &middot; frec. 1,22", start:"4 de agosto de 2026",
+        audience:"Advantage &mdash; alcance amplio sin base de datos, excluyendo a quienes ya están registrados o compraron.",
+        planLabel:"$1.100 CPM (costo por 1.000 impresiones)", actualLabel:"$612,35 CPM", verdict:"44,3% más barato que el objetivo", verdictFlag:"good",
+        insight:"Del 4 al 9 de noviembre alcanzó a 331.568 personas (403.267 impresiones), con un CPM de $612,35, 44,3% más barato que el objetivo de $1.100 &mdash; mejoró frente a la semana anterior ($727,95), con más del doble de gasto. El post &ldquo;Tu jugada vale millones&rdquo; concentró 54,5% del presupuesto de la semana." },
+      { id:"loti_interaccion_igfb", name:"Interacción_Instagram + Facebook_ADE", objPill:"Interacción", optPill:"Optimiza: Interacción con página",
+        result:"39.830", resultLabel:"interacciones", cost:"$6,63", costLabel:"por interacción", costFlag:"good",
+        extra:"$263.945 gasto &middot; frec. 1,29", start:"4 de agosto de 2026",
+        audience:"Seguidores actuales de Loti en Instagram y Facebook.",
+        planLabel:"$150 por interacción (CPI)", actualLabel:"$6,63 por interacción", verdict:"95,6% más barato que el objetivo", verdictFlag:"good",
+        insight:"Del 4 al 9 de noviembre sumó 39.830 interacciones a $6,63 cada una &mdash; sigue siendo la campaña más eficiente de Loti, aunque subió frente a la semana anterior ($5,18). El mismo Reel &ldquo;Car revisa los resultados&rdquo; (Copia) concentró 72,6% del presupuesto." }
+    ]
+  },
+  {
+    key: "loti-adquisicion", tagClass: "placa", label: "Adquisición", count: "3 campañas activas",
+    spend: "$1.656.926", start: "4 de agosto de 2026",
+    note: "Las tres optimizan por vistas de landing page (tráfico calificado hacia el sitio). Del 4 al 9 de noviembre gastó <strong>$1.656.926</strong>, un <strong>20,7%</strong> de su presupuesto de $8.000.000. Cambio estructural: la campaña de siempre (mismo ID) se renombró de &ldquo;Tráfico_Retención_Compradores activos&rdquo; a &ldquo;Tráfico_Activación_Público nuevo&rdquo;, y el 6 de noviembre se creó una campaña nueva con el nombre anterior.",
+    planTotal: 8000000, weekSpend: 1656926, planPeriodLabel: "del presupuesto vigente, gastado esta semana",
+    campaigns: [
+      { id:"loti_trafico_microseg", name:"Tráfico_Micro segmentación_ADE", objPill:"Tráfico", optPill:"Optimiza: Landing page",
+        result:"3.484", resultLabel:"vistas de landing", cost:"$155,88", costLabel:"por vista", costFlag:"critical",
+        extra:"$543.069 &middot; CTR 4,90%", start:"4 de agosto de 2026",
+        audience:"Personas de 30 años o más en Cundinamarca.",
+        planLabel:"$300 por vista de landing (CPLPV)", actualLabel:"$155,88 por vista", verdict:"48,0% más barato que el objetivo", verdictFlag:"good",
+        insight:"Del 4 al 9 de noviembre sumó 3.484 vistas de landing a $155,88 cada una, 48,0% más barata que el objetivo de $300 &mdash; mejoró frente a la semana anterior ($203,40), con el doble de gasto. El mismo Reel &ldquo;Qué haríamos si ganáramos la lotería&rdquo; (Copia) concentró 79% del presupuesto de la semana." },
+      { id:"loti_trafico_compradores", name:"Tráfico_Activación_Público nuevo_ADE", objPill:"Tráfico", optPill:"Optimiza: Landing page",
+        result:"6.678", resultLabel:"vistas de landing", cost:"$121,16", costLabel:"por vista", costFlag:"good",
+        extra:"$809.091 &middot; CTR 6,59%", start:"4 de agosto de 2026",
+        audience:"Mismo ID que la antigua &ldquo;Retención_Compradores activos&rdquo;, pero renombrada a &ldquo;Público nuevo&rdquo; esta semana &mdash; posible cambio de segmentación sin documentar en flow.",
+        planLabel:"$300 por vista de landing (CPLPV)", actualLabel:"$121,16 por vista", verdict:"59,6% más barato que el objetivo", verdictFlag:"good",
+        insight:"Del 4 al 9 de noviembre sumó 6.678 vistas de landing a $121,16 cada una, 59,6% más barata que el objetivo de $300, con $809.091 de gasto &mdash; la campaña con mayor inversión de Loti esta semana. Se renombró de &ldquo;Retención_Compradores activos&rdquo; a &ldquo;Activación_Público nuevo&rdquo; (mismo ID, sin documentación del cambio en el flow). El video &ldquo;Compra en línea&rdquo; concentró 21,6% del presupuesto de la semana." },
+      { id:"loti_trafico_compradores_copia", name:"Tráfico_Retención_Compradores activos_ADE &ndash; Copia", objPill:"Tráfico", optPill:"Optimiza: Landing page",
+        result:"22", resultLabel:"vistas de landing", cost:"$13.853,00", costLabel:"por vista", costFlag:"critical",
+        extra:"$304.766 &middot; CTR 1,70%", start:"6 de noviembre de 2026",
+        audience:"Base de compradores activos de Loti (continúa el objetivo original de la campaña renombrada).",
+        planLabel:"$300 por vista de landing (CPLPV)", actualLabel:"$13.853,00 por vista", verdict:"muy por encima del objetivo, pero con muestra muy pequeña (22 vistas)", verdictFlag:"critical",
+        insight:"Campaña nueva, creada el 6 de noviembre (4 días dentro de este periodo) con el nombre que antes tenía la campaña de Compradores activos: gastó $304.766 con solo 22 vistas de landing ($13.853 cada una), muy por encima del objetivo de $300 &mdash; normal en campañas tan nuevas, pero vale la pena vigilarla antes de aumentar su presupuesto. El video &ldquo;Lotería de Bogotá&rdquo; concentró 40,8% del presupuesto." }
+    ]
+  },
+  {
+    key: "loti-prueba-geo", tagClass: "oriente", label: "Prueba_Geolocalizada", count: "2 campañas pausadas · 5 públicos sin gasto",
+    spend: "$0", start: "20 de octubre de 2026",
+    note: "Las dos campañas (la original y la &ldquo;Copia&rdquo;) quedaron pausadas esta semana: ningún público tuvo entrega ni gasto. No tiene presupuesto oficial documentado.",
+    planTotal: 0, weekSpend: 0, planPeriodLabel: "sin presupuesto de plan registrado (campaña de prueba), gastado esta semana",
+    campaigns: [
+      { id:"loti_geo_antioquia", name:"Prueba_Geolocalizada · Antioquia", objPill:"Tráfico", optPill:"Optimiza: Landing page", paused: true,
+        start:"20 de octubre de 2026",
+        audience:"Público geolocalizado de prueba: Antioquia.",
+        planLabel:"$300 por vista de landing (CPLPV)", verdict:"pausada, sin gasto esta semana", verdictFlag:"",
+        insight:"Del 4 al 9 de noviembre no tuvo ninguna entrega ni gasto. La semana anterior había costado $183,07 por vista (39,0% más barato que el objetivo de $300)." },
+      { id:"loti_geo_valle", name:"Prueba_Geolocalizada · Valle del Cauca", objPill:"Tráfico", optPill:"Optimiza: Landing page", paused: true,
+        start:"20 de octubre de 2026",
+        audience:"Público geolocalizado de prueba: Valle del Cauca.",
+        planLabel:"$300 por vista de landing (CPLPV)", verdict:"pausada, sin gasto esta semana", verdictFlag:"",
+        insight:"Del 4 al 9 de noviembre no tuvo ninguna entrega ni gasto. La semana anterior había sido el público más eficiente de los 5 ($118,77 por vista, 60,4% más barato que el objetivo de $300)." },
+      { id:"loti_geo_santander", name:"Prueba_Geolocalizada · Santander", objPill:"Tráfico", optPill:"Optimiza: Landing page", paused: true,
+        start:"20 de octubre de 2026",
+        audience:"Público geolocalizado de prueba: Santander.",
+        planLabel:"$300 por vista de landing (CPLPV)", verdict:"pausada, sin gasto esta semana", verdictFlag:"",
+        insight:"Del 4 al 9 de noviembre no tuvo ninguna entrega ni gasto, por segunda semana consecutiva." },
+      { id:"loti_geo_boyaca", name:"Prueba_Geolocalizada · Boyacá", objPill:"Tráfico", optPill:"Optimiza: Landing page", paused: true,
+        start:"20 de octubre de 2026",
+        audience:"Público geolocalizado de prueba: Boyacá.",
+        planLabel:"$300 por vista de landing (CPLPV)", verdict:"pausada, sin gasto esta semana", verdictFlag:"",
+        insight:"Del 4 al 9 de noviembre no tuvo ninguna entrega ni gasto. La semana anterior había costado $187,46 por vista (37,5% más barato que el objetivo de $300)." },
+      { id:"loti_geo_atlantico", name:"Prueba_Geolocalizada · Atlántico", objPill:"Tráfico", optPill:"Optimiza: Landing page", paused: true,
+        start:"20 de octubre de 2026",
+        audience:"Público geolocalizado de prueba: Atlántico.",
+        planLabel:"$300 por vista de landing (CPLPV)", verdict:"pausada, sin gasto esta semana", verdictFlag:"",
+        insight:"Del 4 al 9 de noviembre no tuvo ninguna entrega ni gasto. La semana anterior había sido el público menos eficiente ($255,76 por vista, 14,7% más barato que el objetivo de $300)." }
+    ]
+  }
+];
+
+renderPlanSummary(FAMILIES.concat(NEW_FAMILIES), "plan-summary");
+renderFamilies(FAMILIES.concat(NEW_FAMILIES).filter(f => f.campaigns.length), "families");
+renderPlanSummary(LOTI_GROUPS, "loti-plan-summary");
+renderFamilies(LOTI_GROUPS, "loti-families");
+</script>
